@@ -1,0 +1,23 @@
+schema_version: 1
+
+name: jboss-amqstreams-1/amqstreams10-zookeeper-openshift
+description: "AMQ Streams image for Zookeeper"
+version: "1.0"
+from: jboss-amqstreams-1/amqstreams10-kafkabase-openshift:1.0
+
+modules:
+  repositories:
+    - name: zookeeper
+      path: modules/zookeeper
+  install:
+    - name: zookeeper
+
+ports:
+  - value: 2181
+  - value: 2888
+  - value: 3888
+  - value: 9404
+
+run:
+  cmd:
+    - "/opt/kafka/zookeeper_run.sh"

@@ -20,6 +20,7 @@ packages:
   install:
     - gettext
     - nmap-ncat
+    - hostname
 
 modules:
   repositories:

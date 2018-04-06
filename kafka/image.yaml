@@ -17,5 +17,6 @@ ports:
   - value: 9092
 
 run:
+  user: 185
   cmd:
     - "/opt/kafka/kafka_run.sh"

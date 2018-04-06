@@ -19,5 +19,6 @@ ports:
   - value: 9404
 
 run:
+  user: 185
   cmd:
     - "/opt/kafka/zookeeper_run.sh"

@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: kafka-connect
+execute:
+  - script: install.sh

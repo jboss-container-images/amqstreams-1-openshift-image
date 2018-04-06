@@ -1,0 +1,21 @@
+schema_version: 1
+
+name: jboss-amqstreams-1/amqstreams10-kafkaconnect-openshift
+description: "AMQ Streams image for Kafka Connect"
+version: "1.0"
+from: jboss-amqstreams-1/amqstreams10-kafkabase-openshift:1.0
+
+modules:
+  repositories:
+    - name: kafka-connect
+      path: modules/kafka-connect
+  install:
+    - name: kafka-connect
+
+ports:
+  - value: 8083
+
+run:
+  user: 185
+  cmd:
+    - "/opt/kafka/kafka_connect_run.sh"

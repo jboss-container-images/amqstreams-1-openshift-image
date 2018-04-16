@@ -1,0 +1,28 @@
+schema_version: 1
+
+name: jboss-amqstreams-1/amqstreams10-kafkaconnects2i-openshift
+description: "AMQ Streams image for Kafka Connect with S2I"
+version: "1.0"
+from: jboss-amqstreams-1/amqstreams10-kafkaconnect-openshift:1.0
+
+labels:
+  - name: "io.openshift.s2i.scripts-url"
+    value: "image:///opt/s2i"
+  - name: "io.openshift.tags"
+    value: "builder"
+
+modules:
+  repositories:
+    - name: kafka-connect-s2i
+      path: modules/kafka-connect-s2i
+  install:
+    - name: kafka-connect-s2i
+
+envs:
+  - name: "S2I_HOME"
+    value: "/opt/s2i"
+
+run:
+  user: 185
+  cmd:
+    - "/opt/s2i/run"

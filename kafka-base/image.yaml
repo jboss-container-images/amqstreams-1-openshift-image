@@ -4,6 +4,7 @@ name: jboss-amqstreams-1/amqstreams10-kafkabase-openshift
 description: "AMQ Streams base image for Kafka and Zookeeper"
 version: "1.0"
 from: jboss/openjdk18-rhel7:1.1
+
 envs:
   - name: "KAFKA_HOME"
     value: "/opt/kafka"

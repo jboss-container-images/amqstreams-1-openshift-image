@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: kafka-connect-s2i
+execute:
+  - script: install.sh

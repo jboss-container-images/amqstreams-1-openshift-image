@@ -1,0 +1,34 @@
+schema_version: 1
+
+name: jboss-amqstreams-1/amqstreams10-topiccontroller-openshift
+description: "AMQ Streams image for the Topic Controller"
+version: "1.0"
+from: jboss/openjdk18-rhel7:1.1
+
+packages:
+  repositories:
+    - jboss-os
+
+modules:
+  repositories:
+    - name: cct_module
+      git:
+          url: https://github.com/jboss-openshift/cct_module.git
+          ref: master
+    - name: topic-controller
+      path: modules/topic-controller
+    - name: common.java
+      path: ../modules/common/java
+  install:
+    - name: topic-controller
+    - name: common.java
+
+artifacts:
+  - path: ../local-artifacts/topic-controller.jar
+    name: topic-controller.jar
+
+run:
+  user: 185
+  cmd:
+    - "/bin/launch_java.sh"
+    - "/topic-controller.jar"

@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: cluster-controller
+execute:
+  - script: install.sh

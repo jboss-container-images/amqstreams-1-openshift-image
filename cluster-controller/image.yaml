@@ -1,0 +1,34 @@
+schema_version: 1
+
+name: jboss-amqstreams-1/amqstreams10-clustercontroller-openshift
+description: "AMQ Streams image for the Cluster Controller"
+version: "1.0"
+from: jboss/openjdk18-rhel7:1.1
+
+packages:
+  repositories:
+    - jboss-os
+
+modules:
+  repositories:
+    - name: cct_module
+      git:
+          url: https://github.com/jboss-openshift/cct_module.git
+          ref: master
+    - name: cluster-controller
+      path: modules/cluster-controller
+    - name: common.java
+      path: ../modules/common/java
+  install:
+    - name: cluster-controller
+    - name: common.java
+
+artifacts:
+  - path: ../local-artifacts/cluster-controller.jar
+    name: cluster-controller.jar
+
+run:
+  user: 185
+  cmd:
+    - "/bin/launch_java.sh"
+    - "/cluster-controller.jar"

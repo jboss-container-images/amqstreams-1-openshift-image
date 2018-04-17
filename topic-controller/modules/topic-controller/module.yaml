@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: topic-controller
+execute:
+  - script: install.sh

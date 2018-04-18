@@ -38,8 +38,5 @@ artifacts:
     md5: 89e83b40f70c9ca43a409e5b485555bc
     name: jmx_prometheus_javaagent.jar
 
-ports:
-  - value: 9404
-
 run:
   workdir: "/opt/kafka"

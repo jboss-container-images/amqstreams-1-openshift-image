@@ -15,6 +15,7 @@ modules:
 ports:
   - value: 9091
   - value: 9092
+  - value: 9404
 
 run:
   user: 185

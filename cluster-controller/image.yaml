@@ -11,10 +11,6 @@ packages:
 
 modules:
   repositories:
-    - name: cct_module
-      git:
-          url: https://github.com/jboss-openshift/cct_module.git
-          ref: master
     - name: cluster-controller
       path: modules/cluster-controller
     - name: common.java

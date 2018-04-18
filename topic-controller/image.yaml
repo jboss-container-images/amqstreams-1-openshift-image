@@ -11,10 +11,6 @@ packages:
 
 modules:
   repositories:
-    - name: cct_module
-      git:
-          url: https://github.com/jboss-openshift/cct_module.git
-          ref: master
     - name: topic-controller
       path: modules/topic-controller
     - name: common.java

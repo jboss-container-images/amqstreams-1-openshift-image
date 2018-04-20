@@ -1,0 +1,129 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: amqstreams-1-topiccontroller
+  annotations:
+    openshift.io/display-name: "AMQ Streams (Topic Controller)"
+    description: >-
+      Application template for AMQ Streams. It installs the Topic Controller.
+    tags: "messaging,amq"
+    iconClass: "fa fa-share-alt fa-flip-horizontal"
+message: "The Topic Controller is being deployed."
+objects:
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: strimzi-topic-controller
+    labels:
+      app: strimzi
+- apiVersion: rbac.authorization.k8s.io/v1beta1
+  kind: Role
+  metadata:
+    name: strimzi-topic-controller-role
+    labels:
+      app: strimzi
+  rules:
+  - apiGroups:
+    - ""
+    resources:
+    - configmaps
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+    - patch
+    - update
+    - delete
+  - apiGroups:
+    - ""
+    resources:
+    - events
+    verbs:
+    - create
+- apiVersion: rbac.authorization.k8s.io/v1beta1
+  kind: RoleBinding
+  metadata:
+    name: strimzi-topic-controller-binding
+    labels:
+      app: strimzi
+  subjects:
+    - kind: ServiceAccount
+      name: strimzi-topic-controller
+  roleRef:
+    kind: Role
+    name: strimzi-topic-controller-role
+    apiGroup: rbac.authorization.k8s.io
+- apiVersion: extensions/v1beta1
+  kind: Deployment
+  metadata:
+    name: strimzi-topic-controller
+  spec:
+    replicas: 1
+    template:
+      metadata:
+        labels:
+          name: strimzi-topic-controller
+      spec:
+        serviceAccountName: strimzi-topic-controller
+        containers:
+          - name: strimzi-topic-controller
+            image: jboss-amqstreams-1/amqstreams10-topiccontroller-openshift:1.0
+            env:
+              - name: STRIMZI_CONFIGMAP_LABELS
+                value: ${STRIMZI_CONFIGMAP_LABELS}
+              - name: STRIMZI_KAFKA_BOOTSTRAP_SERVERS
+                value: ${STRIMZI_KAFKA_BOOTSTRAP_SERVERS}
+              - name: STRIMZI_ZOOKEEPER_CONNECT
+                value: ${STRIMZI_ZOOKEEPER_CONNECT}
+              - name: STRIMZI_ZOOKEEPER_SESSION_TIMEOUT_MS
+                value: ${STRIMZI_ZOOKEEPER_SESSION_TIMEOUT_MS}
+              - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
+                value: ${STRIMZI_FULL_RECONCILIATION_INTERVAL_MS}
+              - name: STRIMZI_TOPIC_METADATA_MAX_ATTEMPTS
+                value: ${STRIMZI_TOPIC_METADATA_MAX_ATTEMPTS}
+              - name: STRIMZI_NAMESPACE
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.namespace
+            livenessProbe:
+              httpGet:
+                path: /healthy
+                port: 8080
+              initialDelaySeconds: 10
+              periodSeconds: 30
+            readinessProbe:
+              httpGet:
+                path: /ready
+                port: 8080
+              initialDelaySeconds: 10
+              periodSeconds: 30
+    strategy:
+      type: Recreate
+parameters:
+- description: The OpenShift label selector used to identify ConfigMaps to be managed by the controller.
+  displayName: Topic configuration label selector
+  name: STRIMZI_CONFIGMAP_LABELS
+  value: "strimzi.io/kind=topic"
+- description: The list of Kafka bootstrap servers.
+  displayName: The list of Kafka bootstrap servers
+  name: STRIMZI_KAFKA_BOOTSTRAP_SERVERS
+  value: "my-cluster-kafka:9092"
+  required: true
+- description: The Zookeeper connection information.
+  displayName: The Zookeeper connection information
+  name: STRIMZI_ZOOKEEPER_CONNECT
+  value: "my-cluster-zookeeper:2181"
+  required: true
+- description: The Zookeeper session timeout, in milliseconds.
+  displayName: The Zookeeper session timeout
+  name: STRIMZI_ZOOKEEPER_SESSION_TIMEOUT_MS
+  value: "20000"
+- description: The interval between periodic reconciliations, in milliseconds.
+  displayName: Reconciliation interval
+  name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
+  value: "900000"
+- description:  The number of attempts for getting topics metadata from Kafka. The time between each attempt is defined as an exponential back-off.
+  displayName: Topic metadata max attempts
+  name: STRIMZI_TOPIC_METADATA_MAX_ATTEMPTS
+  value: "6"

@@ -20,7 +20,8 @@ modules:
     - name: common.java
 
 artifacts:
-  - path: ../local-artifacts/cluster-controller.jar
+  - path: cluster-controller-0.3.0.redhat-1.jar
+    md5: a0b6ef4790ff47f00f87df7df2c56dfc
     name: cluster-controller.jar
 
 run:

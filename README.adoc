@@ -1,0 +1,7 @@
+# Red Hat JBoss AMQ Streams 1.0 OpenShift container image
+
+NOTE: Extends link:https://github.com/jboss-container-images/jboss-amqstreams-1-openshift-image[Red Hat JBoss AMQ Streams 1.0 container image]
+
+# License
+
+See link:LICENSE[LICENSE] file.

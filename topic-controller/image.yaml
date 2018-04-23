@@ -20,7 +20,8 @@ modules:
     - name: common.java
 
 artifacts:
-  - path: ../local-artifacts/topic-controller.jar
+  - path: topic-controller-0.3.0.redhat-1.jar
+    md5: 05585db48410b1d5d9b18a41ef5329ee
     name: topic-controller.jar
 
 run:

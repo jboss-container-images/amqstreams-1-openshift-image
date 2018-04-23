@@ -1,6 +1,16 @@
 # Red Hat JBoss AMQ Streams 1.0 OpenShift container image
 
-NOTE: Extends link:https://github.com/jboss-container-images/jboss-amqstreams-1-openshift-image[Red Hat JBoss AMQ Streams 1.0 container image]
+NOTE: Extends link:https://github.com/jboss-container-images/jboss-base-image[JBoss base image]
+
+Provides AMQ Streams Docker images for OpenShift.
+
+* _kafka-base_ : base image containing Apache Kafka artifacts
+* _kafka_ : image representing an Apache Kafka broker
+* _zookeeper_ : image representing a Zookeeper node
+* _kafka-connect_ : image representing a Kafka Connect worker node
+* _kafka-connect-s2i_ : image representing a Kafka Connect worker node with S2I support for adding custom connector plugins
+* _cluster-controller_ : image representing Cluster Controller component for deploying a Kafka Cluster from a cluster ConfigMap
+* _topic-controller_ : image representing Topic Controller component for handling Kafka topics through related ConfigMap(s)
 
 # License
 

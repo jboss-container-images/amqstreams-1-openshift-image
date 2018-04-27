@@ -5,6 +5,16 @@ description: "AMQ Streams image for Zookeeper"
 version: "1.0"
 from: jboss-amqstreams-1/amqstreams10-kafkabase-openshift:1.0
 
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams10-zookeeper-openshift-container"
+  - name: "io.k8s.description"
+    value: "A centralized service for distributed systems to a hierarchical key-value store"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Apache Zookeeper"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
 modules:
   repositories:
     - name: zookeeper

@@ -5,6 +5,16 @@ description: "AMQ Streams base image for Kafka and Zookeeper"
 version: "1.0"
 from: jboss/openjdk18-rhel7:1.1
 
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams10-kafkabase-openshift-container"
+  - name: "io.k8s.description"
+    value: "Base image for Apache Kafka and Zookeeper"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Apache Kafka and Zookeeper base"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
 envs:
   - name: "KAFKA_HOME"
     value: "/opt/kafka"

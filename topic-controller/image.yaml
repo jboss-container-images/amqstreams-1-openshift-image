@@ -39,3 +39,8 @@ run:
   cmd:
     - "/bin/launch_java.sh"
     - "/topic-controller.jar"
+
+osbs:
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.0-topiccontroller-openshift-rhel-7

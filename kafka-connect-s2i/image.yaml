@@ -36,3 +36,8 @@ run:
   user: 185
   cmd:
     - "/opt/s2i/run"
+
+osbs:
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.0-kafkaconnects2i-openshift-rhel-7

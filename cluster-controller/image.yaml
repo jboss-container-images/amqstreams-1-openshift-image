@@ -5,6 +5,16 @@ description: "AMQ Streams image for the Cluster Controller"
 version: "1.0"
 from: jboss/openjdk18-rhel7:1.1
 
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams10-clustercontroller-openshift-container"
+  - name: "io.k8s.description"
+    value: "Cluster Controller component for deploying a Kafka Cluster from a cluster ConfigMap"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Cluster Controller"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
 packages:
   repositories:
     - jboss-os

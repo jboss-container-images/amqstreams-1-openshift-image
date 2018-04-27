@@ -6,6 +6,16 @@ version: "1.0"
 from: jboss-amqstreams-1/amqstreams10-kafkaconnect-openshift:1.0
 
 labels:
+  - name: "com.redhat.component"
+    value: "amqstreams10-kafkaconnects2i-openshift-container"
+  - name: "io.k8s.description"
+    value: "A framework for scalably and reliably connecting Apache Kafka with external systems with third party connectors support via S2I"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Apache Kafka Connect S2I"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
+labels:
   - name: "io.openshift.s2i.scripts-url"
     value: "image:///opt/s2i"
   - name: "io.openshift.tags"

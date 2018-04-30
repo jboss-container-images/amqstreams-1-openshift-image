@@ -68,7 +68,7 @@ objects:
         serviceAccountName: strimzi-topic-controller
         containers:
           - name: strimzi-topic-controller
-            image: jboss-amqstreams-1/amqstreams10-topiccontroller-openshift:1.0
+            image: redhat-amqstreams-1/amqstreams10-topiccontroller-openshift:1.0
             env:
               - name: STRIMZI_CONFIGMAP_LABELS
                 value: ${STRIMZI_CONFIGMAP_LABELS}

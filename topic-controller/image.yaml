@@ -1,6 +1,6 @@
 schema_version: 1
 
-name: jboss-amqstreams-1/amqstreams10-topiccontroller-openshift
+name: redhat-amqstreams-1/amqstreams10-topiccontroller-openshift
 description: "AMQ Streams image for the Topic Controller"
 version: "1.0"
 from: jboss/openjdk18-rhel7:1.1

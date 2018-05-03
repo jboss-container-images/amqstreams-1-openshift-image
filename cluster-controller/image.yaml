@@ -30,8 +30,8 @@ modules:
     - name: common.java
 
 artifacts:
-  - path: cluster-controller-0.3.0.redhat-2.jar
-    md5: fe391e32977f7191c96077947bcf554c
+  - path: cluster-controller-0.3.1.redhat-1.jar
+    md5: 3492b4f43fbd658c08f08e3874ecd463
     name: cluster-controller.jar
 
 run:

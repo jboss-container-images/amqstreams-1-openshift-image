@@ -192,7 +192,7 @@ objects:
         serviceAccountName: strimzi-cluster-controller
         containers:
           - name: strimzi-cluster-controller
-            image: jboss-amqstreams-1/amqstreams10-clustercontroller-openshift:1.0
+            image: redhat-amqstreams-1/amqstreams10-clustercontroller-openshift:1.0
             env:
               - name: STRIMZI_CONFIGMAP_LABELS
                 value: ${STRIMZI_CONFIGMAP_LABELS}
@@ -205,15 +205,15 @@ objects:
               - name: STRIMZI_OPERATION_TIMEOUT_MS
                 value: ${STRIMZI_OPERATION_TIMEOUT_MS}
               - name: STRIMZI_DEFAULT_ZOOKEEPER_IMAGE
-                value: jboss-amqstreams-1/amqstreams10-zookeeper-openshift:1.0
+                value: redhat-amqstreams-1/amqstreams10-zookeeper-openshift:1.0
               - name: STRIMZI_DEFAULT_KAFKA_IMAGE
-                value: jboss-amqstreams-1/amqstreams10-kafka-openshift:1.0
+                value: redhat-amqstreams-1/amqstreams10-kafka-openshift:1.0
               - name: STRIMZI_DEFAULT_KAFKA_CONNECT_IMAGE
-                value: jboss-amqstreams-1/amqstreams10-kafkaconnect-openshift:1.0
+                value: redhat-amqstreams-1/amqstreams10-kafkaconnect-openshift:1.0
               - name: STRIMZI_DEFAULT_KAFKA_CONNECT_S2I_IMAGE
-                value: jboss-amqstreams-1/amqstreams10-kafkaconnects2i-openshift:1.0
+                value: redhat-amqstreams-1/amqstreams10-kafkaconnects2i-openshift:1.0
               - name: STRIMZI_DEFAULT_TOPIC_CONTROLLER_IMAGE
-                value: jboss-amqstreams-1/amqstreams10-topiccontroller-openshift:1.0
+                value: redhat-amqstreams-1/amqstreams10-topiccontroller-openshift:1.0
             livenessProbe:
               httpGet:
                 path: /healthy

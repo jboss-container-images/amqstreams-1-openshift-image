@@ -1,0 +1,170 @@
+kind: List
+apiVersion: v1
+metadata:
+  name: image-streams
+  annotations:
+    description: ImageStream definition for Red Hat AMQ Streams 1.0
+    openshift.io/provider-display-name: Red Hat, Inc.
+items:
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: amqstreams10-clustercontroller-openshift
+    annotations:
+      openshift.io/display-name: AMQ Streams Cluster Controller     
+      openshift.io/provider-display-name: Red Hat, Inc.
+      version: 1.0.0
+  labels:
+    amqstreams: 1.0.0
+  spec:
+    tags:
+    - name: '1.0-TP'
+      annotations:
+        description: AMQ Streams image for the Cluster Controller.
+        iconClass: icon-amq
+        tags: messaging,amq
+        supports: amqstreams:1.0,messaging
+        version: '1.0'
+        openshift.io/display-name: AMQ Streams Cluster Controller ( Tech Preview )
+      from:
+        kind: DockerImage
+        name: registry.access.redhat.com/jboss-amqstreams-1-tech-preview/amqstreams10-clustercontroller-openshift:1.0
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: amqstreams10-kafkabase-openshift
+    annotations:
+      openshift.io/display-name: AMQ Streams Apache Kafka and Zookeeper base    
+      openshift.io/provider-display-name: Red Hat, Inc.
+      version: 1.0.0
+  labels:
+    amqstreams: 1.0.0
+  spec:
+    tags:
+    - name: '1.0-TP'
+      annotations:
+        description: AMQ Streams base image for Kafka and Zookeeper.
+        iconClass: icon-amq
+        tags: messaging,amq
+        supports: amqstreams:1.0,messaging
+        version: '1.0'
+        openshift.io/display-name: AMQ Streams Apache Kafka and Zookeeper base ( Tech Preview )
+      from:
+        kind: DockerImage
+        name: registry.access.redhat.com/jboss-amqstreams-1-tech-preview/amqstreams10-kafkabase-openshift:1.0
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: amqstreams10-kafkaconnects2i-openshift
+    annotations:
+      openshift.io/display-name: AMQ Streams Apache Kafka Connect S2I    
+      openshift.io/provider-display-name: Red Hat, Inc.
+      version: 1.0.0
+  labels:
+    amqstreams: 1.0.0
+  spec:
+    tags:
+    - name: '1.0-TP'
+      annotations:
+        description: AMQ Streams image for Kafka Connect with S2I.
+        iconClass: icon-amq
+        tags: messaging,amq
+        supports: amqstreams:1.0,messaging
+        version: '1.0'
+        openshift.io/display-name: AMQ Streams Apache Kafka Connect S2I ( Tech Preview )
+      from:
+        kind: DockerImage
+        name: registry.access.redhat.com/jboss-amqstreams-1-tech-preview/amqstreams10-kafkaconnects2i-openshift:1.0
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: amqstreams10-kafkaconnect-openshift
+    annotations:
+      openshift.io/display-name: AMQ Streams Apache Kafka Connect    
+      openshift.io/provider-display-name: Red Hat, Inc.
+      version: 1.0.0
+  labels:
+    amqstreams: 1.0.0
+  spec:
+    tags:
+    - name: '1.0-TP'
+      annotations:
+        description: AMQ Streams image for Kafka Connect.
+        iconClass: icon-amq
+        tags: messaging,amq
+        supports: amqstreams:1.0,messaging
+        version: '1.0'
+        openshift.io/display-name: AMQ Streams Apache Kafka Connect ( Tech Preview )
+      from:
+        kind: DockerImage
+        name: registry.access.redhat.com/jboss-amqstreams-1-tech-preview/amqstreams10-kafkaconnect-openshift:1.0
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: amqstreams10-kafka-openshift
+    annotations:
+      openshift.io/display-name: AMQ Streams Apache Kafka    
+      openshift.io/provider-display-name: Red Hat, Inc.
+      version: 1.0.0
+  labels:
+    amqstreams: 1.0.0
+  spec:
+    tags:
+    - name: '1.0-TP'
+      annotations:
+        description: AMQ Streams image for Kafka.
+        iconClass: icon-amq
+        tags: messaging,amq
+        supports: amqstreams:1.0,messaging
+        version: '1.0'
+        openshift.io/display-name: AMQ Streams Apache Kafka ( Tech Preview )
+      from:
+        kind: DockerImage
+        name: registry.access.redhat.com/jboss-amqstreams-1-tech-preview/amqstreams10-kafka-openshift:1.0
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: amqstreams10-topiccontroller-openshift
+    annotations:
+      openshift.io/display-name: AMQ Streams Topic Controller   
+      openshift.io/provider-display-name: Red Hat, Inc.
+      version: 1.0.0
+  labels:
+    amqstreams: 1.0.0
+  spec:
+    tags:
+    - name: '1.0-TP'
+      annotations:
+        description: AMQ Streams image for the Topic Controller
+        iconClass: icon-amq
+        tags: messaging,amq
+        supports: amqstreams:1.0,messaging
+        version: '1.0'
+        openshift.io/display-name: AMQ Streams Topic Controller ( Tech Preview )
+      from:
+        kind: DockerImage
+        name: registry.access.redhat.com/jboss-amqstreams-1-tech-preview/amqstreams10-topiccontroller-openshift:1.0
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: amqstreams10-zookeeper-openshift
+    annotations:
+      openshift.io/display-name: AMQ Streams Apache Zookeeper   
+      openshift.io/provider-display-name: Red Hat, Inc.
+      version: 1.0.0
+  labels:
+    amqstreams: 1.0.0
+  spec:
+    tags:
+    - name: '1.0-TP'
+      annotations:
+        description: AMQ Streams image for Zookeeper
+        iconClass: icon-amq
+        tags: messaging,amq
+        supports: amqstreams:1.0,messaging
+        version: '1.0'
+        openshift.io/display-name: AMQ Streams Apache Zookeeper ( Tech Preview )
+      from:
+        kind: DockerImage
+        name: registry.access.redhat.com/jboss-amqstreams-1-tech-preview/amqstreams10-zookeeper-openshift:1.0
+

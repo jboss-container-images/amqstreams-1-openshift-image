@@ -1,0 +1,41 @@
+schema_version: 1
+
+name: redhat-amqstreams-1/amqstreams10-stunnelbase-openshift
+description: "AMQ Streams base image for Stunnel sidecar images"
+version: "1.0"
+from: jboss/openjdk18-rhel7:1.1
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams10-stunnelbase-openshift-container"
+  - name: "io.k8s.description"
+    value: "Base image for Stunnel sidecar images"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Stunnel sidecar base"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
+envs:
+  - name: "STUNNEL_HOME"
+    value: "/opt/stunnel"
+
+packages:
+  repositories:
+    - jboss-os
+  install:
+    - stunnel
+    - hostname
+
+modules:
+  repositories:
+    - path: modules
+  install:
+    - name: os-stunnel-install
+
+run:
+  workdir: "/opt/stunnel"
+
+osbs:
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.0-stunnelbase-openshift-rhel-7

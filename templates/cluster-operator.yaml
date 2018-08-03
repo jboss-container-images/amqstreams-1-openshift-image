@@ -1,25 +1,25 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: amqstreams-1-clustercontroller
+  name: amqstreams-1-clusteroperator
   annotations:
-    openshift.io/display-name: "AMQ Streams (Cluster Controller)"
+    openshift.io/display-name: "AMQ Streams (Cluster Operator)"
     description: >-
-      Application template for AMQ Streams. It installs the Cluster Controller.
+      Application template for AMQ Streams. It installs the Cluster Operator.
     tags: "messaging,amq"
     iconClass: "fa fa-share-alt fa-flip-horizontal"
-message: "The Cluster Controller is being deployed."
+message: "The Cluster Operator is being deployed."
 objects:
 - apiVersion: v1
   kind: ServiceAccount
   metadata:
-    name: strimzi-cluster-controller
+    name: strimzi-cluster-operator
     labels:
       app: strimzi
 - apiVersion: rbac.authorization.k8s.io/v1beta1
   kind: Role
   metadata:
-    name: strimzi-cluster-controller-role
+    name: strimzi-cluster-operator-role
     labels:
       app: strimzi
   rules:
@@ -168,30 +168,30 @@ objects:
 - apiVersion: rbac.authorization.k8s.io/v1beta1
   kind: RoleBinding
   metadata:
-    name: strimzi-cluster-controller-binding
+    name: strimzi-cluster-operator-binding
     labels:
       app: strimzi
   subjects:
     - kind: ServiceAccount
-      name: strimzi-cluster-controller
+      name: strimzi-cluster-operator
   roleRef:
     kind: Role
-    name: strimzi-cluster-controller-role
+    name: strimzi-cluster-operator-role
     apiGroup: rbac.authorization.k8s.io
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    name: strimzi-cluster-controller
+    name: strimzi-cluster-operator
   spec:
     replicas: 1
     template:
       metadata:
         labels:
-          name: strimzi-cluster-controller
+          name: strimzi-cluster-operator
       spec:
-        serviceAccountName: strimzi-cluster-controller
+        serviceAccountName: strimzi-cluster-operator
         containers:
-          - name: strimzi-cluster-controller
+          - name: strimzi-cluster-operator
             image: redhat-amqstreams-1/amqstreams10-clustercontroller-openshift:1.0
             env:
               - name: STRIMZI_CONFIGMAP_LABELS
@@ -229,8 +229,8 @@ objects:
     strategy:
       type: Recreate
 parameters:
-- description: The OpenShift label selector used to identify ConfigMaps to be managed by the controller.
-  displayName: Cluster configuration label selector
+- description: The OpenShift label selector used to identify ConfigMaps to be managed by the operator.
+  displayName: CLuster configuration label selector
   name: STRIMZI_CONFIGMAP_LABELS
   value: "strimzi.io/kind=cluster"
 - description: The interval between periodic reconciliations, in milliseconds.

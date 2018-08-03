@@ -1,25 +1,25 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: amqstreams-1-topiccontroller
+  name: amqstreams-1-topicoperator
   annotations:
-    openshift.io/display-name: "AMQ Streams (Topic Controller)"
+    openshift.io/display-name: "AMQ Streams (Topic Operator)"
     description: >-
-      Application template for AMQ Streams. It installs the Topic Controller.
+      Application template for AMQ Streams. It installs the Topic Operator.
     tags: "messaging,amq"
     iconClass: "fa fa-share-alt fa-flip-horizontal"
-message: "The Topic Controller is being deployed."
+message: "The Topic Operator is being deployed."
 objects:
 - apiVersion: v1
   kind: ServiceAccount
   metadata:
-    name: strimzi-topic-controller
+    name: strimzi-topic-operator
     labels:
       app: strimzi
 - apiVersion: rbac.authorization.k8s.io/v1beta1
   kind: Role
   metadata:
-    name: strimzi-topic-controller-role
+    name: strimzi-topic-operator-role
     labels:
       app: strimzi
   rules:
@@ -44,30 +44,30 @@ objects:
 - apiVersion: rbac.authorization.k8s.io/v1beta1
   kind: RoleBinding
   metadata:
-    name: strimzi-topic-controller-binding
+    name: strimzi-topic-operator-binding
     labels:
       app: strimzi
   subjects:
     - kind: ServiceAccount
-      name: strimzi-topic-controller
+      name: strimzi-topic-operator
   roleRef:
     kind: Role
-    name: strimzi-topic-controller-role
+    name: strimzi-topic-operator-role
     apiGroup: rbac.authorization.k8s.io
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
-    name: strimzi-topic-controller
+    name: strimzi-topic-operator
   spec:
     replicas: 1
     template:
       metadata:
         labels:
-          name: strimzi-topic-controller
+          name: strimzi-topic-operator
       spec:
-        serviceAccountName: strimzi-topic-controller
+        serviceAccountName: strimzi-topic-operator
         containers:
-          - name: strimzi-topic-controller
+          - name: strimzi-topic-operator
             image: redhat-amqstreams-1/amqstreams10-topiccontroller-openshift:1.0
             env:
               - name: STRIMZI_CONFIGMAP_LABELS
@@ -101,7 +101,7 @@ objects:
     strategy:
       type: Recreate
 parameters:
-- description: The OpenShift label selector used to identify ConfigMaps to be managed by the controller.
+- description: The OpenShift label selector used to identify ConfigMaps to be managed by the operator.
   displayName: Topic configuration label selector
   name: STRIMZI_CONFIGMAP_LABELS
   value: "strimzi.io/kind=topic"

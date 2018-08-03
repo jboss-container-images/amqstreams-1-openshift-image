@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: redhat-amqstreams-1/amqstreams10-clustercontroller-openshift
-description: "AMQ Streams image for the Cluster Controller"
+description: "AMQ Streams image for the Cluster Operator"
 version: "1.0"
 from: jboss/openjdk18-rhel7:1.1
 
@@ -9,9 +9,9 @@ labels:
   - name: "com.redhat.component"
     value: "amqstreams10-clustercontroller-openshift-container"
   - name: "io.k8s.description"
-    value: "Cluster Controller component for deploying a Kafka Cluster from a cluster ConfigMap"
+    value: "Cluster Operator component for deploying a Kafka Cluster from a cluster ConfigMap"
   - name: "io.k8s.display-name"
-    value: "AMQ Streams Cluster Controller"
+    value: "AMQ Streams Cluster Operator"
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
 
@@ -21,24 +21,24 @@ packages:
 
 modules:
   repositories:
-    - name: cluster-controller
-      path: modules/cluster-controller
+    - name: cluster-operator
+      path: modules/cluster-operator
     - name: common.java
       path: ../modules/common/java
   install:
-    - name: cluster-controller
+    - name: cluster-operator
     - name: common.java
 
 artifacts:
-  - path: cluster-controller-0.3.1.redhat-1.jar
+  - path: cluster-operator-0.6.0.redhat-1.jar
     md5: 3492b4f43fbd658c08f08e3874ecd463
-    name: cluster-controller.jar
+    name: cluster-operator.jar
 
 run:
   user: 185
   cmd:
     - "/bin/launch_java.sh"
-    - "/cluster-controller.jar"
+    - "/cluster-operator.jar"
 
 osbs:
   repository:

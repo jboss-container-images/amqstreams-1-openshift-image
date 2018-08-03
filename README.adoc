@@ -9,8 +9,8 @@ Provides AMQ Streams Docker images for OpenShift.
 * _zookeeper_ : image representing a Zookeeper node
 * _kafka-connect_ : image representing a Kafka Connect worker node
 * _kafka-connect-s2i_ : image representing a Kafka Connect worker node with S2I support for adding custom connector plugins
-* _cluster-controller_ : image representing Cluster Controller component for deploying a Kafka Cluster from a cluster ConfigMap
-* _topic-controller_ : image representing Topic Controller component for handling Kafka topics through related ConfigMap(s)
+* _cluster-operator_ : image representing Cluster Operator component for deploying a Kafka Cluster from a cluster ConfigMap
+* _topic-operator_ : image representing Topic Operator component for handling Kafka topics through related ConfigMap(s)
 * _stunnel-base_ : base image containing Stunnel application
 * _kafka-stunnel_ : image representing a Stunnel sidecar within every Kafka node which enables TLS encrypted communication between a Kafka nodes and Zookeeper nodes
 * _topic-operator-stunnel_ : image representing a Stunnel sidecar within the Topic Operator which enables TLS encrypted communication between the Topic Operator and Zookeeper nodes

@@ -1,5 +1,5 @@
 schema_version: 1
 
-name: topic-controller
+name: cluster-operator
 execute:
   - script: install.sh

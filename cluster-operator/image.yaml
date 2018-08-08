@@ -30,8 +30,8 @@ modules:
     - name: common.java
 
 artifacts:
-  - path: cluster-operator-0.6.0.redhat-1.jar
-    md5: 3492b4f43fbd658c08f08e3874ecd463
+  - path: cluster-operator-0.5.0.temporary-redhat-00001.jar
+    md5: b2d915c2f6af135b4218e73775fe032c
     name: cluster-operator.jar
 
 run:

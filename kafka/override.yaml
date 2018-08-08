@@ -1,0 +1,2 @@
+from: "redhat-amqstreams-1/amqstreams10-kafkabase-openshift:1.0"
+name: "redhat-amqstreams-1/amqstreams10-kafka-openshift"

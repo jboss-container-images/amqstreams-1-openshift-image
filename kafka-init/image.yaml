@@ -1,0 +1,45 @@
+schema_version: 1
+
+name: redhat-amqstreams-1/amqstreams10-kafkainit-openshift
+description: "AMQ Streams base image for Kafka init"
+version: "1.0"
+from: jboss/openjdk18-rhel7:1.1
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams10-kafkainit-openshift-container"
+  - name: "io.k8s.description"
+    value: "Image for Kafka init"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Kafka init"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
+envs:
+  - name: "KAFKA_HOME"
+    value: "/opt/kafka"
+
+modules:
+  repositories:
+    - name: kafka-init
+      path: modules
+    - name: common
+      path: ../modules/common
+  install:
+    - name: os-kafka-init-install
+    - name: common.java
+
+artifacts:
+  - path: kafka-init-0.5.0.temporary-redhat-00001.jar
+    md5: 47d8e2ed3819acc343b158209ac028ec
+    name: kafka-init.jar
+
+run:
+  user: 185
+  cmd:
+     - "/opt/kafka/kafka_init_run.sh"
+
+osbs:
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.0-kafkainit-openshift-rhel-7

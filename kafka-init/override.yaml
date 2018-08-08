@@ -1,0 +1,7 @@
+from: "docker-registry.engineering.redhat.com/jboss/openjdk18-rhel7:1.1"
+#from: "centos:7"
+name: "redhat-amqstreams-1/amqstreams10-clustercontroller-openshift"
+artifacts:
+  - path: cluster-operator-0.5.0.temporary-redhat-00001.jar
+    md5:  b2d915c2f6af135b4218e73775fe032c
+    name: cluster-operator.jar

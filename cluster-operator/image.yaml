@@ -3,7 +3,7 @@ schema_version: 1
 name: redhat-amqstreams-1/amqstreams10-clustercontroller-openshift
 description: "AMQ Streams image for the Cluster Operator"
 version: "1.0"
-from: jboss/openjdk18-rhel7:1.1
+from: redhat-amqstreams-1/amqstreams10-strimzijavabase-openshift:1.0
 
 labels:
   - name: "com.redhat.component"
@@ -15,19 +15,11 @@ labels:
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
 
-packages:
-  repositories:
-    - jboss-os
-
 modules:
   repositories:
-    - name: cluster-operator
-      path: modules/cluster-operator
-    - name: common.java
-      path: ../modules/common/java
+    - path: modules
   install:
     - name: cluster-operator
-    - name: common.java
 
 artifacts:
   - path: cluster-operator-0.5.0.temporary-redhat-00001.jar

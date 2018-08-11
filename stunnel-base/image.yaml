@@ -3,7 +3,7 @@ schema_version: 1
 name: redhat-amqstreams-1/amqstreams10-stunnelbase-openshift
 description: "AMQ Streams base image for Stunnel sidecar images"
 version: "1.0"
-from: jboss/openjdk18-rhel7:1.1
+from: redhat-amqstreams-1/amqstreams10-strimzijavabase-openshift:1.0
 
 labels:
   - name: "com.redhat.component"

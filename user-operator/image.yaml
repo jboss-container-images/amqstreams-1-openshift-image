@@ -1,15 +1,15 @@
 schema_version: 1
 
-name: redhat-amqstreams-1/amqstreams10-kafkainit-openshift
-description: "AMQ Streams base image for Kafka init"
+name: redhat-amqstreams-1/amqstreams10-useroperator-openshift
+description: "AMQ Streams base image for User Operator"
 version: "1.0"
 from: redhat-amqstreams-1/amqstreams10-strimzijavabase-openshift:1.0
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-kafkainit-openshift-container"
+    value: "amqstreams10-useroperator-openshift-container"
   - name: "io.k8s.description"
-    value: "Image for Kafka init"
+    value: "Image for User Operator"
   - name: "io.k8s.display-name"
     value: "AMQ Streams Kafka init"
   - name: "io.openshift.tags"
@@ -23,19 +23,19 @@ modules:
   repositories:
     - path: modules
   install:
-    - name: os-kafka-init-install
+    - name: os-user-operator-install
 
 artifacts:
-  - path: kafka-init-0.5.0.temporary-redhat-00001.jar
+  - path: user-operator-0.5.0.temporary-redhat-00001.jar
     md5: 47d8e2ed3819acc343b158209ac028ec
-    name: kafka-init.jar
+    name: user-operator.jar
 
 run:
   user: 185
   cmd:
-     - "/opt/kafka/kafka_init_run.sh"
+     - "/opt/kafka/user_operator_run.sh"
 
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-kafkainit-openshift-rhel-7
+    branch: rh-amqstreams-1.0-useroperator-openshift-rhel-7

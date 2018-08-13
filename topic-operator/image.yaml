@@ -3,7 +3,7 @@ schema_version: 1
 name: redhat-amqstreams-1/amqstreams10-topiccontroller-openshift
 description: "AMQ Streams image for the Topic Operator"
 version: "1.0"
-from: jboss/openjdk18-rhel7:1.1
+from: redhat-amqstreams-1/amqstreams10-javabase-openshift:1.0
 
 labels:
   - name: "com.redhat.component"
@@ -15,23 +15,15 @@ labels:
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
 
-packages:
-  repositories:
-    - jboss-os
-
 modules:
   repositories:
-    - name: topic-operator
-      path: modules/topic-operator
-    - name: common.java
-      path: ../modules/common/java
+    - path: modules
   install:
     - name: topic-operator
-    - name: common.java
 
 artifacts:
-  - path: topic-operator-0.3.1.redhat-1.jar
-    md5: b32e9150a8ebd6464de8b2d4a6022185
+  - path: topic-operator-0.5.0.temporary-redhat-00001.jar
+    md5: 7142dd651fd1f895f46e04a94483abad
     name: topic-operator.jar
 
 run:

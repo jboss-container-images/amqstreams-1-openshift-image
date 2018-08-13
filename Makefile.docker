@@ -7,25 +7,22 @@
 # the registry where the image will be pushed (default is Docker Hub).
 TOPDIR=$(dir $(lastword $(MAKEFILE_LIST)))
 DOCKERFILE_DIR     ?= ./
-DOCKER_REGISTRY    ?= 172.30.1.1:5000#docker.io
-DOCKER_ORG         ?= redhat-amqstreams-1#$(USER)
-DOCKER_TAG         ?= 1.0#latest
+DOCKER_REGISTRY    ?= #REGISTRY
+DOCKER_ORG         ?= $(USER)
+DOCKER_TAG         ?= 1.0
 RELEASE_VERSION    ?= $(shell cat $(TOPDIR)/release.version)
-IMAGE_NAME         ?= $(shell grep -A1 'name:' ./image.yaml | head -n1 | cut -c 7-)
+IMAGE_NAME         ?= $(shell grep -A1 'name:' ./image.yaml | head -n1 | cut -d/ -f 2)
 
 all: docker_build docker_push
 
 docker_build:
 	# Build Docker image ...
-	cekit build --tag strimzi/$(PROJECT_NAME):latest
-	#docker build -q $(DOCKER_BUILD_ARGS) --build-arg strimzi_version=$(RELEASE_VERSION) -t strimzi/$(PROJECT_NAME):latest $(DOCKERFILE_DIR)
+	cekit build --tag amqstreams/$(IMAGE_NAME):latest
 
 docker_tag:
 	# Tag the "latest" image we built with the given tag
-	docker tag strimzi/$(PROJECT_NAME):latest $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(DOCKER_TAG)
-	#docker tag strimzi/$(PROJECT_NAME):latest $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(PROJECT_NAME):$(DOCKER_TAG)
+	docker tag amqstreams/$(IMAGE_NAME):latest $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(IMAGE_NAME):$(DOCKER_TAG)
 
 docker_push: docker_tag
 	# Push the tagged image to the registry
-	docker push $(DOCKER_REGISTRY)/$(IMAGE_NAME):$(DOCKER_TAG)
-	#docker push $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(PROJECT_NAME):$(DOCKER_TAG)
+	docker push $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(IMAGE_NAME):$(DOCKER_TAG)

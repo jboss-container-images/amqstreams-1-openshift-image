@@ -1,17 +1,17 @@
 schema_version: 1
 
-name: redhat-amqstreams-1/amqstreams10-strimzijavabase-openshift
-description: "AMQ Streams Strimzi Java base image"
+name: redhat-amqstreams-1/amqstreams10-javabase-openshift
+description: "AMQ Streams Java base image"
 version: "1.0"
 from: jboss/openjdk18-rhel7:1.1
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-strimzijavabase-openshift-container"
+    value: "amqstreams10-javabase-openshift-container"
   - name: "io.k8s.description"
-    value: "Base image for Strimzi Java"
+    value: "Base image for Java base"
   - name: "io.k8s.display-name"
-    value: "AMQ Streams Strimzi Java base"
+    value: "AMQ Streams Java base"
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
 
@@ -30,16 +30,16 @@ packages:
     - jboss-os
   install:
     - openssl
-      #    - nmap-ncat
-      #    - hostname
+    - nmap-ncat
+    - hostname
 
 modules:
   repositories:
     - path: modules
   install:
-    - name: os-strimzijavabase-install
+    - name: os-javabase-install
 
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-strimzijavabase-openshift-rhel-7
+    branch: rh-amqstreams-1.0-javabase-openshift-rhel-7

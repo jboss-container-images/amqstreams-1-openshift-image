@@ -3,7 +3,7 @@ schema_version: 1
 name: redhat-amqstreams-1/amqstreams10-kafkabase-openshift
 description: "AMQ Streams base image for Kafka and Zookeeper"
 version: "1.0"
-from: redhat-amqstreams-1/amqstreams10-strimzijavabase-openshift:1.0
+from: redhat-amqstreams-1/amqstreams10-javabase-openshift:1.0
 
 labels:
   - name: "com.redhat.component"

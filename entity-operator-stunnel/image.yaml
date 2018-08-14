@@ -1,0 +1,33 @@
+schema_version: 1
+
+name: redhat-amqstreams-1/amqstreams10-entityoperatorstunnel-openshift
+description: "AMQ Streams image for Entity Operator Stunnel sidecar"
+version: "1.0"
+from: redhat-amqstreams-1/amqstreams10-stunnelbase-openshift:1.0
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams10-entityoperatorstunnel-openshift-container"
+  - name: "io.k8s.description"
+    value: "Image for Entity Operator Stunnel sidecar"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Entity Operator Stunnel sidecar"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
+modules:
+  repositories:
+    - path: modules
+  install:
+    - name: os-stunnel-launch
+
+run:
+  workdir: "/opt/stunnel"
+  user: 185
+  cmd:
+     - "/opt/stunnel/stunnel_run.sh"
+
+osbs:
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.0-entityoperatorstunnel-openshift-rhel-7

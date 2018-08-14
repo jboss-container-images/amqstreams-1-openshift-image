@@ -13,7 +13,6 @@ Provides AMQ Streams Docker images for OpenShift.
 * _topic-operator_ : image representing Topic Operator component for handling Kafka topics through related ConfigMap(s)
 * _stunnel-base_ : base image containing Stunnel application
 * _kafka-stunnel_ : image representing a Stunnel sidecar within every Kafka node which enables TLS encrypted communication between a Kafka nodes and Zookeeper nodes
-* _topic-operator-stunnel_ : image representing a Stunnel sidecar within the Topic Operator which enables TLS encrypted communication between the Topic Operator and Zookeeper nodes
 * _zookeeper-stunnel_ : image representing a Stunnel side car within every Zookeeper node which enables TLS encrypted communication between Zookeeper nodes
 
 # License

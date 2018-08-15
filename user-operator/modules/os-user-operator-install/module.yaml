@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: os-user-operator-install
+execute:
+- script: install.sh

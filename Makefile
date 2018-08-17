@@ -6,6 +6,6 @@ clean: $(SUBDIRS)
 $(DOCKER_TARGETS): $(SUBDIRS)
 
 $(SUBDIRS):
-        $(MAKE) -C $@ $(MAKECMDGOALS)
+	$(MAKE) -C $@ $(MAKECMDGOALS)
 
 .PHONY: build clean release all $(SUBDIRS) $(DOCKER_TARGETS)

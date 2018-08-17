@@ -17,8 +17,7 @@ labels:
 
 modules:
   repositories:
-    - name: kafka
-      path: modules/kafka
+    - path: modules
   install:
     - name: kafka
 

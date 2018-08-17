@@ -1,15 +1,15 @@
 schema_version: 1
 
-name: redhat-amqstreams-1/amqstreams10-topiccontroller-openshift
+name: redhat-amqstreams-1/amqstreams10-topicoperator-openshift
 description: "AMQ Streams image for the Topic Operator"
 version: "1.0"
 from: jboss/openjdk18-rhel7:1.1
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-topiccontroller-openshift-container"
+    value: "amqstreams10-topicoperator-openshift-container"
   - name: "io.k8s.description"
-    value: "Topic Operator component for handling Kafka topics through related ConfigMap(s)"
+    value: "Topic Operator component for handling Kafka topics"
   - name: "io.k8s.display-name"
     value: "AMQ Streams Topic Operator"
   - name: "io.openshift.tags"
@@ -43,4 +43,4 @@ run:
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-topiccontroller-openshift-rhel-7
+    branch: rh-amqstreams-1.0-topicoperator-openshift-rhel-7

@@ -1,6 +1,6 @@
 schema_version: 1
 
-name: redhat-amqstreams-1/amqstreams10-clusteroperator-openshift
+name: amqstreams-1-beta/amqstreams10-clusteroperator-openshift
 description: "AMQ Streams image for the Cluster Operator"
 version: "1.0"
 from: jboss/openjdk18-rhel7:1.1

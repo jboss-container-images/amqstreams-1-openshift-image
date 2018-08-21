@@ -29,6 +29,7 @@ packages:
   repositories:
     - jboss-os
   install:
+    - openssl
     - gettext
     - nmap-ncat
     - hostname

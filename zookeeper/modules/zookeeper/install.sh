@@ -12,3 +12,4 @@ cp -r ${CONFIG_DIR}/* ${KAFKA_HOME}/config/
 
 # copy scripts for starting Zookeeper
 cp -r ${SCRIPTS_DIR}/* ${KAFKA_HOME}/
+chmod -R 755 ${KAFKA_HOME}

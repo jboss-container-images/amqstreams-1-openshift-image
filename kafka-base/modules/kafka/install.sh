@@ -12,5 +12,6 @@ mkdir /opt/prometheus/config
 mv ${SOURCES_DIR}/jmx_prometheus_javaagent.jar /opt/prometheus/jmx_prometheus_javaagent.jar
 
 chown -R jboss:root ${KAFKA_HOME}
-chmod 0755 ${KAFKA_HOME}
-chmod -R g+rwX ${KAFKA_HOME}
+chmod -R 0755 ${KAFKA_HOME}
+chown -R jboss:root /opt/prometheus
+chmod -R 0755 /opt/prometheus

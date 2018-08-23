@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amqstreams-1-tech-preview/amqstreams10-stunnelbase-openshift
 description: "AMQ Streams base image for Stunnel sidecar images"
-version: "1.0"
+version: "1.0.0-beta"
 from: jboss/openjdk18-rhel7:1.1
 
 labels:

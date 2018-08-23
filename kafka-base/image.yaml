@@ -36,9 +36,14 @@ packages:
 
 modules:
   repositories:
-    - name: kafka
-      path: modules/kafka
+    - name: cct_module
+      git:
+          url: https://github.com/jboss-openshift/cct_module.git
+          ref: master
+    - name: modules
+      path: modules
   install:
+    - name: dynamic-resources
     - name: kafka
 
 artifacts:

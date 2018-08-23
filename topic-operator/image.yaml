@@ -3,7 +3,7 @@ schema_version: 1
 name: amqstreams-1-beta/amqstreams10-topicoperator-openshift
 description: "AMQ Streams image for the Topic Operator"
 version: "1.0"
-from: redhat-amqstreams-1/amqstreams10-javabase-openshift
+from: amqstreams-1-beta/amqstreams10-javabase-openshift
 
 labels:
   - name: "com.redhat.component"
@@ -30,7 +30,7 @@ artifacts:
 run:
   user: 185
   cmd:
-    - "/bin/launch_java.sh"
+    - "/bin/topic_operator_run.sh"
     - "/topic-operator.jar"
 
 osbs:

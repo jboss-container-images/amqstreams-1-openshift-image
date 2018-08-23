@@ -14,7 +14,7 @@ spec:
       serviceAccountName: strimzi-cluster-operator
       containers:
       - name: strimzi-cluster-operator
-        image: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-clusteroperator-openshift:1.0
+        image: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-clusteroperator-openshift:1.0.0-beta
         imagePullPolicy: IfNotPresent
         env:
         - name: STRIMZI_NAMESPACE
@@ -26,25 +26,25 @@ spec:
         - name: STRIMZI_OPERATION_TIMEOUT_MS
           value: "300000"
         - name: STRIMZI_DEFAULT_ZOOKEEPER_IMAGE
-          value: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-zookeeper-openshift:1.0
+          value: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-zookeeper-openshift:1.0.0-beta
         - name: STRIMZI_DEFAULT_KAFKA_IMAGE
-          value: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-kafka-openshift:1.0
+          value: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-kafka-openshift:1.0.0-beta
         - name: STRIMZI_DEFAULT_KAFKA_CONNECT_IMAGE
-          value: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-kafkaconnect-openshift:1.0
+          value: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-kafkaconnect-openshift:1.0.0-beta
         - name: STRIMZI_DEFAULT_KAFKA_CONNECT_S2I_IMAGE
-          value: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-kafkaconnects2i-openshift:1.0
+          value: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-kafkaconnects2i-openshift:1.0.0-beta
         - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
-          value: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-topicoperator-openshift:1.0
+          value: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-topicoperator-openshift:1.0.0-beta
         - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
-          value: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-useroperator-openshift:1.0
+          value: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-useroperator-openshift:1.0.0-beta
         - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
-          value: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-kafkainit-openshift:1.0
+          value: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-kafkainit-openshift:1.0.0-beta
         - name: STRIMZI_DEFAULT_TLS_SIDECAR_ZOOKEEPER_IMAGE
-          value: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-zookeeperstunnel-openshift:1.0
+          value: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-zookeeperstunnel-openshift:1.0.0-beta
         - name: STRIMZI_DEFAULT_TLS_SIDECAR_KAFKA_IMAGE
-          value: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-kafkastunnel-openshift:1.0
+          value: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-kafkastunnel-openshift:1.0.0-beta
         - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-          value: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-entityoperatorstunnel-openshift:1.0
+          value: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-entityoperatorstunnel-openshift:1.0.0-beta
         - name: STRIMZI_LOG_LEVEL
           value: INFO
         livenessProbe:

@@ -1,8 +1,8 @@
 schema_version: 1
 
-name: amqstreams-1-beta/amqstreams10-kafkabase-openshift
+name: amqstreams-1-tech-preview/amqstreams10-kafkabase-openshift
 description: "AMQ Streams base image for Kafka and Zookeeper"
-version: "1.0"
+version: "1.0.0-beta"
 from: jboss/openjdk18-rhel7:1.1
 
 labels:
@@ -39,7 +39,7 @@ modules:
     - name: cct_module
       git:
           url: https://github.com/jboss-openshift/cct_module.git
-          ref: master
+          ref: sprint-22
     - name: modules
       path: modules
   install:

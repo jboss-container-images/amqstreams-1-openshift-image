@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: amqstreams-1-beta/amqstreams10-useroperator-openshift
+name: amqstreams-1-tech-preview/amqstreams10-useroperator-openshift
 description: "AMQ Streams image for User Operator"
 version: "1.0"
-from: amqstreams-1-beta/amqstreams10-javabase-openshift:1.0
+from: amqstreams-1-tech-preview/amqstreams10-javabase-openshift:1.0
 
 labels:
   - name: "com.redhat.component"

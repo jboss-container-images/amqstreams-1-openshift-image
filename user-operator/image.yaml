@@ -33,7 +33,8 @@ artifacts:
 run:
   user: 185
   cmd:
-     - "/opt/amqstreams/user_operator_run.sh"
+    - "/bin/launch_java.sh"
+    - "/user-operator.jar"
 
 osbs:
   repository:

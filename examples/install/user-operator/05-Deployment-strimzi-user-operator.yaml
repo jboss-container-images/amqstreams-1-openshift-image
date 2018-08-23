@@ -14,7 +14,7 @@ spec:
       serviceAccountName: strimzi-user-operator
       containers:
         - name: strimzi-user-operator
-          image: registry.access.redhat.com/amqstreams-1-beta/amqstreams10-useroperator-openshift:1.0
+          image: registry.access.redhat.com/amqstreams-1-tech-preview/amqstreams10-useroperator-openshift:1.0.0-beta
           env:
             - name: STRIMZI_NAMESPACE
               valueFrom:

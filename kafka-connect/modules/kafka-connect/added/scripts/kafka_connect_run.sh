@@ -41,7 +41,7 @@ if [ "$KAFKA_CONNECT_METRICS_ENABLED" = "true" ]; then
 fi
 
 if [ -z "$KAFKA_HEAP_OPTS" -a -n "${DYNAMIC_HEAP_FRACTION}" ]; then
-    . /usr/local/dynamic-resources/dynamic_resources.sh
+    . $KAFKA_HOME/dynamic_resources.sh
     # Calculate a max heap size based some DYNAMIC_HEAP_FRACTION of the heap
     # available to a jvm using 100% of the GCroup-aware memory
     # up to some optional DYNAMIC_HEAP_MAX

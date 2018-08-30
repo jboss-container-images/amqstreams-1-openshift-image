@@ -15,6 +15,9 @@ Provides AMQ Streams Docker images for OpenShift.
 * _kafka-stunnel_ : image representing a Stunnel sidecar within every Kafka node which enables TLS encrypted communication between a Kafka nodes and Zookeeper nodes
 * _zookeeper-stunnel_ : image representing a Stunnel side car within every Zookeeper node which enables TLS encrypted communication between Zookeeper nodes
 
+# Install
+`oc create -n <project> -f image-streams.yaml`
+
 # License
 
 See link:LICENSE[LICENSE] file.

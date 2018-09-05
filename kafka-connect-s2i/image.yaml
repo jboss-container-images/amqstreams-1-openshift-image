@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: redhat-amqstreams-1/amqstreams10-kafkaconnects2i-openshift
+name: amqstreams-1-tech-preview/amqstreams10-kafkaconnects2i-openshift
 description: "AMQ Streams image for Kafka Connect with S2I"
-version: "1.0"
-from: redhat-amqstreams-1/amqstreams10-kafkaconnect-openshift:1.0
+version: "1.0.0-beta"
+from: amqstreams-1-tech-preview/amqstreams10-kafkaconnect-openshift:1.0.0-beta
 
 labels:
   - name: "com.redhat.component"

@@ -1,0 +1,42 @@
+schema_version: 1
+
+name: amqstreams-1-tech-preview/amqstreams10-javabase-openshift
+description: "AMQ Streams base image for Java based components"
+version: "1.0.0-beta"
+from: jboss/openjdk18-rhel7:1.1
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams10-javabase-openshift-container"
+  - name: "io.k8s.description"
+    value: "Base image for Java based components"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Java base"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
+modules:
+  repositories:
+    - name: cct_module
+      git:
+          url: https://github.com/jboss-openshift/cct_module.git
+          ref: sprint-22
+    - name: modules
+      path: modules
+  install:
+      - name: dynamic-resources
+      - name: os-java-run
+      - name: os-javabase-install
+
+packages:
+  repositories:
+    - jboss-os
+  install:
+    - openssl
+    - nmap-ncat
+    - hostname
+
+osbs:
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.0-javabase-openshift-rhel-7

@@ -1,63 +1,22 @@
 #!/bin/bash
 
-if [ -z "$KAFKA_CONNECT_BOOTSTRAP_SERVERS" ]; then
-export KAFKA_CONNECT_BOOTSTRAP_SERVERS="kafka:9092"
-fi
-
-if [ -z "$KAFKA_CONNECT_GROUP_ID" ]; then
-export KAFKA_CONNECT_GROUP_ID="connect-cluster"
-fi
-
-if [ -z "$KAFKA_CONNECT_OFFSET_STORAGE_TOPIC" ]; then
-export KAFKA_CONNECT_OFFSET_STORAGE_TOPIC="${KAFKA_CONNECT_GROUP_ID}-offsets"
-fi
-
-if [ -z "$KAFKA_CONNECT_CONFIG_STORAGE_TOPIC" ]; then
-export KAFKA_CONNECT_CONFIG_STORAGE_TOPIC="${KAFKA_CONNECT_GROUP_ID}-configs"
-fi
-
-if [ -z "$KAFKA_CONNECT_STATUS_STORAGE_TOPIC" ]; then
-export KAFKA_CONNECT_STATUS_STORAGE_TOPIC="${KAFKA_CONNECT_GROUP_ID}-status"
-fi
-
-if [ -z "$KAFKA_CONNECT_KEY_CONVERTER" ]; then
-export KAFKA_CONNECT_KEY_CONVERTER="org.apache.kafka.connect.json.JsonConverter"
-fi
-
-if [ -z "$KAFKA_CONNECT_VALUE_CONVERTER" ]; then
-export KAFKA_CONNECT_VALUE_CONVERTER="org.apache.kafka.connect.json.JsonConverter"
-fi
-
 if [ -z "$KAFKA_CONNECT_PLUGIN_PATH" ]; then
 export KAFKA_CONNECT_PLUGIN_PATH="${KAFKA_HOME}/plugins"
 fi
 
-# Write the config file
-cat > /tmp/strimzi-connect.properties <<EOF
-rest.port=8083
-rest.advertised.host.name=$(hostname -I)
-rest.advertised.port=8083
-bootstrap.servers=${KAFKA_CONNECT_BOOTSTRAP_SERVERS}
-group.id=${KAFKA_CONNECT_GROUP_ID}
-offset.storage.topic=${KAFKA_CONNECT_OFFSET_STORAGE_TOPIC}
-config.storage.topic=${KAFKA_CONNECT_CONFIG_STORAGE_TOPIC}
-status.storage.topic=${KAFKA_CONNECT_STATUS_STORAGE_TOPIC}
-key.converter=${KAFKA_CONNECT_KEY_CONVERTER}
-value.converter=${KAFKA_CONNECT_VALUE_CONVERTER}
-key.converter.schemas.enable=${KAFKA_CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE:-true}
-value.converter.schemas.enable=${KAFKA_CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE:-true}
-internal.key.converter=org.apache.kafka.connect.json.JsonConverter
-internal.value.converter=org.apache.kafka.connect.json.JsonConverter
-internal.key.converter.schemas.enable=${KAFKA_CONNECT_INTERNAL_KEY_CONVERTER_SCHEMAS_ENABLE:-false}
-internal.value.converter.schemas.enable=${KAFKA_CONNECT_INTERNAL_VALUE_CONVERTER_SCHEMAS_ENABLE:-false}
-plugin.path=${KAFKA_CONNECT_PLUGIN_PATH}
-config.storage.replication.factor=${KAFKA_CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR:-3}
-offset.storage.replication.factor=${KAFKA_CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR:-3}
-status.storage.replication.factor=${KAFKA_CONNECT_STATUS_STORAGE_REPLICATION_FACTOR:-3}
-EOF
+if [ -n "$KAFKA_CONNECT_TRUSTED_CERTS" ]; then
+    # Generate temporary keystore password
+    export CERTS_STORE_PASSWORD=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)
 
-echo "Starting Kafka connect with configuration:"
-cat /tmp/strimzi-connect.properties
+    mkdir -p /tmp/kafka
+
+    # Import certificates into keystore and truststore
+    ./kafka_connect_tls_prepare_certificates.sh
+fi
+
+# Generate and print the config file
+echo "Starting Kafka Connect with configuration:"
+./kafka_connect_config_generator.sh | tee /tmp/strimzi-connect.properties
 echo ""
 
 # Disable Kafka's GC logging (which logs to a file)...
@@ -69,12 +28,28 @@ if [ -z "$KAFKA_CONNECT_LOG_LEVEL" ]; then
 KAFKA_CONNECT_LOG_LEVEL="INFO"
 fi
 if [ -z "$KAFKA_LOG4J_OPTS" ]; then
-export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$KAFKA_HOME/config/connect-log4j.properties -Dconnect.root.logger.level=$KAFKA_CONNECT_LOG_LEVEL,CONSOLE"
+export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$KAFKA_HOME/custom-config/log4j.properties"
 fi
 
 # We don't need LOG_DIR because we write no log files, but setting it to a
 # directory avoids trying to create it (and logging a permission denied error)
 export LOG_DIR="$KAFKA_HOME"
+
+# enabling Prometheus JMX exporter as Java agent
+if [ "$KAFKA_CONNECT_METRICS_ENABLED" = "true" ]; then
+  export KAFKA_OPTS="-javaagent:/opt/prometheus/jmx_prometheus_javaagent.jar=9404:$KAFKA_HOME/custom-config/metrics-config.yml"
+fi
+
+if [ -z "$KAFKA_HEAP_OPTS" -a -n "${DYNAMIC_HEAP_FRACTION}" ]; then
+    . $KAFKA_HOME/dynamic_resources.sh
+    # Calculate a max heap size based some DYNAMIC_HEAP_FRACTION of the heap
+    # available to a jvm using 100% of the GCroup-aware memory
+    # up to some optional DYNAMIC_HEAP_MAX
+    CALC_MAX_HEAP=$(get_heap_size ${DYNAMIC_HEAP_FRACTION} ${DYNAMIC_HEAP_MAX})
+    if [ -n "$CALC_MAX_HEAP" ]; then
+      export KAFKA_HEAP_OPTS="-Xms${CALC_MAX_HEAP} -Xmx${CALC_MAX_HEAP}"
+    fi
+fi
 
 # starting Kafka server with final configuration
 exec $KAFKA_HOME/bin/connect-distributed.sh /tmp/strimzi-connect.properties

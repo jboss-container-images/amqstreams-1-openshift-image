@@ -1,0 +1,28 @@
+# Makefile.docker contains the shared tasks for building, tagging and pushing Docker images.
+# This file is included into the Makefile files which contain the Dockerfile files (E.g.
+# kafka-base, kafka etc.).
+#
+# The DOCKER_ORG (default is name of the current user) and DOCKER_TAG (based on Git Tag,
+# default latest) variables are used to name the Docker image. DOCKER_REGISTRY identifies
+# the registry where the image will be pushed (default is Docker Hub).
+TOPDIR=$(dir $(lastword $(MAKEFILE_LIST)))
+DOCKERFILE_DIR     ?= ./
+DOCKER_REGISTRY    ?= $(REGISTRY)
+DOCKER_ORG         ?= $(USER)
+DOCKER_TAG         ?= 1.0
+RELEASE_VERSION    ?= $(shell cat $(TOPDIR)/release.version)
+IMAGE_NAME         ?= $(shell grep -A1 'name:' ./image.yaml | head -n1 | cut -d/ -f 2)
+
+all: docker_build docker_push
+
+docker_build:
+	# Build Docker image ...
+	cekit build --tag amqstreams/$(IMAGE_NAME):latest
+
+docker_tag:
+	# Tag the "latest" image we built with the given tag
+	docker tag amqstreams/$(IMAGE_NAME):latest $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(IMAGE_NAME):$(DOCKER_TAG)
+
+docker_push: docker_tag
+	# Push the tagged image to the registry
+	docker push $(DOCKER_REGISTRY)/$(DOCKER_ORG)/$(IMAGE_NAME):$(DOCKER_TAG)

@@ -1,0 +1,39 @@
+schema_version: 1
+
+name: amqstreams-1-tech-preview/amqstreams10-topicoperator-openshift
+description: "AMQ Streams image for the Topic Operator"
+version: "1.0.0-beta"
+from: amqstreams-1-tech-preview/amqstreams10-javabase-openshift:1.0.0-beta
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams10-topicoperator-openshift-container"
+  - name: "io.k8s.description"
+    value: "Topic Operator component for handling Kafka topics"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Topic Operator"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
+modules:
+  repositories:
+    - name: topic-operator
+      path: modules/topic-operator
+  install:
+    - name: topic-operator
+
+artifacts:
+  - path: topic-operator-0.6.0.redhat-00002.jar
+    md5: f398c806ae71f8643070d3bd391252ca
+    name: topic-operator.jar
+
+run:
+  user: 185
+  cmd:
+    - "/bin/topic_operator_run.sh"
+    - "/topic-operator.jar"
+
+osbs:
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.0-topicoperator-openshift-rhel-7

@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: topic-operator
+execute:
+  - script: install.sh

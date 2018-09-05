@@ -1,4 +1,5 @@
 #!/bin/bash
+set +x
 
 # volume for saving Kafka server logs
 export KAFKA_VOLUME="/var/lib/kafka/"
@@ -18,57 +19,47 @@ export GC_LOG_ENABLED="false"
 # ... but enable equivalent GC logging to stdout
 export KAFKA_GC_LOG_OPTS="-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps"
 
-if [ -z "$KAFKA_LOG_LEVEL" ]; then
-  KAFKA_LOG_LEVEL="INFO"
-fi
 if [ -z "$KAFKA_LOG4J_OPTS" ]; then
-  export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$KAFKA_HOME/config/log4j.properties -Dkafka.root.logger.level=$KAFKA_LOG_LEVEL,CONSOLE"
+  export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$KAFKA_HOME/custom-config/log4j.properties"
 fi
 
 # enabling Prometheus JMX exporter as Java agent
 if [ "$KAFKA_METRICS_ENABLED" = "true" ]; then
-  export KAFKA_OPTS="-javaagent:/opt/prometheus/jmx_prometheus_javaagent.jar=9404:/opt/prometheus/config/config.yml"
+  export KAFKA_OPTS="-javaagent:/opt/prometheus/jmx_prometheus_javaagent.jar=9404:$KAFKA_HOME/custom-config/metrics-config.yml"
 fi
 
 # We don't need LOG_DIR because we write no log files, but setting it to a
 # directory avoids trying to create it (and logging a permission denied error)
 export LOG_DIR="$KAFKA_HOME"
 
-# Write the config file
-cat > /tmp/strimzi.properties <<EOF
-broker.id=${KAFKA_BROKER_ID}
-# Listeners
-listeners=CLIENT://:9092,REPLICATION://:9091
-advertised.listeners=CLIENT://$(hostname -I | tr -d " " ):9092,REPLICATION://$(hostname -f):9091
-listener.security.protocol.map=CLIENT:PLAINTEXT,REPLICATION:PLAINTEXT
-inter.broker.listener.name=REPLICATION
-# Zookeeper
-zookeeper.connect=${KAFKA_ZOOKEEPER_CONNECT:-zookeeper:2181}
-zookeeper.connection.timeout.ms=6000
-# Logs
-log.dirs=${KAFKA_LOG_DIRS}
-num.partitions=1
-num.recovery.threads.per.data.dir=1
-default.replication.factor=${KAFKA_DEFAULT_REPLICATION_FACTOR:-1}
-offsets.topic.replication.factor=${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR:-3}
-transaction.state.log.replication.factor=${KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR:-3}
-transaction.state.log.min.isr=1
-log.retention.hours=168
-log.segment.bytes=1073741824
-log.retention.check.interval.ms=300000
-# Network
-num.network.threads=3
-num.io.threads=8
-socket.send.buffer.bytes=102400
-socket.receive.buffer.bytes=102400
-socket.request.max.bytes=104857600
-# Other
-group.initial.rebalance.delay.ms=0
-EOF
+# get broker rack if it's enabled
+if [ -e $KAFKA_HOME/rack/rack.id ]; then
+  export KAFKA_RACK=$(cat $KAFKA_HOME/rack/rack.id)
+fi
 
+# Generate temporary keystore password
+export CERTS_STORE_PASSWORD=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32)
+
+mkdir -p /tmp/kafka
+
+# Import certificates into keystore and truststore
+./kafka_tls_prepare_certificates.sh
+
+# Generate and print the config file
 echo "Starting Kafka with configuration:"
-cat /tmp/strimzi.properties
+./kafka_config_generator.sh | tee /tmp/strimzi.properties
 echo ""
+
+if [ -z "$KAFKA_HEAP_OPTS" -a -n "${DYNAMIC_HEAP_FRACTION}" ]; then
+    . $KAFKA_HOME/dynamic_resources.sh
+    # Calculate a max heap size based some DYNAMIC_HEAP_FRACTION of the heap
+    # available to a jvm using 100% of the GCroup-aware memory
+    # up to some optional DYNAMIC_HEAP_MAX
+    CALC_MAX_HEAP=$(get_heap_size ${DYNAMIC_HEAP_FRACTION} ${DYNAMIC_HEAP_MAX})
+    if [ -n "$CALC_MAX_HEAP" ]; then
+      export KAFKA_HEAP_OPTS="-Xms${CALC_MAX_HEAP} -Xmx${CALC_MAX_HEAP}"
+    fi
+fi
 
 # starting Kafka server with final configuration
 exec $KAFKA_HOME/bin/kafka-server-start.sh /tmp/strimzi.properties

@@ -1,19 +1,21 @@
-# Red Hat JBoss AMQ Streams 1.0 OpenShift container image
+# Red Hat AMQ Streams 1.0 OpenShift container image
 
-NOTE: Extends link:https://github.com/jboss-container-images/jboss-base-image[JBoss base image]
+Provides AMQ Streams container images for OpenShift.
 
-Provides AMQ Streams Docker images for OpenShift.
-
-* _kafka-base_ : base image containing Apache Kafka artifacts
-* _kafka_ : image representing an Apache Kafka broker
-* _zookeeper_ : image representing a Zookeeper node
-* _kafka-connect_ : image representing a Kafka Connect worker node
-* _kafka-connect-s2i_ : image representing a Kafka Connect worker node with S2I support for adding custom connector plugins
-* _cluster-operator_ : image representing Cluster Operator component for deploying a Kafka Cluster from a cluster ConfigMap
-* _topic-operator_ : image representing Topic Operator component for handling Kafka topics through related ConfigMap(s)
-* _stunnel-base_ : base image containing Stunnel application
-* _kafka-stunnel_ : image representing a Stunnel sidecar within every Kafka node which enables TLS encrypted communication between a Kafka nodes and Zookeeper nodes
-* _zookeeper-stunnel_ : image representing a Stunnel side car within every Zookeeper node which enables TLS encrypted communication between Zookeeper nodes
+* _cluster-operator_ : image for running the Cluster Operator which manipulates Kafka clusters
+* _entity-operator-stunnel_: image for Topic Operator and User Operator Stunnnel sidecar
+* _java-base_: base image for AMQ Streams operator and kafka init images
+* _kafka-base_ : base image containing Apache Kafka distribution for AMQ Streams Kafka and Zookeeper images
+* _kafka-connect-s2i_ :  image for running an Apache Kafka Connect node leveraging OpenShift S2I for adding custom connectors
+* _kafka-connect_ : image for running an Apache Kafka Connect node
+* _kafka-init_ : image for doing initial configuration for the Kafka broker
+* _kafka-stunnel_ : image for Kafka Stunnel sidecar
+* _kafka_ : image for running an Apache Kafka broker
+* _stunnel-base_ : base image for running Stunnel sidecar which encrypts communication between AMQ Streams components
+* _topic-operator_ : image for running the Topic Operator which manipulates Kafka topics
+* _user-operator_ : image for running User Operator which manages Kafka users for Kafka clusters
+* _zookeeper-stunnel_ : image for Zookeeper Stunnel sidecar
+* _zookeeper_ :  image for running an Apache Zookeeper node
 
 # License
 

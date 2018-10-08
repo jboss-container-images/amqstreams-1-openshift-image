@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: kafka-init
+execute:
+- script: install.sh

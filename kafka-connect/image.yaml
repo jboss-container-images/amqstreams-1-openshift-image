@@ -17,8 +17,7 @@ labels:
 
 modules:
   repositories:
-    - name: kafka-connect
-      path: modules/kafka-connect
+    - path: modules
   install:
     - name: kafka-connect
 

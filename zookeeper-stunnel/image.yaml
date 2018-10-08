@@ -19,7 +19,7 @@ modules:
   repositories:
     - path: modules
   install:
-    - name: os-stunnel-launch
+    - name: stunnel-zookeeper
 
 run:
   workdir: "/opt/stunnel"

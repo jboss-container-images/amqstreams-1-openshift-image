@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: kafka-mirror-maker
+execute:
+  - script: install.sh

@@ -17,8 +17,7 @@ labels:
 
 modules:
   repositories:
-    - name: zookeeper
-      path: modules/zookeeper
+    - path: modules
   install:
     - name: zookeeper
 

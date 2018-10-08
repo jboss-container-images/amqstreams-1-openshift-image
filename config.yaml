@@ -26,6 +26,7 @@ images:
   - kafka-connect-s2i
   - kafka-connect
   - kafka-init
+  - kafka-mirror-maker
   - kafka-stunnel
   - kafka
   - stunnel-base

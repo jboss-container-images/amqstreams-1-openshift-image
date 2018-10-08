@@ -17,8 +17,7 @@ labels:
 
 modules:
   repositories:
-    - name: topic-operator
-      path: modules/topic-operator
+    - path: modules
   install:
     - name: topic-operator
 

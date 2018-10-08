@@ -21,8 +21,7 @@ labels:
 
 modules:
   repositories:
-    - name: kafka-connect-s2i
-      path: modules/kafka-connect-s2i
+    - path: modules
   install:
     - name: kafka-connect-s2i
 

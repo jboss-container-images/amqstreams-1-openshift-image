@@ -2,7 +2,7 @@
 
 # NAME
 
-Entity Operator Stunnel - AMQ Streams image for Topic Operator and User Operator Stunnnel sidecar
+Entity Operator Stunnel - AMQ Streams image for Topic Operator and User Operator Stunnel sidecar
 
 # USAGE
 

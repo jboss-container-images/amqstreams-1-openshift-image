@@ -4,7 +4,7 @@ set -e
 
 SOURCES_DIR=/tmp/artifacts
 SCRIPT_DIR=$(dirname $0)
-SCRIPTS_DIR=${SCRIPTS_DIR}/scripts
+SCRIPTS_DIR=${SCRIPT_DIR}/scripts
 
 mkdir $KAFKA_HOME
 tar xvfz "${SOURCES_DIR}/kafka.tar.gz" -C ${KAFKA_HOME} --strip-components=1

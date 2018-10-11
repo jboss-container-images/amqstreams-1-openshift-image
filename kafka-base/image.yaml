@@ -1,8 +1,8 @@
 schema_version: 1
 
-name: amqstreams-1-tech-preview/amqstreams10-kafkabase-openshift
+name: amqstreams-1/amqstreams10-kafkabase-openshift
 description: "AMQ Streams base image for Kafka and Zookeeper"
-version: "1.0.0-beta"
+version: "1.0.0"
 from: jboss/openjdk18-rhel7:1.1
 
 labels:
@@ -41,8 +41,8 @@ modules:
     - name: kafka-base
 
 artifacts:
-  - path: kafka-2.0.0.redhat-00002.tar.gz
-    md5: ac82911f3a98ec67fa90b12b5d6ad64d
+  - path: kafka-2.0.0.redhat-00003.tar.gz
+    md5: 5e35768a5b0ccb13bd3f34643f7135aa
     name: kafka.tar.gz
   - path: jmx_prometheus_javaagent-0.10.0.redhat-2.jar
     md5: 89e83b40f70c9ca43a409e5b485555bc

@@ -11,6 +11,7 @@ Provides AMQ Streams container images for OpenShift.
 * _kafka-init_ : image for doing initial configuration for the Kafka broker
 * _kafka-stunnel_ : image for Kafka Stunnel sidecar
 * _kafka_ : image for running an Apache Kafka broker
+* _kafka-mirror-maker_ : image for running Apache Kafka Mirror Maker
 * _stunnel-base_ : base image for running Stunnel sidecar which encrypts communication between AMQ Streams components
 * _topic-operator_ : image for running the Topic Operator which manipulates Kafka topics
 * _user-operator_ : image for running User Operator which manages Kafka users for Kafka clusters

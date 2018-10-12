@@ -26,8 +26,8 @@ modules:
     - name: user-operator
 
 artifacts:
-  - path: user-operator-0.6.0.redhat-00002.jar
-    md5: b051ecd06a8a196a40ffcfe3e24cbf04
+  - path: user-operator-0.8.0.redhat-00001.jar
+    md5: bbd117a6284bed2e00b5b96b1b254838
     name: user-operator.jar
 
 run:

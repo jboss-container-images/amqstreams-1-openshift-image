@@ -23,8 +23,8 @@ modules:
     - name: cluster-operator
 
 artifacts:
-  - path: cluster-operator-0.6.0.redhat-00002.jar
-    md5: f4e5df6e9652731b0581d9ad278b6768
+  - path: cluster-operator-0.8.0.redhat-00001.jar
+    md5: 8fff9402a0e0ccd4dde01fad45ba5cb7
     name: cluster-operator.jar
 
 run:

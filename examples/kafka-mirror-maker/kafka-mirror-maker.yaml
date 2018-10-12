@@ -3,7 +3,6 @@ kind: KafkaMirrorMaker
 metadata:
   name: my-mirror-maker
 spec:
-  image: registry.access.redhat.com/amqstreams-1/amqstreams10-kafkamirrormaker-openshift:1.0.0
   replicas: 1
   consumer:
     bootstrapServers: my-source-cluster-kafka-bootstrap:9092

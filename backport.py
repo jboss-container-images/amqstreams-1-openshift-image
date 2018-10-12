@@ -25,6 +25,7 @@
 import git
 import re
 import shutil
+import distutils.dir_util
 import yaml
 import yamlloader
 from collections import OrderedDict
@@ -193,10 +194,9 @@ def remap_scripts(path):
       base = SPECIAL_CASE.get(base)
       downstream = join(getcwd(), base, "modules", base, "scripts")
 
-    if(exists(downstream)):
-      shutil.rmtree(downstream)
     if(exists(upstream)):
-      shutil.copytree(upstream, downstream)
+      distutils.dir_util.copy_tree(upstream, downstream)
+    
     return False
   return False
 
@@ -251,14 +251,17 @@ def backport():
 
   # Clone upstream repo
   clone(dest)
+  
+  # Overwrite downstream examples files with upstream examples files
+  distutils.dir_util.copy_tree(join(dest, examples_dir), examples_dir)
 
-  if(exists(examples_dir)):
-    shutil.rmtree(examples_dir)
-  shutil.copytree(join(dest, examples_dir), examples_dir)
-
+  # Make dictionary mapping of upstream image names to downstream names
   image_dict = get_image_dict()
 
+  # Change upstream image names to downstream image names in examples
   traverse(examples_dir, remap_words, image_dict)
+
+  # overwrite downstreams scripts with upstream scripts
   traverse(dest, remap_scripts)
 
   # Remove cloned upstream repo

@@ -26,8 +26,8 @@ modules:
     - name: kafka-init
 
 artifacts:
-  - path: kafka-init-0.6.0.redhat-00002.jar
-    md5: 9204f25df93ef231f3ed438c11fd130f
+  - path: kafka-init-0.8.0.redhat-00001.jar
+    md5: 994d8965cc4b868019245329c4096905
     name: kafka-init.jar
 
 run:

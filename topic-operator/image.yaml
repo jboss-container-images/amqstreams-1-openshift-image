@@ -22,8 +22,8 @@ modules:
     - name: topic-operator
 
 artifacts:
-  - path: topic-operator-0.8.0.redhat-00001.jar
-    md5: 228f500931cab0edd92f9f01c33efc65
+  - path: topic-operator-0.8.1.redhat-00001.jar
+    md5: 3a377582f19add6afe5f9f6d862ba46f
     name: topic-operator.jar
 
 run:

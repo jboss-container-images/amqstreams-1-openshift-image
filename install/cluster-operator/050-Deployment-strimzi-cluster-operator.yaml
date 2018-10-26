@@ -33,6 +33,8 @@ spec:
           value: registry.access.redhat.com/amqstreams-1/amqstreams10-kafkaconnect-openshift:1.0.0
         - name: STRIMZI_DEFAULT_KAFKA_CONNECT_S2I_IMAGE
           value: registry.access.redhat.com/amqstreams-1/amqstreams10-kafkaconnects2i-openshift:1.0.0
+        - name: STRIMZI_DEFAULT_KAFKA_MIRRORMAKER_IMAGE
+          value: registry.access.redhat.com/amqstreams-1/amqstreams10-kafkamirrormaker-openshift:1.0.0
         - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
           value: registry.access.redhat.com/amqstreams-1/amqstreams10-topicoperator-openshift:1.0.0
         - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
@@ -47,8 +49,6 @@ spec:
           value: registry.access.redhat.com/amqstreams-1/amqstreams10-entityoperatorstunnel-openshift:1.0.0
         - name: STRIMZI_LOG_LEVEL
           value: INFO
-        - name: STRIMZI_DEFAULT_KAFKA_MIRRORMAKER_IMAGE
-          value: registry.access.redhat.com/amqstreams-1/amqstreams10-kafkamirrormaker-openshift:1.0.0
         livenessProbe:
           httpGet:
             path: /healthy

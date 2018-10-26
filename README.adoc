@@ -1,6 +1,27 @@
-# Red Hat AMQ Streams 1.0 OpenShift container image
+# Red Hat AMQ Streams 1.0 OpenShift Container Images
 
-Provides AMQ Streams container images for OpenShift.
+++++
+<p align="center">
+  <img width="100" height="100" src="logo.png?raw=true"/>
+</p>
+++++
+
+Simple way for running Apache Kafka on OpenShift
+
+'''
+
+## Install
+
+Deploy cluster operator and kafka cluster
+
+----
+oc apply -f install/cluster-operator -n _my-namespace_
+oc apply -f examples/kafka/kafka-ephermeral.yaml
+----
+
+For more details refer to https://access.redhat.com/documentation/en-us/red_hat_amq_streams/1.0/[documentation]
+
+## Container Images
 
 * _cluster-operator_ : image for running the Cluster Operator which manipulates Kafka clusters
 * _entity-operator-stunnel_: image for Topic Operator and User Operator Stunnnel sidecar
@@ -18,6 +39,6 @@ Provides AMQ Streams container images for OpenShift.
 * _zookeeper-stunnel_ : image for Zookeeper Stunnel sidecar
 * _zookeeper_ :  image for running an Apache Zookeeper node
 
-# License
+## License
 
 See link:LICENSE[LICENSE] file.

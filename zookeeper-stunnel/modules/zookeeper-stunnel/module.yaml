@@ -1,0 +1,5 @@
+schema_version: 1
+
+name: stunnel-zookeeper
+execute:
+  - script: install.sh

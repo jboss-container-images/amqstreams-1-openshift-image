@@ -1,0 +1,36 @@
+upstream:
+  git_repo: https://github.com/strimzi/strimzi-kafka-operator.git
+  branch: 0.8.0
+  registry: ''
+  family: strimzi
+  prefix: ''
+  suffix: ''
+  tag: 0.8.0  
+downstream:
+  git_repo: https://github.com/jboss-container-images/amqstreams-1-openshift-image
+  branch: amqstreams10-dev
+  registry: registry.access.redhat.com
+  family: amqstreams-1
+  prefix: amqstreams10
+  suffix: openshift
+  tag: 1.0.0
+  osbs:
+    repository: containers/amqstreams-1
+    prefix: rh-amqstreams-1.0
+    suffix: openshift-rhel-7
+images:
+  - cluster-operator
+  - entity-operator-stunnel
+  - java-base
+  - kafka-base
+  - kafka-connect-s2i
+  - kafka-connect
+  - kafka-init
+  - kafka-mirror-maker
+  - kafka-stunnel
+  - kafka
+  - stunnel-base
+  - topic-operator
+  - user-operator
+  - zookeeper-stunnel
+  - zookeeper

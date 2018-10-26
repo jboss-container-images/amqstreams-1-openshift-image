@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: amqstreams-1-tech-preview/amqstreams10-topicoperator-openshift
+name: amqstreams-1/amqstreams10-topicoperator-openshift
 description: "AMQ Streams image for the Topic Operator"
-version: "1.0.0-beta"
-from: amqstreams-1-tech-preview/amqstreams10-javabase-openshift:1.0.0-beta
+version: "1.0.0"
+from: amqstreams-1/amqstreams10-javabase-openshift:1.0.0
 
 labels:
   - name: "com.redhat.component"
@@ -17,14 +17,13 @@ labels:
 
 modules:
   repositories:
-    - name: topic-operator
-      path: modules/topic-operator
+    - path: modules
   install:
     - name: topic-operator
 
 artifacts:
-  - path: topic-operator-0.6.0.redhat-00002.jar
-    md5: f398c806ae71f8643070d3bd391252ca
+  - path: topic-operator-0.8.1.redhat-00001.jar
+    md5: 3a377582f19add6afe5f9f6d862ba46f
     name: topic-operator.jar
 
 run:

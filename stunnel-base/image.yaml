@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: amqstreams-1-tech-preview/amqstreams10-stunnelbase-openshift
+name: amqstreams-1/amqstreams10-stunnelbase-openshift
 description: "AMQ Streams base image for Stunnel sidecar images"
-version: "1.0.0-beta"
-from: jboss/openjdk18-rhel7:1.1
+version: "1.0.0"
+from: jboss/base-rhel7:1.1
 
 labels:
   - name: "com.redhat.component"
@@ -30,7 +30,7 @@ modules:
   repositories:
     - path: modules
   install:
-    - name: os-stunnel-install
+    - name: stunnel-base
 
 run:
   workdir: "/opt/stunnel"

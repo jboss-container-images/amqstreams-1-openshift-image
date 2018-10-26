@@ -247,18 +247,22 @@ def get_image_dict():
 
 def backport():
   dest="./upstream_clone"
-  examples_dir="./examples"
+  install_dir="./examples"
+  examples_dir="./install"
 
   # Clone upstream repo
   clone(dest)
   
-  # Overwrite downstream examples files with upstream examples files
+  # Overwrite downstream examples files with upstream install/example files
+  distutils.dir_util.copy_tree(join(dest, install_dir), install_dir)
   distutils.dir_util.copy_tree(join(dest, examples_dir), examples_dir)
 
   # Make dictionary mapping of upstream image names to downstream names
   image_dict = get_image_dict()
 
-  # Change upstream image names to downstream image names in examples
+  print(image_dict)
+  # Change upstream image names to downstream image names in install/example files
+  traverse(install_dir, remap_words, image_dict)
   traverse(examples_dir, remap_words, image_dict)
 
   # overwrite downstreams scripts with upstream scripts

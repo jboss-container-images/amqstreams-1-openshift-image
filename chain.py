@@ -13,6 +13,7 @@
 import argparse
 import os 
 import re
+import shutil
 import sys
 import threading
 import yaml
@@ -99,19 +100,20 @@ class Chain(object):
       self.aggregate_build_objects(child_images, lock, build)
 
   def chain_builds(self, h_dict):
-    ''' Given hieracrhical images list, build images concurrently '''
+    ''' Given hierarchical images list, build images concurrently '''
     self.builds = []
  
     # For limiting access to shared resources
     lock = threading.Lock()
  
     logs_dir="logs"
-    if not os.path.exists(logs_dir):
-      os.makedirs(logs_dir)
+    if os.path.exists(logs_dir):
+      shutil.rmtree(logs_dir)
     
-    build_log = os.path.join(logs_dir, "chain.log")
+    os.makedirs(logs_dir)
     
-    with open(build_log, 'a') as f:
+    chain_log = os.path.join(logs_dir, "chain.log") 
+    with open(chain_log, 'a') as f:
       f.write("--- Builds Started --- ( %s ) \n" % (self.build_type))
 
     self.aggregate_build_objects(h_dict, lock)
@@ -123,10 +125,11 @@ class Chain(object):
     for build in self.builds:
       # Block until complete
       build.join()
-      self.log(build, build_log)
+      if(build.process is not None):
+        self.log(build, chain_log)
 
     print("--- Builds Complete ---")
-    with open(build_log, 'a') as f:
+    with open(chain_log, 'a') as f:
       f.write("--- Builds Complete --- ( %s ) \n" % (self.build_type))
 
   def log(self, b, build_log):
@@ -137,9 +140,9 @@ class Chain(object):
     build_info = [b.image] + self.extract_build_info(text)
 
     with open(build_log, 'a') as f:
-      formatted_output = "   ".join(build_info)
-      f.write(formatted_output)
-      f.write("\n")
+      form = '%-25s ' + ('%-10s ' * (len(build_info) - 1))
+      formatted_output = form % tuple(build_info)
+      f.write(formatted_output + "\n")
 
   def extract_build_info(self, text):
     ''' Extracts build information from stdout into list'''
@@ -157,7 +160,7 @@ class Chain(object):
         build_info.append(matches.group(0))
 
     if("Error" in text):
-      build_info = ["ERROR"]
+      build_info.append("ERROR")
 
     return build_info
 

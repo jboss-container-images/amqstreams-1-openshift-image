@@ -22,6 +22,10 @@ from chain.build import Build
 from chain.traverse import traverse, get_image_name
 from chain.hierarchy import create_hierarchy_dict
 
+CHAIN_LOG_DIRECTORY="logs"
+CHAIN_LOG_FILE="chain.log"
+CONFIG_FILE="config.yaml"
+
 def override(image, build_branch):
   '''
   Given image name (e.g. java-base, etc) and build branch 
@@ -30,10 +34,10 @@ def override(image, build_branch):
   dist-git branches
   
   Example:
-    branch: rh-amqstreams-1.0-clustercontroller-openshift-dev-rhel-7
+    branch: rh-amqstreams-1.0-clusteroperator-openshift-dev-rhel-7
     repo:   containers/amqstreams-1
   '''
-  with open("config.yaml", 'r') as yaml_file:
+  with open(CONFIG_FILE, 'r') as yaml_file:
     data = yaml.load(yaml_file)
   
   override = ""
@@ -86,65 +90,28 @@ class Chain(object):
     self.build_branch = None
     self.build_type = None
     self.cmd = None
-    self.builds = None
- 
-  def aggregate_build_objects(self, h_dict, lock, parent=None):
-    ''' Create and add build objects to list '''
-    for image, child_images in h_dict.items():
+    self.logs_dir = CHAIN_LOG_DIRECTORY
+    self.log = self.prep_log(CHAIN_LOG_FILE)
 
-      cmd = is_cekit(self.cmd, image, self.build_branch)
+  def prep_log(self, name):
+    ''' Creates new logging directory/file for chain builds '''
+    if os.path.exists(self.logs_dir):
+      shutil.rmtree(self.logs_dir)
+    os.makedirs(self.logs_dir)
+    return os.path.join(self.logs_dir, name)
 
-      build = Build(image, cmd, parent, lock)
-      self.builds.append(build)
-      
-      self.aggregate_build_objects(child_images, lock, build)
+  def log_build(self, build, lock):
+    ''' Write build info to chain build log '''
+    build_info = [build.image] + self.extract_build_info(build)
 
-  def chain_builds(self, h_dict):
-    ''' Given hierarchical images list, build images concurrently '''
-    self.builds = []
- 
-    # For limiting access to shared resources
-    lock = threading.Lock()
- 
-    logs_dir="logs"
-    if os.path.exists(logs_dir):
-      shutil.rmtree(logs_dir)
-    
-    os.makedirs(logs_dir)
-    
-    chain_log = os.path.join(logs_dir, "chain.log") 
-    with open(chain_log, 'a') as f:
-      f.write("--- Builds Started --- ( %s ) \n" % (self.build_type))
-
-    self.aggregate_build_objects(h_dict, lock)
-    
-    # Run builds concurrently
-    for build in self.builds:
-      build.start()
-
-    for build in self.builds:
-      # Block until complete
-      build.join()
-      if(build.process is not None):
-        self.log(build, chain_log)
-
-    print("--- Builds Complete ---")
-    with open(chain_log, 'a') as f:
-      f.write("--- Builds Complete --- ( %s ) \n" % (self.build_type))
-
-  def log(self, b, build_log):
-    ''' Write build info to aggregate file ''' 
-    log_file="logs/" + b.image + ".log"
-    with open(log_file, 'r') as f:
-      text=f.read()
-    build_info = [b.image] + self.extract_build_info(text)
-
-    with open(build_log, 'a') as f:
+    lock.acquire()
+    with open(self.log, 'a') as f:
       form = '%-25s ' + ('%-10s ' * (len(build_info) - 1))
       formatted_output = form % tuple(build_info)
       f.write(formatted_output + "\n")
+    lock.release()
 
-  def extract_build_info(self, text):
+  def extract_build_info(self, build):
     ''' Extracts build information from stdout into list'''
     patterns = [  
       ["taskID",  '(?<=taskID=)([0-9])*'],
@@ -152,6 +119,9 @@ class Chain(object):
       ["image",   '(?<=repositories:\n)(.)*'],
       ["imageTag",'(?<=tags:\s)(.)*(?=,)']
     ]
+    log_file= os.path.join(CHAIN_LOG_DIRECTORY, build.image + ".log")
+    with open(log_file, 'r') as f:
+      text=f.read()
 
     build_info = []
     for name, regex in patterns:
@@ -159,10 +129,37 @@ class Chain(object):
       if( matches is not None ):
         build_info.append(matches.group(0))
 
-    if("Error" in text):
+    if( build.failure ):
       build_info.append("ERROR")
 
     return build_info
+
+  def chain_build(self, h_dict, lock):
+    ''' Recursively executes image builds concurrently in hierarchical order '''
+    if(len(h_dict) == 1):
+      image  = next(iter(h_dict))
+      h_dict = next(iter(h_dict.values()))
+      cmd = is_cekit(self.cmd, image, self.build_branch)
+
+      build = Build(image, cmd, lock)
+      build.start()
+      build.join() # Wait for build to finish
+
+      if(build.image in self.image_list):
+        self.log_build(build, lock)
+
+        if(build.failure):
+          print("Incomplete " + build.image + " ( Severing dependent builds )" )
+          return -1
+
+    threads = []
+    for k, v in h_dict.items():
+      thread = threading.Thread(target=self.chain_build, args=[{k : v}, lock])
+      threads.append(thread)
+      thread.start()
+
+    for thread in threads:
+      thread.join()
 
   def parse(self):
     ''' Parses shell arguments '''
@@ -204,21 +201,29 @@ class Chain(object):
     # Command to be run in every image directory
     self.cmd = "cekit build "
 
-    if('tree' in self.args.commands):
-      print_tree(h_dict)
-    elif('build' in self.args.commands):
-      print_tree(h_dict)
-      
-      if("cekit build " in self.cmd):
-        if(self.args.build_type == 'scratch'):
-          self.cmd += '--build-engine=osbs'
-        elif(self.args.build_type == 'release'):
-          self.cmd += '--build-engine=osb --build-osbs-release'
-
+    print_tree(h_dict)
+    if('build' in self.args.commands):
       self.build_type   = self.args.build_type
       self.build_branch = self.args.build_branch
 
-      self.chain_builds(h_dict)
+      if("cekit build " in self.cmd):
+        if(self.build_type == 'scratch'):
+          self.cmd += '--build-engine=osbs'
+        elif(self.build_type == 'release'):
+          self.cmd += '--build-engine=osb --build-osbs-release'
+
+      # For limiting access to shared resources
+      lock = threading.Lock()
+
+      print("--- Builds Started ---")
+      with open(self.log, 'a') as f:
+        f.write("--- Builds Started --- ( %s ) \n" % (self.build_type))
+
+      self.chain_build(h_dict, lock)
+
+      print("--- Builds Complete ---")
+      with open(self.log, 'a') as f:
+        f.write("--- Builds Complete --- ( %s ) \n" % (self.build_type))
 
 def main():
   chain = Chain()

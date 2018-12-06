@@ -21,6 +21,11 @@ modules:
   install:
     - name: kafka
 
+packages:
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+
 ports:
   - value: 9091
   - value: 9092

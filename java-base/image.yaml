@@ -24,13 +24,14 @@ modules:
     - name: modules
       path: modules
   install:
-      - name: dynamic-resources
-      - name: os-java-run
-      - name: os-javabase-install
+    - name: dynamic-resources
+    - name: os-java-run
+    - name: os-javabase-install
 
 packages:
-  repositories:
-    - jboss-os
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
   install:
     - openssl
     - nmap-ncat

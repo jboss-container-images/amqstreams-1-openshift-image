@@ -25,6 +25,11 @@ modules:
   install:
     - name: kafka-connect-s2i
 
+packages:
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+
 envs:
   - name: "S2I_HOME"
     value: "/opt/s2i"

@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams10-stunnelbase-openshift
+name: amqstreams-1/amqstreams11-stunnelbase-openshift
 description: "AMQ Streams base image for Stunnel sidecar images"
-version: "1.0.0"
-from: jboss/base-rhel7:1.1
+version: "1.1.0"
+from: rhel7:7-released
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-stunnelbase-openshift-container"
+    value: "amqstreams11-stunnelbase-openshift-container"
   - name: "io.k8s.description"
     value: "Base image for Stunnel sidecar images"
   - name: "io.k8s.display-name"
@@ -29,8 +29,14 @@ packages:
 
 modules:
   repositories:
-    - path: modules
+    - name: cct_module
+      git:
+        url: https://github.com/jboss-openshift/cct_module.git
+        ref: master
+    - name: modules
+      path: modules
   install:
+    - name: jboss.container.user
     - name: stunnel-base
 
 run:
@@ -39,4 +45,4 @@ run:
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-stunnelbase-openshift-rhel-7
+    branch: rh-amqstreams-1.1-stunnelbase-openshift-rhel-7

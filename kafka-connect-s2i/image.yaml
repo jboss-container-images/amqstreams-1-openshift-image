@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams10-kafkaconnects2i-openshift
+name: amqstreams-1/amqstreams11-kafkaconnects2i-openshift
 description: "AMQ Streams image for Kafka Connect with S2I"
-version: "1.0.0"
-from: amqstreams-1/amqstreams10-kafkaconnect-openshift:1.0.0
+version: "1.1.0"
+from: amqstreams-1/amqstreams11-kafkaconnect-openshift:1.1.0
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-kafkaconnects2i-openshift-container"
+    value: "amqstreams11-kafkaconnects2i-openshift-container"
   - name: "io.k8s.description"
     value: "A framework for scalably and reliably connecting Apache Kafka with external systems with third party connectors support via S2I"
   - name: "io.k8s.display-name"
@@ -42,4 +42,4 @@ run:
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-kafkaconnects2i-openshift-rhel-7
+    branch: rh-amqstreams-1.1-kafkaconnects2i-openshift-rhel-7

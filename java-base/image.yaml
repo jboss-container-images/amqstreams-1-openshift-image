@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams10-javabase-openshift
+name: amqstreams-1/amqstreams11-javabase-openshift
 description: "AMQ Streams base image for Java based components"
-version: "1.0.0"
-from: jboss/openjdk18-rhel7:1.1
+version: "1.1.0"
+from: rhel7:7-released
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-javabase-openshift-container"
+    value: "amqstreams11-javabase-openshift-container"
   - name: "io.k8s.description"
     value: "Base image for Java based components"
   - name: "io.k8s.display-name"
@@ -19,11 +19,14 @@ modules:
   repositories:
     - name: cct_module
       git:
-          url: https://github.com/jboss-openshift/cct_module.git
-          ref: sprint-22
+        url: https://github.com/jboss-openshift/cct_module.git
+        ref: master
     - name: modules
       path: modules
   install:
+    - name: jboss.container.user
+    - name: jboss.container.openjdk.jdk
+      version: "8"
     - name: dynamic-resources
     - name: os-java-run
     - name: os-javabase-install
@@ -40,4 +43,4 @@ packages:
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-javabase-openshift-rhel-7
+    branch: rh-amqstreams-1.1-javabase-openshift-rhel-7

@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams10-kafkastunnel-openshift
+name: amqstreams-1/amqstreams11-kafkastunnel-openshift
 description: "AMQ Streams image for Kafka Stunnel sidecar"
-version: "1.0.0"
-from: amqstreams-1/amqstreams10-stunnelbase-openshift:1.0.0
+version: "1.1.0"
+from: amqstreams-1/amqstreams11-stunnelbase-openshift:1.1.0
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-kafkastunnel-openshift-container"
+    value: "amqstreams11-kafkastunnel-openshift-container"
   - name: "io.k8s.description"
     value: "Image for Kafka Stunnel sidecar"
   - name: "io.k8s.display-name"
@@ -35,4 +35,4 @@ run:
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-kafkastunnel-openshift-rhel-7
+    branch: rh-amqstreams-1.1-kafkastunnel-openshift-rhel-7

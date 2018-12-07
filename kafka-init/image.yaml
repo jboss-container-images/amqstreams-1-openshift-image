@@ -25,9 +25,13 @@ modules:
   install:
     - name: kafka-init
 
+packages:
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+
 artifacts:
-  - path: kafka-init-0.8.1.redhat-00001.jar
-    md5: 4a9990965bbaf1b7c956d35b413f3b91
+  - md5: 4a9990965bbaf1b7c956d35b413f3b91
     name: kafka-init.jar
 
 run:

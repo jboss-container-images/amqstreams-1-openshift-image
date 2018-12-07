@@ -20,8 +20,9 @@ envs:
     value: "/opt/stunnel"
 
 packages:
-  repositories:
-    - jboss-os
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
   install:
     - stunnel
     - hostname

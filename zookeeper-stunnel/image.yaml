@@ -21,6 +21,11 @@ modules:
   install:
     - name: stunnel-zookeeper
 
+packages:
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+
 run:
   workdir: "/opt/stunnel"
   user: 185

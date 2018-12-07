@@ -22,9 +22,13 @@ modules:
   install:
     - name: cluster-operator
 
+packages:
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+
 artifacts:
-  - path: cluster-operator-0.8.1.redhat-00001.jar
-    md5: 5420042711c2bd43ce9a095bc6a2347f
+  - md5: 5420042711c2bd43ce9a095bc6a2347f
     name: cluster-operator.jar
 
 run:

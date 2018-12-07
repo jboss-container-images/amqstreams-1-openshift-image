@@ -25,9 +25,13 @@ modules:
   install:
     - name: user-operator
 
+packages:
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+
 artifacts:
-  - path: user-operator-0.8.1.redhat-00001.jar
-    md5: 8d8e638d7cc4190885a78909546729b3
+  - md5: 8d8e638d7cc4190885a78909546729b3
     name: user-operator.jar
 
 run:

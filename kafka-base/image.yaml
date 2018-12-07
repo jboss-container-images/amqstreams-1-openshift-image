@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams10-kafkabase-openshift
+name: amqstreams-1/amqstreams11-kafkabase-openshift
 description: "AMQ Streams base image for Kafka and Zookeeper"
-version: "1.0.0"
-from: jboss/openjdk18-rhel7:1.1
+version: "1.1.0"
+from: rhel7:7-released
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-kafkabase-openshift-container"
+    value: "amqstreams11-kafkabase-openshift-container"
   - name: "io.k8s.description"
     value: "Base image for Apache Kafka and Zookeeper"
   - name: "io.k8s.display-name"
@@ -21,7 +21,7 @@ envs:
   - name: "SCALA_VERSION"
     value: "2.12"
   - name: "KAFKA_VERSION"
-    value: "1.0.1"
+    value: "2.0.0"
   - name: "JMX_EXPORTER_VERSION"
     value: "0.1.0"
 
@@ -37,8 +37,16 @@ packages:
 
 modules:
   repositories:
-    - path: modules
+    - name: cct_module
+      git:
+        url: https://github.com/jboss-openshift/cct_module.git
+        ref: master
+    - name: modules
+      path: modules
   install:
+    - name: jboss.container.user
+    - name: jboss.container.openjdk.jdk
+      version: "8"
     - name: kafka-base
 
 artifacts:
@@ -53,4 +61,4 @@ run:
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-kafkabase-openshift-rhel-7
+    branch: rh-amqstreams-1.1-kafkabase-openshift-rhel-7

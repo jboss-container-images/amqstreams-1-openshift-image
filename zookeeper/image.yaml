@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams10-zookeeper-openshift
+name: amqstreams-1/amqstreams11-zookeeper-openshift
 description: "AMQ Streams image for Zookeeper"
-version: "1.0.0"
-from: amqstreams-1/amqstreams10-kafkabase-openshift:1.0.0
+version: "1.1.0"
+from: amqstreams-1/amqstreams11-kafkabase-openshift:1.1.0
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-zookeeper-openshift-container"
+    value: "amqstreams11-zookeeper-openshift-container"
   - name: "io.k8s.description"
     value: "A centralized service for distributed systems to a hierarchical key-value store"
   - name: "io.k8s.display-name"
@@ -40,4 +40,4 @@ run:
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-zookeeper-openshift-rhel-7
+    branch: rh-amqstreams-1.1-zookeeper-openshift-rhel-7

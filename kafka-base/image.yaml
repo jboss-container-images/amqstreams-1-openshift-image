@@ -21,7 +21,7 @@ envs:
   - name: "SCALA_VERSION"
     value: "2.12"
   - name: "KAFKA_VERSION"
-    value: "1.0.1"
+    value: "2.0.0"
   - name: "JMX_EXPORTER_VERSION"
     value: "0.1.0"
 

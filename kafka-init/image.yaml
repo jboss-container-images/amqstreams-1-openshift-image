@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams10-kafkainit-openshift
+name: amqstreams-1/amqstreams11-kafkainit-openshift
 description: "AMQ Streams base image for Kafka init"
-version: "1.0.0"
-from: amqstreams-1/amqstreams10-javabase-openshift:1.0.0
+version: "1.1.0"
+from: amqstreams-1/amqstreams11-javabase-openshift:1.1.0
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-kafkainit-openshift-container"
+    value: "amqstreams11-kafkainit-openshift-container"
   - name: "io.k8s.description"
     value: "Image for Kafka init"
   - name: "io.k8s.display-name"
@@ -42,4 +42,4 @@ run:
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-kafkainit-openshift-rhel-7
+    branch: rh-amqstreams-1.1-kafkainit-openshift-rhel-7

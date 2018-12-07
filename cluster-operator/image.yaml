@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams10-clusteroperator-openshift
+name: amqstreams-1/amqstreams11-clusteroperator-openshift
 description: "AMQ Streams image for the Cluster Operator"
-version: "1.0.0"
-from: amqstreams-1/amqstreams10-javabase-openshift:1.0.0
+version: "1.1.0"
+from: amqstreams-1/amqstreams11-javabase-openshift:1.1.0
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-clusteroperator-openshift-container"
+    value: "amqstreams11-clusteroperator-openshift-container"
   - name: "io.k8s.description"
     value: "Cluster Operator component for managing a Kafka Cluster"
   - name: "io.k8s.display-name"
@@ -40,4 +40,4 @@ run:
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-clusteroperator-openshift-rhel-7
+    branch: rh-amqstreams-1.1-clusteroperator-openshift-rhel-7

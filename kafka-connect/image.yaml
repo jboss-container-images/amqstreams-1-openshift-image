@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams10-kafkaconnect-openshift
+name: amqstreams-1/amqstreams11-kafkaconnect-openshift
 description: "AMQ Streams image for Kafka Connect"
-version: "1.0.0"
-from: amqstreams-1/amqstreams10-kafkabase-openshift:1.0.0
+version: "1.1.0"
+from: amqstreams-1/amqstreams11-kafkabase-openshift:1.1.0
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams10-kafkaconnect-openshift-container"
+    value: "amqstreams11-kafkaconnect-openshift-container"
   - name: "io.k8s.description"
     value: "A framework for scalably and reliably connecting Apache Kafka with external systems"
   - name: "io.k8s.display-name"
@@ -37,4 +37,4 @@ run:
 osbs:
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.0-kafkaconnect-openshift-rhel-7
+    branch: rh-amqstreams-1.1-kafkaconnect-openshift-rhel-7

@@ -26,6 +26,7 @@ packages:
   install:
     - stunnel
     - hostname
+    - net-tools
 
 modules:
   repositories:

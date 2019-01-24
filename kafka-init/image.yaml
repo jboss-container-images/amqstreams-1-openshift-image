@@ -40,6 +40,10 @@ run:
      - "/opt/kafka/kafka_init_run.sh"
 
 osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
   repository:
     name: containers/amqstreams-1
     branch: rh-amqstreams-1.1-kafkainit-openshift-rhel-7

@@ -38,6 +38,10 @@ run:
     - "/opt/kafka/zookeeper_run.sh"
 
 osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
   repository:
     name: containers/amqstreams-1
     branch: rh-amqstreams-1.1-zookeeper-openshift-rhel-7

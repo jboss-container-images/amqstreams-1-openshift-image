@@ -37,6 +37,10 @@ run:
     - "/topic-operator.jar"
 
 osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
   repository:
     name: containers/amqstreams-1
     branch: rh-amqstreams-1.1-topicoperator-openshift-rhel-7

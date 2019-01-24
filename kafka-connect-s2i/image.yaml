@@ -40,6 +40,10 @@ run:
     - "/opt/s2i/run"
 
 osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
   repository:
     name: containers/amqstreams-1
     branch: rh-amqstreams-1.1-kafkaconnects2i-openshift-rhel-7

@@ -210,7 +210,7 @@ class Chain(object):
         if(self.build_type == 'scratch'):
           self.cmd += '--build-engine=osbs'
         elif(self.build_type == 'release'):
-          self.cmd += '--build-engine=osb --build-osbs-release'
+          self.cmd += '--build-engine=osbs --build-osbs-release'
 
       # For limiting access to shared resources
       lock = threading.Lock()

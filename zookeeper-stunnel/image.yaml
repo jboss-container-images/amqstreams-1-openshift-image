@@ -33,6 +33,10 @@ run:
      - "/opt/stunnel/stunnel_run.sh"
 
 osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
   repository:
     name: containers/amqstreams-1
     branch: rh-amqstreams-1.0-zookeeperstunnel-openshift-rhel-7

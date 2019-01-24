@@ -59,6 +59,10 @@ run:
   workdir: "/opt/kafka"
 
 osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
   repository:
     name: containers/amqstreams-1
     branch: rh-amqstreams-1.1-kafkabase-openshift-rhel-7

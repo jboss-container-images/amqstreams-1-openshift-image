@@ -49,5 +49,7 @@ if [ -z "$KAFKA_HEAP_OPTS" -a -n "${DYNAMIC_HEAP_FRACTION}" ]; then
     fi
 fi
 
+. ./set_kafka_gc_options.sh
+
 # starting Zookeeper with final configuration
 exec $KAFKA_HOME/bin/zookeeper-server-start.sh /tmp/zookeeper.properties

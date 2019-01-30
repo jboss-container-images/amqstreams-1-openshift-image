@@ -10,7 +10,7 @@ metadata:
     tags: "messaging,datastore"
     iconClass: "fa fa-share-alt fa-flip-horizontal"
     template.openshift.io/documentation-url: "http://strimzi.io"
-message: "Kafka cluster ${CLUSTER_NAME} is being deployed. Use '${CLUSTER_NAME}:9092' as bootstrap server in your application."
+message: "Kafka cluster ${CLUSTER_NAME} is being deployed. Use '${CLUSTER_NAME}-kafka-bootstrap:9092' as bootstrap server in your application."
 parameters:
 - description: All Kubernetes resources will be named after the cluster name
   displayName: Name of the cluster
@@ -26,16 +26,21 @@ parameters:
   name: KAFKA_NODE_COUNT
   required: true
   value: "3"
+- description: The Kafka version to use for this cluster.
+  displayName: The Kafka version to use
+  name: KAFKA_VERSION
+  required: true
+  value: "2.1.0"
 - description: Volume space available for Zookeeper data, e.g. 512Mi, 2Gi.
   displayName: Zookeeper Volume Capacity
   name: ZOOKEEPER_VOLUME_CAPACITY
   required: true
-  value: 1Gi
+  value: 100Gi
 - description: Volume space available for Kafka data, e.g. 512Mi, 2Gi.
   displayName: Kafka Volume Capacity
   name: KAFKA_VOLUME_CAPACITY
   required: true
-  value: 1Gi
+  value: 100Gi
 - description: Number of seconds after the container has started before healthcheck probes are initiated.
   displayName: Zookeeper healthcheck initial delay
   name: ZOOKEEPER_HEALTHCHECK_DELAY
@@ -71,6 +76,7 @@ objects:
     name: ${CLUSTER_NAME}
   spec:
     kafka:
+      version: ${{KAFKA_VERSION}}
       replicas: ${{KAFKA_NODE_COUNT}}
       listeners:
         plain: {}
@@ -89,6 +95,7 @@ objects:
         default.replication.factor: ${KAFKA_DEFAULT_REPLICATION_FACTOR}
         offsets.topic.replication.factor: ${KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR}
         transaction.state.log.replication.factor: ${KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR}
+        log.message.format.version: ${KAFKA_VERSION}
     zookeeper:
       replicas: ${{ZOOKEEPER_NODE_COUNT}}
       livenessProbe:

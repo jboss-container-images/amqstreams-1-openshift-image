@@ -1,4 +1,5 @@
 #!/bin/bash
+set +x
 
 if [ -z "$KAFKA_CONNECT_PLUGIN_PATH" ]; then
 export KAFKA_CONNECT_PLUGIN_PATH="${KAFKA_HOME}/plugins"
@@ -21,8 +22,6 @@ echo ""
 
 # Disable Kafka's GC logging (which logs to a file)...
 export GC_LOG_ENABLED="false"
-# ... but enable equivalent GC logging to stdout
-export KAFKA_GC_LOG_OPTS="-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps"
 
 if [ -z "$KAFKA_LOG4J_OPTS" ]; then
 export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$KAFKA_HOME/custom-config/log4j.properties"
@@ -47,6 +46,8 @@ if [ -z "$KAFKA_HEAP_OPTS" -a -n "${DYNAMIC_HEAP_FRACTION}" ]; then
       export KAFKA_HEAP_OPTS="-Xms${CALC_MAX_HEAP} -Xmx${CALC_MAX_HEAP}"
     fi
 fi
+
+. ./set_kafka_gc_options.sh
 
 # starting Kafka server with final configuration
 exec $KAFKA_HOME/bin/connect-distributed.sh /tmp/strimzi-connect.properties

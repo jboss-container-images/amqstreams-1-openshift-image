@@ -5,21 +5,26 @@ metadata:
 spec:
   kafka:
     version: 2.1.0
-    replicas: 3
+    replicas: 1
     listeners:
       plain: {}
       tls: {}
     config:
-      offsets.topic.replication.factor: 3
-      transaction.state.log.replication.factor: 3
-      transaction.state.log.min.isr: 2
+      offsets.topic.replication.factor: 1
+      transaction.state.log.replication.factor: 1
+      transaction.state.log.min.isr: 1
       log.message.format.version: "2.1"
     storage:
-      type: ephemeral
+      type: persistent-claim
+      size: 100Gi
+      deleteClaim: false
   zookeeper:
-    replicas: 3
+    replicas: 1
     storage:
-      type: ephemeral
+      type: persistent-claim
+      size: 100Gi
+      deleteClaim: false
   entityOperator:
     topicOperator: {}
     userOperator: {}
+

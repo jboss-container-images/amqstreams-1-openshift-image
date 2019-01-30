@@ -1,4 +1,5 @@
 #!/bin/bash
+set +x
 
 if [ -n "$KAFKA_MIRRORMAKER_TRUSTED_CERTS_CONSUMER" ] || [ -n "$KAFKA_MIRRORMAKER_TRUSTED_CERTS_PRODUCER" ]; then
     # Generate temporary keystore password
@@ -37,8 +38,6 @@ echo ""
 
 # Disable Kafka's GC logging (which logs to a file)...
 export GC_LOG_ENABLED="false"
-# ... but enable equivalent GC logging to stdout
-export KAFKA_GC_LOG_OPTS="-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps"
 
 if [ -z "$KAFKA_LOG4J_OPTS" ]; then
 export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:$KAFKA_HOME/custom-config/log4j.properties"
@@ -71,6 +70,8 @@ fi
 if [ -n "$KAFKA_MIRRORMAKER_NUMSTREAMS" ]; then
     numstreams="--num.streams ${KAFKA_MIRRORMAKER_NUMSTREAMS}"
 fi
+
+. ./set_kafka_gc_options.sh
 
 # starting Kafka Mirror Maker with final configuration
 exec $KAFKA_HOME/bin/kafka-mirror-maker.sh \

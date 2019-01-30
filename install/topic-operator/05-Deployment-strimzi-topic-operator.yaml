@@ -14,7 +14,7 @@ spec:
       serviceAccountName: strimzi-topic-operator
       containers:
         - name: strimzi-topic-operator
-          image: registry.access.redhat.com/amqstreams-1/amqstreams10-topicoperator-openshift:1.0.0
+          image: strimzi/topic-operator:0.10.0-rc1
           env:
             - name: STRIMZI_CONFIGMAP_LABELS
               value: "strimzi.io/kind=topic"

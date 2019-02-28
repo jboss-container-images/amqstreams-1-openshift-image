@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams11-useroperator-openshift
+name: amq7/amq-streams-user-operator
 description: "AMQ Streams image for User Operator"
 version: "1.1.0"
-from: amqstreams-1/amqstreams11-javabase-openshift:1.1.0
+from: amq7/amq-streams-java-base:1.1.0
 
 labels:
   - name: "com.redhat.component"
@@ -14,10 +14,6 @@ labels:
     value: "AMQ Streams User Operator"
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
-
-envs:
-  - name: "AMQSTREAMS_HOME"
-    value: "/opt/amqstreams"
 
 modules:
   repositories:

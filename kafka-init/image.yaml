@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams11-kafkainit-openshift
+name: amq7/amq-streams-kafka-init
 description: "AMQ Streams base image for Kafka init"
 version: "1.1.0"
-from: amqstreams-1/amqstreams11-javabase-openshift:1.1.0
+from: amq7/amq-streams-java-base:1.1.0
 
 labels:
   - name: "com.redhat.component"

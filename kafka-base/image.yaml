@@ -1,6 +1,6 @@
 schema_version: 1
 
-name: amqstreams-1/amqstreams11-kafkabase-openshift
+name: amq7/amq-streams-kafka-base
 description: "AMQ Streams base image for Kafka and Zookeeper"
 version: "1.1.0"
 from: rhel7:7-released

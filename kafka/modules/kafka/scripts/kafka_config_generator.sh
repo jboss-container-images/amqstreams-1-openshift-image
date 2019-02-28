@@ -1,4 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+# Parameters:
+# $1: Broker ID
+function get_address_for_broker {
+  for ADDRESS in $KAFKA_EXTERNAL_ADDRESSES ; do
+    if [[ $ADDRESS == $1://* ]] ; then
+      echo ${ADDRESS#"$1://"}
+    fi
+  done
+}
 
 #####
 # PLAIN listener
@@ -70,18 +80,25 @@ if [ "$KAFKA_EXTERNAL_ENABLED" ]; then
   ADDRESSES=($KAFKA_EXTERNAL_ADDRESSES)
 
   if [ "$KAFKA_EXTERNAL_ENABLED" = "route" ]; then
-    ADVERTISED_LISTENERS="${ADVERTISED_LISTENERS},EXTERNAL://${ADDRESSES[$KAFKA_BROKER_ID]}:443"
+    ADVERTISED_LISTENERS="${ADVERTISED_LISTENERS},EXTERNAL://$(get_address_for_broker $KAFKA_BROKER_ID)"
   elif [ "$KAFKA_EXTERNAL_ENABLED" = "loadbalancer" ]; then
-    ADVERTISED_LISTENERS="${ADVERTISED_LISTENERS},EXTERNAL://${ADDRESSES[$KAFKA_BROKER_ID]}:9094"
+    ADVERTISED_LISTENERS="${ADVERTISED_LISTENERS},EXTERNAL://$(get_address_for_broker $KAFKA_BROKER_ID)"
   elif [ "$KAFKA_EXTERNAL_ENABLED" = "nodeport" ]; then
-    if [ -e $KAFKA_HOME/init/external.address ]; then
+    EXTERNAL_PORT=${ADDRESSES[$KAFKA_BROKER_ID]}
+    if [ -e $KAFKA_HOME/init/external.address.$KAFKA_BROKER_ID.port ]; then
+      EXTERNAL_PORT=$(cat $KAFKA_HOME/init/external.address.$KAFKA_BROKER_ID.port)
+    fi
+
+    if [ -e $KAFKA_HOME/init/external.address.$KAFKA_BROKER_ID.host ]; then
+      EXTERNAL_ADDRESS=$(cat $KAFKA_HOME/init/external.address.${KAFKA_BROKER_ID}.host)
+    elif [ -e $KAFKA_HOME/init/external.address ]; then
       EXTERNAL_ADDRESS=$(cat $KAFKA_HOME/init/external.address)
     else
       echo "-E- External address not found"
       exit 1
     fi
 
-    ADVERTISED_LISTENERS="${ADVERTISED_LISTENERS},EXTERNAL://${EXTERNAL_ADDRESS}:${ADDRESSES[$KAFKA_BROKER_ID]}"
+    ADVERTISED_LISTENERS="${ADVERTISED_LISTENERS},EXTERNAL://${EXTERNAL_ADDRESS}:${EXTERNAL_PORT}"
   fi
 
   if [ "$KAFKA_EXTERNAL_TLS" = "true" ]; then
@@ -160,7 +177,7 @@ zookeeper.connect=localhost:2181
 zookeeper.connection.timeout.ms=6000
 
 # Logs
-log.dirs=${KAFKA_LOG_DIRS}
+log.dirs=${KAFKA_LOG_DIRS_WITH_PATH}
 
 # TLS / SSL
 ssl.keystore.password=${CERTS_STORE_PASSWORD}

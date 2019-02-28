@@ -222,8 +222,8 @@ def format_name(name, source):
   ''' Returns formated upstream or downstream image name '''
   config = yaml.load(open(CONFIG))[source]
 
-  if(source == "downstream"):
-    name = name.replace("-", "")
+  #if(source == "downstream"):
+  #  name = name.replace("-", "")
 
   iname = "-".join(filter(None, [config["prefix"], name, config["suffix"]]))
   fname = "/".join(filter(None, [config["registry"], config["family"], iname]))

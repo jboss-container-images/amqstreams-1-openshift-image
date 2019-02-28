@@ -1,18 +1,18 @@
 upstream:
   git_repo: https://github.com/strimzi/strimzi-kafka-operator.git
-  branch: release-0.10.x
+  branch: release-0.11.x
   registry: ''
   family: strimzi
   prefix: ''
   suffix: ''
-  tag: 0.10.0-RC1
+  tag: 0.11.0
 downstream:
   git_repo: https://github.com/jboss-container-images/amqstreams-1-openshift-image
   branch: amqstreams11-dev
   registry: registry.access.redhat.com
-  family: amqstreams-1
-  prefix: amqstreams11
-  suffix: openshift
+  family: amq7
+  prefix: amq-streams
+  suffix: ''
   tag: 1.1.0
   osbs:
     repository: containers/amqstreams-1

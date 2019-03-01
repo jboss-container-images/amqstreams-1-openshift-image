@@ -14,6 +14,8 @@ labels:
     value: "AMQ Streams Apache Kafka and Zookeeper base"
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
+  - name: "licenses"
+    value: "/root/licenses"
 
 envs:
   - name: "KAFKA_HOME"
@@ -24,6 +26,8 @@ envs:
     value: "2.0.0"
   - name: "JMX_EXPORTER_VERSION"
     value: "0.1.0"
+  - name: "COM_REDHAT_COMPONENT"
+    value: "amqstreams11-kafkabase-openshift-container"
 
 packages:
   content_sets:

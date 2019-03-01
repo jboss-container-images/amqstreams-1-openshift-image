@@ -14,10 +14,14 @@ labels:
     value: "AMQ Streams Kafka init"
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
+  - name: "licenses"
+    value: "/root/licenses"
 
 envs:
   - name: "KAFKA_HOME"
     value: "/opt/kafka"
+  - name: "COM_REDHAT_COMPONENT"
+    value: "amqstreams11-kafkainit-openshift-container"
 
 modules:
   repositories:
@@ -37,7 +41,7 @@ artifacts:
 run:
   user: 185
   cmd:
-     - "/opt/kafka/kafka_init_run.sh"
+    - "/opt/kafka/kafka_init_run.sh"
 
 osbs:
   configuration:

@@ -14,6 +14,12 @@ labels:
     value: "AMQ Streams Cluster Operator"
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
+  - name: "licenses"
+    value: "/root/licenses"
+
+envs:
+  - name: "COM_REDHAT_COMPONENT"
+    value: "amqstreams11-clusteroperator-openshift-container"
 
 modules:
   repositories:

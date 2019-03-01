@@ -5,6 +5,8 @@ set -e
 SOURCES_DIR=/tmp/artifacts
 SCRIPT_DIR=$(dirname $0)
 SCRIPTS_DIR=${SCRIPT_DIR}/scripts
+LICENSE_DIR=/root/licenses
+PRODUCT_LICENSE_DIR=${LICENSE_DIR}/${COM_REDHAT_COMPONENT}
 
 mkdir $KAFKA_HOME
 tar xvfz "${SOURCES_DIR}/kafka.tar.gz" -C ${KAFKA_HOME} --strip-components=1
@@ -20,3 +22,6 @@ chmod -R 0755 /opt/prometheus
 
 cp -r ${SCRIPTS_DIR}/* ${KAFKA_HOME}/
 chmod -R 755 ${KAFKA_HOME}
+
+mkdir -p ${PRODUCT_LICENSE_DIR}
+cp ${KAFKA_HOME}/docs/licen*/* ${PRODUCT_LICENSE_DIR}

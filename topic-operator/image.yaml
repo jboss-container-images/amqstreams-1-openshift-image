@@ -32,7 +32,7 @@ packages:
       - rhel-7-server-rpms
 
 artifacts:
-  - md5: 3a377582f19add6afe5f9f6d862ba46f
+  - md5: 9c380c28cfe2ff9f9952ab92d0b7c949
     name: topic-operator.jar
 
 run:

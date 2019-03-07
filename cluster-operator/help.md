@@ -1,4 +1,4 @@
-% amqstreams10-clusteroperator-openshift (1) Container Image Pages
+% amq7/amq-streams-cluster-operator (1) Container Image Pages
 
 # NAME
 

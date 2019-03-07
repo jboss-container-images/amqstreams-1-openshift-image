@@ -1,4 +1,4 @@
-% amqstreams10-entityoperatorstunnel-openshift (1) Container Image Pages
+% amq7/amq-streams-entity-operator-stunnel (1) Container Image Pages
 
 # NAME
 

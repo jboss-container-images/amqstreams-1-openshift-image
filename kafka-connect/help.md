@@ -1,4 +1,4 @@
-% amqstreams10-kafkaconnect-openshift (1) Container Image Pages
+% amq7/amq-streams-kafka-connect (1) Container Image Pages
 
 # NAME
 

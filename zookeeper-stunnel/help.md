@@ -1,4 +1,4 @@
-% amqstreams10-zookeeperstunnel-openshift (1) Container Image Pages
+% amq7/amq-streams-zookeeper-stunnel (1) Container Image Pages
 
 # NAME
 

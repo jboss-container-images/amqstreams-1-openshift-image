@@ -1,5 +1,5 @@
 schema_version: 1
 
-name: os-javabase-install
+name: java-base
 execute:
   - script: install.sh

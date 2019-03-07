@@ -1,4 +1,4 @@
-% amqstreams10-topicoperator-openshift (1) Container Image Pages
+% amq7/amq-streams-topic-operator (1) Container Image Pages
 
 # NAME
 

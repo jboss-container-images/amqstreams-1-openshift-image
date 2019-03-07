@@ -1,4 +1,4 @@
-% amqstreams10-useroperator-openshift (1) Container Image Pages
+% amq7/amq-streams-user-operator (1) Container Image Pages
 
 # NAME
 

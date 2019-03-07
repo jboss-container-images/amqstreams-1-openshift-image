@@ -1,0 +1,45 @@
+schema_version: 1
+
+name: amq7/amq-streams-kafka-connect
+description: "AMQ Streams image for Kafka Connect"
+version: "1.1.0-kafka-2.1.1"
+from: amq7/amq-streams-kafka-base:1.1.0-kafka-2.1.1
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams11-kafkaconnect-211-openshift-container"
+  - name: "io.k8s.description"
+    value: "A framework for scalably and reliably connecting Apache Kafka with external\
+      \ systems"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Apache Kafka Connect"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
+modules:
+  repositories:
+    - path: ../modules
+  install:
+    - name: kafka-connect
+
+packages:
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+
+ports:
+  - value: 8083
+
+run:
+  user: 185
+  cmd:
+    - "/opt/kafka/kafka_connect_run.sh"
+
+osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.1-kafkaconnect-kafka-2.1.1-openshift-rhel-7

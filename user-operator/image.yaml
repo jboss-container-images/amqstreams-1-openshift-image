@@ -33,13 +33,13 @@ packages:
       - rhel-7-server-rpms
 
 artifacts:
-  - md5: 8d8e638d7cc4190885a78909546729b3
+  - md5: e352a770ac94f1f87b06865250eb03ff
     name: user-operator.jar
 
 run:
   user: 185
   cmd:
-    - "/bin/launch_java.sh"
+    - "/bin/user_operator_run.sh"
     - "/user-operator.jar"
 
 osbs:

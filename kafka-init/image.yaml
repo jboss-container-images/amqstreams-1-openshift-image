@@ -35,13 +35,14 @@ packages:
       - rhel-7-server-rpms
 
 artifacts:
-  - md5: 4a9990965bbaf1b7c956d35b413f3b91
+  - md5: 64e5c804f24932a378cb7ae1c781d519
     name: kafka-init.jar
 
 run:
   user: 185
   cmd:
-    - "/opt/kafka/kafka_init_run.sh"
+    - "/bin/launch_java.sh"
+    - "/kafka-init.jar"
 
 osbs:
   configuration:

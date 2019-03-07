@@ -1,4 +1,4 @@
-% amqstreams10-kafkamirrormaker-openshift (1) Container Image Pages
+% amq7/amq-streams-kafka-mirror-maker (1) Container Image Pages
 
 # NAME
 

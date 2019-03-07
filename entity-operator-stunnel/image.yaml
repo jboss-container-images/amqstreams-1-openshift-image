@@ -30,7 +30,7 @@ run:
   workdir: "/opt/stunnel"
   user: 185
   cmd:
-     - "/opt/stunnel/stunnel_run.sh"
+    - "/opt/stunnel/stunnel_run.sh"
 
 osbs:
   configuration:

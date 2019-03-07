@@ -1,4 +1,4 @@
-% amqstreams10-kafkastunnel-openshift (1) Container Image Pages
+% amq7/amq-streams-kafka-stunnel (1) Container Image Pages
 
 # NAME
 

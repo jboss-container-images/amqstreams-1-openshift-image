@@ -29,6 +29,7 @@ modules:
       version: "8"
     - name: dynamic-resources
     - name: os-java-run
+    - name: java-base
 
 packages:
   content_sets:
@@ -38,6 +39,10 @@ packages:
     - openssl
     - nmap-ncat
     - hostname
+
+artifacts:
+  - md5: 6df7007701c8c4e6a5d87e7a7c8ece1c
+    name: strimzi_licenses.tgz
 
 osbs:
   configuration:

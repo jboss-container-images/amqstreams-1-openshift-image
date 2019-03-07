@@ -1,4 +1,4 @@
-% amqstreams10-javabase-openshift (1) Container Image Pages
+% amq7/amq-streams-java-base (1) Container Image Pages
 
 # NAME
 

@@ -23,8 +23,7 @@ envs:
 
 modules:
   repositories:
-    - name: cluster-operator
-      path: modules/cluster-operator
+    - path: modules
   install:
     - name: cluster-operator
 
@@ -34,7 +33,7 @@ packages:
       - rhel-7-server-rpms
 
 artifacts:
-  - md5: 5420042711c2bd43ce9a095bc6a2347f
+  - md5: b5afb903a8d5c585ab4a47de51228100
     name: cluster-operator.jar
 
 run:

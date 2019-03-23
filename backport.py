@@ -227,7 +227,7 @@ def format_name(name, source):
 
   iname = "-".join(filter(None, [config["prefix"], name, config["suffix"]]))
   fname = "/".join(filter(None, [config["registry"], config["family"], iname]))
-  tname = ":".join([fname, config["tag"]])
+  tname = ":".join([fname, config["version"]])
 
   return tname
 

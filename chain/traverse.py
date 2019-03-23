@@ -1,38 +1,16 @@
 import os
-import yaml
 
-def upstream_name(name, image_list):
-  ''' Given downstream image name returns upstream image name'''
-  n = name.split("/")[-1]
+from chain.image import Image
 
-  if(len(n.split("-")) > 2):
-    n = n.split("-")[1]
-
-  for i in image_list:
-    if(n == i.replace("-","")):
-      return i
-
-  return n
-
-def get_image_name(path, image_list):
+def get_images(path, image_list, config):
   ''' Appends directories containing image descriptor files to list '''
-  if(os.path.basename(path) == 'image.yaml'):
-    image_name = os.path.basename(os.path.dirname(path))
-    image_list.append(image_name)
-    return True
-  return False
-
-def get_image_base(path, image_list, rank_list):
-  ''' Extracts image name and basename from image descriptor file '''
-  if(os.path.basename(path) == "image.yaml"):
-    with open(path, 'r') as yaml_file:
-      data = yaml.load(yaml_file)
+  dirname = os.path.basename(os.path.dirname(path)) 
+  if(os.path.basename(path) == 'image.yaml' and 'image.yaml' not in 
+                  os.listdir(os.path.dirname(os.path.dirname(path)))):
+      image = Image(path, config) 
+      image_list.append(image)
  
-      name = upstream_name(data["name"], image_list)
-      base = upstream_name(data["from"], image_list)
-
-      rank_list.append([base, name])
-    return True
+      return True
   return False
 
 def traverse(path, function, *args):

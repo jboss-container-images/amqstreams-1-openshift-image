@@ -47,4 +47,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.1-kafkaconnects2i-kafka-2.1.1-openshift-rhel-7
+    branch: rh-amqstreams-1.1-kafkaconnects2i-2.1.1-openshift-rhel-7

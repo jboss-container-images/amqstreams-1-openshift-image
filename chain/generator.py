@@ -19,8 +19,9 @@ def create_help_md(image):
     h_path = os.path.join(image.src_path, "help.md")
     with open(h_path) as f:
         lines = f.readlines()
-
-    lines[0] = "% " + image.product_name + " (1) Container Image Pages\n"
+    
+    if(len(lines)>0):
+        lines[0] = "% " + image.product_name + " (1) Container Image Pages\n"
 
     with open(h_path, "w") as f:
         f.writelines(lines)

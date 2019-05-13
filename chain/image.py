@@ -40,7 +40,7 @@ class Image():
     def extract_from_idf(self, path):
         if(os.path.isfile(path)):
             with open(path, 'r') as yaml_file:
-                data = yaml.load(yaml_file)
+                data = yaml.load(yaml_file, Loader=yaml.FullLoader)
         
             upstream = lambda x: x.replace("amq7/amq-streams-","") 
 

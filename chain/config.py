@@ -57,7 +57,7 @@ class Config():
     def open_config(self, path):
         if(os.path.isfile(path)):
             with open(path, 'r') as yaml_file:
-                return yaml.load(yaml_file)
+                return yaml.load(yaml_file, Loader=yaml.FullLoader)
 
     def build_command(self, build_type):
         cmd = "cekit build "

@@ -42,7 +42,7 @@ def create_multi_version_files(image):
 
 def add_override(src, config):
     if(config.build_branch in ['dev', 'cp']):
-        branch = src["osbs"]["repository"]["branch"].replace("rhel", + config.build_branch + "-rhel") 
+        branch = src["osbs"]["repository"]["branch"].replace("rhel", config.build_branch + "-rhel") 
 
         override = " --overrides {'osbs': {'repository': {'branch': '"\
             + branch + \

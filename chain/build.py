@@ -29,7 +29,7 @@ class Build(threading.Thread):
   def run(self):
     stdout=""
     cwd = self.image.path
-    if(self.config.build_type == "release" or self.config.build_type == "osbs"):
+    if(self.config.build_type == "release" or self.config.build_type == "scratch"):
         self.config.cmd = self.config.cmd + " --build-osbs-target " + "rh-amqstreams-1.1-rhel-7-containers-candidate" #self.image.target
         #print(self.config.cmd)
     if(os.path.exists(cwd)):

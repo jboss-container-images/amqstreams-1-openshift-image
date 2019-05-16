@@ -2,8 +2,8 @@ schema_version: 1
 
 name: amq7/amq-streams-user-operator
 description: "AMQ Streams image for User Operator"
-version: "1.1.0"
-from: amq7/amq-streams-java-base:1.1.0
+version: "1.1.1"
+from: amq7/amq-streams-java-base:1.1.1
 
 labels:
   - name: "com.redhat.component"
@@ -33,7 +33,7 @@ packages:
       - rhel-7-server-rpms
 
 artifacts:
-  - md5: e352a770ac94f1f87b06865250eb03ff
+  - md5: e6802930edfb3826295b85c2276d9652
     name: user-operator.jar
 
 run:
@@ -49,4 +49,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.1-useroperator-openshift-rhel-7
+    branch: rh-amqstreams-1.1-useroperator-openshift-cp-rhel-7

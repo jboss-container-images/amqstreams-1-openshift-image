@@ -2,8 +2,8 @@ schema_version: 1
 
 name: amq7/amq-streams-kafka
 description: "AMQ Streams image for Kafka"
-version: "1.1.0-kafka-2.1.1"
-from: amq7/amq-streams-kafka-base:1.1.0-kafka-2.1.1
+version: "1.1.1-kafka-2.1.1"
+from: amq7/amq-streams-kafka-base:1.1.1-kafka-2.1.1
 
 labels:
   - name: "com.redhat.component"
@@ -43,4 +43,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.1-kafka-2.1.1-openshift-rhel-7
+    branch: rh-amqstreams-1.1-kafka-2.1.1-openshift-cp-rhel-7

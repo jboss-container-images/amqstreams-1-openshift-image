@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq7/amq-streams-kafka-base
 description: "AMQ Streams base image for Kafka and Zookeeper"
-version: "1.1.0-kafka-2.1.1"
+version: "1.1.1-kafka-2.1.1"
 from: rhel7:7-released
 
 labels:
@@ -69,4 +69,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.1-kafkabase-2.1.1-openshift-rhel-7
+    branch: rh-amqstreams-1.1-kafkabase-2.1.1-openshift-cp-rhel-7

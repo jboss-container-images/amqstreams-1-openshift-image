@@ -2,8 +2,8 @@ schema_version: 1
 
 name: amq7/amq-streams-cluster-operator
 description: "AMQ Streams image for the Cluster Operator"
-version: "1.1.0"
-from: amq7/amq-streams-java-base:1.1.0
+version: "1.1.1"
+from: amq7/amq-streams-java-base:1.1.1
 
 labels:
   - name: "com.redhat.component"
@@ -33,7 +33,7 @@ packages:
       - rhel-7-server-rpms
 
 artifacts:
-  - md5: b5afb903a8d5c585ab4a47de51228100
+  - md5: 576ad5bd8f5da1f77a00fb269297ad9b
     name: cluster-operator.jar
 
 run:
@@ -49,4 +49,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.1-clusteroperator-openshift-rhel-7
+    branch: rh-amqstreams-1.1-clusteroperator-openshift-cp-rhel-7

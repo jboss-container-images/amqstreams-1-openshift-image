@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq7/amq-streams-java-base
 description: "AMQ Streams base image for Java based components"
-version: "1.1.0"
+version: "1.1.1"
 from: rhel7:7-released
 
 labels:
@@ -41,7 +41,7 @@ packages:
     - hostname
 
 artifacts:
-  - md5: 6df7007701c8c4e6a5d87e7a7c8ece1c
+  - md5: c53c36ba9ab2dc6d6b9bb1969780bb75
     name: strimzi_licenses.tgz
 
 osbs:
@@ -51,4 +51,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.1-javabase-openshift-rhel-7
+    branch: rh-amqstreams-1.1-javabase-openshift-cp-rhel-7

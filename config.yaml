@@ -5,19 +5,19 @@ upstream:
   family: strimzi
   prefix: ''
   suffix: ''
-  version: 0.11.0
+  version: 0.11.4
 downstream:
   git_repo: https://github.com/jboss-container-images/amqstreams-1-openshift-image
-  branch: amqstreams11-dev
+  branch: amqstreams11-cp
   registry: registry.access.redhat.com
   family: amq7
   prefix: amq-streams
   suffix: ''
-  version: 1.1.0
+  version: 1.1.1
   osbs:
     repository: containers/amqstreams-1
     prefix: rh-amqstreams-1.1
-    suffix: openshift-rhel-7
+    suffix: openshift-cp-rhel-7
 jars:
   kafka-base:
       - name: kafka.tar.gz
@@ -30,19 +30,19 @@ jars:
         md5: 89e83b40f70c9ca43a409e5b485555bc
   cluster-operator:
       - name: cluster-operator.jar
-        md5: b5afb903a8d5c585ab4a47de51228100
+        md5: 576ad5bd8f5da1f77a00fb269297ad9b
   topic-operator:
       - name: topic-operator.jar
-        md5: 9c380c28cfe2ff9f9952ab92d0b7c949
+        md5: 6a252b6b748f1541a5ff009253ba8816
   user-operator:
       - name: user-operator.jar
-        md5: e352a770ac94f1f87b06865250eb03ff
+        md5: bddcda41a8d8688c5c6f46de61177aa9
   kafka-init:
       - name: kafka-init.jar
-        md5: 64e5c804f24932a378cb7ae1c781d519
+        md5: e6802930edfb3826295b85c2276d9652
   java-base:
       - name: strimzi_licenses.tgz
-        md5: 6df7007701c8c4e6a5d87e7a7c8ece1c
+        md5: c53c36ba9ab2dc6d6b9bb1969780bb75
 cluster:
   local:
     user: admin

@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq7/amq-streams-stunnel-base
 description: "AMQ Streams base image for Stunnel sidecar images"
-version: "1.1.0"
+version: "1.1.1"
 from: rhel7:7-released
 
 labels:
@@ -50,4 +50,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.1-stunnelbase-openshift-rhel-7
+    branch: rh-amqstreams-1.1-stunnelbase-openshift-cp-rhel-7

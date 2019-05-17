@@ -53,6 +53,8 @@ class Config():
 
         self.build_children      = params.build_children
         self.build_children_only = params.build_children_only
+
+        self.branch_suffix = public_config["downstream"]["osbs"]["suffix"]
         
     def open_config(self, path):
         if(os.path.isfile(path)):

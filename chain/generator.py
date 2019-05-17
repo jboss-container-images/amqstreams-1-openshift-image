@@ -54,7 +54,7 @@ def add_override(src, config):
 
 def generate_descriptor(image, config):
     ''' Updates image descriptor file to image specifications '''
-    create_help_md(image)   
+    create_help_md(image)
     create_multi_version_files(image)
     
     # Update descriptor fields    
@@ -122,7 +122,7 @@ def generate_descriptor(image, config):
     kv = lambda x: "-" + x if x else ""
     branch_name = "rh-amqstreams-1.1-" + image.upstream_name.replace("-","") \
                                        + kv(image.kafka_version_number) \
-                                       + "-openshift-rhel-7"
+                                       + "-" + config.branch_suffix
     src["osbs"]["repository"]["branch"] = branch_name
     
     # Update target value

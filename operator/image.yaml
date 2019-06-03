@@ -52,20 +52,15 @@ run:
 
 artifacts:
   - md5: e385b8662ad6ae61f8d456d159b1dc3c
-    name: cluster-operator-0.12.0.temporary-redhat-00001-dist.zip
-    url: http://indy.psi.redhat.com/api/content/maven/group/temporary-builds/io/strimzi/cluster-operator/0.12.0.temporary-redhat-00001/cluster-operator-0.12.0.temporary-redhat-00001-dist.zip
+    name: cluster-operator-dist.zip
   - md5: 21c79b0e722f8c36b16e2dd2309b9730
-    name: topic-operator-0.12.0.temporary-redhat-00001-dist.zip
-    url: http://indy.psi.redhat.com/api/content/maven/group/temporary-builds/io/strimzi/topic-operator/0.12.0.temporary-redhat-00001/topic-operator-0.12.0.temporary-redhat-00001-dist.zip
+    name: topic-operator-dist.zip
   - md5: 596316f193dbfdef9504c794d3eb2b35
-    name: user-operator-0.12.0.temporary-redhat-00001-dist.zip
-    url: http://indy.psi.redhat.com/api/content/maven/group/temporary-builds/io/strimzi/user-operator/0.12.0.temporary-redhat-00001/user-operator-0.12.0.temporary-redhat-00001-dist.zip
+    name: user-operator-dist.zip
   - md5: 6f1686667eccd45b5e9dfd45d4ab4e32
-    name: kafka-init-0.12.0.temporary-redhat-00001-dist.zip
-    url: http://indy.psi.redhat.com/api/content/maven/group/temporary-builds/io/strimzi/kafka-init/0.12.0.temporary-redhat-00001/kafka-init-0.12.0.temporary-redhat-00001-dist.zip
+    name: kafka-init-dist.zip
   - md5: 1c29432fc672ae3b6d2cebfd46213845
-    name: strimzi-licenses-0.12.0.temporary-redhat-00001.tar.gz
-    url: http://indy.psi.redhat.com/api/content/maven/group/temporary-builds/io/strimzi/strimzi-licenses/0.12.0.temporary-redhat-00001/strimzi-licenses-0.12.0.temporary-redhat-00001.tar.gz
+    name: strimzi-licenses.tar.gz
 
 osbs:
   configuration:

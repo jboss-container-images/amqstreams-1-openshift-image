@@ -1,0 +1,66 @@
+schema_version: 1
+
+name: amq7/amq-streams-operator
+description: "AMQ Streams image for the Cluster, Topic, User Operators, and Kafka init"
+version: "1.2.0"
+from: rhel7:7-released
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams12-operator-openshift-container"
+  - name: "io.k8s.description"
+    value: "Cluster, Topic and User Operators components for managing a Kafka Cluster, Topic and User. Kafka init for container initialization."
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Operator"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+  - name: "licenses"
+    value: "/root/licenses"
+
+envs:
+  - name: "COM_REDHAT_COMPONENT"
+    value: "amqstreams12-operator-openshift-container"
+
+modules:
+  repositories:
+    - name: cct_module
+      git:
+        url: https://github.com/jboss-openshift/cct_module.git
+        ref: sprint-28
+    - name: modules
+      path: modules
+  install:
+    - name: jboss.container.user
+    - name: jboss.container.openjdk.jdk
+      version: "8"
+    - name: dynamic-resources
+    - name: os-java-run
+    - name: operator
+
+packages:
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+  install:
+    - openssl
+    - nmap-ncat
+    - hostname
+
+artifacts:
+  - md5: e385b8662ad6ae61f8d456d159b1dc3c
+    name: cluster-operator-0.12.0.temporary-redhat-00001-dist.zip
+  - md5: 21c79b0e722f8c36b16e2dd2309b9730
+    name: topic-operator-0.12.0.temporary-redhat-00001-dist.zip
+  - md5: 596316f193dbfdef9504c794d3eb2b35
+    name: user-operator-0.12.0.temporary-redhat-00001-dist.zip
+  - md5: 6f1686667eccd45b5e9dfd45d4ab4e32
+    name: kafka-init-0.12.0.temporary-redhat-00001-dist.zip
+
+osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.2-operator-openshift-rhel-7

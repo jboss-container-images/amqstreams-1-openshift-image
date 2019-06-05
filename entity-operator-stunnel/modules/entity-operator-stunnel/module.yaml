@@ -1,5 +1,0 @@
-schema_version: 1
-
-name: entity-operator-stunnel
-execute:
-  - script: install.sh

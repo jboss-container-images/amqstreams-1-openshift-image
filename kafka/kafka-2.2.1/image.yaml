@@ -55,9 +55,9 @@ packages:
     - net-tools
 
 artifacts:
-  - md5: 9832bb937cb652a42bd8372beb73acbf
+  - md5: ad7cbaf33757784ca16cc8b197ccda39
     name: kafka.tar.gz
-  - md5: d2f1ff32b035fde24ab5383e251e6ce4
+  - md5: 9df91d623bf867325a74c33524b89021
     name: kafka-agent-0.12.0.jar
   - md5: 89e83b40f70c9ca43a409e5b485555bc
     name: jmx_prometheus_javaagent.jar

@@ -453,7 +453,7 @@ spec:
                 - name: STRIMZI_NAMESPACE
                   valueFrom:
                     fieldRef:
-                      fieldPath: metadata.namespace
+                      fieldPath: metadata.annotations['olm.targetNamespaces']
                 - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
                   value: "120000"
                 - name: STRIMZI_OPERATION_TIMEOUT_MS

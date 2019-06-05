@@ -435,16 +435,16 @@ spec:
           replicas: 1
           selector:
             matchLabels:
-              name: strimzi-cluster-operator
+              name: amq-streams-cluster-operator
           template:
             metadata:
               labels:
-                name: strimzi-cluster-operator
+                name: amq-streams-cluster-operator
                 strimzi.io/kind: cluster-operator
             spec:
               serviceAccountName: strimzi-cluster-operator
               containers:
-              - name: strimzi-cluster-operator
+              - name: cluster-operator
                 image: registry.redhat.io/amq7/amq-streams-operator:1.2.0
                 imagePullPolicy: IfNotPresent
                 args:

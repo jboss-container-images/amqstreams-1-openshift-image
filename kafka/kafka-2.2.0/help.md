@@ -1,8 +1,8 @@
-% amq7/amq-streams-kafka-2.1 (1) Container Image Pages
+% amq7/amq-streams-kafka-2.2 (1) Container Image Pages
 
 # NAME
 
-Kafka - AMQ Streams image for running an Apache Kafka broker
+Kafka - AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect and Mirror Maker
 
 # USAGE
 

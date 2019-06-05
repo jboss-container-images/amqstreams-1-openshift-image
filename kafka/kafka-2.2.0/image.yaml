@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amq7/amq-streams-kafka-2.1
+name: amq7/amq-streams-kafka-2.2
 description: "AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect and Mirror Maker"
 version: "1.2.0"
 from: rhel7:7-released
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams12-kafka-21-openshift-container"
+    value: "amqstreams12-kafka-22-openshift-container"
   - name: "io.k8s.description"
     value: "A reliable and fault tolerant stream processing platform"
   - name: "io.k8s.display-name"
@@ -25,7 +25,7 @@ envs:
   - name: "STRIMZI_VERSION"
     value: "0.12.0"
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams12-kafkabase-21-openshift-container"
+    value: "amqstreams12-kafkabase-22-openshift-container"
 
 modules:
   repositories:
@@ -33,7 +33,7 @@ modules:
       git:
         url: https://github.com/jboss-openshift/cct_module.git
         ref: sprint-28
-    - name: modules
+    - name: modules   
       path: ../modules
   install:
     - name: jboss.container.user
@@ -55,7 +55,7 @@ packages:
     - net-tools
 
 artifacts:
-  - md5: f7ba47e7528800576c3fe7b05c1188b2
+  - md5: 9832bb937cb652a42bd8372beb73acbf
     name: kafka.tar.gz
   - md5: d2f1ff32b035fde24ab5383e251e6ce4
     name: kafka-agent-0.12.0.jar
@@ -72,4 +72,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.2-kafka-2.1-openshift-rhel-7
+    branch: rh-amqstreams-1.2-kafka-2.2-openshift-rhel-7

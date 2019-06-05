@@ -490,10 +490,10 @@ spec:
                   value: registry.redhat.io/amq7/amq-streams-operator:1.2.0
                 - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
                   value: registry.redhat.io/amq7/amq-streams-bridge:1.2.0
-                - name: STRIMZI_LOG_LEVEL
-                  value: INFO
                 - name: STRIMZI_CREATE_CLUSTER_ROLES
                   value: "TRUE"
+                - name: STRIMZI_LOG_LEVEL
+                  value: INFO
                 livenessProbe:
                   httpGet:
                     path: /healthy

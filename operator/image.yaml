@@ -33,14 +33,13 @@ modules:
         ref: sprint-28
     - name: modules
       path: modules
-    - name: manifests
-      path: manifests
   install:
     - name: jboss.container.user
     - name: jboss.container.openjdk.jdk
       version: "8"
     - name: os-java-run
     - name: operator
+    - name: olm
 
 packages:
   content_sets:

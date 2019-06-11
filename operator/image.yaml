@@ -16,6 +16,8 @@ labels:
     value: "messaging,amq,jboss"
   - name: "licenses"
     value: "/root/licenses"
+  - name: "com.redhat.delivery.appregistry"
+    value: true
 
 envs:
   - name: "STRIMZI_HOME"
@@ -37,6 +39,7 @@ modules:
       version: "8"
     - name: os-java-run
     - name: operator
+    - name: olm
 
 packages:
   content_sets:

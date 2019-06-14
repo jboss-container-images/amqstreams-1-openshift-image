@@ -7,7 +7,7 @@ from: rhel7:7-released
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams12-operator-openshift-container"
+    value: "amqstreams12-operator-container"
   - name: "io.k8s.description"
     value: "Cluster, Topic and User Operators components for managing a Kafka Cluster, Topic and User. Kafka init for container initialization."
   - name: "io.k8s.display-name"
@@ -23,7 +23,7 @@ envs:
   - name: "STRIMZI_HOME"
     value: "/opt/strimzi"
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams12-operator-openshift-container"
+    value: "amqstreams12-operator-container"
 
 modules:
   repositories:

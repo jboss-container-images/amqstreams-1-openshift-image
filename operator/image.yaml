@@ -54,15 +54,15 @@ run:
   workdir: "/opt/strimzi"
 
 artifacts:
-  - md5: 9d9a4f6bc16afc7820f1a3a0afca903e
+  - md5: d941e5aadaa8d22a3410a8477d08950a
     name: cluster-operator-dist.zip
-  - md5: 9056457d449d6f30574e51188ef06bc2
+  - md5: a899704b27226ef18ffecb8d88528572
     name: topic-operator-dist.zip
-  - md5: 22c93807a79744f837a96f06acb45372
+  - md5: 595889f8043217b1f21d5a6a7b1078cb
     name: user-operator-dist.zip
-  - md5: 89bf8e3e1b702dc375c90bf8268ee79b
+  - md5: d940d85a07fa268b8dcf136dd7f8e248
     name: kafka-init-dist.zip
-  - md5: c87892810b574206fa163c6ecae5ae4d
+  - md5: c27a6c014765fe30d2fe03423ed3292d
     name: strimzi-licenses.tar.gz
 
 osbs:

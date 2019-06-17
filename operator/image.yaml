@@ -17,7 +17,7 @@ labels:
   - name: "licenses"
     value: "/root/licenses"
   - name: "com.redhat.delivery.appregistry"
-    value: true
+    value: "true"
 
 envs:
   - name: "STRIMZI_HOME"

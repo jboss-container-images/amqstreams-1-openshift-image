@@ -1,4 +1,4 @@
-% amq7/amq-streams-kafka-2.1 (1) Container Image Pages
+% amq7/amq-streams-kafka-21 (1) Container Image Pages
 
 # NAME
 

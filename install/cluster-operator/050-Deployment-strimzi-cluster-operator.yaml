@@ -29,29 +29,29 @@ spec:
         - name: STRIMZI_OPERATION_TIMEOUT_MS
           value: "300000"
         - name: STRIMZI_DEFAULT_ZOOKEEPER_IMAGE
-          value: registry.redhat.io/amq7/amq-streams-kafka-2.2:1.2.0
+          value: registry.redhat.io/amq7/amq-streams-kafka-22:1.2.0
         - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-          value: registry.redhat.io/amq7/amq-streams-kafka-2.2:1.2.0
+          value: registry.redhat.io/amq7/amq-streams-kafka-22:1.2.0
         - name: STRIMZI_DEFAULT_TLS_SIDECAR_KAFKA_IMAGE
-          value: registry.redhat.io/amq7/amq-streams-kafka-2.2:1.2.0
+          value: registry.redhat.io/amq7/amq-streams-kafka-22:1.2.0
         - name: STRIMZI_DEFAULT_TLS_SIDECAR_ZOOKEEPER_IMAGE
-          value: registry.redhat.io/amq7/amq-streams-kafka-2.2:1.2.0
+          value: registry.redhat.io/amq7/amq-streams-kafka-22:1.2.0
         - name: STRIMZI_KAFKA_IMAGES
           value: |
-            2.1.1=registry.redhat.io/amq7/amq-streams-kafka-2.1:1.2.0
-            2.2.1=registry.redhat.io/amq7/amq-streams-kafka-2.2:1.2.0
+            2.1.1=registry.redhat.io/amq7/amq-streams-kafka-21:1.2.0
+            2.2.1=registry.redhat.io/amq7/amq-streams-kafka-22:1.2.0
         - name: STRIMZI_KAFKA_CONNECT_IMAGES
           value: |
-            2.1.1=registry.redhat.io/amq7/amq-streams-kafka-2.1:1.2.0
-            2.2.1=registry.redhat.io/amq7/amq-streams-kafka-2.2:1.2.0
+            2.1.1=registry.redhat.io/amq7/amq-streams-kafka-21:1.2.0
+            2.2.1=registry.redhat.io/amq7/amq-streams-kafka-22:1.2.0
         - name: STRIMZI_KAFKA_CONNECT_S2I_IMAGES
           value: |
-            2.1.1=registry.redhat.io/amq7/amq-streams-kafka-2.1:1.2.0
-            2.2.1=registry.redhat.io/amq7/amq-streams-kafka-2.2:1.2.0
+            2.1.1=registry.redhat.io/amq7/amq-streams-kafka-21:1.2.0
+            2.2.1=registry.redhat.io/amq7/amq-streams-kafka-22:1.2.0
         - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
           value: |
-            2.1.0=registry.redhat.io/amq7/amq-streams-kafka-2.1:1.2.0
-            2.2.1=registry.redhat.io/amq7/amq-streams-kafka-2.2:1.2.0
+            2.1.0=registry.redhat.io/amq7/amq-streams-kafka-21:1.2.0
+            2.2.1=registry.redhat.io/amq7/amq-streams-kafka-22:1.2.0
         - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
           value: registry.redhat.io/amq7/amq-streams-operator:1.2.0
         - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE

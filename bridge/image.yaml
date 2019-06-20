@@ -54,9 +54,9 @@ run:
     - "/opt/strimzi/bin/kafka_bridge_run.sh"
 
 artifacts:
-  - md5: 4bc856898dabd9f2f37eb674389bc887
+  - md5: f72d542fe7a79c8be710ee6190562702
     name: kafka-bridge.tar.gz
-  - md5: 4f3782b7ee6f0f2acc9595f4b0e5c26f
+  - md5: 8384576ef02897c5e36174444d73caf0
     name: kafka-bridge-licenses.tar.gz
 
 osbs:

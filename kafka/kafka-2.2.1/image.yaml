@@ -1,0 +1,75 @@
+schema_version: 1
+
+name: amq7/amq-streams-kafka-22
+description: "AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect and Mirror Maker"
+version: "1.2.0"
+from: rhel7:7-released
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams12-kafka-22-openshift-container"
+  - name: "io.k8s.description"
+    value: "A reliable and fault tolerant stream processing platform"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Apache Kafka"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+
+envs:
+  - name: "KAFKA_HOME"
+    value: "/opt/kafka"
+  - name: "STUNNEL_HOME"
+    value: "/opt/stunnel"
+  - name: "S2I_HOME"
+    value: "/opt/kafka/s2i"
+  - name: "STRIMZI_VERSION"
+    value: "0.12.0"
+  - name: "COM_REDHAT_COMPONENT"
+    value: "amqstreams12-kafka-22-openshift-container"
+
+modules:
+  repositories:
+    - name: cct_module
+      git:
+        url: https://github.com/jboss-openshift/cct_module.git
+        ref: sprint-28
+    - name: modules   
+      path: ../modules
+  install:
+    - name: jboss.container.user
+    - name: jboss.container.openjdk.jdk
+      version: "8"
+    - name: os-java-run
+    - name: kafka
+
+packages:
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+  install:
+    - gettext
+    - nmap-ncat
+    - openssl
+    - hostname
+    - stunnel
+    - net-tools
+
+artifacts:
+  - md5: 5f9620f6caee9eeb8bc819b6c14c6587
+    name: kafka.tar.gz
+  - md5: 16a5554f9ea0e3fe19db6217a25db257
+    name: kafka-agent-0.12.0.jar
+  - md5: 89e83b40f70c9ca43a409e5b485555bc
+    name: jmx_prometheus_javaagent.jar
+  
+run:
+  workdir: $KAFKA_HOME
+
+osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.2-kafka-2.2-openshift-rhel-7

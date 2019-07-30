@@ -1,0 +1,69 @@
+schema_version: 1
+
+name: amq7/amq-streams-bridge
+description: "AMQ Streams image for running the Apache Kafka bridge"
+version: "1.2.0"
+from: rhel7:7-released
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams12-bridge-openshift-container"
+  - name: "io.k8s.description"
+    value: "Apache Kafka bridge with HTTP protocol support"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Bridge"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+  - name: "licenses"
+    value: "/root/licenses"
+
+envs:
+  - name: "STRIMZI_HOME"
+    value: "/opt/strimzi"
+  - name: "COM_REDHAT_COMPONENT"
+    value: "amqstreams12-bridge-openshift-container"
+
+modules:
+  repositories:
+    - name: cct_module
+      git:
+        url: https://github.com/jboss-openshift/cct_module.git
+        ref: sprint-28
+    - name: modules
+      path: modules
+  install:
+    - name: jboss.container.user
+    - name: jboss.container.openjdk.jdk
+      version: "8"
+    - name: os-java-run
+    - name: bridge
+
+packages:
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+  install:
+    - openssl
+    - nmap-ncat
+    - hostname
+
+run:
+  workdir: "/opt/strimzi"
+  user: 185
+  cmd:
+    - "/opt/strimzi/bin/kafka_bridge_run.sh"
+
+artifacts:
+  - md5: f72d542fe7a79c8be710ee6190562702
+    name: kafka-bridge.tar.gz
+  - md5: 8384576ef02897c5e36174444d73caf0
+    name: kafka-bridge-licenses.tar.gz
+
+osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
+  repository:
+    name: containers/amqstreams-1
+    branch: rh-amqstreams-1.2-bridge-openshift-rhel-7

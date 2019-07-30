@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amq7/amq-streams-kafka
-description: "AMQ Streams image for Kafka"
-version: "1.1.0-kafka-2.1.1"
-from: amq7/amq-streams-kafka-base:1.1.0-kafka-2.1.1
+name: amq7/amq-streams-kafka-21
+description: "AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect and Mirror Maker"
+version: "1.2.0"
+from: rhel7:7-released
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams11-kafka-211-openshift-container"
+    value: "amqstreams12-kafka-21-openshift-container"
   - name: "io.k8s.description"
     value: "A reliable and fault tolerant stream processing platform"
   - name: "io.k8s.display-name"
@@ -15,26 +15,55 @@ labels:
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
 
+envs:
+  - name: "KAFKA_HOME"
+    value: "/opt/kafka"
+  - name: "STUNNEL_HOME"
+    value: "/opt/stunnel"
+  - name: "S2I_HOME"
+    value: "/opt/kafka/s2i"
+  - name: "STRIMZI_VERSION"
+    value: "0.12.0"
+  - name: "COM_REDHAT_COMPONENT"
+    value: "amqstreams12-kafka-21-openshift-container"
+
 modules:
   repositories:
-    - path: ../modules
+    - name: cct_module
+      git:
+        url: https://github.com/jboss-openshift/cct_module.git
+        ref: sprint-28
+    - name: modules
+      path: ../modules
   install:
+    - name: jboss.container.user
+    - name: jboss.container.openjdk.jdk
+      version: "8"
+    - name: os-java-run
     - name: kafka
 
 packages:
   content_sets:
     x86_64:
       - rhel-7-server-rpms
+  install:
+    - gettext
+    - nmap-ncat
+    - openssl
+    - hostname
+    - stunnel
+    - net-tools
 
-ports:
-  - value: 9091
-  - value: 9092
-  - value: 9404
-
+artifacts:
+  - md5: f7ba47e7528800576c3fe7b05c1188b2
+    name: kafka.tar.gz
+  - md5: 16a5554f9ea0e3fe19db6217a25db257
+    name: kafka-agent-0.12.0.jar
+  - md5: 89e83b40f70c9ca43a409e5b485555bc
+    name: jmx_prometheus_javaagent.jar
+  
 run:
-  user: 185
-  cmd:
-    - "/opt/kafka/kafka_run.sh"
+  workdir: $KAFKA_HOME
 
 osbs:
   configuration:
@@ -43,4 +72,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.1-kafka-2.1.1-openshift-rhel-7
+    branch: rh-amqstreams-1.2-kafka-2.1-openshift-rhel-7

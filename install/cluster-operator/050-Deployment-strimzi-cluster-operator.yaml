@@ -60,6 +60,15 @@ spec:
           value: registry.redhat.io/amq7/amq-streams-operator:1.2.0
         - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
           value: registry.redhat.io/amq7/amq-streams-bridge:1.2.0
+        - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_LABELS
+          value: |
+            discovery.3scale.net=true
+        - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_ANNOTATIONS
+          value: |
+            discovery.3scale.net/scheme=http
+            discovery.3scale.net/port=8080
+            discovery.3scale.net/path=/
+            discovery.3scale.net/description-path=oapi/
         - name: STRIMZI_LOG_LEVEL
           value: INFO
         livenessProbe:

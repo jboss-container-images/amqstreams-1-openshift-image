@@ -1,6 +1,0 @@
-cekit
-docker
-kubernetes
-openshift
-pexpect
-ruamel.yaml

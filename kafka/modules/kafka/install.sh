@@ -20,7 +20,7 @@ tar xvfz "${SOURCES_DIR}/kafka.tar.gz" -C ${KAFKA_HOME} --strip-components=1
 mkdir /opt/prometheus
 mkdir /opt/prometheus/config
 cp -r ${SOURCES_DIR}/jmx_prometheus_javaagent.jar /opt/prometheus/jmx_prometheus_javaagent.jar
-cp -r ${SOURCES_DIR}/kafka-agent-* ${KAFKA_HOME}/libs
+cp -r ${SOURCES_DIR}/kafka-agent.jar ${KAFKA_HOME}/libs
 
 chown -R jboss:root ${KAFKA_HOME}
 chmod -R 0755 ${KAFKA_HOME}

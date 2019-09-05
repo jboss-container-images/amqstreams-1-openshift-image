@@ -27,9 +27,6 @@ modules:
       path: modules
   install:
     - name: jboss.container.user
-    - name: jboss.container.openjdk.jdk
-      version: "8"
-    - name: os-java-run
     - name: bridge
 
 packages:
@@ -38,6 +35,7 @@ packages:
     x86_64:
       - rhel-7-server-rpms
   install:
+    - java-1.8.0-openjdk-headless
     - openssl
     - nmap-ncat
     - hostname

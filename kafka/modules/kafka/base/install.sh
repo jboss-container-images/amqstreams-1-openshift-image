@@ -18,9 +18,7 @@ mkdir /opt/prometheus/config
 cp -r ${SOURCES_DIR}/jmx_prometheus_javaagent.jar /opt/prometheus/jmx_prometheus_javaagent.jar
 cp -r ${SOURCES_DIR}/kafka-agent.jar ${KAFKA_HOME}/libs/
 
-chown -R jboss:root ${KAFKA_HOME}
 chmod -R 0755 ${KAFKA_HOME}
-chown -R jboss:root /opt/prometheus
 chmod -R 0755 /opt/prometheus
 
 cp -r ${SCRIPTS_DIR}/* ${KAFKA_HOME}/

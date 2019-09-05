@@ -1,0 +1,20 @@
+schema_version: 1
+
+name: kafka
+version: 2.1.1
+
+envs:
+  - name: "COM_REDHAT_COMPONENT"
+    value: "amqstreams12-kafka-21-openshift-container"
+
+artifacts:
+  - md5: f7ba47e7528800576c3fe7b05c1188b2
+    name: kafka.tar.gz
+
+modules:
+  install:
+  - name: kafka.base
+    version: 1.2.0
+
+execute:
+  - script: install.sh

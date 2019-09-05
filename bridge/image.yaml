@@ -17,18 +17,12 @@ labels:
   - name: "licenses"
     value: "/root/licenses"
 
-envs:
-  - name: "STRIMZI_HOME"
-    value: "/opt/strimzi"
-  - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams12-bridge-openshift-container"
-
 modules:
   repositories:
     - name: cct_module
       git:
         url: https://github.com/jboss-openshift/cct_module.git
-        ref: sprint-28
+        ref: sprint-35
     - name: modules
       path: modules
   install:
@@ -52,12 +46,6 @@ run:
   user: 185
   cmd:
     - "/opt/strimzi/bin/kafka_bridge_run.sh"
-
-artifacts:
-  - md5: f72d542fe7a79c8be710ee6190562702
-    name: kafka-bridge.tar.gz
-  - md5: 8384576ef02897c5e36174444d73caf0
-    name: kafka-bridge-licenses.tar.gz
 
 osbs:
   configuration:

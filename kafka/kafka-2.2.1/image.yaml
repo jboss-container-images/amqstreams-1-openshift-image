@@ -25,9 +25,6 @@ modules:
       path: ../modules
   install:
     - name: jboss.container.user
-    - name: jboss.container.openjdk.jdk
-      version: "8"
-    - name: os-java-run
     - name: kafka
       version: 2.2.1
 
@@ -37,6 +34,7 @@ packages:
     x86_64:
       - rhel-7-server-rpms
   install:
+    - java-1.8.0-openjdk-headless
     - gettext
     - nmap-ncat
     - openssl

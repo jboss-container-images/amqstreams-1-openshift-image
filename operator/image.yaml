@@ -3,7 +3,7 @@ schema_version: 1
 name: amq7/amq-streams-operator
 description: "AMQ Streams image for the Cluster, Topic, User Operators, and Kafka init"
 version: "1.2.0"
-from: rhel7:7-released
+from: ubi7-minimal:latest
 
 labels:
   - name: "com.redhat.component"
@@ -36,6 +36,7 @@ modules:
     - name: olm
 
 packages:
+  manager: microdnf
   content_sets:
     x86_64:
       - rhel-7-server-rpms

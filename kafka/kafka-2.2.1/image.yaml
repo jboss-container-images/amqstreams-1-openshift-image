@@ -15,22 +15,12 @@ labels:
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
 
-envs:
-  - name: "KAFKA_HOME"
-    value: "/opt/kafka"
-  - name: "STUNNEL_HOME"
-    value: "/opt/stunnel"
-  - name: "S2I_HOME"
-    value: "/opt/kafka/s2i"
-  - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams12-kafka-22-openshift-container"
-
 modules:
   repositories:
     - name: cct_module
       git:
         url: https://github.com/jboss-openshift/cct_module.git
-        ref: sprint-28
+        ref: sprint-35
     - name: modules   
       path: ../modules
   install:
@@ -39,6 +29,7 @@ modules:
       version: "8"
     - name: os-java-run
     - name: kafka
+      version: 2.2.1
 
 packages:
   content_sets:
@@ -51,15 +42,7 @@ packages:
     - hostname
     - stunnel
     - net-tools
-
-artifacts:
-  - md5: 5f9620f6caee9eeb8bc819b6c14c6587
-    name: kafka.tar.gz
-  - md5: 16a5554f9ea0e3fe19db6217a25db257
-    name: kafka-agent.jar
-  - md5: 89e83b40f70c9ca43a409e5b485555bc
-    name: jmx_prometheus_javaagent.jar
-  
+ 
 run:
   workdir: $KAFKA_HOME
 

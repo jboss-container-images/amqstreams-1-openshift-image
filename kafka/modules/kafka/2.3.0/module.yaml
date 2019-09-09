@@ -1,16 +1,16 @@
 schema_version: 1
 
 name: kafka
-version: 2.2.1
+version: 2.3.0
 
 envs:
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams13-kafka-22-openshift-container"
+    value: "amqstreams13-kafka-23-openshift-container"
 
 artifacts:
-  - md5: 5f9620f6caee9eeb8bc819b6c14c6587
+  - md5: 6e3400b4455a4e6b6aee437fefd30a0f
     name: kafka.tar.gz
-  - md5: d031d29790a62028a7bf3f4cd6707a7a
+  - md5: b23dc8079cf88ecf8ac81963b7063f37
     name: opentracing-kafka-client.jar
 
 modules:

@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: kafka.base
-version: 1.2.0
+version: 1.3.0
 
 envs:
   - name: "KAFKA_HOME"
@@ -14,8 +14,18 @@ envs:
 artifacts:
   - md5: 16a5554f9ea0e3fe19db6217a25db257
     name: kafka-agent.jar
-  - md5: 89e83b40f70c9ca43a409e5b485555bc
+  - md5: 16a5554f9ea0e3fe19db6217a25db257
+    name: mirror-maker-agent.jar
+  - md5: 16a5554f9ea0e3fe19db6217a25db257
+    name: tracing-agent.jar
+  - md5: ad6855b57b61d58f345d2a041ed2db39
     name: jmx_prometheus_javaagent.jar
+  - md5: e0b0e1296be40d5991a1a6fdb3d379f8
+    name: jaeger-client.jar
+  - md5: b7fccd4bfd8b2837cf867f6347467c18
+    name: opentracing-api.jar
+  - md5: d5473c38fbb28c0ef98183f75758d65a
+    name: opentracing-util.jar
 
 execute:
   - script: install.sh

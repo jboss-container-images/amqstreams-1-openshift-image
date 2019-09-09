@@ -47,9 +47,18 @@ fi
 # directory avoids trying to create it (and logging a permission denied error)
 export LOG_DIR="$KAFKA_HOME"
 
+# Enabling the Mirror Maker agent which monitors readiness / liveness
+rm /tmp/mirror-maker-ready /tmp/mirror-maker-alive 2> /dev/null
+export KAFKA_OPTS="-javaagent:${KAFKA_HOME}/libs/mirror-maker-agent.jar=/tmp/mirror-maker-ready:/tmp/mirror-maker-alive:${STRIMZI_READINESS_PERIOD:-10}:${STRIMZI_LIVENESS_PERIOD:-10}"
+
 # enabling Prometheus JMX exporter as Java agent
 if [ "$KAFKA_MIRRORMAKER_METRICS_ENABLED" = "true" ]; then
-  export KAFKA_OPTS="-javaagent:/opt/prometheus/jmx_prometheus_javaagent.jar=9404:$KAFKA_HOME/custom-config/metrics-config.yml"
+  export KAFKA_OPTS="$KAFKA_OPTS -javaagent:$(ls $KAFKA_HOME/libs/jmx_prometheus_javaagent*.jar)=9404:$KAFKA_HOME/custom-config/metrics-config.yml"
+fi
+
+# enabling Tracing agent (initializes Jaeger tracing) as Java agent
+if [ "$STRIMZI_TRACING" = "jaeger" ]; then
+  export KAFKA_OPTS="$KAFKA_OPTS -javaagent:$(ls $KAFKA_HOME/libs/tracing-agent.jar)=jaeger"
 fi
 
 if [ -z "$KAFKA_HEAP_OPTS" -a -n "${DYNAMIC_HEAP_FRACTION}" ]; then
@@ -71,6 +80,14 @@ if [ -n "$KAFKA_MIRRORMAKER_NUMSTREAMS" ]; then
     numstreams="--num.streams ${KAFKA_MIRRORMAKER_NUMSTREAMS}"
 fi
 
+if [ -n "$KAFKA_MIRRORMAKER_OFFSET_COMMIT_INTERVAL" ]; then
+    offset_commit_interval="--offset.commit.interval.ms $KAFKA_MIRRORMAKER_OFFSET_COMMIT_INTERVAL"
+fi
+
+if [ -n "$KAFKA_MIRRORMAKER_ABORT_ON_SEND_FAILURE" ]; then
+    abort_on_send_failure="--abort.on.send.failure $KAFKA_MIRRORMAKER_ABORT_ON_SEND_FAILURE"
+fi
+
 . ./set_kafka_gc_options.sh
 
 # starting Kafka Mirror Maker with final configuration
@@ -78,4 +95,6 @@ exec $KAFKA_HOME/bin/kafka-mirror-maker.sh \
 --consumer.config /tmp/strimzi-consumer.properties \
 --producer.config /tmp/strimzi-producer.properties \
 $whitelist \
-$numstreams
+$numstreams \
+$offset_commit_interval \
+$abort_on_send_failure

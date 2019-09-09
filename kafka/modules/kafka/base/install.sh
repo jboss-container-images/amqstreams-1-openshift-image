@@ -13,13 +13,16 @@ mkdir $STUNNEL_HOME
 mkdir $S2I_HOME
 mkdir -p -m g+rw /usr/local/var/run/
 
-mkdir /opt/prometheus
-mkdir /opt/prometheus/config
-cp -r ${SOURCES_DIR}/jmx_prometheus_javaagent.jar /opt/prometheus/jmx_prometheus_javaagent.jar
+cp -r ${SOURCES_DIR}/jmx_prometheus_javaagent.jar ${KAFKA_HOME}/libs/
 cp -r ${SOURCES_DIR}/kafka-agent.jar ${KAFKA_HOME}/libs/
+cp -r ${SOURCES_DIR}/mirror-maker-agent.jar ${KAFKA_HOME}/libs/
+cp -r ${SOURCES_DIR}/tracing-agent.jar ${KAFKA_HOME}/libs/
+cp -r ${SOURCES_DIR}/jaeger-client.jar ${KAFKA_HOME}/libs/
+cp -r ${SOURCES_DIR}/opentracing-api.jar ${KAFKA_HOME}/libs/
+cp -r ${SOURCES_DIR}/opentracing-util.jar ${KAFKA_HOME}/libs/
+cp -r ${SOURCES_DIR}/opentracing-kafka-client.jar ${KAFKA_HOME}/libs/
 
 chmod -R 0755 ${KAFKA_HOME}
-chmod -R 0755 /opt/prometheus
 
 cp -r ${SCRIPTS_DIR}/* ${KAFKA_HOME}/
 chmod -R 755 ${KAFKA_HOME}

@@ -1,13 +1,13 @@
 schema_version: 1
 
 name: bridge
-version: 1.2.0
+version: 1.3.0
 
 envs:
   - name: "STRIMZI_HOME"
     value: "/opt/strimzi"
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams12-bridge-openshift-container"
+    value: "amqstreams13-bridge-openshift-container"
 
 artifacts:
   - md5: f72d542fe7a79c8be710ee6190562702

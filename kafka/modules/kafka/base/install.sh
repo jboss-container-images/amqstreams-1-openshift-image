@@ -24,7 +24,7 @@ cp -r ${SOURCES_DIR}/opentracing-api.jar ${KAFKA_HOME}/libs/
 cp -r ${SOURCES_DIR}/opentracing-util.jar ${KAFKA_HOME}/libs/
 cp -r ${SOURCES_DIR}/opentracing-kafka-client.jar ${KAFKA_HOME}/libs/
 
-unzip -qo ${SOURCES_DIR}/kafka-exporter.zip -d ${KAFKA_EXPORTER_HOME}/
+unzip -qo ${SOURCES_DIR}/kafka_exporter.zip -d ${KAFKA_EXPORTER_HOME}/
 
 chmod -R 0755 ${KAFKA_HOME}
 

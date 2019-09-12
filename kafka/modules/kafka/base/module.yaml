@@ -28,8 +28,8 @@ artifacts:
     name: opentracing-api.jar
   - md5: d5473c38fbb28c0ef98183f75758d65a
     name: opentracing-util.jar
-  - md5: f42d25260c68e2a5d3aab9db0bd649ef
-    name: kafka-exporter.tar.gz
+  - md5: 620a927c5449bdf043813880f5395ab4
+    name: kafka_exporter.zip
 
 execute:
   - script: install.sh

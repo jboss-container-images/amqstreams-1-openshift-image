@@ -10,7 +10,7 @@ envs:
     value: "amqstreams13-bridge-openshift-container"
 
 artifacts:
-  - md5: f72d542fe7a79c8be710ee6190562702
+  - md5: db38db497b7a337119e5cea55c0ef43e
     name: kafka-bridge.tar.gz
   - md5: 8384576ef02897c5e36174444d73caf0
     name: kafka-bridge-licenses.tar.gz

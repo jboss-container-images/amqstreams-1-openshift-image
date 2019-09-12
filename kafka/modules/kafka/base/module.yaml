@@ -12,11 +12,11 @@ envs:
     value: "/opt/kafka/s2i"
 
 artifacts:
-  - md5: 16a5554f9ea0e3fe19db6217a25db257
+  - md5: e63d0746c6b6f30ad9255487dfb5699c
     name: kafka-agent.jar
-  - md5: 16a5554f9ea0e3fe19db6217a25db257
+  - md5: 9d04e327041972c034d6cef389bcb2fc
     name: mirror-maker-agent.jar
-  - md5: 16a5554f9ea0e3fe19db6217a25db257
+  - md5: 8bd252d240b076d70f2460d1d2ff04e7
     name: tracing-agent.jar
   - md5: ad6855b57b61d58f345d2a041ed2db39
     name: jmx_prometheus_javaagent.jar

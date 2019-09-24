@@ -302,7 +302,7 @@ spec:
     
   keywords: ['amq', 'amq-streams', 'kafka', 'messaging', 'kafka-connect', 'kafka-streams', 'data-streaming', 'data-streams', 'streaming', 'streams']
   version: 1.3.0
-  replaces: amqstreams.v1.3.0
+  replaces: amqstreams.v1.2.0
   minKubeVersion: 1.11.0
   maturity: stable
   maintainers:
@@ -629,6 +629,7 @@ spec:
           - kafka.strimzi.io
           resources:
           - kafkatopics
+          - kafkatopics/status
           verbs:
           - get
           - list
@@ -647,6 +648,7 @@ spec:
           - kafka.strimzi.io
           resources:
           - kafkausers
+          - kafkausers/status
           verbs:
           - get
           - list
@@ -682,7 +684,6 @@ spec:
               containers:
               - name: cluster-operator
                 image: registry.redhat.io/amq7/amq-streams-operator:1.3.0
-                imagePullPolicy: IfNotPresent
                 args:
                 - /opt/strimzi/bin/cluster_operator_run.sh
                 env:

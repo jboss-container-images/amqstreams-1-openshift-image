@@ -24,12 +24,13 @@ spec:
     description: The desired number of Kafka Bridge replicas
     JSONPath: .spec.replicas
     type: integer
-    priority: 0
   - name: Bootstrap Servers
     description: The boostrap servers
     JSONPath: .spec.bootstrapServers
     type: string
     priority: 1
+  subresources:
+    status: {}
   validation:
     openAPIV3Schema:
       properties:
@@ -61,6 +62,16 @@ spec:
             authentication:
               type: object
               properties:
+                accessToken:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                    secretName:
+                      type: string
+                  required:
+                  - key
+                  - secretName
                 certificateAndKey:
                   type: object
                   properties:
@@ -74,6 +85,20 @@ spec:
                   - certificate
                   - key
                   - secretName
+                clientId:
+                  type: string
+                clientSecret:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                    secretName:
+                      type: string
+                  required:
+                  - key
+                  - secretName
+                disableTlsHostnameVerification:
+                  type: boolean
                 passwordSecret:
                   type: object
                   properties:
@@ -84,12 +109,37 @@ spec:
                   required:
                   - password
                   - secretName
+                refreshToken:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                    secretName:
+                      type: string
+                  required:
+                  - key
+                  - secretName
+                tlsTrustedCertificates:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      certificate:
+                        type: string
+                      secretName:
+                        type: string
+                    required:
+                    - certificate
+                    - secretName
+                tokenEndpointUri:
+                  type: string
                 type:
                   type: string
                   enum:
                   - tls
                   - scram-sha-512
                   - plain
+                  - oauth
                 username:
                   type: string
               required:
@@ -452,6 +502,8 @@ spec:
                                       type: string
                                   topologyKey:
                                     type: string
+                    priorityClassName:
+                      type: string
                     tolerations:
                       type: array
                       items:
@@ -477,6 +529,18 @@ spec:
                           type: object
                         annotations:
                           type: object
+                bridgeContainer:
+                  type: object
+                  properties:
+                    env:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
                 podDisruptionBudget:
                   type: object
                   properties:
@@ -492,3 +556,25 @@ spec:
                       minimum: 0
           required:
           - bootstrapServers
+        status:
+          type: object
+          properties:
+            conditions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  status:
+                    type: string
+                  lastTransitionTime:
+                    type: string
+                  reason:
+                    type: string
+                  message:
+                    type: string
+            observedGeneration:
+              type: integer
+            url:
+              type: string

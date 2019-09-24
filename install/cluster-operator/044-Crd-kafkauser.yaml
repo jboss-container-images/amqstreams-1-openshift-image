@@ -27,12 +27,12 @@ spec:
     description: How the user is authenticated
     JSONPath: .spec.authentication.type
     type: string
-    priority: 0
   - name: Authorization
     description: How the user is authorised
     JSONPath: .spec.authorization.type
     type: string
-    priority: 0
+  subresources:
+    status: {}
   validation:
     openAPIV3Schema:
       properties:
@@ -107,5 +107,27 @@ spec:
               required:
               - acls
               - type
-          required:
-          - authentication
+        status:
+          type: object
+          properties:
+            conditions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  status:
+                    type: string
+                  lastTransitionTime:
+                    type: string
+                  reason:
+                    type: string
+                  message:
+                    type: string
+            observedGeneration:
+              type: integer
+            username:
+              type: string
+            secret:
+              type: string

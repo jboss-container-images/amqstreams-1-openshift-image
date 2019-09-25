@@ -9,19 +9,11 @@ STUNNEL_DIR=${SCRIPT_DIR}/stunnel-scripts
 S2I_DIR=${SCRIPT_DIR}/s2i-scripts
 EXPORTER_DIR=${SCRIPT_DIR}/exporter-scripts
 
-mkdir -p $KAFKA_HOME/libs/
+mkdir $KAFKA_HOME
 mkdir $STUNNEL_HOME
 mkdir $S2I_HOME
 mkdir $KAFKA_EXPORTER_HOME
 mkdir -p -m g+rw /usr/local/var/run/
-
-cp -r ${SOURCES_DIR}/jmx_prometheus_javaagent.jar ${KAFKA_HOME}/libs/
-cp -r ${SOURCES_DIR}/kafka-agent.jar ${KAFKA_HOME}/libs/
-cp -r ${SOURCES_DIR}/mirror-maker-agent.jar ${KAFKA_HOME}/libs/
-cp -r ${SOURCES_DIR}/tracing-agent.jar ${KAFKA_HOME}/libs/
-cp -r ${SOURCES_DIR}/jaeger-client.jar ${KAFKA_HOME}/libs/
-cp -r ${SOURCES_DIR}/opentracing-api.jar ${KAFKA_HOME}/libs/
-cp -r ${SOURCES_DIR}/opentracing-util.jar ${KAFKA_HOME}/libs/
 
 unzip -qo ${SOURCES_DIR}/kafka_exporter.zip -d ${KAFKA_EXPORTER_HOME}/
 

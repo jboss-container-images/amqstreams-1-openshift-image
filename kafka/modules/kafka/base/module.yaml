@@ -14,20 +14,6 @@ envs:
     value: "/opt/kafka-exporter"
 
 artifacts:
-  - md5: e63d0746c6b6f30ad9255487dfb5699c
-    name: kafka-agent.jar
-  - md5: 9d04e327041972c034d6cef389bcb2fc
-    name: mirror-maker-agent.jar
-  - md5: 8bd252d240b076d70f2460d1d2ff04e7
-    name: tracing-agent.jar
-  - md5: ad6855b57b61d58f345d2a041ed2db39
-    name: jmx_prometheus_javaagent.jar
-  - md5: e0b0e1296be40d5991a1a6fdb3d379f8
-    name: jaeger-client.jar
-  - md5: b7fccd4bfd8b2837cf867f6347467c18
-    name: opentracing-api.jar
-  - md5: d5473c38fbb28c0ef98183f75758d65a
-    name: opentracing-util.jar
   - md5: 620a927c5449bdf043813880f5395ab4
     name: kafka_exporter.zip
 

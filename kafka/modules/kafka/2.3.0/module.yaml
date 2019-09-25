@@ -9,9 +9,7 @@ envs:
 
 artifacts:
   - md5: 6e3400b4455a4e6b6aee437fefd30a0f
-    name: kafka.tar.gz
-  - md5: b23dc8079cf88ecf8ac81963b7063f37
-    name: opentracing-kafka-client.jar
+    name: kafka.zip
 
 modules:
   install:

@@ -668,6 +668,7 @@ spec:
           - delete
           - patch
           - update
+          - watch
       deployments:
       - name: amq-streams-cluster-operator
         spec:

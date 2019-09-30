@@ -8,10 +8,8 @@ envs:
     value: "amqstreams13-kafka-22-openshift-container"
 
 artifacts:
-  - md5: 5f9620f6caee9eeb8bc819b6c14c6587
-    name: kafka.tar.gz
-  - md5: d031d29790a62028a7bf3f4cd6707a7a
-    name: opentracing-kafka-client.jar
+  - md5: f093b064d419e0d9a81af68f1ef5e6cc
+    name: kafka.zip
 
 modules:
   install:

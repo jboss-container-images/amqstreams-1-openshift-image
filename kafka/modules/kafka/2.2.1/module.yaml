@@ -5,16 +5,16 @@ version: 2.2.1
 
 envs:
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams12-kafka-22-openshift-container"
+    value: "amqstreams13-kafka-22-openshift-container"
 
 artifacts:
-  - md5: 5f9620f6caee9eeb8bc819b6c14c6587
-    name: kafka.tar.gz
+  - md5: f093b064d419e0d9a81af68f1ef5e6cc
+    name: kafka.zip
 
 modules:
   install:
   - name: kafka.base
-    version: 1.2.0
+    version: 1.3.0
 
 execute:
   - script: install.sh

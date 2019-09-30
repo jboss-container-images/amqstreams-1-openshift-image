@@ -1,24 +1,24 @@
 schema_version: 1
 
 name: operator
-version: 1.2.0
+version: 1.3.0
 
 envs:
   - name: "STRIMZI_HOME"
     value: "/opt/strimzi"
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams12-operator-container"
+    value: "amqstreams13-operator-container"
 
 artifacts:
-  - md5: 23f4b923fa615398a7fcdba2f8298db1
+  - md5: 4633beef08e89c3e39b89c987c66dee9
     name: cluster-operator-dist.zip
-  - md5: f7c2fb91d95715b6ef13d667ee02a752
+  - md5: 8b2450519f5007eb7c424dc3bf016092
     name: topic-operator-dist.zip
-  - md5: 21b37e09e18fb2bfe8e2e30211e5b8d5
+  - md5: 29820d915879afbef681f125d8fba4dd
     name: user-operator-dist.zip
-  - md5: 27fdbcf3962c091c0ca21b5ccebed38b
+  - md5: 5c279a68c323a7d29bb0a4eb7904f39e
     name: kafka-init-dist.zip
-  - md5: 5d5e3b417987e440a5e48ac5b593b73a
+  - md5: 80bc79250b3c6ffc079335ec96281152
     name: strimzi-licenses.tar.gz
 
 execute:

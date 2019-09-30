@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amq7/amq-streams-kafka-21
+name: amq7/amq-streams-kafka-23
 description: "AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect and Mirror Maker"
-version: "1.2.0"
+version: "1.3.0"
 from: ubi7-minimal:latest
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams12-kafka-21-openshift-container"
+    value: "amqstreams13-kafka-23-openshift-container"
   - name: "io.k8s.description"
     value: "A reliable and fault tolerant stream processing platform"
   - name: "io.k8s.display-name"
@@ -26,7 +26,7 @@ modules:
   install:
     - name: jboss.container.user
     - name: kafka
-      version: "2.1.1"
+      version: 2.3.0
 
 packages:
   manager: microdnf
@@ -41,6 +41,7 @@ packages:
     - hostname
     - stunnel
     - net-tools
+    - bind-utils
 
 run:
   workdir: $KAFKA_HOME
@@ -52,4 +53,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-1
-    branch: rh-amqstreams-1.2-kafka-2.1-openshift-rhel-7
+    branch: rh-amqstreams-1.3-kafka-2.3-openshift-rhel-7

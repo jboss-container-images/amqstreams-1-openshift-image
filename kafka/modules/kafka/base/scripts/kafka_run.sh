@@ -23,11 +23,11 @@ if [ -z "$KAFKA_LOG4J_OPTS" ]; then
 fi
 
 rm /var/opt/kafka/kafka-ready /var/opt/kafka/zk-connected 2> /dev/null
-export KAFKA_OPTS="-javaagent:${KAFKA_HOME}/libs/kafka-agent.jar=/var/opt/kafka/kafka-ready:/var/opt/kafka/zk-connected"
+export KAFKA_OPTS="-javaagent:$(ls $KAFKA_HOME/libs/kafka-agent*.jar)=/var/opt/kafka/kafka-ready:/var/opt/kafka/zk-connected"
 
 # enabling Prometheus JMX exporter as Java agent
 if [ "$KAFKA_METRICS_ENABLED" = "true" ]; then
-  export KAFKA_OPTS="${KAFKA_OPTS} -javaagent:/opt/prometheus/jmx_prometheus_javaagent.jar=9404:$KAFKA_HOME/custom-config/metrics-config.yml"
+  export KAFKA_OPTS="${KAFKA_OPTS} -javaagent:$(ls $KAFKA_HOME/libs/jmx_prometheus_javaagent*.jar)=9404:$KAFKA_HOME/custom-config/metrics-config.yml"
 fi
 
 # We don't need LOG_DIR because we write no log files, but setting it to a
@@ -49,7 +49,7 @@ mkdir -p /tmp/kafka
 
 # Generate and print the config file
 echo "Starting Kafka with configuration:"
-./kafka_config_generator.sh | tee /tmp/strimzi.properties
+./kafka_config_generator.sh | tee /tmp/strimzi.properties | sed 's/sasl.jaas.config=.*/sasl.jaas.config=[hidden]/g'
 echo ""
 
 if [ -z "$KAFKA_HEAP_OPTS" -a -n "${DYNAMIC_HEAP_FRACTION}" ]; then

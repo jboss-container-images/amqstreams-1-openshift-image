@@ -1,18 +1,18 @@
 schema_version: 1
 
 name: bridge
-version: 1.2.0
+version: 1.3.0
 
 envs:
   - name: "STRIMZI_HOME"
     value: "/opt/strimzi"
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams12-bridge-openshift-container"
+    value: "amqstreams13-bridge-openshift-container"
 
 artifacts:
-  - md5: f72d542fe7a79c8be710ee6190562702
+  - md5: 551de26d87ba3aa7f5f8d8ed90217584
     name: kafka-bridge.tar.gz
-  - md5: 8384576ef02897c5e36174444d73caf0
+  - md5: d3e169d746f9426e3794564162f0acee
     name: kafka-bridge-licenses.tar.gz
 
 execute:

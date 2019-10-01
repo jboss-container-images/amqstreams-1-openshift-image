@@ -13,9 +13,5 @@ envs:
   - name: "KAFKA_EXPORTER_HOME"
     value: "/opt/kafka-exporter"
 
-artifacts:
-  - md5: f4a977d78320c89f597abeb275bfcbf5
-    name: kafka-exporter.zip
-
 execute:
   - script: install.sh

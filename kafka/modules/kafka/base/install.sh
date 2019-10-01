@@ -15,8 +15,6 @@ mkdir $S2I_HOME
 mkdir $KAFKA_EXPORTER_HOME
 mkdir -p -m g+rw /usr/local/var/run/
 
-unzip -qo ${SOURCES_DIR}/kafka_exporter.zip -d ${KAFKA_EXPORTER_HOME}/
-
 chmod -R 0755 ${KAFKA_HOME}
 
 cp -r ${SCRIPTS_DIR}/* ${KAFKA_HOME}/

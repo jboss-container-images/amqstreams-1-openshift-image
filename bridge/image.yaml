@@ -44,7 +44,7 @@ run:
   workdir: "/opt/strimzi"
   user: 185
   cmd:
-    - "/opt/strimzi/bin/kafka_bridge_run.sh"
+    - "/opt/strimzi/bin/docker/kafka_bridge_run.sh"
 
 osbs:
   configuration:

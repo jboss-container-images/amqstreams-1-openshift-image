@@ -4,7 +4,7 @@ metadata:
   name: amqstreams.v1.3.0
   namespace: placeholder
   annotations:
-    capabilities: Full Lifecycle
+    capabilities: Deep Insights
     alm-examples: |-
       [  
         {  

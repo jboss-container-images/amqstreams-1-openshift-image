@@ -676,6 +676,7 @@ spec:
           selector:
             matchLabels:
               name: amq-streams-cluster-operator
+              strimzi.io/kind: cluster-operator
           template:
             metadata:
               labels:

@@ -8,7 +8,7 @@ envs:
     value: "amqstreams13-kafka-22-openshift-container"
 
 artifacts:
-  - md5: f093b064d419e0d9a81af68f1ef5e6cc
+  - md5: 7aff74cf38f0cfa4010ba2a330c3874e
     name: kafka.zip
 
 modules:

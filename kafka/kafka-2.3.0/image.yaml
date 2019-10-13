@@ -7,7 +7,7 @@ from: ubi7-minimal:latest
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams13-kafka-23-openshift-container"
+    value: "amqstreams-kafka-23-container"
   - name: "io.k8s.description"
     value: "A reliable and fault tolerant stream processing platform"
   - name: "io.k8s.display-name"

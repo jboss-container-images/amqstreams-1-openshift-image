@@ -7,7 +7,7 @@ from: ubi7-minimal:latest
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams13-operator-container"
+    value: "amqstreams-operator-container"
   - name: "io.k8s.description"
     value: "Cluster, Topic and User Operators components for managing a Kafka Cluster, Topic and User. Kafka init for container initialization."
   - name: "io.k8s.display-name"

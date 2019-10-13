@@ -7,7 +7,7 @@ from: ubi7-minimal:latest
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams13-bridge-openshift-container"
+    value: "amqstreams-bridge-container"
   - name: "io.k8s.description"
     value: "Apache Kafka bridge with HTTP protocol support"
   - name: "io.k8s.display-name"

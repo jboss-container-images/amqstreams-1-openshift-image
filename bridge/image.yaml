@@ -3,11 +3,11 @@ schema_version: 1
 name: amq7/amq-streams-bridge
 description: "AMQ Streams image for running the Apache Kafka bridge"
 version: "1.3.0"
-from: ubi7-minimal:latest
+from: ubi7-minimal:7-released
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams13-bridge-openshift-container"
+    value: "amqstreams-bridge-container"
   - name: "io.k8s.description"
     value: "Apache Kafka bridge with HTTP protocol support"
   - name: "io.k8s.display-name"

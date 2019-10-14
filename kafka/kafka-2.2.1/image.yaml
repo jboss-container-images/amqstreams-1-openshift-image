@@ -3,7 +3,7 @@ schema_version: 1
 name: amq7/amq-streams-kafka-22
 description: "AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect and Mirror Maker"
 version: "1.3.0"
-from: ubi7-minimal:latest
+from: ubi7-minimal:7-released
 
 labels:
   - name: "com.redhat.component"

@@ -7,7 +7,7 @@ envs:
   - name: "STRIMZI_HOME"
     value: "/opt/strimzi"
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams13-operator-container"
+    value: "amqstreams-operator-container"
 
 artifacts:
   - md5: 27e7ef2983be04684367bc5ef52ff289

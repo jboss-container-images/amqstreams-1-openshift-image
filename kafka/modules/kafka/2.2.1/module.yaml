@@ -5,10 +5,10 @@ version: 2.2.1
 
 envs:
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams13-kafka-22-openshift-container"
+    value: "amqstreams-kafka-22-container"
 
 artifacts:
-  - md5: 7aff74cf38f0cfa4010ba2a330c3874e
+  - md5: a3cf63e7599b417bf9e10158c7e4034e
     name: kafka.zip
 
 modules:

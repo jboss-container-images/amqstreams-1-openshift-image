@@ -7,7 +7,7 @@ envs:
   - name: "STRIMZI_HOME"
     value: "/opt/strimzi"
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams13-bridge-openshift-container"
+    value: "amqstreams-bridge-container"
 
 artifacts:
   - md5: 80c0bbf8918e820c04a431a9813c8506

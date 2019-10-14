@@ -3,11 +3,11 @@ schema_version: 1
 name: amq7/amq-streams-operator
 description: "AMQ Streams image for the Cluster, Topic, User Operators, and Kafka init"
 version: "1.3.0"
-from: ubi7-minimal:latest
+from: ubi7-minimal:7-released
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams13-operator-container"
+    value: "amqstreams-operator-container"
   - name: "io.k8s.description"
     value: "Cluster, Topic and User Operators components for managing a Kafka Cluster, Topic and User. Kafka init for container initialization."
   - name: "io.k8s.display-name"

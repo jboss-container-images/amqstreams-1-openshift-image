@@ -670,7 +670,7 @@ spec:
           - update
           - watch
       deployments:
-      - name: amq-streams-cluster-operator
+      - name: amq-streams-cluster-operator-v1.3.0
         spec:
           replicas: 1
           selector:

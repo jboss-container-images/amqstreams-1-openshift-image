@@ -9,7 +9,7 @@ envs:
 
 artifacts:
   - md5: a3cf63e7599b417bf9e10158c7e4034e
-    name: kafka.zip
+    name: kafka-22.zip
 
 modules:
   install:

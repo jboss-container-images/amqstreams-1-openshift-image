@@ -1,0 +1,42 @@
+schema_version: 1
+
+name: amq7/amq-streams-operator-metadata
+description: "AMQ Streams image containing the operator metadata"
+version: "1.3.0"
+from: ubi7-minimal:7-released
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams-operator-metadata-container"
+  - name: "io.k8s.description"
+    value: "Operator metadata"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Operator metadata"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+  - name: "licenses"
+    value: "/root/licenses"
+  - name: "com.redhat.delivery.appregistry"
+    value: "true"
+
+modules:
+  repositories:
+    - name: common
+      path: ../common/modules
+  install:
+    - name: olm
+
+packages:
+  manager: microdnf
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+
+osbs:
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
+  repository:
+    name: containers/amqstreams-operator-dev-operator-metadata
+    branch: amqstreams-1-rhel-7

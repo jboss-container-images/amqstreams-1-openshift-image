@@ -27,6 +27,8 @@ modules:
         ref: sprint-35
     - name: modules
       path: modules
+    - name: common
+      path: ../common/modules
   install:
     - name: jboss.container.user
     - name: operator

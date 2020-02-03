@@ -1,8 +1,8 @@
 schema_version: 1
 
-name: amq7/amq-streams-operator-metadata
+name: amq7/amq-streams-rhel7-operator-metadata
 description: "AMQ Streams image containing the operator metadata"
-version: "1.3.0"
+version: "1.4.0"
 from: ubi7-minimal:7-released
 
 labels:

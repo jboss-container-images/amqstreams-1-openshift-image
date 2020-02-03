@@ -1,4 +1,4 @@
-% amq7/amq-streams-operator (1) Container Image Pages
+% amq7/amq-streams-rhel7-operator (1) Container Image Pages
 
 # NAME
 

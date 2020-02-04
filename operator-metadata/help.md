@@ -1,8 +1,8 @@
-% amq7/amq-streams-rhel7-operator (1) Container Image Pages
+% amq7/amq-streams-rhel7-operator-metadata (1) Container Image Pages
 
 # NAME
 
-Operator - AMQ Streams image for running all the operators (Cluster, Topic and User) and the Kafka init
+Operator - AMQ Streams image containing the operator metadata
 
 # USAGE
 

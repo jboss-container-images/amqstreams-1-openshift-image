@@ -42,7 +42,6 @@ packages:
 
 run:
   workdir: "/opt/strimzi"
-  user: 185
 
 osbs:
   configuration:

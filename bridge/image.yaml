@@ -43,8 +43,6 @@ packages:
 run:
   workdir: "/opt/strimzi"
   user: 185
-  cmd:
-    - "/opt/strimzi/bin/docker/kafka_bridge_run.sh"
 
 osbs:
   configuration:

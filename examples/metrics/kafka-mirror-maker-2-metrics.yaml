@@ -1,13 +1,16 @@
 apiVersion: kafka.strimzi.io/v1beta1
-kind: KafkaConnect
+kind: KafkaMirrorMaker2
 metadata:
-  name: my-connect-cluster
+  name: my-mm2-cluster
   labels:
-    app: my-connect-cluster
+    app: my-mm2-cluster
 spec:
   version: 2.4.0
   replicas: 1
-  bootstrapServers: my-cluster-kafka-bootstrap:9092
+  connectCluster: my-cluster
+  clusters:
+    - alias: my-cluster
+      bootstrapServers: my-cluster-kafka-bootstrap:9092
   metrics:
     lowercaseOutputName: true
     lowercaseOutputLabelNames: true

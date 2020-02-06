@@ -13,22 +13,16 @@ mv ${SOURCES_DIR}/*.tar.gz ${LICENSE_DIR}
 tar -xvzf ${LICENSE_DIR}/*.tar.gz -C ${PRODUCT_LICENSE_DIR}
 
 # create destination folder of scripts and jars
-mkdir -p ${STRIMZI_HOME}/bin
-mkdir -p ${STRIMZI_HOME}/lib
-
-# copy module related scripts
-cp -r ${SCRIPTS_DIR}/* ${STRIMZI_HOME}/bin
+mkdir -p ${STRIMZI_HOME}
 
 # unzip all archives/artifacts with operators scripts and jars
 for z in ${SOURCES_DIR}/*-dist.zip;
 do
-    unzip -qo $z -d ${SOURCES_DIR}/;
+    unzip -qo $z -d ${STRIMZI_HOME}/;
 done
 
-# copy operators related scripts
-cp -r ${SOURCES_DIR}/bin/* ${STRIMZI_HOME}/bin
-# copy operators related jars
-cp -r ${SOURCES_DIR}/lib/* ${STRIMZI_HOME}/lib
+# copy module related scripts
+cp -r ${SCRIPTS_DIR}/* ${STRIMZI_HOME}/bin
 
 chmod -R 0755 ${STRIMZI_HOME}/bin
 chmod -R 0755 ${STRIMZI_HOME}/lib

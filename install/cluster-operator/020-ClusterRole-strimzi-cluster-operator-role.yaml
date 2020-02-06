@@ -46,10 +46,14 @@ rules:
   - kafkaconnects/status
   - kafkaconnects2is
   - kafkaconnects2is/status
+  - kafkaconnectors
+  - kafkaconnectors/status
   - kafkamirrormakers
   - kafkamirrormakers/status
   - kafkabridges
   - kafkabridges/status
+  - kafkamirrormaker2s
+  - kafkamirrormaker2s/status
   verbs:
   - get
   - list

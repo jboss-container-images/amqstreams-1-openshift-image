@@ -41,7 +41,7 @@ packages:
     - hostname
 
 run:
-  workdir: "/opt/strimzi"
+  workdir: $STRIMZI_HOME
 
 osbs:
   configuration:

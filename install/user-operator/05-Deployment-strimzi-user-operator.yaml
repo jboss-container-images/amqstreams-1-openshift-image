@@ -17,7 +17,7 @@ spec:
       serviceAccountName: strimzi-user-operator
       containers:
         - name: strimzi-user-operator
-          image: registry.redhat.io/amq7/amq-streams-operator:1.3.0
+          image: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.4.0
           args:
           - /opt/strimzi/bin/user_operator_run.sh
           env:

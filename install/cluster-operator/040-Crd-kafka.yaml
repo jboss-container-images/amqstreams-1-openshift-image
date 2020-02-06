@@ -22,13 +22,15 @@ spec:
     plural: kafkas
     shortNames:
     - k
+    categories:
+    - strimzi
   additionalPrinterColumns:
   - name: Desired Kafka replicas
     description: The desired number of Kafka replicas in the cluster
     JSONPath: .spec.kafka.replicas
     type: integer
   - name: Desired ZK replicas
-    description: The desired number of Zookeeper replicas in the cluster
+    description: The desired number of ZooKeeper replicas in the cluster
     JSONPath: .spec.zookeeper.replicas
     type: integer
   subresources:
@@ -70,6 +72,9 @@ spec:
                       type: object
                     size:
                       type: string
+                    sizeLimit:
+                      type: string
+                      pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                     type:
                       type: string
                       enum:
@@ -101,6 +106,9 @@ spec:
                             type: object
                           size:
                             type: string
+                          sizeLimit:
+                            type: string
+                            pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                           type:
                             type: string
                             enum:
@@ -119,6 +127,10 @@ spec:
                         authentication:
                           type: object
                           properties:
+                            accessTokenIsJwt:
+                              type: boolean
+                            checkAccessTokenType:
+                              type: boolean
                             clientId:
                               type: string
                             clientSecret:
@@ -132,6 +144,8 @@ spec:
                               - key
                               - secretName
                             disableTlsHostnameVerification:
+                              type: boolean
+                            enableECDSA:
                               type: boolean
                             introspectionEndpointUri:
                               type: string
@@ -223,6 +237,10 @@ spec:
                         authentication:
                           type: object
                           properties:
+                            accessTokenIsJwt:
+                              type: boolean
+                            checkAccessTokenType:
+                              type: boolean
                             clientId:
                               type: string
                             clientSecret:
@@ -236,6 +254,8 @@ spec:
                               - key
                               - secretName
                             disableTlsHostnameVerification:
+                              type: boolean
+                            enableECDSA:
                               type: boolean
                             introspectionEndpointUri:
                               type: string
@@ -271,6 +291,22 @@ spec:
                               type: string
                           required:
                           - type
+                        configuration:
+                          type: object
+                          properties:
+                            brokerCertChainAndKey:
+                              type: object
+                              properties:
+                                certificate:
+                                  type: string
+                                key:
+                                  type: string
+                                secretName:
+                                  type: string
+                              required:
+                              - certificate
+                              - key
+                              - secretName
                         networkPolicyPeers:
                           type: array
                           items:
@@ -327,6 +363,10 @@ spec:
                         authentication:
                           type: object
                           properties:
+                            accessTokenIsJwt:
+                              type: boolean
+                            checkAccessTokenType:
+                              type: boolean
                             clientId:
                               type: string
                             clientSecret:
@@ -340,6 +380,8 @@ spec:
                               - key
                               - secretName
                             disableTlsHostnameVerification:
+                              type: boolean
+                            enableECDSA:
                               type: boolean
                             introspectionEndpointUri:
                               type: string
@@ -408,6 +450,19 @@ spec:
                                     type: object
                                 required:
                                 - host
+                            brokerCertChainAndKey:
+                              type: object
+                              properties:
+                                certificate:
+                                  type: string
+                                key:
+                                  type: string
+                                secretName:
+                                  type: string
+                              required:
+                              - certificate
+                              - key
+                              - secretName
                         networkPolicyPeers:
                           type: array
                           items:
@@ -499,14 +554,35 @@ spec:
                 authorization:
                   type: object
                   properties:
+                    clientId:
+                      type: string
+                    delegateToKafkaAcls:
+                      type: boolean
+                    disableTlsHostnameVerification:
+                      type: boolean
                     superUsers:
                       type: array
                       items:
                         type: string
+                    tlsTrustedCertificates:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          certificate:
+                            type: string
+                          secretName:
+                            type: string
+                        required:
+                        - certificate
+                        - secretName
+                    tokenEndpointUri:
+                      type: string
                     type:
                       type: string
                       enum:
                       - simple
+                      - keycloak
                   required:
                   - type
                 config:
@@ -787,6 +863,27 @@ spec:
                       pattern: '[0-9]+[mMgG]?'
                     gcLoggingEnabled:
                       type: boolean
+                    javaSystemProperties:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
+                jmxOptions:
+                  type: object
+                  properties:
+                    authentication:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - password
+                      required:
+                      - type
                 resources:
                   type: object
                   properties:
@@ -928,6 +1025,13 @@ spec:
                                     type: string
                                   value:
                                     type: string
+                            windowsOptions:
+                              type: object
+                              properties:
+                                gmsaCredentialSpec:
+                                  type: string
+                                gmsaCredentialSpecName:
+                                  type: string
                         terminationGracePeriodSeconds:
                           type: integer
                           minimum: 0
@@ -1141,6 +1245,8 @@ spec:
                                         type: string
                         priorityClassName:
                           type: string
+                        schedulerName:
+                          type: string
                         tolerations:
                           type: array
                           items:
@@ -1186,6 +1292,15 @@ spec:
                               type: object
                             annotations:
                               type: object
+                        externalTrafficPolicy:
+                          type: string
+                          enum:
+                          - Local
+                          - Cluster
+                        loadBalancerSourceRanges:
+                          type: array
+                          items:
+                            type: string
                     perPodService:
                       type: object
                       properties:
@@ -1196,6 +1311,15 @@ spec:
                               type: object
                             annotations:
                               type: object
+                        externalTrafficPolicy:
+                          type: string
+                          enum:
+                          - Local
+                          - Cluster
+                        loadBalancerSourceRanges:
+                          type: array
+                          items:
+                            type: string
                     externalBootstrapRoute:
                       type: object
                       properties:
@@ -1332,6 +1456,9 @@ spec:
                       type: object
                     size:
                       type: string
+                    sizeLimit:
+                      type: string
+                      pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                     type:
                       type: string
                       enum:
@@ -1607,6 +1734,15 @@ spec:
                       pattern: '[0-9]+[mMgG]?'
                     gcLoggingEnabled:
                       type: boolean
+                    javaSystemProperties:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          value:
+                            type: string
                 resources:
                   type: object
                   properties:
@@ -1748,6 +1884,13 @@ spec:
                                     type: string
                                   value:
                                     type: string
+                            windowsOptions:
+                              type: object
+                              properties:
+                                gmsaCredentialSpec:
+                                  type: string
+                                gmsaCredentialSpecName:
+                                  type: string
                         terminationGracePeriodSeconds:
                           type: integer
                           minimum: 0
@@ -1960,6 +2103,8 @@ spec:
                                       topologyKey:
                                         type: string
                         priorityClassName:
+                          type: string
+                        schedulerName:
                           type: string
                         tolerations:
                           type: array
@@ -2864,6 +3009,13 @@ spec:
                                     type: string
                                   value:
                                     type: string
+                            windowsOptions:
+                              type: object
+                              properties:
+                                gmsaCredentialSpec:
+                                  type: string
+                                gmsaCredentialSpecName:
+                                  type: string
                         terminationGracePeriodSeconds:
                           type: integer
                           minimum: 0
@@ -3077,6 +3229,8 @@ spec:
                                         type: string
                         priorityClassName:
                           type: string
+                        schedulerName:
+                          type: string
                         tolerations:
                           type: array
                           items:
@@ -3160,6 +3314,64 @@ spec:
                   enum:
                   - renew-certificate
                   - replace-key
+            jmxTrans:
+              type: object
+              properties:
+                image:
+                  type: string
+                outputDefinitions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      outputType:
+                        type: string
+                      host:
+                        type: string
+                      port:
+                        type: integer
+                      flushDelayInSeconds:
+                        type: integer
+                      typeNames:
+                        type: array
+                        items:
+                          type: string
+                      name:
+                        type: string
+                    required:
+                    - outputType
+                    - name
+                logLevel:
+                  type: string
+                kafkaQueries:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      targetMBean:
+                        type: string
+                      attributes:
+                        type: array
+                        items:
+                          type: string
+                      outputs:
+                        type: array
+                        items:
+                          type: string
+                    required:
+                    - targetMBean
+                    - attributes
+                    - outputs
+                resources:
+                  type: object
+                  properties:
+                    limits:
+                      type: object
+                    requests:
+                      type: object
+              required:
+              - outputDefinitions
+              - kafkaQueries
             kafkaExporter:
               type: object
               properties:
@@ -3245,6 +3457,13 @@ spec:
                                     type: string
                                   value:
                                     type: string
+                            windowsOptions:
+                              type: object
+                              properties:
+                                gmsaCredentialSpec:
+                                  type: string
+                                gmsaCredentialSpecName:
+                                  type: string
                         terminationGracePeriodSeconds:
                           type: integer
                           minimum: 0
@@ -3457,6 +3676,8 @@ spec:
                                       topologyKey:
                                         type: string
                         priorityClassName:
+                          type: string
+                        schedulerName:
                           type: string
                         tolerations:
                           type: array
@@ -3568,3 +3789,7 @@ spec:
                           type: string
                         port:
                           type: integer
+                  certificates:
+                    type: array
+                    items:
+                      type: string

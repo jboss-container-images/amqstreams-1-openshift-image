@@ -22,6 +22,8 @@ spec:
     plural: kafkaconnects
     shortNames:
     - kc
+    categories:
+    - strimzi
   additionalPrinterColumns:
   - name: Desired replicas
     description: The desired number of Kafka Connect replicas
@@ -37,6 +39,8 @@ spec:
           properties:
             replicas:
               type: integer
+            config:
+              type: object
             image:
               type: string
             livenessProbe:
@@ -82,6 +86,15 @@ spec:
                   pattern: '[0-9]+[mMgG]?'
                 gcLoggingEnabled:
                   type: boolean
+                javaSystemProperties:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      value:
+                        type: string
             affinity:
               type: object
               properties:
@@ -395,6 +408,13 @@ spec:
                                 type: string
                               value:
                                 type: string
+                        windowsOptions:
+                          type: object
+                          properties:
+                            gmsaCredentialSpec:
+                              type: string
+                            gmsaCredentialSpecName:
+                              type: string
                     terminationGracePeriodSeconds:
                       type: integer
                       minimum: 0
@@ -608,6 +628,8 @@ spec:
                                     type: string
                     priorityClassName:
                       type: string
+                    schedulerName:
+                      type: string
                     tolerations:
                       type: array
                       items:
@@ -671,6 +693,8 @@ spec:
                   required:
                   - key
                   - secretName
+                accessTokenIsJwt:
+                  type: boolean
                 certificateAndKey:
                   type: object
                   properties:
@@ -698,6 +722,8 @@ spec:
                   - secretName
                 disableTlsHostnameVerification:
                   type: boolean
+                maxTokenExpirySeconds:
+                  type: integer
                 passwordSecret:
                   type: object
                   properties:
@@ -745,8 +771,6 @@ spec:
               - type
             bootstrapServers:
               type: string
-            config:
-              type: object
             externalConfiguration:
               type: object
               properties:
@@ -878,3 +902,14 @@ spec:
               type: integer
             url:
               type: string
+            connectorPlugins:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  version:
+                    type: string
+                  class:
+                    type: string

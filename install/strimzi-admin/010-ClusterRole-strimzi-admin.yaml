@@ -15,6 +15,8 @@ rules:
   - kafkausers
   - kafkatopics
   - kafkabridges
+  - kafkaconnectors
+  - kafkamirrormaker2s
   verbs:
   - get
   - list

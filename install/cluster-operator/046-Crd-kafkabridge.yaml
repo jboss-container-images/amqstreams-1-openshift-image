@@ -19,6 +19,8 @@ spec:
     plural: kafkabridges
     shortNames:
     - kb
+    categories:
+    - strimzi
   additionalPrinterColumns:
   - name: Desired replicas
     description: The desired number of Kafka Bridge replicas
@@ -72,6 +74,8 @@ spec:
                   required:
                   - key
                   - secretName
+                accessTokenIsJwt:
+                  type: boolean
                 certificateAndKey:
                   type: object
                   properties:
@@ -99,6 +103,8 @@ spec:
                   - secretName
                 disableTlsHostnameVerification:
                   type: boolean
+                maxTokenExpirySeconds:
+                  type: integer
                 passwordSecret:
                   type: object
                   properties:
@@ -180,6 +186,15 @@ spec:
                   pattern: '[0-9]+[mMgG]?'
                 gcLoggingEnabled:
                   type: boolean
+                javaSystemProperties:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      value:
+                        type: string
             logging:
               type: object
               properties:
@@ -291,6 +306,13 @@ spec:
                                 type: string
                               value:
                                 type: string
+                        windowsOptions:
+                          type: object
+                          properties:
+                            gmsaCredentialSpec:
+                              type: string
+                            gmsaCredentialSpecName:
+                              type: string
                     terminationGracePeriodSeconds:
                       type: integer
                       minimum: 0
@@ -504,6 +526,8 @@ spec:
                                     type: string
                     priorityClassName:
                       type: string
+                    schedulerName:
+                      type: string
                     tolerations:
                       type: array
                       items:
@@ -554,6 +578,15 @@ spec:
                     maxUnavailable:
                       type: integer
                       minimum: 0
+            tracing:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - jaeger
+              required:
+              - type
           required:
           - bootstrapServers
         status:

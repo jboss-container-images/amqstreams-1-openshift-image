@@ -16,8 +16,6 @@ labels:
     value: "messaging,amq,jboss"
   - name: "licenses"
     value: "/root/licenses"
-  - name: "com.redhat.delivery.appregistry"
-    value: "true"
 
 modules:
   repositories:
@@ -27,12 +25,9 @@ modules:
         ref: sprint-35
     - name: modules
       path: modules
-    - name: common
-      path: ../common/modules
   install:
     - name: jboss.container.user
     - name: operator
-    - name: olm
 
 packages:
   manager: microdnf

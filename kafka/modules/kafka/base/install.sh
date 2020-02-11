@@ -9,6 +9,10 @@ STUNNEL_DIR=${SCRIPT_DIR}/stunnel-scripts
 S2I_DIR=${SCRIPT_DIR}/s2i-scripts
 EXPORTER_DIR=${SCRIPT_DIR}/exporter-scripts
 
+# Add strimzi user with UID 1001
+# The user is in the group 0 to have access to the mounted volumes and storage
+useradd -r -m -u 1001 -g 0 strimzi
+
 mkdir $KAFKA_HOME
 mkdir $STUNNEL_HOME
 mkdir $S2I_HOME

@@ -13,5 +13,16 @@ envs:
   - name: "KAFKA_EXPORTER_HOME"
     value: "/opt/kafka-exporter"
 
+packages:
+  manager: microdnf
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+  install:
+    - unzip
+    - tar
+    - rsync
+    - shadow-utils # groupadd
+
 execute:
   - script: install.sh

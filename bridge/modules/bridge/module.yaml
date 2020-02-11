@@ -15,5 +15,16 @@ artifacts:
   - md5: b11d53cee5d9f06c17c8aaae3d3c2fc5
     name: kafka-bridge-licenses.tar.gz
 
+packages:
+  manager: microdnf
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+  install:
+    - unzip
+    - tar
+    - rsync
+    - shadow-utils # groupadd
+
 execute:
   - script: install.sh

@@ -19,14 +19,9 @@ labels:
 
 modules:
   repositories:
-    - name: cct_module
-      git:
-        url: https://github.com/jboss-openshift/cct_module.git
-        ref: sprint-35
     - name: modules
       path: modules
   install:
-    - name: jboss.container.user
     - name: operator
 
 packages:
@@ -41,6 +36,7 @@ packages:
     - hostname
 
 run:
+  user: 1001
   workdir: $STRIMZI_HOME
 
 osbs:

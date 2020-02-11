@@ -21,5 +21,16 @@ artifacts:
   - md5: 5ab388c99edff3ef59a43da65d85bec6
     name: strimzi-licenses.tar.gz
 
+packages:
+  manager: microdnf
+  content_sets:
+    x86_64:
+      - rhel-7-server-rpms
+  install:
+    - unzip
+    - tar
+    - rsync
+    - shadow-utils # groupadd
+
 execute:
   - script: install.sh

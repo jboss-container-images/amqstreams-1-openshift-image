@@ -17,14 +17,9 @@ labels:
 
 modules:
   repositories:
-    - name: cct_module
-      git:
-        url: https://github.com/jboss-openshift/cct_module.git
-        ref: sprint-35
     - name: modules   
       path: ../modules
   install:
-    - name: jboss.container.user
     - name: kafka
       version: 2.4.0
 
@@ -44,6 +39,7 @@ packages:
     - bind-utils
  
 run:
+  user: 1001
   workdir: $KAFKA_HOME
 
 osbs:

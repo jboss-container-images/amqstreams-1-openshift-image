@@ -349,7 +349,7 @@ spec:
     
     The AMQ Streams operator understands how to run and upgrade between a set of Kafka versions.
     When specifying a new version in your config, check to make sure you are not using any features that may have been removed.
-    See [the upgrade guide](https://access.redhat.com/documentation/en-us/red_hat_amq/7.3/html/using_amq_streams_on_openshift_container_platform/index) for more information.
+    See [the upgrade guide](https://access.redhat.com/documentation/en-us/red_hat_amq/7.6/html/using_amq_streams_on_openshift_container_platform/index) for more information.
 
     ### Security
 
@@ -760,6 +760,7 @@ spec:
               containers:
               - name: cluster-operator
                 image: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.4.0
+                imagePullPolicy: IfNotPresent
                 args:
                 - /opt/strimzi/bin/cluster_operator_run.sh
                 env:
@@ -808,8 +809,6 @@ spec:
                   value: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.4.0
                 - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
                   value: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.4.0
-                - name: STRIMZI_CREATE_CLUSTER_ROLES
-                  value: "TRUE"
                 - name: STRIMZI_LOG_LEVEL
                   value: INFO
                 - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_LABELS

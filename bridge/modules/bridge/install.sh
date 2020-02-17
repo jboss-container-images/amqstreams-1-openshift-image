@@ -17,8 +17,10 @@ tar -xvzf ${LICENSE_DIR}/kafka-bridge-licenses.tar.gz -C ${PRODUCT_LICENSE_DIR}
 # create destination folder of scripts, jars and config
 mkdir -p ${STRIMZI_HOME}
 
-# untar archive/artifact with bridge scripts and jars
-tar xvfz "${SOURCES_DIR}/kafka-bridge.tar.gz" -C ${STRIMZI_HOME} --strip-components=1
+# unzip archive/artifact with bridge scripts and jars
+TMP=$(zipinfo -1  ${SOURCES_DIR}/kafka-bridge*.zip | grep -oE '^[^/]+' | uniq)
+unzip ${SOURCES_DIR}/kafka-bridge*.zip
+mv ${TMP}/* ${STRIMZI_HOME}/
 
 chmod -R 0755 ${STRIMZI_HOME}/bin
 chmod -R 0755 ${STRIMZI_HOME}/libs

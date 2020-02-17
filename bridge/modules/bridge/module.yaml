@@ -11,7 +11,7 @@ envs:
 
 artifacts:
   - md5: 80c0bbf8918e820c04a431a9813c8506
-    name: kafka-bridge.tar.gz
+    name: kafka-bridge.zip
   - md5: b11d53cee5d9f06c17c8aaae3d3c2fc5
     name: kafka-bridge-licenses.tar.gz
 

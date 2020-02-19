@@ -410,6 +410,43 @@ spec:
     supported: true
   - type: AllNamespaces
     supported: true
+  relatedImages:
+  - name: strimzi-cluster-operator
+    value: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.4.0
+  - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
+    value: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7:1.4.0
+  - name: STRIMZI_DEFAULT_TLS_SIDECAR_KAFKA_IMAGE
+    value: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7:1.4.0
+  - name: STRIMZI_DEFAULT_TLS_SIDECAR_ZOOKEEPER_IMAGE
+    value: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7:1.4.0
+  - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
+    value: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7:1.4.0
+  - name: STRIMZI_KAFKA_IMAGE_23
+    value: registry.redhat.io/amq7/amq-streams-kafka-23-rhel7:1.4.0
+  - name: STRIMZI_KAFKA_IMAGE_24
+    value: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7:1.4.0
+  - name: STRIMZI_KAFKA_CONNECT_IMAGE_23
+    value: registry.redhat.io/amq7/amq-streams-kafka-23-rhel7:1.4.0
+  - name: STRIMZI_KAFKA_CONNECT_IMAGE_24
+    value: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7:1.4.0
+  - name: STRIMZI_KAFKA_CONNECT_S2I_IMAGE_23
+    value: registry.redhat.io/amq7/amq-streams-kafka-23-rhel7:1.4.0
+  - name: STRIMZI_KAFKA_CONNECT_S2I_IMAGE_24
+    value: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7:1.4.0
+  - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGE_23
+    value: registry.redhat.io/amq7/amq-streams-kafka-23-rhel7:1.4.0
+  - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGE_24
+    value: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7:1.4.0
+  - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGE_24
+    value: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7:1.4.0
+  - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
+    value: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.4.0
+  - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
+    value: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.4.0
+  - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
+    value: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.4.0
+  - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
+    value: registry.redhat.io/amq7/amq-streams-bridge-rhel7:1.4.0
   install:
     strategy: deployment
     spec:

@@ -33,6 +33,7 @@ packages:
       - rhel-7-server-rpms
 
 osbs:
+  extra_dir: dist-git-files
   configuration:
     container:
       compose:

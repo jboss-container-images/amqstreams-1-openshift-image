@@ -43,6 +43,7 @@ run:
   workdir: $KAFKA_HOME
 
 osbs:
+  extra_dir: dist-git-files
   configuration:
     container:
       compose:

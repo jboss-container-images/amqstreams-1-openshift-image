@@ -7,7 +7,7 @@ from: rh-osbs/ubi7-minimal:7-released
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams-operator-metadata-container"
+    value: "amqstreams-metadata-container"
   - name: "io.k8s.description"
     value: "Operator metadata"
   - name: "io.k8s.display-name"

@@ -35,7 +35,7 @@ fi
 
 # enabling Prometheus JMX exporter as Java agent
 if [ "$ZOOKEEPER_METRICS_ENABLED" = "true" ]; then
-  export KAFKA_OPTS="-javaagent:$(ls $KAFKA_HOME/libs/jmx_prometheus_javaagent*.jar)=9404:$KAFKA_HOME/custom-config/metrics-config.yml"
+  export KAFKA_OPTS="$KAFKA_OPTS -javaagent:$(ls $KAFKA_HOME/libs/jmx_prometheus_javaagent*.jar)=9404:$KAFKA_HOME/custom-config/metrics-config.yml"
 fi
 
 if [ -z "$KAFKA_HEAP_OPTS" -a -n "${DYNAMIC_HEAP_FRACTION}" ]; then
@@ -83,6 +83,14 @@ fi
 
 # This section should be removed once Strimzi no longer supports Kafka brokers using ZK 3.4.x.
 ############ ZK Upgrade End ############
+
+if [ -n "$STRIMZI_JAVA_SYSTEM_PROPERTIES" ]; then
+    export KAFKA_OPTS="${KAFKA_OPTS} ${STRIMZI_JAVA_SYSTEM_PROPERTIES}"
+fi
+
+# We need to disable the native ZK authorisation (we secure ZK through the TLS-Sidecars) to allow use of the reconfiguration options.
+KAFKA_OPTS="$KAFKA_OPTS -Dzookeeper.skipACL=yes"
+export KAFKA_OPTS
 
 # starting Zookeeper with final configuration
 exec $KAFKA_HOME/bin/zookeeper-server-start.sh /tmp/zookeeper.properties

@@ -286,7 +286,7 @@ metadata:
     categories: "Streaming & Messaging"
     certified: "false"
     description: Red Hat AMQ Streams is a massively scalable, distributed, and high performance data streaming platform based on Apache Kafka®.
-    containerImage: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.4.0
+    containerImage: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:4079eadd9a806adfbf3222f071c0498b17a6c54f9b8d199cf5af4961bcbdd83a
     repository: https://github.com/strimzi/strimzi-kafka-operator
     createdAt: 2020-02-10T10:00:00Z
     support: Red Hat

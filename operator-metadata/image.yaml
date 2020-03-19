@@ -39,5 +39,5 @@ osbs:
       compose:
         pulp_repos: true
   repository:
-    name: containers/amqstreams-operator-dev-operator-metadata
+    name: containers/amqstreams-operator-prod-operator-metadata
     branch: amqstreams-1-rhel-7

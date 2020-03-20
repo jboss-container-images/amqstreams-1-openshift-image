@@ -8,7 +8,7 @@ envs:
     value: "amqstreams-kafka-24-container"
 
 artifacts:
-  - md5: d11bdae26bcd2c22527ad98a70208760
+  - md5: e1426496ca5fd5692838a0de9021391f
     name: kafka-24.zip
 
 modules:

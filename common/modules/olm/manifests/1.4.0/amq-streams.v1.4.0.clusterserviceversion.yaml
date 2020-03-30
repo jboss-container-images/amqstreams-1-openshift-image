@@ -1161,7 +1161,7 @@ spec:
     - name: kafkaconnectors.kafka.strimzi.io
       version: v1alpha1
       kind: KafkaConnector
-      displayName: Kafka connector
+      displayName: Kafka Connector
       description: Represents a Kafka Connect connector
       specDescriptors:
         - description: The Class for the Kafka Connector

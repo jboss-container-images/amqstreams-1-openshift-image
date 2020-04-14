@@ -8,13 +8,13 @@ envs:
     value: "amqstreams-kafka-24-container"
 
 artifacts:
-  - md5: e1426496ca5fd5692838a0de9021391f
+  - md5: 11fad30d864e47f98ca35fe48dce41cc
     name: kafka-24.zip
 
 modules:
   install:
   - name: kafka.base
-    version: 1.4.0
+    version: 1.4.1
 
 execute:
   - script: install.sh

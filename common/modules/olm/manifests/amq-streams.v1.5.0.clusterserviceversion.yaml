@@ -412,13 +412,13 @@ spec:
     supported: true
   relatedImages:
   - name: strimzi-cluster-operator
-    value: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:76312a8b83adaa79eff2c7d4c336f6cea38c8736fb88008effd74c8c1de423af
+    image: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:76312a8b83adaa79eff2c7d4c336f6cea38c8736fb88008effd74c8c1de423af
   - name: strimzi-kafka-23
-    value: registry.redhat.io/amq7/amq-streams-kafka-23-rhel7@sha256:d7981619bb8f5cd61eb85f1044f8358ae497bd238957cfc3316ac4605eca67fb
+    image: registry.redhat.io/amq7/amq-streams-kafka-23-rhel7@sha256:d7981619bb8f5cd61eb85f1044f8358ae497bd238957cfc3316ac4605eca67fb
   - name: strimzi-kafka-24
-    value: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7@sha256:1833e14a7db6dd73b7f147a4b53e276eaf1b07db6a6c8a15f990b1574a3e5e8d
+    image: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7@sha256:1833e14a7db6dd73b7f147a4b53e276eaf1b07db6a6c8a15f990b1574a3e5e8d
   - name: strimzi-bridge
-    value: registry.redhat.io/amq7/amq-streams-bridge-rhel7@sha256:f36bac4b83a1a60a2f04bdce68d682e1c63314f8ff7f2fff095d75a8812b7494
+    image: registry.redhat.io/amq7/amq-streams-bridge-rhel7@sha256:f36bac4b83a1a60a2f04bdce68d682e1c63314f8ff7f2fff095d75a8812b7494
   install:
     strategy: deployment
     spec:

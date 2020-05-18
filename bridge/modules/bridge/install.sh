@@ -12,7 +12,7 @@ useradd -r -m -u 1001 -g 0 strimzi
 # untar the artifact containing license information
 mkdir -p ${PRODUCT_LICENSE_DIR}
 mv ${SOURCES_DIR}/kafka-bridge-licenses.tar.gz ${LICENSE_DIR}
-tar -xvzf ${LICENSE_DIR}/kafka-bridge-licenses.tar.gz -C ${PRODUCT_LICENSE_DIR}
+tar -xvzf ${LICENSE_DIR}/kafka-bridge-licenses.tar.gz -C ${PRODUCT_LICENSE_DIR} --no-same-owner
 
 # create destination folder of scripts, jars and config
 mkdir -p ${STRIMZI_HOME}

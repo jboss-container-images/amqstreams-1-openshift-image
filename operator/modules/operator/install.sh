@@ -25,6 +25,9 @@ do
     unzip -qo $z -d ${STRIMZI_HOME}/;
 done
 
+# extract all the operator related scripts
+unzip ${SOURCES_DIR}/strimzi-operator-scripts.zip -d ${SCRIPTS_DIR}
+
 # copy module related scripts
 cp -r ${SCRIPTS_DIR}/* ${STRIMZI_HOME}/bin
 

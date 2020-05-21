@@ -12,6 +12,12 @@ envs:
     value: "/opt/kafka/s2i"
   - name: "KAFKA_EXPORTER_HOME"
     value: "/opt/kafka-exporter"
+  - name: "CRUISE_CONTROL_HOME"
+    value: "/opt/cruise-control"
+
+artifacts:
+  - md5: b316ac68820a7c6520fcc522e90c5560
+    name: strimzi-kafka-scripts.zip
 
 packages:
   manager: microdnf

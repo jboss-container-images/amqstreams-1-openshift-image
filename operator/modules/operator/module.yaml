@@ -20,6 +20,8 @@ artifacts:
     name: kafka-init-dist.zip
   - md5: 062bf13db4307e35ae39f40ab99ba3a9
     name: strimzi-licenses.tar.gz
+  - md5: f825064fcd6504bec01545058bfca75c
+    name: strimzi-operator-scripts.zip
 
 packages:
   manager: microdnf

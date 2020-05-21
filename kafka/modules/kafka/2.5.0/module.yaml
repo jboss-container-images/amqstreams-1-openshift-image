@@ -1,20 +1,20 @@
 schema_version: 1
 
 name: kafka
-version: 2.3.0
+version: 2.5.0
 
 envs:
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams-kafka-23-container"
+    value: "amqstreams-kafka-25-container"
 
 artifacts:
   - md5: 71aa605c048f19da4a9c9fd29c64d225
-    name: kafka-23.zip
+    name: kafka-25.zip
 
 modules:
   install:
   - name: kafka.base
-    version: 1.4.1
+    version: 1.5.0
 
 execute:
   - script: install.sh

@@ -24,7 +24,7 @@ For more details refer to https://access.redhat.com/documentation/en-us/red_hat_
 ## Container Images
 
 * _operator_ : image for running Cluster, Topic and User operators for managing a Kafka Cluster, Topic and User. Kafka init for container initialization.
-* _kafka_ : image for running Apache Kafka, Zookeeper, Kafka Connect and Mirror Maker.
+* _kafka_ : image for running Apache Kafka, Zookeeper, Kafka Connect, Mirror Maker and Cruise Control.
 * _bridge_ : image for running the Apache Kafka bridge.
 * _operator-metadata_ : image for the manifests and metadata of the related operator.
 

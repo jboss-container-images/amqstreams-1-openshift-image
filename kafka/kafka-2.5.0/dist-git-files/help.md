@@ -2,7 +2,7 @@
 
 # NAME
 
-Kafka - AMQ Streams image for running an Apache Kafka broker
+Kafka - AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect, Mirror Maker and Cruise Control
 
 # USAGE
 

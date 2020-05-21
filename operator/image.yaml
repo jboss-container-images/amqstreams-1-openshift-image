@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq7/amq-streams-rhel7-operator
 description: "AMQ Streams image for the Cluster, Topic, User Operators, and Kafka init"
-version: "1.4.1"
+version: "1.5.0"
 from: rh-osbs/ubi7-minimal:7-released
 
 labels:
@@ -47,4 +47,4 @@ osbs:
         pulp_repos: true
   repository:
     name: containers/amqstreams-operator
-    branch: amqstreams-1.4-rhel-7
+    branch: amqstreams-1.5-rhel-7

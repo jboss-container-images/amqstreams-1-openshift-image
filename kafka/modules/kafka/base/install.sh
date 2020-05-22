@@ -22,6 +22,13 @@ chmod -R 0755 ${KAFKA_HOME}
 # extract all the Kafka related scripts
 unzip ${SOURCES_DIR}/strimzi-kafka-scripts.zip -d ${SCRIPTS_DIR}
 
+# patch to remove "tini"
+FILES=$(find ${SCRIPTS_DIR} -type f -name "*.sh")
+for f in $FILES
+do
+  sed -i 's/\/usr\/bin\/tini -w -e 143 -- sh -c //' $f
+done
+
 # NOTE: kafka folder alredy contains the s2i (so no need for a specific cp command)
 cp -r ${SCRIPTS_DIR}/kafka/* ${KAFKA_HOME}/
 chmod -R 755 ${KAFKA_HOME}

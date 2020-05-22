@@ -28,6 +28,13 @@ done
 # extract all the operator related scripts
 unzip ${SOURCES_DIR}/strimzi-operator-scripts.zip -d ${SCRIPTS_DIR}
 
+# patch to remove "tini"
+FILES=$(find ${SCRIPTS_DIR} -type f -name "*.sh")
+for f in $FILES
+do
+  sed -i 's/\/usr\/bin\/tini -w -e 143 -- //' $f
+done
+
 # copy module related scripts
 cp -r ${SCRIPTS_DIR}/* ${STRIMZI_HOME}/bin
 

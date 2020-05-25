@@ -6,11 +6,11 @@ metadata:
     strimzi.io/cluster: my-cluster
 spec:
   authentication:
-    type: tls
+    type: scram-sha-512
   authorization:
     type: simple
     acls:
-      # Example consumer Acls for topic my-topic using consumer group my-group
+      # Example ACL rules for consuming from my-topic using consumer group my-group
       - resource:
           type: topic
           name: my-topic
@@ -29,7 +29,7 @@ spec:
           patternType: literal
         operation: Read
         host: "*"
-      # Example Producer Acls for topic my-topic
+      # Example ACL rules for producing to topic my-topic
       - resource:
           type: topic
           name: my-topic

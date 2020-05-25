@@ -331,9 +331,9 @@ spec:
 
     ### What is new in AMQ Streams 1.5
 
-    * Suppor for Apache Kafka 2.5.0 and 2.4.1
+    * Suppor for Apache Kafka 2.5.0 and 2.4.0
 
-    * Built-in Cruise Control support for cluster rebalancing
+    * Built-in Cruise Control support, in Tech Preview, for cluster rebalancing
 
     * New operator metrics and new Grafana dashbaord for operator monitoring
 

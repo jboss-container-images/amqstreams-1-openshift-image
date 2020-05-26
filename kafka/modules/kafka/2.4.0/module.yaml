@@ -9,7 +9,7 @@ envs:
 
 artifacts:
   - md5: 11fad30d864e47f98ca35fe48dce41cc
-    name: kafka-24.zip
+    name: streams-ocp-24.zip
 
 modules:
   install:

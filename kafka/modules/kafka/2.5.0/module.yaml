@@ -10,6 +10,8 @@ envs:
 artifacts:
   - md5: 71aa605c048f19da4a9c9fd29c64d225
     name: streams-ocp-25.zip
+  - md5: 71aa605c048f19da4a9c9fd29c64d225
+    name: cruise-control-ocp-25.zip
 
 modules:
   install:

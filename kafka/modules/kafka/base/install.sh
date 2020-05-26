@@ -20,8 +20,8 @@ mkdir -p -m g+rw /usr/local/var/run/
 chmod -R 0755 ${KAFKA_HOME}
 
 # Copy contents of Cruise Control zip without the root dir
-TMP=$(zipinfo -1  ${SOURCES_DIR}/cruise-control-ocp.zip | grep -oE '^[^/]+' | uniq)
-unzip ${SOURCES_DIR}/cruise-control-ocp.zip
+TMP=$(zipinfo -1  ${SOURCES_DIR}/cruise-control.zip | grep -oE '^[^/]+' | uniq)
+unzip ${SOURCES_DIR}/cruise-control.zip
 mv ${TMP}/* ${CRUISE_CONTROL_HOME}/libs/
 
 # extract all the Kafka related scripts

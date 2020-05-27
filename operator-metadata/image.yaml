@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq7/amq-streams-rhel7-operator-metadata
 description: "AMQ Streams image containing the operator metadata"
-version: "1.4.1"
+version: "1.5.0"
 from: rh-osbs/ubi7-minimal:7-released
 
 labels:

@@ -2,18 +2,20 @@ schema_version: 1
 
 name: amq7/amq-streams-rhel7-operator-metadata
 description: "AMQ Streams image containing the operator metadata"
-version: "1.5.0"
-from: scratch
+version: "1.4.1"
+from: rh-osbs/ubi7-minimal:7-released
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams-bundle-container"
+    value: "amqstreams-operator-metadata-container"
   - name: "io.k8s.description"
     value: "Operator metadata"
   - name: "io.k8s.display-name"
     value: "AMQ Streams Operator metadata"
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
+  - name: "com.redhat.delivery.appregistry"
+    value: "true"
   - name: "operators.operatorframework.io.bundle.mediatype.v1"
     value: "registry+v1"
   - name: "operators.operatorframework.io.bundle.manifests.v1"
@@ -27,11 +29,11 @@ labels:
   - name: "operators.operatorframework.io.bundle.channel.default.v1"
     value: "stable"
   - name: "com.redhat.delivery.operator.bundle"
-    value: "true"
+    value: "false"
   - name: "com.redhat.openshift.versions"
     value: "v4.5"
   - name: "com.redhat.delivery.backport"
-    value: "true"
+    value: "false"
 
 modules:
   repositories:
@@ -42,6 +44,10 @@ modules:
 
 osbs:
   extra_dir: dist-git-files
+  configuration:
+    container:
+      compose:
+        pulp_repos: true
   repository:
     name: containers/amqstreams-operator-prod-operator-metadata
-    branch: amqstreams-1.5-rhel-7
+    branch: amqstreams-1-rhel-7

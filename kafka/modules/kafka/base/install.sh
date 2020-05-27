@@ -28,10 +28,12 @@ mv ${TMP}/* ${CRUISE_CONTROL_HOME}/libs/
 unzip ${SOURCES_DIR}/strimzi-kafka-scripts.zip -d ${SCRIPTS_DIR}
 
 # patch to remove "tini"
-FILES=$(find ${SCRIPTS_DIR} -type f -name "*.sh")
+FILES=$(find ${SCRIPTS_DIR} -type f -name "*_run.sh")
 for f in $FILES
 do
-  sed -i 's/\/usr\/bin\/tini -w -e 143 -- sh -c //' $f
+  sed -i 's/\/usr\/bin\/tini -w -e 143 -- sh -c "${KAFKA_HOME}\/bin\/connect-distributed.sh \/tmp\/strimzi-connect.properties"/${KAFKA_HOME}\/bin\/connect-distributed.sh \/tmp\/strimzi-connect.properties/' $f
+  sed -i 's/\/usr\/bin\/tini -w -e 143 -- sh -c "${KAFKA_HOME}\/bin\/kafka-server-start.sh \/tmp\/strimzi.properties"/${KAFKA_HOME}\/bin\/kafka-server-start.sh \/tmp\/strimzi.properties/' $f
+  sed -i 's/\/usr\/bin\/tini -w -e 143 -- sh -c "${KAFKA_HOME}\/bin\/zookeeper-server-start.sh \/tmp\/zookeeper.properties"/${KAFKA_HOME}\/bin\/zookeeper-server-start.sh \/tmp\/zookeeper.properties/' $f
 done
 
 # NOTE: kafka folder alredy contains the s2i (so no need for a specific cp command)

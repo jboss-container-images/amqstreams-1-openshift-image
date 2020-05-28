@@ -8,4 +8,4 @@ MANIFESTS_DIR=${SCRIPT_DIR}/manifests
 mkdir -p /manifests
 
 # copy manifests files
-cp -r ${MANIFESTS_DIR}/*.yaml /manifests
+cp -r ${MANIFESTS_DIR}/* /manifests

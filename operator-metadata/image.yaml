@@ -16,8 +16,6 @@ labels:
     value: "messaging,amq,jboss"
   - name: "com.redhat.delivery.appregistry"
     value: "true"
-  - name: "com.redhat.delivery.operator.bundle"
-    value: "false"
 
 modules:
   repositories:

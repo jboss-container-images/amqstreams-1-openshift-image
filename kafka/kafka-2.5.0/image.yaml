@@ -28,6 +28,7 @@ packages:
   content_sets:
     x86_64:
       - rhel-7-server-rpms
+      - amq-streams-1-for-rhel-7-server-rpms
   install:
     - java-1.8.0-openjdk-headless
     - gettext
@@ -37,6 +38,7 @@ packages:
     - stunnel
     - net-tools
     - bind-utils
+    - tini
 
 run:
   user: 1001

@@ -1,9 +1,9 @@
 packageName: amq-streams
 channels:
 - name: stable
-  currentCSV: amqstreams.v1.5.0
+  currentCSV: amqstreams.v1.5.1
 - name: amq-streams-1.x
-  currentCSV: amqstreams.v1.5.0
+  currentCSV: amqstreams.v1.5.1
 - name: amq-streams-1.5.x
-  currentCSV: amqstreams.v1.5.0
+  currentCSV: amqstreams.v1.5.1
 defaultChannel: stable

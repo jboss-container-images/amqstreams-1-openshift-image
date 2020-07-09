@@ -29,6 +29,8 @@ packages:
     x86_64:
       - rhel-7-server-rpms
       - amq-streams-1-for-rhel-7-server-rpms
+      - rhel-atomic-host-rpms
+      - rhel-7-desktop-extras-rpms
   install:
     - java-1.8.0-openjdk-headless
     - gettext

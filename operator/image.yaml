@@ -49,6 +49,9 @@ osbs:
     container:
       compose:
         pulp_repos: true
+      platforms:
+        only:
+        - x86_64
   repository:
     name: containers/amqstreams-operator
     branch: amqstreams-1.5-rhel-7

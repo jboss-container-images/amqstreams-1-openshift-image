@@ -16,6 +16,8 @@ labels:
     value: "messaging,amq,jboss"
   - name: "licenses"
     value: "/root/licenses"
+  - name: "maintainer"
+    value: "AMQ Streams Engineering <amq-streams-dev@redhat.com>"
 
 modules:
   repositories:

@@ -14,6 +14,8 @@ labels:
     value: "AMQ Streams Apache Kafka"
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
+  - name: "maintainer"
+    value: "AMQ Streams Engineering <amq-streams-dev@redhat.com>"
 
 modules:
   repositories:

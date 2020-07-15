@@ -32,6 +32,8 @@ labels:
     value: "v4.5"
   - name: "com.redhat.delivery.backport"
     value: "true"
+  - name: "maintainer"
+    value: "AMQ Streams Engineering <amq-streams-dev@redhat.com>"
 
 artifacts:
     - path: manifests

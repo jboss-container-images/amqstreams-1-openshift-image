@@ -16,6 +16,8 @@ labels:
     value: "messaging,amq,jboss"
   - name: "com.redhat.delivery.appregistry"
     value: "true"
+  - name: "maintainer"
+    value: "AMQ Streams Engineering <amq-streams-dev@redhat.com>"
 
 modules:
   repositories:

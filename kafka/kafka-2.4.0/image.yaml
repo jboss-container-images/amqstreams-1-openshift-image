@@ -30,11 +30,12 @@ packages:
   content_sets:
     x86_64:
       - rhel-7-server-rpms
+      - java-11-openjdk-devel
       - amq-streams-1-for-rhel-7-server-rpms
       - rhel-atomic-host-rpms
       - rhel-7-desktop-extras-rpms
   install:
-    - java-1.8.0-openjdk-headless
+    - java-11-openjdk-devel
     - gettext
     - nmap-ncat
     - openssl
@@ -43,6 +44,7 @@ packages:
     - net-tools
     - bind-utils
     - tini
+    - lsof
  
 run:
   user: 1001

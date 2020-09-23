@@ -11,6 +11,7 @@ CURRENT=${BASE_HOSTNAME}-${KAFKA_BROKER_ID}
 echo "pid = /usr/local/var/run/stunnel.pid"
 echo "foreground = yes"
 echo "debug = $TLS_SIDECAR_LOG_LEVEL"
+echo "sslVersion = all"
 
 cat <<-EOF
 [zookeeper-2181]

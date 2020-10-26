@@ -3,7 +3,7 @@ schema_version: 1
 name: amq7/amq-streams-kafka-25-rhel7
 description: "AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect, Mirror Maker and Cruise Control"
 version: "1.6.0"
-from: rh-osbs/ubi7-minimal:7-released
+from: registry.redhat.io/ubi7/ubi-minimal
 
 labels:
   - name: "com.redhat.component"

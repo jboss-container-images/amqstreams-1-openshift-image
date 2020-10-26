@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq7/amq-streams-rhel7-operator-metadata
 description: "AMQ Streams image containing the operator metadata"
-version: "1.5.3"
+version: "1.6.0"
 from: scratch
 
 labels:
@@ -23,7 +23,7 @@ labels:
   - name: "operators.operatorframework.io.bundle.package.v1"
     value: "amq-streams"
   - name: "operators.operatorframework.io.bundle.channels.v1"
-    value: "stable,amq-streams-1.x,amq-streams-1.5.x"
+    value: "stable,amq-streams-1.x,amq-streams-1.6.x"
   - name: "operators.operatorframework.io.bundle.channel.default.v1"
     value: "stable"
   - name: "com.redhat.delivery.operator.bundle"
@@ -44,4 +44,4 @@ osbs:
   extra_dir: dist-git-files
   repository:
     name: containers/amqstreams-operator-prod-operator-metadata
-    branch: amqstreams-1.5-rhel-7
+    branch: amqstreams-1.6-rhel-7

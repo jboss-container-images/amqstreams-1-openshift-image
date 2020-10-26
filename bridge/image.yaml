@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq7/amq-streams-bridge-rhel7
 description: "AMQ Streams image for running the Apache Kafka bridge"
-version: "1.5.0"
+version: "1.6.0"
 from: rh-osbs/ubi7-minimal:7-released
 
 labels:
@@ -59,4 +59,4 @@ osbs:
         - x86_64
   repository:
     name: containers/amqstreams-bridge
-    branch: amqstreams-1.5-rhel-7
+    branch: amqstreams-1.6-rhel-7

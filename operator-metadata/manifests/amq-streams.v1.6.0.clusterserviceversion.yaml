@@ -1,10 +1,42 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
-  name: amqstreams.v1.5.3
+  name: amqstreams.v1.6.0
   namespace: placeholder
   annotations:
-    capabilities: Deep Insights
+    alm-examples-metadata: |-
+      {
+        "my-cluster": {
+          "description": "Example Kafka cluster with Ephemeral storage"
+        },
+        "my-connect-cluster": {
+          "description": "Example Kafka Connect cluster"
+        },
+        "my-connect-cluster": {
+          "description": "Example Kafka Connect cluster with S2I support"
+        },
+        "my-mirror-maker": {
+          "description": "Example Kafka Mirror Maker 1 deployment"
+        },
+        "my-mm2-cluster": {
+          "description": "Example Kafka Mirror Maker 2 deployment"
+        },
+        "my-bridge": {
+          "description": "Example Strimzi Kafka HTTP Bridge deployment"
+        },
+        "my-topic": {
+          "description": "Example KafkaTopic custom resource"
+        },
+        "my-user": {
+          "description": "Example KafkaUser custom resource"
+        },
+        "my-source-connector": {
+          "description": "Example Kafka Connect source connector"
+        },
+        "my-rebalance": {
+          "description": "Example Cruise Control rebalance request"
+        }
+      }
     alm-examples: |-
       [
         {
@@ -15,25 +47,27 @@ metadata:
           },
           "spec":{
             "kafka":{
-                "version":"2.5.0",
+                "version":"2.6.0",
                 "replicas":3,
-                "listeners":{
-                  "plain":{
-                    "authentiation":{
-                      "type":"scram-sha-512"
-                    }
+                "listeners": [
+                  {
+                    "name": "plain",
+                    "port": 9092,
+                    "type": "internal",
+                    "tls": false
                   },
-                  "tls":{
-                    "authentiation":{
-                      "type":"tls"
-                    }
+                  {
+                    "name": "tls",
+                    "port": 9093,
+                    "type": "internal",
+                    "tls": true
                   }
-                },
+                ],
                 "config":{
                   "offsets.topic.replication.factor":3,
                   "transaction.state.log.replication.factor":3,
                   "transaction.state.log.min.isr":2,
-                  "log.message.format.version":"2.5"
+                  "log.message.format.version":"2.6"
                 },
                 "storage":{
                   "type":"ephemeral"
@@ -47,11 +81,9 @@ metadata:
             },
             "entityOperator":{
                 "topicOperator":{
-                  "reconciliationIntervalSeconds":90
-                },
+                  },
                 "userOperator":{
-                  "reconciliationIntervalSeconds":120
-                }
+                  }
             }
           }
         },
@@ -62,7 +94,7 @@ metadata:
             "name":"my-connect-cluster"
           },
           "spec":{
-            "version":"2.5.0",
+            "version":"2.6.0",
             "replicas":1,
             "bootstrapServers":"my-cluster-kafka-bootstrap:9093",
             "tls":{
@@ -79,10 +111,10 @@ metadata:
           "apiVersion":"kafka.strimzi.io/v1beta1",
           "kind":"KafkaConnectS2I",
           "metadata":{
-            "name":"my-connect-cluster"
+            "name":"my-connect-s2i-cluster"
           },
           "spec":{
-            "version":"2.5.0",
+            "version":"2.6.0",
             "replicas":1,
             "bootstrapServers":"my-cluster-kafka-bootstrap:9093",
             "tls":{
@@ -102,7 +134,7 @@ metadata:
             "name":"my-mirror-maker"
           },
           "spec":{
-            "version":"2.5.0",
+            "version":"2.6.0",
             "replicas":1,
             "consumer":{
                 "bootstrapServers":"my-source-cluster-kafka-bootstrap:9092",
@@ -245,7 +277,7 @@ metadata:
             "name": "my-mm2-cluster"
           },
           "spec": {
-            "version":"2.5.0",
+            "version":"2.6.0",
             "replicas": 1,
             "connectCluster": "my-cluster-target",
             "clusters": [
@@ -311,6 +343,7 @@ metadata:
           }
         }
       ]
+    capabilities: Deep Insights
     categories: "Streaming & Messaging"
     certified: "false"
     description: Red Hat AMQ Streams is a massively scalable, distributed, and high performance data streaming platform based on Apache Kafka®.
@@ -341,17 +374,33 @@ spec:
     Red Hat AMQ Streams provides a way to run an [Apache Kafka](https://kafka.apache.org) cluster on [OpenShift](https://www.openshift.com/) in various deployment configurations.
     See the Red Hat AMQ [website](https://access.redhat.com/products/red-hat-amq) for more details about the project.
 
-    ### What is new in AMQ Streams 1.5
+    ### What is new in AMQ Streams 1.6
 
-    * Support for Apache Kafka 2.5.0
+    * Last version to support Kubernetes 1.11 and higher. Future versions will support only Kubernetes 1.16 and higher.
 
-    * Built-in Cruise Control support, in Tech Preview, for cluster rebalancing
+    * Big improvements to support more different Kafka listeners in a single cluster
+    
+    * Support for Apache Kafka 2.6.0
 
-    * New operator metrics and new Grafana dashbaord for operator monitoring
+    * Remove TLS sidecars from Kafka pods
 
-    * Improved configurability of TLS
+    * Metrics integration with related Grafana dashboard for the HTTP Bridge
 
-    * CORS support in the HTTP Bridge
+    * Metrics integration with related Grafana dashboard for Cruise Control
+
+    * Support for authorization using Open Policy Agent
+
+    * Support for scaling resources easier
+
+    * Support dynamically changeable logging in the Cluster Operator, Kafka brokers, Kafka Connect and Kafka Mirror Maker 2
+
+    * Support for `client.rack` in Kafka Connect
+
+    * Support for configuring `hostAliases` in Pod template
+
+    * Support for Kafka headers on messages sent using the HTTP Bridge
+
+    * Use Java 11 as the Java runtime
 
     ### Supported Features
 
@@ -409,8 +458,8 @@ spec:
     Documentation for the current release can be found on Red Hat [website](https://access.redhat.com/documentation/en-us/red_hat_amq/7.7/html-single/using_amq_streams_on_openshift/index).
     
   keywords: ['amq', 'amq-streams', 'kafka', 'messaging', 'kafka-connect', 'kafka-streams', 'data-streaming', 'data-streams', 'streaming', 'streams']
-  version: 1.5.3
-  replaces: amqstreams.v1.5.2
+  version: 1.6.0
+  replaces: amqstreams.v1.5.3
   minKubeVersion: 1.11.0
   maturity: stable
   maintainers:
@@ -443,10 +492,10 @@ spec:
   relatedImages:
   - name: strimzi-cluster-operator
     image: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:8637549bae76119b18fd1361120d9f2c68086425cc8c4751c3b8204b3942a7d9
-  - name: strimzi-kafka-24
-    image: registry.redhat.io/amq7/amq-streams-kafka-24-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
   - name: strimzi-kafka-25
-    image: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
+    image: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
+  - name: strimzi-kafka-26
+    image: registry.redhat.io/amq7/amq-streams-kafka-26-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
   - name: strimzi-bridge
     image: registry.redhat.io/amq7/amq-streams-bridge-rhel7@sha256:9af12042fe9e3027396404164136878520adbe64c6acce12ae9fa09386921796
   install:
@@ -728,7 +777,7 @@ spec:
           - get
           - list
       deployments:
-      - name: amq-streams-cluster-operator-v1.5.3
+      - name: amq-streams-cluster-operator-v1.6.0
         spec:
           replicas: 1
           selector:
@@ -742,101 +791,103 @@ spec:
                 strimzi.io/kind: cluster-operator
             spec:
               serviceAccountName: strimzi-cluster-operator
+              volumes:
+                - name: co-config-volume
+                  configMap:
+                    name: amq-streams-cluster-operator              
               containers:
-              - name: cluster-operator
-                image: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:8637549bae76119b18fd1361120d9f2c68086425cc8c4751c3b8204b3942a7d9
-                imagePullPolicy: IfNotPresent
-                args:
-                - /opt/strimzi/bin/cluster_operator_run.sh
-                env:
-                - name: STRIMZI_NAMESPACE
-                  valueFrom:
-                    fieldRef:
-                      fieldPath: metadata.annotations['olm.targetNamespaces']
-                - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
-                  value: "120000"
-                - name: STRIMZI_OPERATION_TIMEOUT_MS
-                  value: "300000"
-                - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-                  value: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
-                - name: STRIMZI_DEFAULT_TLS_SIDECAR_KAFKA_IMAGE
-                  value: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
-                - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
-                  value: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
-                - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
-                  value: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
-                - name: STRIMZI_DEFAULT_TLS_SIDECAR_CRUISE_CONTROL_IMAGE
-                  value: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
-                - name: STRIMZI_KAFKA_IMAGES
-                  value: |
-                    2.4.0=registry.redhat.io/amq7/amq-streams-kafka-24-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
-                    2.5.0=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
-                - name: STRIMZI_KAFKA_CONNECT_IMAGES
-                  value: |
-                    2.4.0=registry.redhat.io/amq7/amq-streams-kafka-24-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
-                    2.5.0=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
-                - name: STRIMZI_KAFKA_CONNECT_S2I_IMAGES
-                  value: |
-                    2.4.0=registry.redhat.io/amq7/amq-streams-kafka-24-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
-                    2.5.0=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
-                - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
-                  value: |
-                    2.4.0=registry.redhat.io/amq7/amq-streams-kafka-24-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
-                    2.5.0=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
-                - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
-                  value: |
-                    2.4.0=registry.redhat.io/amq7/amq-streams-kafka-24-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
-                    2.5.0=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
-                - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
-                  value: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:8637549bae76119b18fd1361120d9f2c68086425cc8c4751c3b8204b3942a7d9
-                - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
-                  value: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:8637549bae76119b18fd1361120d9f2c68086425cc8c4751c3b8204b3942a7d9
-                - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
-                  value: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:8637549bae76119b18fd1361120d9f2c68086425cc8c4751c3b8204b3942a7d9
-                - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
-                  value: registry.redhat.io/amq7/amq-streams-bridge-rhel7@sha256:9af12042fe9e3027396404164136878520adbe64c6acce12ae9fa09386921796
-                - name: STRIMZI_LOG_LEVEL
-                  value: "INFO"
-                - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_LABELS
-                  value: |
-                    discovery.3scale.net=true
-                - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_ANNOTATIONS
-                  value: |
-                    discovery.3scale.net/scheme=http
-                    discovery.3scale.net/port=8080
-                    discovery.3scale.net/path=/
-                    discovery.3scale.net/description-path=/openapi
-                ports:
-                - containerPort: 8080
-                  name: http
-                livenessProbe:
-                  httpGet:
-                    path: /healthy
-                    port: 8080
-                  initialDelaySeconds: 10
-                  periodSeconds: 30
-                readinessProbe:
-                  httpGet:
-                    path: /ready
-                    port: 8080
-                  initialDelaySeconds: 10
-                  periodSeconds: 30
-                resources:
-                  limits:
-                    cpu: 1000m
-                    memory: 384Mi
-                  requests:
-                    cpu: 200m
-                    memory: 384Mi
+                - name: cluster-operator
+                  image: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:8637549bae76119b18fd1361120d9f2c68086425cc8c4751c3b8204b3942a7d9
+                  imagePullPolicy: IfNotPresent
+                  args:
+                  - /opt/strimzi/bin/cluster_operator_run.sh
+                  volumeMounts:
+                    - name: co-config-volume
+                      mountPath: /opt/strimzi/custom-config/                
+                  env:
+                  - name: STRIMZI_NAMESPACE
+                    valueFrom:
+                      fieldRef:
+                        fieldPath: metadata.annotations['olm.targetNamespaces']
+                  - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
+                    value: "120000"
+                  - name: STRIMZI_OPERATION_TIMEOUT_MS
+                    value: "300000"
+                  - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
+                    value: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
+                  - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
+                    value: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
+                  - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
+                    value: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
+                  - name: STRIMZI_DEFAULT_TLS_SIDECAR_CRUISE_CONTROL_IMAGE
+                    value: registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
+                  - name: STRIMZI_KAFKA_IMAGES
+                    value: |
+                      2.5.0=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
+                      2.6.0=registry.redhat.io/amq7/amq-streams-kafka-26-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
+                  - name: STRIMZI_KAFKA_CONNECT_IMAGES
+                    value: |
+                      2.5.0=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
+                      2.6.0=registry.redhat.io/amq7/amq-streams-kafka-26-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
+                  - name: STRIMZI_KAFKA_CONNECT_S2I_IMAGES
+                    value: |
+                      2.5.0=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
+                      2.6.0=registry.redhat.io/amq7/amq-streams-kafka-26-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
+                  - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
+                    value: |
+                      2.5.0=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
+                      2.6.0=registry.redhat.io/amq7/amq-streams-kafka-26-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
+                  - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
+                    value: |
+                      2.5.0=registry.redhat.io/amq7/amq-streams-kafka-25-rhel7@sha256:060a7bca89456e059e71f4844e9e1de86b17a788465a9cdf2ca9e69db5398468
+                      2.6.0=registry.redhat.io/amq7/amq-streams-kafka-26-rhel7@sha256:e719f662bd4d6b8c54b1ee2e47c51f8d75a27a238a51d9ee38007187b3a627a4
+                  - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
+                    value: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:8637549bae76119b18fd1361120d9f2c68086425cc8c4751c3b8204b3942a7d9
+                  - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
+                    value: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:8637549bae76119b18fd1361120d9f2c68086425cc8c4751c3b8204b3942a7d9
+                  - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
+                    value: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:8637549bae76119b18fd1361120d9f2c68086425cc8c4751c3b8204b3942a7d9
+                  - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
+                    value: registry.redhat.io/amq7/amq-streams-bridge-rhel7@sha256:9af12042fe9e3027396404164136878520adbe64c6acce12ae9fa09386921796
+                  - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_LABELS
+                    value: |
+                      discovery.3scale.net=true
+                  - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_ANNOTATIONS
+                    value: |
+                      discovery.3scale.net/scheme=http
+                      discovery.3scale.net/port=8080
+                      discovery.3scale.net/path=/
+                      discovery.3scale.net/description-path=/openapi
+                  ports:
+                  - containerPort: 8080
+                    name: http
+                  livenessProbe:
+                    httpGet:
+                      path: /healthy
+                      port: http
+                    initialDelaySeconds: 10
+                    periodSeconds: 30
+                  readinessProbe:
+                    httpGet:
+                      path: /ready
+                      port: http
+                    initialDelaySeconds: 10
+                    periodSeconds: 30
+                  resources:
+                    limits:
+                      cpu: 1000m
+                      memory: 384Mi
+                    requests:
+                      cpu: 200m
+                      memory: 384Mi
           strategy:
             type: Recreate
   customresourcedefinitions:
     owned:
-    - name: kafkas.kafka.strimzi.io
-      version: v1beta1
-      kind: Kafka
+    - description: Represents a Kafka cluster
       displayName: Kafka
-      description: Represents a Kafka cluster
+      kind: Kafka
+      name: kafkas.kafka.strimzi.io
       resources:
       - kind: Route
         name: ''
@@ -907,11 +958,11 @@ spec:
         path: conditions
         x-descriptors:
         - urn:alm:descriptor:io.kubernetes.conditions
-    - name: kafkaconnects.kafka.strimzi.io
       version: v1beta1
-      kind: KafkaConnect
+    - description: Represents a Kafka Connect cluster
       displayName: Kafka Connect
-      description: Represents a Kafka Connect cluster
+      kind: KafkaConnect
+      name: kafkaconnects.kafka.strimzi.io
       resources:
       - kind: Service
         name: ''
@@ -953,11 +1004,11 @@ spec:
         path: conditions
         x-descriptors:
         - urn:alm:descriptor:io.kubernetes.conditions
-    - name: kafkaconnects2is.kafka.strimzi.io
       version: v1beta1
+    - description: Represents a Kafka Connect cluster with Source 2 Image support
+      displayName: Kafka Connect Source to Image
       kind: KafkaConnectS2I
-      displayName: Kafka Connect S2I
-      description: Represents a Kafka Connect cluster with Source 2 Image support
+      name: kafkaconnects2is.kafka.strimzi.io
       resources:
       - kind: Service
         name: ''
@@ -1005,11 +1056,11 @@ spec:
         path: conditions
         x-descriptors:
         - urn:alm:descriptor:io.kubernetes.conditions
-    - name: kafkamirrormakers.kafka.strimzi.io
       version: v1beta1
+    - description: Represents a Kafka MirrorMaker cluster
+      displayName: Kafka Mirror Maker
       kind: KafkaMirrorMaker
-      displayName: Kafka MirrorMaker
-      description: Represents a Kafka MirrorMaker cluster
+      name: kafkamirrormakers.kafka.strimzi.io
       resources:
       - kind: Deployment
         name: ''
@@ -1058,11 +1109,11 @@ spec:
         path: conditions
         x-descriptors:
         - urn:alm:descriptor:io.kubernetes.conditions
-    - name: kafkabridges.kafka.strimzi.io
-      version: v1alpha1
-      kind: KafkaBridge
+      version: v1beta1
+    - description: Represents a Kafka Bridge cluster
       displayName: Kafka Bridge
-      description: Represents a Kafka Bridge cluster
+      kind: KafkaBridge
+      name: kafkabridges.kafka.strimzi.io
       resources:
       - kind: Deployment
         name: ''
@@ -1104,11 +1155,11 @@ spec:
         path: conditions
         x-descriptors:
         - urn:alm:descriptor:io.kubernetes.conditions
-    - name: kafkatopics.kafka.strimzi.io
-      version: v1beta1
-      kind: KafkaTopic
+      version: v1alpha1
+    - description: Represents a topic inside a Kafka cluster
       displayName: Kafka Topic
-      description: Represents a topic inside a Kafka cluster
+      kind: KafkaTopic
+      name: kafkatopics.kafka.strimzi.io
       specDescriptors:
       - description: The number of partitions
         displayName: Partitions
@@ -1126,11 +1177,11 @@ spec:
         path: conditions
         x-descriptors:
         - urn:alm:descriptor:io.kubernetes.conditions
-    - name: kafkausers.kafka.strimzi.io
       version: v1beta1
-      kind: KafkaUser
+    - description: Represents a user inside a Kafka cluster
       displayName: Kafka User
-      description: Represents a user inside a Kafka cluster
+      kind: KafkaUser
+      name: kafkausers.kafka.strimzi.io
       resources:
       - kind: Secret
         name: ''
@@ -1153,11 +1204,11 @@ spec:
         path: conditions
         x-descriptors:
         - urn:alm:descriptor:io.kubernetes.conditions
-    - name: kafkaconnectors.kafka.strimzi.io
-      version: v1alpha1
-      kind: KafkaConnector
+      version: v1beta1
+    - description: Represents a Connector inside a Kafka Connect cluster
       displayName: Kafka Connector
-      description: Represents a Kafka Connect connector
+      kind: KafkaConnector
+      name: kafkaconnectors.kafka.strimzi.io
       specDescriptors:
       - description: Class of the Kafka Connect connector
         displayName: Class
@@ -1175,11 +1226,11 @@ spec:
         path: conditions
         x-descriptors:
         - urn:alm:descriptor:io.kubernetes.conditions
-    - name: kafkamirrormaker2s.kafka.strimzi.io
       version: v1alpha1
-      kind: KafkaMirrorMaker2
+    - description: Represents a Kafka MirrorMaker 2 cluster
       displayName: Kafka MirrorMaker 2
-      description: Represents a Kafka MirrorMaker 2 cluster
+      kind: KafkaMirrorMaker2
+      name: kafkamirrormaker2s.kafka.strimzi.io
       resources:
       - kind: Deployment
         name: ''
@@ -1218,11 +1269,11 @@ spec:
         path: conditions
         x-descriptors:
         - urn:alm:descriptor:io.kubernetes.conditions
-    - name: kafkarebalances.kafka.strimzi.io
       version: v1alpha1
-      kind: KafkaRebalance
+    - description: Triggeres rebalance of replicas in a Kafka cluster
       displayName: Kafka Rebalance
-      description: Triggeres rebalance of replicas in a Kafka cluster
+      kind: KafkaRebalance
+      name: kafkarebalances.kafka.strimzi.io
       resources: []
       specDescriptors:
       - description: Skip hard Cruise Cotnrol goals
@@ -1236,4 +1287,5 @@ spec:
         path: conditions
         x-descriptors:
         - urn:alm:descriptor:io.kubernetes.conditions
+      version: v1alpha1
 

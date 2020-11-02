@@ -392,8 +392,6 @@ spec:
 
     * Support dynamically changeable logging in the Cluster Operator, Kafka brokers, Kafka Connect and Kafka Mirror Maker 2
 
-    * Support for `client.rack` in Kafka Connect
-
     * Support for configuring `hostAliases` in Pod template
 
     * Support for Kafka headers on messages sent using the HTTP Bridge

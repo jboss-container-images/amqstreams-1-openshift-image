@@ -6,9 +6,9 @@ metadata:
     strimzi.io/cluster: my-cluster
 spec:
   goals:
+    - CpuCapacityGoal
     - NetworkInboundCapacityGoal
     - DiskCapacityGoal
     - RackAwareGoal
     - NetworkOutboundCapacityGoal
-    - CpuCapacityGoal
     - ReplicaCapacityGoal

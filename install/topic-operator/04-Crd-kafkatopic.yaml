@@ -7,15 +7,6 @@ metadata:
     strimzi.io/crd-install: "true"
 spec:
   group: kafka.strimzi.io
-  versions:
-  - name: v1beta1
-    served: true
-    storage: true
-  - name: v1alpha1
-    served: true
-    storage: false
-  version: v1beta1
-  scope: Namespaced
   names:
     kind: KafkaTopic
     listKind: KafkaTopicList
@@ -25,7 +16,12 @@ spec:
     - kt
     categories:
     - strimzi
+  scope: Namespaced
   additionalPrinterColumns:
+  - name: Cluster
+    description: The name of the Kafka cluster this topic belongs to
+    JSONPath: .metadata.labels.strimzi\.io/cluster
+    type: string
   - name: Partitions
     description: The desired number of partitions in the topic
     JSONPath: .spec.partitions
@@ -36,6 +32,16 @@ spec:
     type: integer
   subresources:
     status: {}
+  conversion:
+    strategy: None
+  versions:
+  - name: v1beta1
+    served: true
+    storage: true
+  - name: v1alpha1
+    served: true
+    storage: false
+  version: v1beta1
   validation:
     openAPIV3Schema:
       properties:

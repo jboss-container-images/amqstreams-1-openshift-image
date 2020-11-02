@@ -23,7 +23,7 @@ spec:
             name: strimzi-cluster-operator
       containers:
         - name: strimzi-cluster-operator
-          image: strimzi/operator:0.20.0
+          image: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.6.0
           ports:
             - containerPort: 8080
               name: http

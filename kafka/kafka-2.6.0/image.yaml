@@ -30,7 +30,7 @@ packages:
   content_sets:
     x86_64:
       - rhel-7-server-rpms
-      - java-11-openjdk-devel
+      - rhel-7-server-optional-rpms
       - amq-streams-1-for-rhel-7-server-rpms
       - rhel-atomic-host-rpms
       - rhel-7-desktop-extras-rpms

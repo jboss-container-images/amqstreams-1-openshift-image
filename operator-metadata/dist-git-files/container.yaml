@@ -3,4 +3,4 @@ operator_manifests:
   enable_digest_pinning: false
   enable_repo_replacements: false
   enable_registry_replacements: false
-  manifests_dir: modules/olm/manifests
+  manifests_dir: manifests

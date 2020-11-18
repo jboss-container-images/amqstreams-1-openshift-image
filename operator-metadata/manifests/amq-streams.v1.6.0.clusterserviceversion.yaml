@@ -455,7 +455,7 @@ spec:
     
   keywords: ['amq', 'amq-streams', 'kafka', 'messaging', 'kafka-connect', 'kafka-streams', 'data-streaming', 'data-streams', 'streaming', 'streams']
   version: 1.6.0
-  replaces: amqstreams.v1.5.3
+  replaces: amqstreams.v1.5.4
   minKubeVersion: 1.11.0
   maturity: stable
   maintainers:

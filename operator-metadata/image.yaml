@@ -29,7 +29,7 @@ labels:
   - name: "com.redhat.delivery.operator.bundle"
     value: "true"
   - name: "com.redhat.openshift.versions"
-    value: "v4.6"
+    value: "v4.5"
   - name: "com.redhat.delivery.backport"
     value: "true"
   - name: "maintainer"

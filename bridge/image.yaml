@@ -30,11 +30,12 @@ packages:
   manager: microdnf
   content_sets:
     x86_64:
-      - rhel-7-server-rpms
-      - rhel-7-server-optional-rpms
+      # Required for tini 0.18
       - amq-streams-1-for-rhel-7-server-rpms
+      # Required for base image
+      - rhel-7-server-rpms
+      - rhel-7-server-extras-rpms
       - rhel-atomic-host-rpms
-      - rhel-7-desktop-extras-rpms
   install:
     - java-11-openjdk-devel
     - openssl

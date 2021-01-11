@@ -8,13 +8,13 @@ envs:
     value: "amqstreams-kafka-25-container"
 
 artifacts:
-  - md5: bd4f39f29b88e8fcb6ca9950c44161ab
+  - md5: f0e09ac0cedebdbf13e5ffaf5c235278
     name: streams-ocp-25.zip
 
 modules:
   install:
   - name: kafka.base
-    version: 1.6.0
+    version: 1.6.2
 
 execute:
   - script: install.sh

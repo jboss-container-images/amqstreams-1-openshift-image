@@ -1,7 +1,7 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
-  name: amqstreams.v1.6.1
+  name: amqstreams.v1.6.2
   namespace: placeholder
   annotations:
     alm-examples-metadata: |-
@@ -455,8 +455,8 @@ spec:
     Documentation for the current release can be found on Red Hat [website](https://access.redhat.com/documentation/en-us/red_hat_amq/2020.q4/html-single/using_amq_streams_on_openshift/index).
     
   keywords: ['amq', 'amq-streams', 'kafka', 'messaging', 'kafka-connect', 'kafka-streams', 'data-streaming', 'data-streams', 'streaming', 'streams']
-  version: 1.6.1
-  replaces: amqstreams.v1.6.0
+  version: 1.6.2
+  replaces: amqstreams.v1.6.1
   minKubeVersion: 1.11.0
   maturity: stable
   maintainers:
@@ -774,7 +774,7 @@ spec:
           - get
           - list
       deployments:
-      - name: amq-streams-cluster-operator-v1.6.1
+      - name: amq-streams-cluster-operator-v1.6.2
         spec:
           replicas: 1
           selector:

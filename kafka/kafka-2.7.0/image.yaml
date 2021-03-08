@@ -1,30 +1,29 @@
 schema_version: 1
 
-name: amq7/amq-streams-bridge-rhel7
-description: "AMQ Streams image for running the Apache Kafka bridge"
+name: amq7/amq-streams-kafka-27-rhel7
+description: "AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect, Mirror Maker and Cruise Control"
 version: "1.7.0"
 from: registry.redhat.io/ubi7/ubi-minimal
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams-bridge-container"
+    value: "amqstreams-kafka-27-container"
   - name: "io.k8s.description"
-    value: "Apache Kafka bridge with HTTP protocol support"
+    value: "A reliable and fault tolerant stream processing platform"
   - name: "io.k8s.display-name"
-    value: "AMQ Streams Bridge"
+    value: "AMQ Streams Apache Kafka"
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
-  - name: "licenses"
-    value: "/root/licenses"
   - name: "maintainer"
     value: "AMQ Streams Engineering <amq-streams-dev@redhat.com>"
 
 modules:
   repositories:
-    - name: modules
-      path: modules
+    - name: modules   
+      path: ../modules
   install:
-    - name: bridge
+    - name: kafka
+      version: 2.7.0
 
 packages:
   manager: microdnf
@@ -38,16 +37,19 @@ packages:
       - rhel-atomic-host-rpms
   install:
     - java-11-openjdk-devel
-    - openssl
+    - gettext
     - nmap-ncat
+    - openssl
     - hostname
-    - tini
+    - stunnel
     - net-tools
+    - bind-utils
+    - tini
     - lsof
-
+ 
 run:
   user: 1001
-  workdir: $STRIMZI_HOME
+  workdir: $KAFKA_HOME
 
 osbs:
   extra_dir: dist-git-files
@@ -59,5 +61,5 @@ osbs:
         only:
         - x86_64
   repository:
-    name: containers/amqstreams-bridge
+    name: containers/amqstreams-kafka-27
     branch: amqstreams-1.7-rhel-7

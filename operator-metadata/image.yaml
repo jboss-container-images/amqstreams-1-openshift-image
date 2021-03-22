@@ -29,9 +29,7 @@ labels:
   - name: "com.redhat.delivery.operator.bundle"
     value: "true"
   - name: "com.redhat.openshift.versions"
-    value: "v4.5"
-  - name: "com.redhat.delivery.backport"
-    value: "true"
+    value: "v4.6"
   - name: "maintainer"
     value: "AMQ Streams Engineering <amq-streams-dev@redhat.com>"
 

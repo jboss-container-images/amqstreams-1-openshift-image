@@ -44,6 +44,7 @@ packages:
     - tini
     - net-tools
     - lsof
+    - bind-utils
 
 run:
   user: 1001

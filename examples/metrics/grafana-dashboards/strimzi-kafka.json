@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "5.2.0"
+      "version": "7.3.7"
     },
     {
       "type": "panel",
@@ -536,7 +536,7 @@
         }
       ],
       "thresholds": "1,5",
-      "title": "Partitions at mininimum ISR",
+      "title": "Partitions at minimum ISR",
       "type": "singlestat",
       "valueFontSize": "200%",
       "valueMaps": [
@@ -618,7 +618,7 @@
         }
       ],
       "thresholds": "1,1",
-      "title": "Partitions under mininimum ISR",
+      "title": "Partitions under minimum ISR",
       "type": "singlestat",
       "valueFontSize": "200%",
       "valueMaps": [
@@ -852,7 +852,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(container_cpu_user_seconds_total{namespace=\"$kubernetes_namespace\",pod=~\"$strimzi_cluster_name-$kafka_broker\",container=\"kafka\"}[5m])) by (pod)",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$kubernetes_namespace\",pod=~\"$strimzi_cluster_name-$kafka_broker\",container=\"kafka\"}[5m])) by (pod)",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,

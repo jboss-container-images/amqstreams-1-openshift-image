@@ -1,10 +1,10 @@
-apiVersion: kafka.strimzi.io/v1beta1
+apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
   name: my-cluster
 spec:
   kafka:
-    version: 2.6.0
+    version: 2.7.0
     replicas: 3
     listeners:
       - name: plain
@@ -19,8 +19,8 @@ spec:
       offsets.topic.replication.factor: 3
       transaction.state.log.replication.factor: 3
       transaction.state.log.min.isr: 2
-      log.message.format.version: "2.6"
-      inter.broker.protocol.version: "2.6"
+      log.message.format.version: "2.7"
+      inter.broker.protocol.version: "2.7"
     storage:
       type: ephemeral
   zookeeper:
@@ -31,9 +31,24 @@ spec:
     topicOperator: {}
     userOperator: {}
   cruiseControl:
-    metrics:
-      lowercaseOutputName: true
-      rules:
-      - pattern: kafka.cruisecontrol<name=(.+)><>(\w+)
-        name: kafka_cruisecontrol_$1_$2
-        type: GAUGE
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: cruise-control-metrics
+          key: metrics-config.yml
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cruise-control-metrics
+  labels:
+    app: strimzi
+data:
+  metrics-config.yml: |
+    # See https://github.com/prometheus/jmx_exporter for more info about JMX Prometheus Exporter metrics
+    lowercaseOutputName: true
+    rules:
+    - pattern: kafka.cruisecontrol<name=(.+)><>(\w+)
+      name: kafka_cruisecontrol_$1_$2
+      type: GAUGE

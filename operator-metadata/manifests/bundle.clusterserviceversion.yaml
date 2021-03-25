@@ -786,32 +786,6 @@ spec:
     Migration to `v1beta2` needs to be completed for all Strimzi CRDs and CRs after the upgrade to 0.22 is done and before upgrading to Strimzi 0.23 which will support only Strimzi `v1beta2` APIs and `apiextensions/v1` CRDs.
     For more details about the CRD upgrades, see the [documentation](https://strimzi.io/docs/operators/0.22.1/deploying.html#assembly-upgrade-resources-str).
 
-    ### What is new in AMQ Streams 1.7
-
-    * Add v1beta2 version for all resources. v1beta2 removes all deprecated fields.
-
-    * Add annotations that enable the operator to restart Kafka Connect connectors or tasks. The annotations can be applied to the KafkaConnector and the KafkaMirrorMaker2 custom resources.
-
-    * Add additional configuration options for the Kaniko executor used by the Kafka Connect Build on Kubernetes
-
-    * Add support for JMX options configuration of all Kafka Connect (KC, KC2SI, MM2)
-
-    * Update Strimzi Kafka OAuth to version 0.7 and add support for new features (OAuth over SASL PLAIN, Checking token audience, Validating tokens using JSONPath)
-
-    * Configure external logging ConfigMap name and key.
-
-    * Add support for configuring labels and annotations in ClusterRoleBindings created as part of Kafka and Kafka Connect clusters
-
-    * Add support for Ingress v1 in Kubernetes 1.19 and newer
-
-    * Add support for Kafka 2.6.1
-
-    * List topics used by a Kafka Connect connector in the .status section of the KafkaConnector custom resource
-
-    * Bump Cruise Control to v2.5.37 for Kafka 2.7 support. Note this new version of Cruise Control uses Log4j 2 and is supported by dynamic logging configuration (where logging properties are defined in a ConfigMap). However, existing Log4j configurations must be updated to Log4j 2 configurations.
-
-    * Support pausing reconciliation of CR with annotation strimzi.io/pause-reconciliation
-
     ### Supported Features
 
     * **Manages the Kafka Cluster** - Deploys and manages all of the components of this complex application, including dependencies like Apache ZooKeeper® that are traditionally hard to administer.
@@ -1141,12 +1115,12 @@ spec:
           replicas: 1
           selector:
             matchLabels:
-              name: strimzi-cluster-operator
+              name: amq-streams-cluster-operator
               strimzi.io/kind: cluster-operator
           template:
             metadata:
               labels:
-                name: strimzi-cluster-operator
+                name: amq-streams-cluster-operator
                 strimzi.io/kind: cluster-operator
             spec:
               serviceAccountName: strimzi-cluster-operator
@@ -1156,7 +1130,7 @@ spec:
                     medium: Memory
                 - name: co-config-volume
                   configMap:
-                    name: strimzi-cluster-operator
+                    name: amq-streams-cluster-operator
               containers:
                 - name: strimzi-cluster-operator
                   image: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:0e37f671e6d489c3e56ffb8f51f19a2a014b2cb3f57eafcc5e2931090932e725
@@ -1215,6 +1189,15 @@ spec:
                       value: registry.redhat.io/amq7/amq-streams-rhel7-operator@sha256:0e37f671e6d489c3e56ffb8f51f19a2a014b2cb3f57eafcc5e2931090932e725
                     - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
                       value: registry.redhat.io/amq7/amq-streams-bridge-rhel7@sha256:bed07186355a4c04ee50e90048e3bd3a023264093a9ef28f0278cce44640e93f
+                    - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_LABELS
+                      value: |
+                        discovery.3scale.net=true
+                    - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_ANNOTATIONS
+                      value: |
+                        discovery.3scale.net/scheme=http
+                        discovery.3scale.net/port=8080
+                        discovery.3scale.net/path=/
+                        discovery.3scale.net/description-path=/openapi
                   livenessProbe:
                     httpGet:
                       path: /healthy
@@ -1259,7 +1242,7 @@ spec:
     - streaming
     - streams
   labels:
-    name: strimzi-cluster-operator
+    name: amq-streams-cluster-operator
   links:
     - name: Product Page
       url: https://access.redhat.com/products/red-hat-amq
@@ -1274,5 +1257,5 @@ spec:
   replaces: amqstreams.v1.6.3
   selector:
     matchLabels:
-      name: strimzi-cluster-operator
+      name: amq-streams-cluster-operator
   version: 1.7.0

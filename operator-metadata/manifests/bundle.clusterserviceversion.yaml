@@ -783,7 +783,7 @@ spec:
     **!!! IMPORTANT !!!** 
     This release introduces new API version `v1beta2` to all AMQ Streams custom resources.
     This is a preparation for migration to `apiextensions/v1` which is needed because Kubernetes 1.22 will remove support for `apiextensions/v1beta1`. 
-    Migration to `v1beta2` needs to be completed for all AMQ Streams CRDs and CRs after the upgrade to 0.17 is done and before upgrading to AMQ Streams 0.18 which will support only AMQ Streams `v1beta2` APIs and `apiextensions/v1` CRDs.
+    Migration to `v1beta2` needs to be completed for all AMQ Streams CRDs and CRs after the upgrade to 1.7 is done and before upgrading to AMQ Streams 1.8 which will support only AMQ Streams `v1beta2` APIs and `apiextensions/v1` CRDs.
     For more details about the CRD upgrades, see the [documentation](https://access.redhat.com/documentation/en-us/red_hat_amq/2021.q2/html/deploying_and_upgrading_amq_streams_on_openshift/assembly-upgrade-str#assembly-upgrade-resources-str).
 
     ### Supported Features

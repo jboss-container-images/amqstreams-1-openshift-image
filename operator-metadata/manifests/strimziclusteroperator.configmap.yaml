@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: strimzi-cluster-operator
+  name: amq-streams-cluster-operator
   labels:
     app: strimzi
 data:

@@ -8,7 +8,7 @@ envs:
     value: "amqstreams-kafka-27-container"
 
 artifacts:
-  - md5: fdb0d951c078971836e97ebd4c66d83c
+  - md5: c281ec8d1ed15f9ca99d6a1606371ad2
     name: streams-ocp-27.zip
 
 modules:

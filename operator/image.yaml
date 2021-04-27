@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq7/amq-streams-rhel7-operator
 description: "AMQ Streams image for the Cluster, Topic, User Operators, and Kafka init"
-version: "1.6.2"
+version: "1.6.4"
 from: registry.redhat.io/ubi7/ubi-minimal
 
 labels:

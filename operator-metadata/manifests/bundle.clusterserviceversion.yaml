@@ -351,7 +351,7 @@ metadata:
     repository: https://github.com/strimzi/strimzi-kafka-operator
     support: Red Hat
     operators.openshift.io/infrastructure-features: |-
-      ["disconnected", "proxy"]
+      ["Disconnected", "Proxy"]
     operators.openshift.io/valid-subscription: |-
       ["Red Hat Integration", "Red Hat AMQ"]
   name: amqstreams.v1.7.1

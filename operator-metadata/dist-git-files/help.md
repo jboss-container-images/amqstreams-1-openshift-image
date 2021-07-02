@@ -1,4 +1,4 @@
-% amq7/amq-streams-rhel7-operator-metadata (1) Container Image Pages
+% amq7/amq-streams-operator-bundle (1) Container Image Pages
 
 # NAME
 

@@ -1,4 +1,4 @@
-% amq7/amq-streams-bridge-rhel7 (1) Container Image Pages
+% amq7/amq-streams-bridge-rhel8 (1) Container Image Pages
 
 # NAME
 

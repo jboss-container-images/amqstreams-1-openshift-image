@@ -9,7 +9,7 @@ envs:
 
 artifacts:
   - md5: c281ec8d1ed15f9ca99d6a1606371ad2
-    name: streams-ocp-27.zip
+    name: streams-ocp-28.zip
 
 modules:
   install:

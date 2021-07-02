@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: amq7/amq-streams-kafka-27-rhel7
+name: amq7/amq-streams-kafka-27-rhel8
 description: "AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect, Mirror Maker and Cruise Control"
-version: "1.7.0"
-from: registry.redhat.io/ubi7/ubi-minimal
+version: "1.8.0"
+from: registry.redhat.io/ubi8/ubi-minimal
 
 labels:
   - name: "com.redhat.component"
@@ -29,11 +29,11 @@ packages:
   manager: microdnf
   content_sets:
     x86_64:
-      # Required for tini 0.18
-      - amq-streams-1-for-rhel-7-server-rpms
+      # Required for tini
+      - amq-streams-1-for-rhel-8-rpms
       # Required for base image
-      - rhel-7-server-rpms
-      - rhel-7-server-extras-rpms
+      - rhel-8-for-x86_64-baseos-rpms
+      - rhel-8-for-x86_64-appstream-rpms
       - rhel-atomic-host-rpms
   install:
     - java-11-openjdk-devel
@@ -62,4 +62,4 @@ osbs:
         - x86_64
   repository:
     name: containers/amqstreams-kafka-27
-    branch: amqstreams-1.7-rhel-7
+    branch: amqstreams-1.8-rhel-8

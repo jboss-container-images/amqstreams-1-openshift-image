@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: bridge
-version: 1.7.0
+version: 1.8.0
 
 envs:
   - name: "STRIMZI_HOME"
@@ -19,12 +19,13 @@ packages:
   manager: microdnf
   content_sets:
     x86_64:
-      - rhel-7-server-rpms
+      - rhel-8-for-x86_64-baseos-rpms
   install:
     - unzip
     - tar
     - rsync
     - shadow-utils # groupadd
+    - gzip
 
 execute:
   - script: install.sh

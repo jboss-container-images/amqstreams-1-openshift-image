@@ -17,7 +17,7 @@ spec:
       serviceAccountName: strimzi-user-operator
       containers:
         - name: strimzi-user-operator
-          image: registry.redhat.io/amq7/amq-streams-rhel7-operator:1.7.0
+          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:1.8.0
           args:
           - /opt/strimzi/bin/user_operator_run.sh
           env:
@@ -36,7 +36,7 @@ spec:
             - name: STRIMZI_ZOOKEEPER_CONNECT
               value: my-cluster-zookeeper-client:2181
             - name: STRIMZI_ZOOKEEPER_SESSION_TIMEOUT_MS
-              value: "20000"
+              value: "18000"
             - name: STRIMZI_LOG_LEVEL
               value: INFO
             - name: STRIMZI_GC_LOG_ENABLED

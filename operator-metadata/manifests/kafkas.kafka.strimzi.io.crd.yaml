@@ -1,4 +1,4 @@
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: kafkas.kafka.strimzi.io
@@ -17,31 +17,31 @@ spec:
     categories:
     - strimzi
   scope: Namespaced
-  additionalPrinterColumns:
-  - name: Desired Kafka replicas
-    description: The desired number of Kafka replicas in the cluster
-    JSONPath: .spec.kafka.replicas
-    type: integer
-  - name: Desired ZK replicas
-    description: The desired number of ZooKeeper replicas in the cluster
-    JSONPath: .spec.zookeeper.replicas
-    type: integer
-  - name: Ready
-    description: The state of the custom resource
-    JSONPath: .status.conditions[?(@.type=="Ready")].status
-    type: string
-  - name: Warnings
-    description: Warnings related to the custom resource
-    JSONPath: .status.conditions[?(@.type=="Warning")].status
-    type: string
-  subresources:
-    status: {}
   conversion:
     strategy: None
   versions:
   - name: v1beta2
     served: true
-    storage: false
+    storage: true
+    subresources:
+      status: {}
+    additionalPrinterColumns:
+    - name: Desired Kafka replicas
+      description: The desired number of Kafka replicas in the cluster
+      jsonPath: .spec.kafka.replicas
+      type: integer
+    - name: Desired ZK replicas
+      description: The desired number of ZooKeeper replicas in the cluster
+      jsonPath: .spec.zookeeper.replicas
+      type: integer
+    - name: Ready
+      description: The state of the custom resource
+      jsonPath: .status.conditions[?(@.type=="Ready")].status
+      type: string
+    - name: Warnings
+      description: Warnings related to the custom resource
+      jsonPath: .status.conditions[?(@.type=="Warning")].status
+      type: string
     schema:
       openAPIV3Schema:
         type: object
@@ -105,7 +105,7 @@ spec:
                             \ type uses LoadBalancer type services to expose Kafka.\n\
                             * `nodeport` type uses NodePort type services to expose\
                             \ Kafka.\n* `ingress` type uses Kubernetes Nginx Ingress\
-                            \ to expose Kafka.\n."
+                            \ to expose Kafka.\n"
                         tls:
                           type: boolean
                           description: Enables TLS encryption on the listener. This
@@ -138,11 +138,24 @@ spec:
                               description: Enable or disable issuer checking. By default
                                 issuer is checked using the value configured by `validIssuerUri`.
                                 Default value is `true`.
+                            clientAudience:
+                              type: string
+                              description: The audience to use when making requests
+                                to the authorization server's token endpoint. Used
+                                for inter-broker authentication and for configuring
+                                OAuth 2.0 over PLAIN using the `clientId` and `secret`
+                                method.
                             clientId:
                               type: string
                               description: OAuth Client ID which the Kafka broker
                                 can use to authenticate against the authorization
                                 server and use the introspect endpoint URI.
+                            clientScope:
+                              type: string
+                              description: The scope to use when making requests to
+                                the authorization server's token endpoint. Used for
+                                inter-broker authentication and for configuring OAuth
+                                2.0 over PLAIN using the `clientId` and `secret` method.
                             clientSecret:
                               type: object
                               properties:
@@ -174,7 +187,9 @@ spec:
                             enableECDSA:
                               type: boolean
                               description: Enable or disable ECDSA support by installing
-                                BouncyCastle crypto provider. Default value is `false`.
+                                BouncyCastle crypto provider. ECDSA support is always
+                                enabled. The BouncyCastle libraries are no longer
+                                packaged with Strimzi. Value is ignored.
                             enableOauthBearer:
                               type: boolean
                               description: Enable or disable OAuth authentication
@@ -389,6 +404,7 @@ spec:
                                     field can be used only with `loadbalancer` type
                                     listener.
                                 annotations:
+                                  x-kubernetes-preserve-unknown-fields: true
                                   type: object
                                   description: Annotations that will be added to the
                                     `Ingress`, `Route`, or `Service` resource. You
@@ -397,6 +413,7 @@ spec:
                                     with `loadbalancer`, `nodeport`, `route`, or `ingress`
                                     type listeners.
                                 labels:
+                                  x-kubernetes-preserve-unknown-fields: true
                                   type: object
                                   description: Labels that will be added to the `Ingress`,
                                     `Route`, or `Service` resource. This field can
@@ -444,6 +461,7 @@ spec:
                                       the feature.This field can be used only with
                                       `loadbalancer` type listener.
                                   annotations:
+                                    x-kubernetes-preserve-unknown-fields: true
                                     type: object
                                     description: Annotations that will be added to
                                       the `Ingress` or `Service` resource. You can
@@ -452,6 +470,7 @@ spec:
                                       with `loadbalancer`, `nodeport`, or `ingress`
                                       type listeners.
                                   labels:
+                                    x-kubernetes-preserve-unknown-fields: true
                                     type: object
                                     description: Labels that will be added to the
                                       `Ingress`, `Route`, or `Service` resource. This
@@ -460,6 +479,34 @@ spec:
                                 required:
                                 - broker
                               description: Per-broker configurations.
+                            ipFamilyPolicy:
+                              type: string
+                              enum:
+                              - SingleStack
+                              - PreferDualStack
+                              - RequireDualStack
+                              description: Specifies the IP Family Policy used by
+                                the service. Available options are `SingleStack`,
+                                `PreferDualStack` and `RequireDualStack`. `SingleStack`
+                                is for a single IP family. `PreferDualStack` is for
+                                two IP families on dual-stack configured clusters
+                                or a single IP family on single-stack clusters. `RequireDualStack`
+                                fails unless there are two IP families on dual-stack
+                                configured clusters. If unspecified, Kubernetes will
+                                choose the default value based on the service type.
+                                Available on Kubernetes 1.20 and newer.
+                            ipFamilies:
+                              type: array
+                              items:
+                                type: string
+                                enum:
+                                - IPv4
+                                - IPv6
+                              description: Specifies the IP Families used by the service.
+                                Available options are `IPv4` and `IPv6. If unspecified,
+                                Kubernetes will choose the default value based on
+                                the `ipFamilyPolicy` setting. Available on Kubernetes
+                                1.20 and newer.
                             class:
                               type: string
                               description: Configures the `Ingress` class that defines
@@ -467,6 +514,29 @@ spec:
                                 can be used only with `ingress` type listener. If
                                 not specified, the default Ingress controller will
                                 be used.
+                            finalizers:
+                              type: array
+                              items:
+                                type: string
+                              description: A list of finalizers which will be configured
+                                for the `LoadBalancer` type Services created for this
+                                listener. If supported by the platform, the finalizer
+                                `service.kubernetes.io/load-balancer-cleanup` to make
+                                sure that the external load balancer is deleted together
+                                with the service.For more information, see https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#garbage-collecting-load-balancers.
+                                This field can be used only with `loadbalancer` type
+                                listeners.
+                            maxConnectionCreationRate:
+                              type: integer
+                              description: The maximum connection creation rate we
+                                allow in this listener at any time. New connections
+                                will be throttled if the limit is reached.Supported
+                                only on Kafka 2.7.0 and newer.
+                            maxConnections:
+                              type: integer
+                              description: The maximum number of connections we allow
+                                for this listener in the broker at any time. New connections
+                                are blocked if the limit is reached.
                             preferredNodePortAddressType:
                               type: string
                               enum:
@@ -483,7 +553,7 @@ spec:
                                 * `InternalIP`
                                 * `Hostname`
 
-                                This field can be used to select the address type which will be used as the preferred type and checked first. In case no address will be found for this address type, the other types will be used in the default order.This field can be used only with `nodeport` type listener..
+                                This field is used to select the preferred address type, which is checked first. If no address is found for this address type, the other types are checked in the default order. This field can only be used with `nodeport` type listener.
                             useServiceDnsDomain:
                               type: boolean
                               description: Configures whether the Kubernetes service
@@ -525,6 +595,7 @@ spec:
                                           items:
                                             type: string
                                   matchLabels:
+                                    x-kubernetes-preserve-unknown-fields: true
                                     type: object
                               podSelector:
                                 type: object
@@ -543,6 +614,7 @@ spec:
                                           items:
                                             type: string
                                   matchLabels:
+                                    x-kubernetes-preserve-unknown-fields: true
                                     type: object
                           description: List of peers which should be able to connect
                             to this listener. Peers in this list are combined using
@@ -557,6 +629,7 @@ spec:
                       - type
                       - tls
                   config:
+                    x-kubernetes-preserve-unknown-fields: true
                     type: object
                     description: 'Kafka broker config properties with the following
                       prefixes cannot be set: listeners, advertised., broker., listener.,
@@ -599,6 +672,7 @@ spec:
                           field allows to specify a different configuration for different
                           brokers.
                       selector:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                         description: Specifies a specific persistent volume to use.
                           It contains key:value pairs representing labels for selecting
@@ -657,6 +731,7 @@ spec:
                                 field allows to specify a different configuration
                                 for different brokers.
                             selector:
+                              x-kubernetes-preserve-unknown-fields: true
                               type: object
                               description: Specifies a specific persistent volume
                                 to use. It contains key:value pairs representing labels
@@ -696,6 +771,10 @@ spec:
                           the Open Policy Agent, for example, when it is temporarily
                           unavailable). Defaults to `false` - all actions will be
                           denied.
+                      authorizerClass:
+                        type: string
+                        description: Authorization implementation class, which must
+                          be available in classpath.
                       clientId:
                         type: string
                         description: OAuth Client ID which the Kafka client can use
@@ -744,8 +823,8 @@ spec:
                         type: array
                         items:
                           type: string
-                        description: List of super users. Should contain list of user
-                          principals which should get unlimited access rights.
+                        description: List of super users, which are user principals
+                          with unlimited access rights.
                       tlsTrustedCertificates:
                         type: array
                         items:
@@ -772,12 +851,15 @@ spec:
                         - simple
                         - opa
                         - keycloak
+                        - custom
                         description: Authorization type. Currently, the supported
-                          types are `simple`, `keycloak`, and `opa`. `simple` authorization
-                          type uses Kafka's `kafka.security.authorizer.AclAuthorizer`
+                          types are `simple`, `keycloak`, `opa` and `custom`. `simple`
+                          authorization type uses Kafka's `kafka.security.authorizer.AclAuthorizer`
                           class for authorization. `keycloak` authorization type uses
                           Keycloak Authorization Services for authorization. `opa`
-                          authorization type uses Open Policy Agent based authorization.
+                          authorization type uses Open Policy Agent based authorization.`custom`
+                          authorization type uses user-provided implementation for
+                          authorization.
                       url:
                         type: string
                         example: http://opa:8181/v1/data/kafka/authz/allow
@@ -870,6 +952,7 @@ spec:
                     type: object
                     properties:
                       "-XX":
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                         description: A map of -XX options to the JVM.
                       "-Xms":
@@ -920,8 +1003,10 @@ spec:
                     type: object
                     properties:
                       limits:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                       requests:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                     description: CPU and memory resources to reserve.
                   metricsConfig:
@@ -958,6 +1043,7 @@ spec:
                     type: object
                     properties:
                       loggers:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                         description: A Map from logger name to logger level.
                       type:
@@ -995,11 +1081,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1021,11 +1109,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1217,6 +1307,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -1248,6 +1358,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -1283,6 +1413,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -1314,6 +1464,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -1361,7 +1531,11 @@ spec:
                                   type: string
                             description: The pod's HostAliases. HostAliases is an
                               optional list of hosts and IPs that will be injected
-                              into the pod's hosts file if specified.
+                              into the Pod's hosts file if specified.
+                          enableServiceLinks:
+                            type: boolean
+                            description: Indicates whether information about services
+                              should be injected into Pod's environment variables.
                           topologySpreadConstraints:
                             type: array
                             items:
@@ -1384,6 +1558,7 @@ spec:
                                             items:
                                               type: string
                                     matchLabels:
+                                      x-kubernetes-preserve-unknown-fields: true
                                       type: object
                                 maxSkew:
                                   type: integer
@@ -1400,16 +1575,46 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                             description: Metadata applied to the resource.
+                          ipFamilyPolicy:
+                            type: string
+                            enum:
+                            - SingleStack
+                            - PreferDualStack
+                            - RequireDualStack
+                            description: Specifies the IP Family Policy used by the
+                              service. Available options are `SingleStack`, `PreferDualStack`
+                              and `RequireDualStack`. `SingleStack` is for a single
+                              IP family. `PreferDualStack` is for two IP families
+                              on dual-stack configured clusters or a single IP family
+                              on single-stack clusters. `RequireDualStack` fails unless
+                              there are two IP families on dual-stack configured clusters.
+                              If unspecified, Kubernetes will choose the default value
+                              based on the service type. Available on Kubernetes 1.20
+                              and newer.
+                          ipFamilies:
+                            type: array
+                            items:
+                              type: string
+                              enum:
+                              - IPv4
+                              - IPv6
+                            description: Specifies the IP Families used by the service.
+                              Available options are `IPv4` and `IPv6. If unspecified,
+                              Kubernetes will choose the default value based on the
+                              `ipFamilyPolicy` setting. Available on Kubernetes 1.20
+                              and newer.
                         description: Template for Kafka bootstrap `Service`.
                       brokersService:
                         type: object
@@ -1418,16 +1623,46 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                             description: Metadata applied to the resource.
+                          ipFamilyPolicy:
+                            type: string
+                            enum:
+                            - SingleStack
+                            - PreferDualStack
+                            - RequireDualStack
+                            description: Specifies the IP Family Policy used by the
+                              service. Available options are `SingleStack`, `PreferDualStack`
+                              and `RequireDualStack`. `SingleStack` is for a single
+                              IP family. `PreferDualStack` is for two IP families
+                              on dual-stack configured clusters or a single IP family
+                              on single-stack clusters. `RequireDualStack` fails unless
+                              there are two IP families on dual-stack configured clusters.
+                              If unspecified, Kubernetes will choose the default value
+                              based on the service type. Available on Kubernetes 1.20
+                              and newer.
+                          ipFamilies:
+                            type: array
+                            items:
+                              type: string
+                              enum:
+                              - IPv4
+                              - IPv6
+                            description: Specifies the IP Families used by the service.
+                              Available options are `IPv4` and `IPv6. If unspecified,
+                              Kubernetes will choose the default value based on the
+                              `ipFamilyPolicy` setting. Available on Kubernetes 1.20
+                              and newer.
                         description: Template for Kafka broker `Service`.
                       externalBootstrapService:
                         type: object
@@ -1436,11 +1671,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1454,11 +1691,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1473,11 +1712,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1491,11 +1732,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1510,11 +1753,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1528,11 +1773,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1547,11 +1794,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1565,11 +1814,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1739,11 +1990,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1751,6 +2004,26 @@ spec:
                             description: Metadata applied to the resource.
                         description: Template for Secret with Kafka Cluster certificate
                           public key.
+                      serviceAccount:
+                        type: object
+                        properties:
+                          metadata:
+                            type: object
+                            properties:
+                              labels:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Labels added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                              annotations:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Annotations added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                            description: Metadata applied to the resource.
+                        description: Template for the Kafka service account.
                       clusterRoleBinding:
                         type: object
                         properties:
@@ -1758,11 +2031,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -1818,6 +2093,7 @@ spec:
                           field allows to specify a different configuration for different
                           brokers.
                       selector:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                         description: Specifies a specific persistent volume to use.
                           It contains key:value pairs representing labels for selecting
@@ -1843,6 +2119,7 @@ spec:
                     - type
                     description: Storage configuration (disk). Cannot be updated.
                   config:
+                    x-kubernetes-preserve-unknown-fields: true
                     type: object
                     description: 'The ZooKeeper broker config. Properties with the
                       following prefixes cannot be set: server., dataDir, dataLogDir,
@@ -1918,6 +2195,7 @@ spec:
                     type: object
                     properties:
                       "-XX":
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                         description: A map of -XX options to the JVM.
                       "-Xms":
@@ -1950,8 +2228,10 @@ spec:
                     type: object
                     properties:
                       limits:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                       requests:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                     description: CPU and memory resources to reserve.
                   metricsConfig:
@@ -1988,6 +2268,7 @@ spec:
                     type: object
                     properties:
                       loggers:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                         description: A Map from logger name to logger level.
                       type:
@@ -2025,11 +2306,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -2051,11 +2334,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -2247,6 +2532,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -2278,6 +2583,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -2313,6 +2638,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -2344,6 +2689,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -2391,7 +2756,11 @@ spec:
                                   type: string
                             description: The pod's HostAliases. HostAliases is an
                               optional list of hosts and IPs that will be injected
-                              into the pod's hosts file if specified.
+                              into the Pod's hosts file if specified.
+                          enableServiceLinks:
+                            type: boolean
+                            description: Indicates whether information about services
+                              should be injected into Pod's environment variables.
                           topologySpreadConstraints:
                             type: array
                             items:
@@ -2414,6 +2783,7 @@ spec:
                                             items:
                                               type: string
                                     matchLabels:
+                                      x-kubernetes-preserve-unknown-fields: true
                                       type: object
                                 maxSkew:
                                   type: integer
@@ -2430,16 +2800,46 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                             description: Metadata applied to the resource.
+                          ipFamilyPolicy:
+                            type: string
+                            enum:
+                            - SingleStack
+                            - PreferDualStack
+                            - RequireDualStack
+                            description: Specifies the IP Family Policy used by the
+                              service. Available options are `SingleStack`, `PreferDualStack`
+                              and `RequireDualStack`. `SingleStack` is for a single
+                              IP family. `PreferDualStack` is for two IP families
+                              on dual-stack configured clusters or a single IP family
+                              on single-stack clusters. `RequireDualStack` fails unless
+                              there are two IP families on dual-stack configured clusters.
+                              If unspecified, Kubernetes will choose the default value
+                              based on the service type. Available on Kubernetes 1.20
+                              and newer.
+                          ipFamilies:
+                            type: array
+                            items:
+                              type: string
+                              enum:
+                              - IPv4
+                              - IPv6
+                            description: Specifies the IP Families used by the service.
+                              Available options are `IPv4` and `IPv6. If unspecified,
+                              Kubernetes will choose the default value based on the
+                              `ipFamilyPolicy` setting. Available on Kubernetes 1.20
+                              and newer.
                         description: Template for ZooKeeper client `Service`.
                       nodesService:
                         type: object
@@ -2448,16 +2848,46 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                             description: Metadata applied to the resource.
+                          ipFamilyPolicy:
+                            type: string
+                            enum:
+                            - SingleStack
+                            - PreferDualStack
+                            - RequireDualStack
+                            description: Specifies the IP Family Policy used by the
+                              service. Available options are `SingleStack`, `PreferDualStack`
+                              and `RequireDualStack`. `SingleStack` is for a single
+                              IP family. `PreferDualStack` is for two IP families
+                              on dual-stack configured clusters or a single IP family
+                              on single-stack clusters. `RequireDualStack` fails unless
+                              there are two IP families on dual-stack configured clusters.
+                              If unspecified, Kubernetes will choose the default value
+                              based on the service type. Available on Kubernetes 1.20
+                              and newer.
+                          ipFamilies:
+                            type: array
+                            items:
+                              type: string
+                              enum:
+                              - IPv4
+                              - IPv6
+                            description: Specifies the IP Families used by the service.
+                              Available options are `IPv4` and `IPv6. If unspecified,
+                              Kubernetes will choose the default value based on the
+                              `ipFamilyPolicy` setting. Available on Kubernetes 1.20
+                              and newer.
                         description: Template for ZooKeeper nodes `Service`.
                       persistentVolumeClaim:
                         type: object
@@ -2466,11 +2896,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -2484,11 +2916,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -2578,6 +3012,26 @@ spec:
                                     type: string
                             description: Security context for the container.
                         description: Template for the ZooKeeper container.
+                      serviceAccount:
+                        type: object
+                        properties:
+                          metadata:
+                            type: object
+                            properties:
+                              labels:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Labels added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                              annotations:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Annotations added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                            description: Metadata applied to the resource.
+                        description: Template for the ZooKeeper service account.
                     description: Template for ZooKeeper cluster resources. The template
                       allows users to specify how are the `StatefulSet`, `Pods` and
                       `Services` generated.
@@ -2705,8 +3159,10 @@ spec:
                         type: object
                         properties:
                           limits:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                           requests:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                         description: CPU and memory resources to reserve.
                       topicMetadataMaxAttempts:
@@ -2717,6 +3173,7 @@ spec:
                         type: object
                         properties:
                           loggers:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                             description: A Map from logger name to logger level.
                           type:
@@ -2749,6 +3206,7 @@ spec:
                         type: object
                         properties:
                           "-XX":
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                             description: A map of -XX options to the JVM.
                           "-Xms":
@@ -2867,14 +3325,17 @@ spec:
                         type: object
                         properties:
                           limits:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                           requests:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                         description: CPU and memory resources to reserve.
                       logging:
                         type: object
                         properties:
                           loggers:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                             description: A Map from logger name to logger level.
                           type:
@@ -2907,6 +3368,7 @@ spec:
                         type: object
                         properties:
                           "-XX":
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                             description: A map of -XX options to the JVM.
                           "-Xms":
@@ -3023,8 +3485,10 @@ spec:
                         type: object
                         properties:
                           limits:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                           requests:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                         description: CPU and memory resources to reserve.
                     description: TLS sidecar configuration.
@@ -3038,11 +3502,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -3056,11 +3522,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -3252,6 +3720,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -3283,6 +3771,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -3318,6 +3826,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -3349,6 +3877,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -3396,7 +3944,11 @@ spec:
                                   type: string
                             description: The pod's HostAliases. HostAliases is an
                               optional list of hosts and IPs that will be injected
-                              into the pod's hosts file if specified.
+                              into the Pod's hosts file if specified.
+                          enableServiceLinks:
+                            type: boolean
+                            description: Indicates whether information about services
+                              should be injected into Pod's environment variables.
                           topologySpreadConstraints:
                             type: array
                             items:
@@ -3419,6 +3971,7 @@ spec:
                                             items:
                                               type: string
                                     matchLabels:
+                                      x-kubernetes-preserve-unknown-fields: true
                                       type: object
                                 maxSkew:
                                   type: integer
@@ -3428,80 +3981,6 @@ spec:
                                   type: string
                             description: The pod's topology spread constraints.
                         description: Template for Entity Operator `Pods`.
-                      tlsSidecarContainer:
-                        type: object
-                        properties:
-                          env:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                name:
-                                  type: string
-                                  description: The environment variable key.
-                                value:
-                                  type: string
-                                  description: The environment variable value.
-                            description: Environment variables which should be applied
-                              to the container.
-                          securityContext:
-                            type: object
-                            properties:
-                              allowPrivilegeEscalation:
-                                type: boolean
-                              capabilities:
-                                type: object
-                                properties:
-                                  add:
-                                    type: array
-                                    items:
-                                      type: string
-                                  drop:
-                                    type: array
-                                    items:
-                                      type: string
-                              privileged:
-                                type: boolean
-                              procMount:
-                                type: string
-                              readOnlyRootFilesystem:
-                                type: boolean
-                              runAsGroup:
-                                type: integer
-                              runAsNonRoot:
-                                type: boolean
-                              runAsUser:
-                                type: integer
-                              seLinuxOptions:
-                                type: object
-                                properties:
-                                  level:
-                                    type: string
-                                  role:
-                                    type: string
-                                  type:
-                                    type: string
-                                  user:
-                                    type: string
-                              seccompProfile:
-                                type: object
-                                properties:
-                                  localhostProfile:
-                                    type: string
-                                  type:
-                                    type: string
-                              windowsOptions:
-                                type: object
-                                properties:
-                                  gmsaCredentialSpec:
-                                    type: string
-                                  gmsaCredentialSpecName:
-                                    type: string
-                                  runAsUserName:
-                                    type: string
-                            description: Security context for the container.
-                        description: Template for the Entity Operator TLS sidecar
-                          container.
                       topicOperatorContainer:
                         type: object
                         properties:
@@ -3648,6 +4127,100 @@ spec:
                                     type: string
                             description: Security context for the container.
                         description: Template for the Entity User Operator container.
+                      tlsSidecarContainer:
+                        type: object
+                        properties:
+                          env:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                  description: The environment variable key.
+                                value:
+                                  type: string
+                                  description: The environment variable value.
+                            description: Environment variables which should be applied
+                              to the container.
+                          securityContext:
+                            type: object
+                            properties:
+                              allowPrivilegeEscalation:
+                                type: boolean
+                              capabilities:
+                                type: object
+                                properties:
+                                  add:
+                                    type: array
+                                    items:
+                                      type: string
+                                  drop:
+                                    type: array
+                                    items:
+                                      type: string
+                              privileged:
+                                type: boolean
+                              procMount:
+                                type: string
+                              readOnlyRootFilesystem:
+                                type: boolean
+                              runAsGroup:
+                                type: integer
+                              runAsNonRoot:
+                                type: boolean
+                              runAsUser:
+                                type: integer
+                              seLinuxOptions:
+                                type: object
+                                properties:
+                                  level:
+                                    type: string
+                                  role:
+                                    type: string
+                                  type:
+                                    type: string
+                                  user:
+                                    type: string
+                              seccompProfile:
+                                type: object
+                                properties:
+                                  localhostProfile:
+                                    type: string
+                                  type:
+                                    type: string
+                              windowsOptions:
+                                type: object
+                                properties:
+                                  gmsaCredentialSpec:
+                                    type: string
+                                  gmsaCredentialSpecName:
+                                    type: string
+                                  runAsUserName:
+                                    type: string
+                            description: Security context for the container.
+                        description: Template for the Entity Operator TLS sidecar
+                          container.
+                      serviceAccount:
+                        type: object
+                        properties:
+                          metadata:
+                            type: object
+                            properties:
+                              labels:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Labels added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                              annotations:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Annotations added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                            description: Metadata applied to the resource.
+                        description: Template for the Entity Operator service account.
                     description: Template for Entity Operator resources. The template
                       allows users to specify how is the `Deployment` and `Pods` generated.
                 description: Configuration of the Entity Operator.
@@ -3826,8 +4399,10 @@ spec:
                         type: object
                         properties:
                           limits:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                           requests:
+                            x-kubernetes-preserve-unknown-fields: true
                             type: object
                         description: CPU and memory resources to reserve.
                     description: TLS sidecar configuration.
@@ -3835,8 +4410,10 @@ spec:
                     type: object
                     properties:
                       limits:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                       requests:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                     description: CPU and memory resources to reserve for the Cruise
                       Control container.
@@ -3906,6 +4483,7 @@ spec:
                     type: object
                     properties:
                       "-XX":
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                         description: A map of -XX options to the JVM.
                       "-Xms":
@@ -3938,6 +4516,7 @@ spec:
                     type: object
                     properties:
                       loggers:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                         description: A Map from logger name to logger level.
                       type:
@@ -3975,11 +4554,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -3993,11 +4574,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -4189,6 +4772,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -4220,6 +4823,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -4255,6 +4878,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -4286,6 +4929,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -4333,7 +4996,11 @@ spec:
                                   type: string
                             description: The pod's HostAliases. HostAliases is an
                               optional list of hosts and IPs that will be injected
-                              into the pod's hosts file if specified.
+                              into the Pod's hosts file if specified.
+                          enableServiceLinks:
+                            type: boolean
+                            description: Indicates whether information about services
+                              should be injected into Pod's environment variables.
                           topologySpreadConstraints:
                             type: array
                             items:
@@ -4356,6 +5023,7 @@ spec:
                                             items:
                                               type: string
                                     matchLabels:
+                                      x-kubernetes-preserve-unknown-fields: true
                                       type: object
                                 maxSkew:
                                   type: integer
@@ -4372,16 +5040,46 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                             description: Metadata applied to the resource.
+                          ipFamilyPolicy:
+                            type: string
+                            enum:
+                            - SingleStack
+                            - PreferDualStack
+                            - RequireDualStack
+                            description: Specifies the IP Family Policy used by the
+                              service. Available options are `SingleStack`, `PreferDualStack`
+                              and `RequireDualStack`. `SingleStack` is for a single
+                              IP family. `PreferDualStack` is for two IP families
+                              on dual-stack configured clusters or a single IP family
+                              on single-stack clusters. `RequireDualStack` fails unless
+                              there are two IP families on dual-stack configured clusters.
+                              If unspecified, Kubernetes will choose the default value
+                              based on the service type. Available on Kubernetes 1.20
+                              and newer.
+                          ipFamilies:
+                            type: array
+                            items:
+                              type: string
+                              enum:
+                              - IPv4
+                              - IPv6
+                            description: Specifies the IP Families used by the service.
+                              Available options are `IPv4` and `IPv6. If unspecified,
+                              Kubernetes will choose the default value based on the
+                              `ipFamilyPolicy` setting. Available on Kubernetes 1.20
+                              and newer.
                         description: Template for Cruise Control API `Service`.
                       podDisruptionBudget:
                         type: object
@@ -4390,11 +5088,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -4557,6 +5257,26 @@ spec:
                                     type: string
                             description: Security context for the container.
                         description: Template for the Cruise Control TLS sidecar container.
+                      serviceAccount:
+                        type: object
+                        properties:
+                          metadata:
+                            type: object
+                            properties:
+                              labels:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Labels added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                              annotations:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Annotations added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                            description: Metadata applied to the resource.
+                        description: Template for the Cruise Control service account.
                     description: Template to specify how Cruise Control resources,
                       `Deployments` and `Pods`, are generated.
                   brokerCapacity:
@@ -4585,6 +5305,7 @@ spec:
                           in bytes per second, for example 10000KB/s.
                     description: The Cruise Control `brokerCapacity` configuration.
                   config:
+                    x-kubernetes-preserve-unknown-fields: true
                     type: object
                     description: 'The Cruise Control configuration. For a full list
                       of configuration options refer to https://github.com/linkedin/cruise-control/wiki/Configurations.
@@ -4718,8 +5439,10 @@ spec:
                     type: object
                     properties:
                       limits:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                       requests:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                     description: CPU and memory resources to reserve.
                   template:
@@ -4732,11 +5455,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -4750,11 +5475,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -4946,6 +5673,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -4977,6 +5724,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -5012,6 +5779,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -5043,6 +5830,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -5090,7 +5897,11 @@ spec:
                                   type: string
                             description: The pod's HostAliases. HostAliases is an
                               optional list of hosts and IPs that will be injected
-                              into the pod's hosts file if specified.
+                              into the Pod's hosts file if specified.
+                          enableServiceLinks:
+                            type: boolean
+                            description: Indicates whether information about services
+                              should be injected into Pod's environment variables.
                           topologySpreadConstraints:
                             type: array
                             items:
@@ -5113,6 +5924,7 @@ spec:
                                             items:
                                               type: string
                                     matchLabels:
+                                      x-kubernetes-preserve-unknown-fields: true
                                       type: object
                                 maxSkew:
                                   type: integer
@@ -5195,6 +6007,26 @@ spec:
                                     type: string
                             description: Security context for the container.
                         description: Template for JmxTrans container.
+                      serviceAccount:
+                        type: object
+                        properties:
+                          metadata:
+                            type: object
+                            properties:
+                              labels:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Labels added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                              annotations:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Annotations added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                            description: Metadata applied to the resource.
+                        description: Template for the JMX Trans service account.
                     description: Template for JmxTrans resources.
                 required:
                 - outputDefinitions
@@ -5221,8 +6053,10 @@ spec:
                     type: object
                     properties:
                       limits:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                       requests:
+                        x-kubernetes-preserve-unknown-fields: true
                         type: object
                     description: CPU and memory resources to reserve.
                   logging:
@@ -5244,11 +6078,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -5262,11 +6098,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -5458,6 +6296,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -5489,6 +6347,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -5524,6 +6402,26 @@ spec:
                                                         items:
                                                           type: string
                                                 matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
+                                                  type: object
+                                            namespaceSelector:
+                                              type: object
+                                              properties:
+                                                matchExpressions:
+                                                  type: array
+                                                  items:
+                                                    type: object
+                                                    properties:
+                                                      key:
+                                                        type: string
+                                                      operator:
+                                                        type: string
+                                                      values:
+                                                        type: array
+                                                        items:
+                                                          type: string
+                                                matchLabels:
+                                                  x-kubernetes-preserve-unknown-fields: true
                                                   type: object
                                             namespaces:
                                               type: array
@@ -5555,6 +6453,26 @@ spec:
                                                     items:
                                                       type: string
                                             matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
+                                              type: object
+                                        namespaceSelector:
+                                          type: object
+                                          properties:
+                                            matchExpressions:
+                                              type: array
+                                              items:
+                                                type: object
+                                                properties:
+                                                  key:
+                                                    type: string
+                                                  operator:
+                                                    type: string
+                                                  values:
+                                                    type: array
+                                                    items:
+                                                      type: string
+                                            matchLabels:
+                                              x-kubernetes-preserve-unknown-fields: true
                                               type: object
                                         namespaces:
                                           type: array
@@ -5602,7 +6520,11 @@ spec:
                                   type: string
                             description: The pod's HostAliases. HostAliases is an
                               optional list of hosts and IPs that will be injected
-                              into the pod's hosts file if specified.
+                              into the Pod's hosts file if specified.
+                          enableServiceLinks:
+                            type: boolean
+                            description: Indicates whether information about services
+                              should be injected into Pod's environment variables.
                           topologySpreadConstraints:
                             type: array
                             items:
@@ -5625,6 +6547,7 @@ spec:
                                             items:
                                               type: string
                                     matchLabels:
+                                      x-kubernetes-preserve-unknown-fields: true
                                       type: object
                                 maxSkew:
                                   type: integer
@@ -5641,11 +6564,13 @@ spec:
                             type: object
                             properties:
                               labels:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Labels added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
                                   `Deployments`, `Pods`, and `Services`.
                               annotations:
+                                x-kubernetes-preserve-unknown-fields: true
                                 type: object
                                 description: Annotations added to the resource template.
                                   Can be applied to different resources such as `StatefulSets`,
@@ -5725,6 +6650,26 @@ spec:
                                     type: string
                             description: Security context for the container.
                         description: Template for the Kafka Exporter container.
+                      serviceAccount:
+                        type: object
+                        properties:
+                          metadata:
+                            type: object
+                            properties:
+                              labels:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Labels added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                              annotations:
+                                x-kubernetes-preserve-unknown-fields: true
+                                type: object
+                                description: Annotations added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                            description: Metadata applied to the resource.
+                        description: Template for the Kafka Exporter service account.
                     description: Customization of deployment templates and pods.
                   livenessProbe:
                     type: object
@@ -5875,9 +6820,3 @@ spec:
                 description: Kafka cluster Id.
             description: The status of the Kafka and ZooKeeper clusters, and Topic
               Operator.
-  - name: v1beta1
-    served: true
-    storage: true
-  - name: v1alpha1
-    served: true
-    storage: false

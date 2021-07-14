@@ -355,6 +355,8 @@ metadata:
       ["Disconnected", "Proxy"]
     operators.openshift.io/valid-subscription: |-
       ["Red Hat Integration", "Red Hat AMQ"]  
+    olm.properties: |-
+      [{"type": "olm.maxOpenShiftVersion", "value": "4.9"}]
   name: amqstreams.v1.8.0
   namespace: placeholder
 spec:

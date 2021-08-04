@@ -1259,7 +1259,7 @@ spec:
   maturity: stable
   provider:
     name: Red Hat
-  replaces: amqstreams.v1.7.2
+  replaces: amqstreams.v1.7.3
   selector:
     matchLabels:
       name: amq-streams-cluster-operator

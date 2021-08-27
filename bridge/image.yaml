@@ -35,7 +35,6 @@ packages:
       # Required for base image
       - rhel-8-for-x86_64-baseos-rpms
       - rhel-8-for-x86_64-appstream-rpms
-      - rhel-atomic-host-rpms
   install:
     - java-11-openjdk-devel
     - openssl

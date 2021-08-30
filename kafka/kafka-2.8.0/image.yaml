@@ -34,6 +34,12 @@ packages:
       # Required for base image
       - rhel-8-for-x86_64-baseos-rpms
       - rhel-8-for-x86_64-appstream-rpms
+    ppc64le:
+      # Required for tini
+      - amq-streams-1-for-rhel-8-ppc64le-rpms
+      # Required for base image
+      - rhel-8-for-ppc64le-baseos-rpms
+      - rhel-8-for-ppc64le-appstream-rpms
   install:
     - java-11-openjdk-devel
     - gettext
@@ -59,6 +65,7 @@ osbs:
       platforms:
         only:
         - x86_64
+        - ppc64le
   repository:
     name: containers/amqstreams-kafka-28
     branch: amqstreams-1.8-rhel-8

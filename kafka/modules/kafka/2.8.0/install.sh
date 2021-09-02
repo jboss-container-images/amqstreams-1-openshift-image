@@ -11,8 +11,6 @@ TMP=$(zipinfo -1  ${SOURCES_DIR}/streams-ocp-*.zip | grep -oE '^[^/]+' | uniq)
 unzip ${SOURCES_DIR}/streams-ocp-*.zip
 mv ${TMP}/* ${KAFKA_HOME}/
 
-cp -r ${KAFKA_HOME}/bin/kafka_exporter ${KAFKA_EXPORTER_HOME}/
-
 mkdir -p ${PRODUCT_LICENSE_DIR}/kafka
 cp -r ${KAFKA_HOME}/licen*/* ${PRODUCT_LICENSE_DIR}/kafka
 

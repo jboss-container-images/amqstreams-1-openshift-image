@@ -11,7 +11,7 @@ envs:
   - name: "S2I_HOME"
     value: "/opt/kafka/s2i"
   - name: "KAFKA_EXPORTER_HOME"
-    value: "/opt/kafka-exporter"
+    value: "/usr/bin"
   - name: "CRUISE_CONTROL_HOME"
     value: "/opt/cruise-control"
 
@@ -25,8 +25,10 @@ packages:
   manager: microdnf
   content_sets:
     x86_64:
+      - amq-streams-1-for-rhel-8-rpms
       - rhel-8-for-x86_64-baseos-rpms
     ppc64le:
+      - amq-streams-1-for-rhel-8-ppc64le-rpms
       - rhel-8-for-ppc64le-baseos-rpms
   install:
     - unzip
@@ -34,6 +36,7 @@ packages:
     - rsync
     - shadow-utils # groupadd
     - gzip
+    - kafka_exporter
 
 execute:
   - script: install.sh

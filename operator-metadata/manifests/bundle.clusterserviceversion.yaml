@@ -357,7 +357,7 @@ metadata:
       ["Red Hat Integration", "Red Hat AMQ"]  
     olm.properties: |-
       [{"type": "olm.maxOpenShiftVersion", "value": "4.9"}]
-  name: amqstreams.v1.8.0
+  name: amqstreams.v1.8.1
   namespace: placeholder
 spec:
   MinKubeVersion: 1.16.0
@@ -787,7 +787,7 @@ spec:
     This release supports only the API version `v1beta2` and CRD version `apiextensions.k8s.io/v1`. 
     If upgrading from AMQ Streams 1.7, migration to `v1beta2` needs to be completed for all AMQ Streams CRDs and CRs before the upgrade to 1.8 is done! 
     If upgrading from AMQ Streams version earlier than 1.7, you need to first install the CRDs from AMQ Streams 1.7 and complete the migration to `v1beta2` for all AMQ Streams CRDs and CRs before the upgrade to 1.8 is done! 
-    For more details about the CRD upgrades, see the [documentation](https://access.redhat.com/documentation/en-us/red_hat_amq/2021.q2/html/deploying_and_upgrading_amq_streams_on_openshift/assembly-upgrade-str#assembly-upgrade-resources-str).
+    For more details about the CRD upgrades, see the [documentation](https://access.redhat.com/documentation/en-us/red_hat_amq/2021.q3/html/deploying_and_upgrading_amq_streams_on_openshift/assembly-upgrade-str#assembly-upgrade-resources-str).
 
     ### Supported Features
 
@@ -1113,7 +1113,7 @@ spec:
           - list
         serviceAccountName: strimzi-cluster-operator
       deployments:
-      - name: amq-streams-cluster-operator-v1.8.0
+      - name: amq-streams-cluster-operator-v1.8.1
         spec:
           replicas: 1
           selector:
@@ -1252,15 +1252,15 @@ spec:
     - name: Product Page
       url: https://access.redhat.com/products/red-hat-amq
     - name: Documentation
-      url: https://access.redhat.com/documentation/en-us/red_hat_amq/2021.q2/html/using_amq_streams_on_openshift/index
+      url: https://access.redhat.com/documentation/en-us/red_hat_amq/2021.q3/html/using_amq_streams_on_openshift/index
   maintainers:
     - email: customerservice@redhat.com
       name: Red Hat
   maturity: stable
   provider:
     name: Red Hat
-  replaces: amqstreams.v1.7.3
+  replaces: amqstreams.v1.8.0
   selector:
     matchLabels:
       name: amq-streams-cluster-operator
-  version: 1.8.0
+  version: 1.8.1

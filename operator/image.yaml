@@ -55,9 +55,12 @@ run:
   user: 1001
   workdir: $STRIMZI_HOME
 
+help:
+  add: true
+
 osbs:
-  extra_dir: dist-git-files
   configuration:
+    gating_file: gating.yaml
     container:
       compose:
         pulp_repos: true

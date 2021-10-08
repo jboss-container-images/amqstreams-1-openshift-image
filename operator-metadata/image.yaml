@@ -38,7 +38,14 @@ artifacts:
       dest: /manifests/
     - path: metadata
       dest: /metadata/
+
+help:
+  add: true
+
 osbs:
+  configuration:
+    container_file: container.yaml
+    gating_file: gating.yaml
   extra_dir: dist-git-files
   repository:
     name: containers/amqstreams-operator-prod-operator-metadata

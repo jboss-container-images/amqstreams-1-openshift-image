@@ -1128,6 +1128,13 @@ spec:
               labels:
                 name: amq-streams-cluster-operator
                 strimzi.io/kind: cluster-operator
+                com.company: Red_Hat
+                rht.prod_name: Red_Hat_Integration
+                rht.prod_ver: 7.8
+                rht.comp: AMQ_Streams
+                rht.comp_ver: 2.0
+                rht.subcomp: cluster-operator
+                rht.comp_t: infrastructure
             spec:
               serviceAccountName: strimzi-cluster-operator
               volumes:
@@ -1206,6 +1213,96 @@ spec:
                         discovery.3scale.net/description-path=/openapi
                     - name: STRIMZI_FEATURE_GATES
                       value: ""
+                    - name: STRIMZI_CUSTOM_KAFKA_LABELS
+                      value: |
+                        com.company: Red_Hat
+                        rht.prod_name: Red_Hat_Integration
+                        rht.prod_ver: 7.8
+                        rht.comp: AMQ_Streams
+                        rht.comp_ver: 2.0
+                        rht.subcomp: kafka-broker
+                        rht.comp_t: application
+                    - name: STRIMZI_CUSTOM_KAFKA_CONNECT_LABELS
+                      value: |
+                        com.company: Red_Hat
+                        rht.prod_name: Red_Hat_Integration
+                        rht.prod_ver: 7.8
+                        rht.comp: AMQ_Streams
+                        rht.comp_ver: 2.0
+                        rht.subcomp: kafka-connect
+                        rht.comp_t: application
+                    - name: STRIMZI_CUSTOM_KAFKA_CONNECT_BUILD_LABELS
+                      value: |
+                        com.company: Red_Hat
+                        rht.prod_name: Red_Hat_Integration
+                        rht.prod_ver: 7.8
+                        rht.comp: AMQ_Streams
+                        rht.comp_ver: 2.0
+                        rht.subcomp: kafka-connect-build
+                        rht.comp_t: application
+                    - name: STRIMZI_CUSTOM_ZOOKEEPER_LABELS
+                      value: |
+                        com.company: Red_Hat
+                        rht.prod_name: Red_Hat_Integration
+                        rht.prod_ver: 7.8
+                        rht.comp: AMQ_Streams
+                        rht.comp_ver: 2.0
+                        rht.subcomp: zookeeper
+                        rht.comp_t: infrastructure
+                    - name: STRIMZI_CUSTOM_ENTITY_OPERATOR_LABELS
+                      value: |
+                        com.company: Red_Hat
+                        rht.prod_name: Red_Hat_Integration
+                        rht.prod_ver: 7.8
+                        rht.comp: AMQ_Streams
+                        rht.comp_ver: 2.0
+                        rht.subcomp: entity-operator
+                        rht.comp_t: infrastructure
+                    - name: STRIMZI_CUSTOM_KAFKA_MIRROR_MAKER2_LABELS
+                      value: |
+                        com.company: Red_Hat
+                        rht.prod_name: Red_Hat_Integration
+                        rht.prod_ver: 7.8
+                        rht.comp: AMQ_Streams
+                        rht.comp_ver: 2.0
+                        rht.subcomp: kafka-mirror-maker2
+                        rht.comp_t: application
+                    - name: STRIMZI_CUSTOM_KAFKA_MIRROR_MAKER_LABELS
+                      value: |
+                        com.company: Red_Hat
+                        rht.prod_name: Red_Hat_Integration
+                        rht.prod_ver: 7.8
+                        rht.comp: AMQ_Streams
+                        rht.comp_ver: 2.0
+                        rht.subcomp: kafka-mirror-maker
+                        rht.comp_t: application
+                    - name: STRIMZI_CUSTOM_CRUISE_CONTROL_LABELS
+                      value: |
+                        com.company: Red_Hat
+                        rht.prod_name: Red_Hat_Integration
+                        rht.prod_ver: 7.8
+                        rht.comp: AMQ_Streams
+                        rht.comp_ver: 2.0 
+                        rht.subcomp: cruise-control
+                        rht.comp_t: application
+                    - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_LABELS
+                      value: |
+                        com.company: Red_Hat
+                        rht.prod_name: Red_Hat_Integration
+                        rht.prod_ver: 7.8
+                        rht.comp: AMQ_Streams
+                        rht.comp_ver: 2.0
+                        rht.subcomp: kafka-bridge
+                        rht.comp_t: application
+                    - name: STRIMZI_CUSTOM_KAFKA_EXPORTER_LABELS
+                      value: |
+                        com.company: Red_Hat
+                        rht.prod_name: Red_Hat_Integration
+                        rht.prod_ver: 7.8
+                        rht.comp: AMQ_Streams
+                        rht.comp_ver: 2.0
+                        rht.subcomp: kafka-exporter
+                        rht.comp_t: application
                   livenessProbe:
                     httpGet:
                       path: /healthy

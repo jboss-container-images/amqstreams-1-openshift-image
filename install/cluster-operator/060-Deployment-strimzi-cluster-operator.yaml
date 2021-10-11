@@ -33,7 +33,7 @@ spec:
             name: strimzi-cluster-operator
       containers:
         - name: strimzi-cluster-operator
-          image: registry.redhat.io/amq7/amq-streams-kafka-30-rhel8:2.0.0
+          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.0.0
           ports:
             - containerPort: 8080
               name: http

@@ -1130,7 +1130,7 @@ spec:
                 strimzi.io/kind: cluster-operator
                 com.company: Red_Hat
                 rht.prod_name: Red_Hat_Integration
-                rht.prod_ver: 7.8
+                rht.prod_ver: 2021.Q4
                 rht.comp: AMQ_Streams
                 rht.comp_ver: 2.0
                 rht.subcomp: cluster-operator
@@ -1217,7 +1217,7 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Integration
-                        rht.prod_ver=7.8
+                        rht.prod_ver=2021.Q4
                         rht.comp=AMQ_Streams
                         rht.comp_ver=2.0
                         rht.subcomp=kafka-broker
@@ -1226,7 +1226,7 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Integration
-                        rht.prod_ver=7.8
+                        rht.prod_ver=2021.Q4
                         rht.comp=AMQ_Streams
                         rht.comp_ver=2.0
                         rht.subcomp=kafka-connect
@@ -1235,7 +1235,7 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Integration
-                        rht.prod_ver=7.8
+                        rht.prod_ver=2021.Q4
                         rht.comp=AMQ_Streams
                         rht.comp_ver=2.0
                         rht.subcomp=kafka-connect-build
@@ -1244,7 +1244,7 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Integration
-                        rht.prod_ver=7.8
+                        rht.prod_ver=2021.Q4
                         rht.comp=AMQ_Streams
                         rht.comp_ver=2.0
                         rht.subcomp=zookeeper
@@ -1253,7 +1253,7 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Integration
-                        rht.prod_ver=7.8
+                        rht.prod_ver=2021.Q4
                         rht.comp=AMQ_Streams
                         rht.comp_ver=2.0
                         rht.subcomp=entity-operator
@@ -1262,7 +1262,7 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Integration
-                        rht.prod_ver=7.8
+                        rht.prod_ver=2021.Q4
                         rht.comp=AMQ_Streams
                         rht.comp_ver=2.0
                         rht.subcomp=kafka-mirror-maker2
@@ -1271,7 +1271,7 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Integration
-                        rht.prod_ver=7.8
+                        rht.prod_ver=2021.Q4
                         rht.comp=AMQ_Streams
                         rht.comp_ver=2.0
                         rht.subcomp=kafka-mirror-maker
@@ -1280,7 +1280,7 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Integration
-                        rht.prod_ver=7.8
+                        rht.prod_ver=2021.Q4
                         rht.comp=AMQ_Streams
                         rht.comp_ver=2.0 
                         rht.subcomp=cruise-control
@@ -1289,7 +1289,7 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Integration
-                        rht.prod_ver=7.8
+                        rht.prod_ver=2021.Q4
                         rht.comp=AMQ_Streams
                         rht.comp_ver=2.0
                         rht.subcomp=kafka-bridge
@@ -1298,7 +1298,7 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Integration
-                        rht.prod_ver=7.8
+                        rht.prod_ver=2021.Q4
                         rht.comp=AMQ_Streams
                         rht.comp_ver=2.0
                         rht.subcomp=kafka-exporter

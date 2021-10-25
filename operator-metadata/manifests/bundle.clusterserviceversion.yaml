@@ -1132,7 +1132,7 @@ spec:
                 rht.prod_name: Red_Hat_Integration
                 rht.prod_ver: 2021.Q4
                 rht.comp: AMQ_Streams
-                rht.comp_ver: 2.0
+                rht.comp_ver: "2.0"
                 rht.subcomp: cluster-operator
                 rht.comp_t: infrastructure
             spec:

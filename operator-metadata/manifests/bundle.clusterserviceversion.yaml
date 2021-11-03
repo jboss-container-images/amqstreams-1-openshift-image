@@ -769,7 +769,7 @@ spec:
 
     ### Documentation
 
-    Documentation for the current release can be found on the Red Hat [Customer Portal](https://access.redhat.com/documentation/en-us/red_hat_amq/2021.q4/html/using_amq_streams_on_openshift/index).
+    Documentation for the current release can be found on the Red Hat [Customer Portal](https://access.redhat.com/documentation/en-us/red_hat_amq_streams).
 
   displayName: Red Hat Integration - AMQ Streams
   icon:

@@ -17,7 +17,7 @@ spec:
       serviceAccountName: strimzi-topic-operator
       containers:
         - name: strimzi-topic-operator
-          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:1.8.0
+          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.0.0
           args:
           - /opt/strimzi/bin/topic_operator_run.sh
           env:

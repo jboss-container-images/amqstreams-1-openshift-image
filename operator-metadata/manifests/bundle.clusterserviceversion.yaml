@@ -1252,7 +1252,7 @@ spec:
     - name: Product Page
       url: https://access.redhat.com/products/red-hat-amq
     - name: Documentation
-      url: https://access.redhat.com/documentation/en-us/red_hat_amq/2021.q4/html/using_amq_streams_on_openshift/index
+      url: https://access.redhat.com/documentation/en-us/red_hat_amq_streams
   maintainers:
     - email: customerservice@redhat.com
       name: Red Hat

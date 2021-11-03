@@ -28,6 +28,7 @@ spec:
         - name: strimzi-tmp
           emptyDir:
             medium: Memory
+            sizeLimit: 1Mi
         - name: co-config-volume
           configMap:
             name: strimzi-cluster-operator
@@ -66,10 +67,6 @@ spec:
                 2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:2.0.0
                 3.0.0=registry.redhat.io/amq7/amq-streams-kafka-30-rhel8:2.0.0
             - name: STRIMZI_KAFKA_CONNECT_IMAGES
-              value: |
-                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:2.0.0
-                3.0.0=registry.redhat.io/amq7/amq-streams-kafka-30-rhel8:2.0.0
-            - name: STRIMZI_KAFKA_CONNECT_S2I_IMAGES
               value: |
                 2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:2.0.0
                 3.0.0=registry.redhat.io/amq7/amq-streams-kafka-30-rhel8:2.0.0

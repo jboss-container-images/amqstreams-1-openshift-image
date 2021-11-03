@@ -5,7 +5,7 @@ metadata:
   labels:
     app: my-mm2-cluster
 spec:
-  version: 2.8.0
+  version: 3.0.0
   replicas: 1
   connectCluster: "my-cluster-target"
   clusters:
@@ -155,4 +155,23 @@ data:
     - pattern: kafka.connect<type=connect-worker-rebalance-metrics><>([a-z-]+)
       name: kafka_connect_worker_rebalance_$1
       help: "Kafka Connect JMX metric rebalance information"
+      type: GAUGE
+
+    #kafka.connect:type=MirrorSourceConnector
+    - pattern: kafka.connect.mirror<type=MirrorSourceConnector, target=(.+), topic=(.+), partition=(.+)><>([a-z-_]+)
+      name: kafka_connect_mirror_mirrorsourceconnector_$4
+      labels:
+        target: "$1"
+        topic: "$2"
+        partition: "$3"
+      help: "Kafka Mirror Maker 2 Source Connector metrics"
+      type: GAUGE
+
+    #kafka.connect:type=MirrorCheckpointConnector
+    - pattern: kafka.connect.mirror<type=MirrorCheckpointConnector, source=(.+), target=(.+)><>([a-z-_]+)
+      name: kafka_connect_mirror_mirrorcheckpointconnector_$3
+      labels:
+        source: "$1"
+        target: "$2"
+      help: "Kafka Mirror Maker 2 Checkpoint Connector metrics"
       type: GAUGE

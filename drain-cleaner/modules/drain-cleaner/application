@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+set -x
+
+for arg in "$@"
+do
+  if [[ "$arg" = -D* ]]; 
+  then
+    JAVA_OPTS="${JAVA_OPTS} ${arg}"
+  else
+    APP_OPTS="${APP_OPTS} ${arg}"
+  fi
+done
+
+exec java $JAVA_OPTS -jar /drain-cleaner.jar $APP_OPTS

@@ -16,7 +16,7 @@ artifacts:
     name: topic-operator-dist.zip
   - md5: 3eaaa40241bb56da645adcd962487b4d
     name: user-operator-dist.zip
-  - md5:3eb3b410f3306e81c2ec4c8fbbb48621
+  - md5: 3eb3b410f3306e81c2ec4c8fbbb48621
     name: kafka-init-dist.zip
   - md5: fedd7fb93547feb50887bf8d69f48c0d
     name: strimzi-licenses.tar.gz

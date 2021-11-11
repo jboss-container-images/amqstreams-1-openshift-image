@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amq7/amq-streams-drainer-cleaner-rhel8
+name: amq7/amq-streams-drain-cleaner-rhel8
 description: "AMQ Streams image for running the AMQ Streams Drain Cleaner"
 version: "2.0.0"
 from: registry.redhat.io/ubi8/ubi-minimal
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams-drainer-cleaner-container"
+    value: "amqstreams-drain-cleaner-container"
   - name: "io.k8s.description"
     value: "AMQ Streams Drain Cleaner"
   - name: "io.k8s.display-name"

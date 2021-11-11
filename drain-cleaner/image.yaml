@@ -1,0 +1,69 @@
+schema_version: 1
+
+name: amq7/amq-streams-drainer-cleaner-rhel8
+description: "AMQ Streams image for running the AMQ Streams Drain Cleaner"
+version: "2.0.0"
+from: registry.redhat.io/ubi8/ubi-minimal
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams-drainer-cleaner-container"
+  - name: "io.k8s.description"
+    value: "AMQ Streams Drain Cleaner"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Drain Cleaner"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+  - name: "licenses"
+    value: "/root/licenses"
+  - name: "maintainer"
+    value: "AMQ Streams Engineering <amq-streams-dev@redhat.com>"
+
+modules:
+  repositories:
+    - name: modules
+      path: modules
+  install:
+    - name: drain-cleaner
+
+packages:
+  manager: microdnf
+  content_sets:
+    x86_64:
+      # Required for base image
+      - rhel-8-for-x86_64-baseos-rpms
+      - rhel-8-for-x86_64-appstream-rpms
+    ppc64le:
+      # Required for base image
+      - rhel-8-for-ppc64le-baseos-rpms
+      - rhel-8-for-ppc64le-appstream-rpms
+  install:
+    - java-11-openjdk-devel
+
+ports:
+    - value: 8080
+      service: http
+
+run:
+  user: 1001
+  workdir: $STRIMZI_HOME
+  cmd:
+    - "/application"
+    - "-Dquarkus.http.host=0.0.0.0"
+
+help:
+  add: true
+
+osbs:
+  configuration:
+    gating_file: gating.yaml
+    container:
+      compose:
+        pulp_repos: true
+      platforms:
+        only:
+        - x86_64
+        - ppc64le
+  repository:
+    name: containers/amqstreams-drain-cleaner
+    branch: amqstreams-2.0-rhel-8

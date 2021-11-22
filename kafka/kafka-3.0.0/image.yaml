@@ -33,6 +33,8 @@ packages:
       - amq-streams-1-for-rhel-8-rpms
       # Required for kafka_exporter
       - amq-streams-2-for-rhel-8-rpms
+      # Required for procps
+      - rhel-6-server-rpms
       # Required for base image
       - rhel-8-for-x86_64-baseos-rpms
       - rhel-8-for-x86_64-appstream-rpms
@@ -41,6 +43,8 @@ packages:
       - amq-streams-1-for-rhel-8-ppc64le-rpms
       # Required for kafka_exporter
       - amq-streams-2-for-rhel-8-ppc64le-rpms
+      # Required for procps
+      - rhel-6-for-power-rpms
       # Required for base image
       - rhel-8-for-ppc64le-baseos-rpms
       - rhel-8-for-ppc64le-appstream-rpms
@@ -55,7 +59,8 @@ packages:
     - bind-utils
     - tini
     - lsof
- 
+    - procps
+
 run:
   user: 1001
   workdir: $KAFKA_HOME

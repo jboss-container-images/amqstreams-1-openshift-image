@@ -26,7 +26,7 @@ spec:
             name: strimzi-cluster-operator
       containers:
         - name: strimzi-cluster-operator
-          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:1.8.0
+          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:1.8.4
           ports:
             - containerPort: 8080
               name: http
@@ -47,41 +47,41 @@ spec:
             - name: STRIMZI_OPERATION_TIMEOUT_MS
               value: "300000"
             - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.0
+              value: registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.4
             - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.0
+              value: registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.4
             - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.0
+              value: registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.4
             - name: STRIMZI_DEFAULT_TLS_SIDECAR_CRUISE_CONTROL_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.0
+              value: registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.4
             - name: STRIMZI_KAFKA_IMAGES
               value: |
-                2.7.0=registry.redhat.io/amq7/amq-streams-kafka-27-rhel8:1.8.0
-                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.0
+                2.7.0=registry.redhat.io/amq7/amq-streams-kafka-27-rhel8:1.8.4
+                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.4
             - name: STRIMZI_KAFKA_CONNECT_IMAGES
               value: |
-                2.7.0=registry.redhat.io/amq7/amq-streams-kafka-27-rhel8:1.8.0
-                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.0
+                2.7.0=registry.redhat.io/amq7/amq-streams-kafka-27-rhel8:1.8.4
+                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.4
             - name: STRIMZI_KAFKA_CONNECT_S2I_IMAGES
               value: |
-                2.7.0=registry.redhat.io/amq7/amq-streams-kafka-27-rhel8:1.8.0
-                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.0
+                2.7.0=registry.redhat.io/amq7/amq-streams-kafka-27-rhel8:1.8.4
+                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.4
             - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
               value: |
-                2.7.0=registry.redhat.io/amq7/amq-streams-kafka-27-rhel8:1.8.0
-                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.0
+                2.7.0=registry.redhat.io/amq7/amq-streams-kafka-27-rhel8:1.8.4
+                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.4
             - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
               value: |
-                2.7.0=registry.redhat.io/amq7/amq-streams-kafka-27-rhel8:1.8.0
-                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.0
+                2.7.0=registry.redhat.io/amq7/amq-streams-kafka-27-rhel8:1.8.4
+                2.8.0=registry.redhat.io/amq7/amq-streams-kafka-28-rhel8:1.8.4
             - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:1.8.0
+              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:1.8.4
             - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:1.8.0
+              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:1.8.4
             - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:1.8.0
+              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:1.8.4
             - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-bridge-rhel8:1.8.0
+              value: registry.redhat.io/amq7/amq-streams-bridge-rhel8:1.8.4
             - name: STRIMZI_OPERATOR_NAMESPACE
               valueFrom:
                 fieldRef:

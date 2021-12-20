@@ -8,9 +8,9 @@ envs:
     value: "/opt/strimzi"
 
 artifacts:
-  - md5: 2a8589858bc4af49a05e7787e19610a0
+  - md5: e7515b11daf784f4bf85424e08be127e
     name: drain-cleaner.jar
-  - md5: 225467e9c0d172bf15113bf5b19a3929
+  - md5: 6a4edc0412998407341b7763b4f110e8
     name: drain-cleaner-licenses.tar.gz
 
 packages:

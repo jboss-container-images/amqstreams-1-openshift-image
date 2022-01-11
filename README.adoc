@@ -1,4 +1,4 @@
-# Red Hat AMQ Streams 1.x OpenShift Container Images
+# Red Hat AMQ Streams 2.x OpenShift Container Images
 
 ++++
 <p align="center">

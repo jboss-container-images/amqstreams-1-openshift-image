@@ -341,11 +341,11 @@ metadata:
       ["Disconnected", "Proxy"]
     operators.openshift.io/valid-subscription: |-
       ["Red Hat Integration", "Red Hat AMQ"]
-    olm.skipRange: '>=1.8.0 <2.0.0-0'
+    olm.skipRange: '>=1.8.0 <2.0.1-0'
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.ppc64le: supported
-  name: amqstreams.v2.0.0-0
+  name: amqstreams.v2.0.1-0
   namespace: placeholder
 spec:
   MinKubeVersion: 1.16.0
@@ -1016,7 +1016,7 @@ spec:
           - list
         serviceAccountName: strimzi-cluster-operator
       deployments:
-      - name: amq-streams-cluster-operator-v2.0.0-0
+      - name: amq-streams-cluster-operator-v2.0.1-0
         spec:
           replicas: 1
           selector:
@@ -1263,8 +1263,8 @@ spec:
   maturity: stable
   provider:
     name: Red Hat
-  replaces: amqstreams.v1.8.4
+  replaces: amqstreams.v2.0.0-0
   selector:
     matchLabels:
       name: amq-streams-cluster-operator
-  version: 2.0.0-0
+  version: 2.0.1-0

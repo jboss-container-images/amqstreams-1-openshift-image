@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: bridge
-version: 1.6.6
+version: 1.6.7
 
 envs:
   - name: "STRIMZI_HOME"
@@ -10,9 +10,9 @@ envs:
     value: "amqstreams-bridge-container"
 
 artifacts:
-  - md5: bb014371edac82ea4c49c754c0e5cdb3
+  - md5: afc7c9488730f59912e912fbaf3991ca
     name: kafka-bridge.zip
-  - md5: 9c176a3e90351ebc5ef437f8ccd1c1d0
+  - md5: 03c89ebd8f30f1542f5a32def2f7bbb3
     name: kafka-bridge-licenses.tar.gz
 
 packages:

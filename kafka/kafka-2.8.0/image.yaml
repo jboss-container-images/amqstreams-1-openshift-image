@@ -79,6 +79,7 @@ osbs:
         only:
         - x86_64
         - ppc64le
+        - s390x
   repository:
     name: containers/amqstreams-kafka-28
     branch: amqstreams-2.0-rhel-8

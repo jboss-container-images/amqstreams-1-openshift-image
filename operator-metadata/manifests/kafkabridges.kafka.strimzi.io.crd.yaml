@@ -152,6 +152,11 @@ spec:
                     description: Link to Kubernetes Secret containing the OAuth client
                       secret which the Kafka client can use to authenticate against
                       the OAuth server and use the token endpoint URI.
+                  connectTimeoutSeconds:
+                    type: integer
+                    description: The connect timeout in seconds when connecting to
+                      authorization server. If not set, the effective connect timeout
+                      is 60 seconds.
                   disableTlsHostnameVerification:
                     type: boolean
                     description: Enable or disable TLS hostname verification. Default
@@ -175,6 +180,10 @@ spec:
                     - password
                     - secretName
                     description: Reference to the `Secret` which holds the password.
+                  readTimeoutSeconds:
+                    type: integer
+                    description: The read timeout in seconds when connecting to authorization
+                      server. If not set, the effective read timeout is 60 seconds.
                   refreshToken:
                     type: object
                     properties:
@@ -222,14 +231,16 @@ spec:
                     type: string
                     enum:
                     - tls
+                    - scram-sha-256
                     - scram-sha-512
                     - plain
                     - oauth
                     description: Authentication type. Currently the only supported
-                      types are `tls`, `scram-sha-512`, and `plain`. `scram-sha-512`
-                      type uses SASL SCRAM-SHA-512 Authentication. `plain` type uses
-                      SASL PLAIN Authentication. `oauth` type uses SASL OAUTHBEARER
-                      Authentication. The `tls` type uses TLS Client Authentication.
+                      types are `tls`, `scram-sha-256`, `scram-sha-512`, and `plain`.
+                      `scram-sha-256` and `scram-sha-512` types use SASL SCRAM-SHA-256
+                      and SASL SCRAM-SHA-512 Authentication, respectively. `plain`
+                      type uses SASL PLAIN Authentication. `oauth` type uses SASL
+                      OAUTHBEARER Authentication. The `tls` type uses TLS Client Authentication.
                       The `tls` type is supported only over TLS connections.
                   username:
                     type: string
@@ -1003,7 +1014,7 @@ spec:
                             description: Annotations added to the resource template.
                               Can be applied to different resources such as `StatefulSets`,
                               `Deployments`, `Pods`, and `Services`.
-                        description: Metadata to apply to the `PodDistruptionBugetTemplate`
+                        description: Metadata to apply to the `PodDisruptionBudgetTemplate`
                           resource.
                       maxUnavailable:
                         type: integer

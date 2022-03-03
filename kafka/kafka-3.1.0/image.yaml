@@ -29,17 +29,13 @@ packages:
   manager: microdnf
   content_sets:
     x86_64:
-      # Required for tini
-      - amq-streams-1-for-rhel-8-rpms
-      # Required for kafka_exporter
+      # Required for tini and kafka exporter
       - amq-streams-2-for-rhel-8-rpms
       # Required for base image
       - rhel-8-for-x86_64-baseos-rpms
       - rhel-8-for-x86_64-appstream-rpms
     ppc64le:
-      # Required for tini
-      - amq-streams-1-for-rhel-8-ppc64le-rpms
-      # Required for kafka_exporter
+      # Required for tini and kafka exporter
       - amq-streams-2-for-rhel-8-ppc64le-rpms
       # Required for base image
       - rhel-8-for-ppc64le-baseos-rpms

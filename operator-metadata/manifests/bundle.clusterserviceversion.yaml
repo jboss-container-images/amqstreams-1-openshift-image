@@ -818,7 +818,7 @@ spec:
     The AMQ Streams Operator understands how to run and upgrade between a set of Kafka versions.
     When specifying a new version in your config, check to make sure you aren't using any features that may have been removed.
     See [the upgrade guide](https://access.redhat.com/documentation/en-us/red_hat_amq_streams/2.1/html/deploying_and
-_upgrading_amq_streams_on_openshift/assembly-upgrade-str) for more information.
+    upgrading_amq_streams_on_openshift/assembly-upgrade-str) for more information.
 
     ### Storage
 

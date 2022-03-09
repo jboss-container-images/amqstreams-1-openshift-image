@@ -40,6 +40,12 @@ packages:
       # Required for base image
       - rhel-8-for-ppc64le-baseos-rpms
       - rhel-8-for-ppc64le-appstream-rpms
+    s390x:
+      # Required for tini and kafka_exporter
+      - amq-streams-2-for-rhel-8-s390x-rpms
+      # Required for base image
+      - rhel-8-for-s390x-baseos-rpms
+      - rhel-8-for-s390x-appstream-rpms  
   install:
     - java-11-openjdk-devel
     - gettext
@@ -69,6 +75,7 @@ osbs:
         only:
         - x86_64
         - ppc64le
+        - s390x
   repository:
     name: containers/amqstreams-kafka-30
     branch: amqstreams-2.1-rhel-8

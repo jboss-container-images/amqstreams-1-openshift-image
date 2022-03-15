@@ -15,11 +15,6 @@ artifacts:
 
 packages:
   manager: microdnf
-  content_sets:
-    x86_64:
-      - rhel-8-for-x86_64-baseos-rpms
-    ppc64le:
-      - rhel-8-for-ppc64le-baseos-rpms
   install:
     - unzip
     - tar

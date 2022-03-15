@@ -381,7 +381,7 @@ metadata:
       ["Disconnected", "Proxy"]
     operators.openshift.io/valid-subscription: |-
       ["Red Hat Integration", "Red Hat AMQ"]
-    olm.skipRange: '>=2.0.1-0 <2.1.0-0'
+    olm.skipRange: '>=2.0.0-0 <2.1.0-0'
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.ppc64le: supported

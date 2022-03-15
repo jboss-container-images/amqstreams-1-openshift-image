@@ -23,15 +23,6 @@ artifacts:
 
 packages:
   manager: microdnf
-  content_sets:
-    x86_64:
-      # Required for kafka_exporter
-      - amq-streams-2-for-rhel-8-rpms
-      - rhel-8-for-x86_64-baseos-rpms
-    ppc64le:
-      # Required for kafka_exporter
-      - amq-streams-2-for-rhel-8-ppc64le-rpms
-      - rhel-8-for-ppc64le-baseos-rpms
   install:
     - unzip
     - tar

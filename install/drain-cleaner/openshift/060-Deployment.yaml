@@ -20,7 +20,7 @@ spec:
         rht.comp: AMQ_Streams
         rht.comp_ver: "2.1"
         rht.subcomp: drain-cleaner
-        rht.comp_t: application
+        rht.subcomp_t: application
     spec:
       serviceAccountName: strimzi-drain-cleaner
       containers:

@@ -1301,7 +1301,13 @@ spec:
                       port: http
                     initialDelaySeconds: 10
                     periodSeconds: 30
-                  resources: {}
+                  resources:
+                    limits:
+                      cpu: 1000m
+                      memory: 384Mi
+                    requests:
+                      cpu: 200m
+                      memory: 384Mi
           strategy:
             type: Recreate
     strategy: deployment

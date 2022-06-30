@@ -1,13 +1,13 @@
 schema_version: 1
 
-name: amq7/amq-streams-kafka-30-rhel8
+name: amq7/amq-streams-kafka-32-rhel8
 description: "AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect, Mirror Maker and Cruise Control"
-version: "2.1.0"
+version: "2.2.0"
 from: registry.redhat.io/ubi8/ubi-minimal
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams-kafka-30-container"
+    value: "amqstreams-kafka-32-container"
   - name: "io.k8s.description"
     value: "A reliable and fault tolerant stream processing platform"
   - name: "io.k8s.display-name"
@@ -23,7 +23,7 @@ modules:
       path: ../modules
   install:
     - name: kafka
-      version: 3.0.0
+      version: 3.2.0
 
 packages:
   manager: microdnf
@@ -77,5 +77,5 @@ osbs:
         - ppc64le
         - s390x
   repository:
-    name: containers/amqstreams-kafka-30
-    branch: amqstreams-2.1-rhel-8
+    name: containers/amqstreams-kafka-32
+    branch: amqstreams-2.2-rhel-8

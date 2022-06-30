@@ -15,16 +15,16 @@ spec:
         name: strimzi-user-operator
         com.company: Red_Hat
         rht.prod_name: Red_Hat_Integration
-        rht.prod_ver: 2022.Q2
+        rht.prod_ver: 2022.Q3
         rht.comp: AMQ_Streams
-        rht.comp_ver: 2.1
+        rht.comp_ver: 2.2
         rht.subcomp: user-operator
         rht.subcomp_t: infrastructure
     spec:
       serviceAccountName: strimzi-user-operator
       containers:
         - name: strimzi-user-operator
-          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.1.0
+          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.2.0
           args:
           - /opt/strimzi/bin/user_operator_run.sh
           env:

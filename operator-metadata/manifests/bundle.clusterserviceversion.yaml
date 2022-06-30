@@ -381,7 +381,7 @@ metadata:
       ["Disconnected", "Proxy"]
     operators.openshift.io/valid-subscription: |-
       ["Red Hat Integration", "Red Hat AMQ"]
-    olm.skipRange: '>=2.0.0-0 <2.2.0-0'
+    olm.skipRange: '>=2.1.0-0 <2.2.0-0'
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.ppc64le: supported
@@ -1151,13 +1151,13 @@ spec:
                     - name: STRIMZI_OPERATION_TIMEOUT_MS
                       value: "300000"
                     - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-                      value: registry.redhat.io/amq7/amq-streams-kafka-31-rhel8@sha256:030511435bfda574d28be829f4f4cfea201d30541c145dce1b8ff412b5c6fc1d
+                      value: registry.redhat.io/amq7/amq-streams-kafka-32-rhel8@sha256:030511435bfda574d28be829f4f4cfea201d30541c145dce1b8ff412b5c6fc1d
                     - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
-                      value: registry.redhat.io/amq7/amq-streams-kafka-31-rhel8@sha256:030511435bfda574d28be829f4f4cfea201d30541c145dce1b8ff412b5c6fc1d
+                      value: registry.redhat.io/amq7/amq-streams-kafka-32-rhel8@sha256:030511435bfda574d28be829f4f4cfea201d30541c145dce1b8ff412b5c6fc1d
                     - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
-                      value: registry.redhat.io/amq7/amq-streams-kafka-31-rhel8@sha256:030511435bfda574d28be829f4f4cfea201d30541c145dce1b8ff412b5c6fc1d
+                      value: registry.redhat.io/amq7/amq-streams-kafka-32-rhel8@sha256:030511435bfda574d28be829f4f4cfea201d30541c145dce1b8ff412b5c6fc1d
                     - name: STRIMZI_DEFAULT_TLS_SIDECAR_CRUISE_CONTROL_IMAGE
-                      value: registry.redhat.io/amq7/amq-streams-kafka-31-rhel8@sha256:030511435bfda574d28be829f4f4cfea201d30541c145dce1b8ff412b5c6fc1d
+                      value: registry.redhat.io/amq7/amq-streams-kafka-32-rhel8@sha256:030511435bfda574d28be829f4f4cfea201d30541c145dce1b8ff412b5c6fc1d
                     - name: STRIMZI_KAFKA_IMAGES
                       value: |
                         3.2.0=registry.redhat.io/amq7/amq-streams-kafka-32-rhel8@sha256:96ae80659103ed6f40fe676b647d1e9ddd1ed4f1ef98b15fea24b5784c34faa3

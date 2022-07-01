@@ -378,9 +378,9 @@ metadata:
     repository: https://github.com/strimzi/strimzi-kafka-operator
     support: Red Hat
     operators.openshift.io/infrastructure-features: |-
-      ["Disconnected", "Proxy"]
+      ["Disconnected", "Proxy", "proxy-aware"]
     operators.openshift.io/valid-subscription: |-
-      ["Red Hat Integration", "Red Hat AMQ"]
+      ["Red Hat Integration", "Red Hat AMQ", "Red Hat Application Foundations"]
     operators.operatorframework.io/internal-objects: |-
       ["strimzipodsets.core.strimzi.io"]
     olm.skipRange: '>=2.1.0-0 <2.2.0-0'

@@ -18,7 +18,7 @@ envs:
 artifacts:
   - md5: 4a21055784b9ee1506a7a007ab51eca7
     name: strimzi-kafka-scripts.zip
-  - md5: 54bc94519c548e860a8600e2923ce6c7
+  - md5: 9dbc150097a2129044e41984eadaf14a
     name: cruise-control-ocp.zip
 
 packages:

@@ -1,14 +1,14 @@
 schema_version: 1
 
 name: kafka
-version: 3.2.0
+version: 3.2.1
 
 envs:
   - name: "COM_REDHAT_COMPONENT"
     value: "amqstreams-kafka-32-container"
 
 artifacts:
-  - md5: 81b22cecb7b6b34f4b69ab239fdece65
+  - md5: 968164f14ececda04ccf770a0b7c6d26
     name: streams-ocp-32.zip
 
 modules:

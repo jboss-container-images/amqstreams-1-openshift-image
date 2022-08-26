@@ -1,7 +1,10 @@
 --- !Policy
 id: kafka-jenkins
 product_versions:
-  - cvp
+  - cvp
 decision_context: cvp_default
 rules:
-  - !PassingTestCaseRule {test_case_name: kafka-jenkins.default.systemtest}
+  - !PassingTestCaseRule {test_case_name: x86_64.default.systemtest}
+  - !PassingTestCaseRule {test_case_name: ppc64le.default.systemtest}
+  - !PassingTestCaseRule {test_case_name: s390x.default.systemtest}
+

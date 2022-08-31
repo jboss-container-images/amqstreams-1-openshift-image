@@ -5,3 +5,5 @@
 
 # VSCode stuff
 .vscode/
+# Idea stuff
+.idea/

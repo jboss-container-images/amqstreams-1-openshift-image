@@ -3,6 +3,7 @@
 id: amq-streams-release
 product_versions:
   - amqstreams*
+  - cvp
 decision_contexts:
   - cvp_default
 rules:

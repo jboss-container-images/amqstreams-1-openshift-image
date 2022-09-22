@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: kafka
-version: 3.2.1
+version: 3.2.3
 
 envs:
   - name: "COM_REDHAT_COMPONENT"

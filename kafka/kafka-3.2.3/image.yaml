@@ -23,7 +23,7 @@ modules:
       path: ../modules
   install:
     - name: kafka
-      version: 3.2.1
+      version: 3.2.3
 
 packages:
   manager: microdnf

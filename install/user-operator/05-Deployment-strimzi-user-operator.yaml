@@ -15,29 +15,41 @@ spec:
         name: strimzi-user-operator
         com.company: Red_Hat
         rht.prod_name: Red_Hat_Integration
-        rht.prod_ver: 2022.Q3
+        rht.prod_ver: 2022.Q4
         rht.comp: AMQ_Streams
-        rht.comp_ver: 2.2
+        rht.comp_ver: 2.3
         rht.subcomp: user-operator
         rht.subcomp_t: infrastructure
     spec:
       serviceAccountName: strimzi-user-operator
+      volumes:
+        - name: strimzi-tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: 5Mi
       containers:
         - name: strimzi-user-operator
-          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.2.0
+          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.3.0
           args:
-          - /opt/strimzi/bin/user_operator_run.sh
+            - /opt/strimzi/bin/user_operator_run.sh
+          volumeMounts:
+            - name: strimzi-tmp
+              mountPath: /tmp
           env:
             - name: STRIMZI_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+            - name: STRIMZI_KAFKA_BOOTSTRAP_SERVERS
+              value: my-cluster-kafka-bootstrap:9092
             - name: STRIMZI_LABELS
               value: "strimzi.io/cluster=my-cluster"
             - name: STRIMZI_CA_CERT_NAME
               value: my-cluster-clients-ca-cert
             - name: STRIMZI_CA_KEY_NAME
               value: my-cluster-clients-ca
+            - name: STRIMZI_ACLS_ADMIN_API_SUPPORTED
+              value: "true"
             - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
               value: "120000"
             - name: STRIMZI_LOG_LEVEL

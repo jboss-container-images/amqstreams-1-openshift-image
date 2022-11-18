@@ -16,16 +16,16 @@ spec:
         app: strimzi-drain-cleaner
         com.company: Red_Hat
         rht.prod_name: Red_Hat_Integration
-        rht.prod_ver: "2022.Q3"
+        rht.prod_ver: "2022.Q4"
         rht.comp: AMQ_Streams
-        rht.comp_ver: "2.2"
+        rht.comp_ver: "2.3"
         rht.subcomp: drain-cleaner
         rht.subcomp_t: application
     spec:
       serviceAccountName: strimzi-drain-cleaner
       containers:
         - name: strimzi-drain-cleaner
-          image: registry.redhat.io/amq7/amq-streams-drain-cleaner-rhel8:2.2.0
+          image: registry.redhat.io/amq7/amq-streams-drain-cleaner-rhel8:2.3.0
           ports:
             - containerPort: 8080
               name: http

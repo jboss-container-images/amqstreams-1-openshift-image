@@ -16,10 +16,10 @@ spec:
         name: strimzi-cluster-operator
         strimzi.io/kind: cluster-operator
         com.company: Red_Hat
-        rht.prod_name: Red_Hat_Integration
-        rht.prod_ver: "2022.Q3"
+        rht.prod_name: Red_Hat_Application_Foundations
+        rht.prod_ver: "2023.Q1"
         rht.comp: AMQ_Streams
-        rht.comp_ver: "2.2"
+        rht.comp_ver: "2.3"
         rht.subcomp: cluster-operator
         rht.subcomp_t: infrastructure
     spec:
@@ -34,7 +34,7 @@ spec:
             name: strimzi-cluster-operator
       containers:
         - name: strimzi-cluster-operator
-          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.2.0
+          image: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.3.0
           ports:
             - containerPort: 8080
               name: http
@@ -55,35 +55,35 @@ spec:
             - name: STRIMZI_OPERATION_TIMEOUT_MS
               value: "300000"
             - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.2.0
+              value: registry.redhat.io/amq7/amq-streams-kafka-33-rhel8:2.3.0
             - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.2.0
+              value: registry.redhat.io/amq7/amq-streams-kafka-33-rhel8:2.3.0
             - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.2.0
+              value: registry.redhat.io/amq7/amq-streams-kafka-33-rhel8:2.3.0
             - name: STRIMZI_KAFKA_IMAGES
               value: |
-                3.1.0=registry.redhat.io/amq7/amq-streams-kafka-31-rhel8:2.2.0              
-                3.2.3=registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.2.0
+                3.2.3=registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.3.0
+                3.3.1=registry.redhat.io/amq7/amq-streams-kafka-33-rhel8:2.3.0
             - name: STRIMZI_KAFKA_CONNECT_IMAGES
               value: |
-                3.1.0=registry.redhat.io/amq7/amq-streams-kafka-31-rhel8:2.2.0
-                3.2.3=registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.2.0
+                3.2.3=registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.3.0
+                3.3.1=registry.redhat.io/amq7/amq-streams-kafka-33-rhel8:2.3.0
             - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
               value: |
-                3.1.0=registry.redhat.io/amq7/amq-streams-kafka-31-rhel8:2.2.0
-                3.2.3=registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.2.0
+                3.2.3=registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.3.0
+                3.3.1=registry.redhat.io/amq7/amq-streams-kafka-33-rhel8:2.3.0
             - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
               value: |
-                3.1.0=registry.redhat.io/amq7/amq-streams-kafka-31-rhel8:2.2.0
-                3.2.3=registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.2.0
+                3.2.3=registry.redhat.io/amq7/amq-streams-kafka-32-rhel8:2.3.0
+                3.3.1=registry.redhat.io/amq7/amq-streams-kafka-33-rhel8:2.3.0
             - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.2.0
+              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.3.0
             - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.2.0
+              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.3.0
             - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.2.0
+              value: registry.redhat.io/amq7/amq-streams-rhel8-operator:2.3.0
             - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
-              value: registry.redhat.io/amq7/amq-streams-bridge-rhel8:2.2.0
+              value: registry.redhat.io/amq7/amq-streams-bridge-rhel8:2.3.0
             - name: STRIMZI_DEFAULT_MAVEN_BUILDER
               value: registry.access.redhat.com/ubi8/openjdk-11:1.10
             - name: STRIMZI_OPERATOR_NAMESPACE
@@ -92,6 +92,18 @@ spec:
                   fieldPath: metadata.namespace
             - name: STRIMZI_FEATURE_GATES
               value: ""
+            - name: STRIMZI_LEADER_ELECTION_ENABLED
+              value: "true"
+            - name: STRIMZI_LEADER_ELECTION_LEASE_NAME
+              value: "strimzi-cluster-operator"
+            - name: STRIMZI_LEADER_ELECTION_LEASE_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: STRIMZI_LEADER_ELECTION_IDENTITY
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_LABELS
               value: |
                 discovery.3scale.net=true
@@ -104,91 +116,91 @@ spec:
             - name: STRIMZI_CUSTOM_KAFKA_LABELS
               value: |
                 com.company=Red_Hat
-                rht.prod_name=Red_Hat_Integration
-                rht.prod_ver=2022.Q3
+                rht.prod_name=Red_Hat_Application_Foundations
+                rht.prod_ver=2023.Q1
                 rht.comp=AMQ_Streams
-                rht.comp_ver=2.2
+                rht.comp_ver=2.3
                 rht.subcomp=kafka-broker
                 rht.subcomp_t=application
             - name: STRIMZI_CUSTOM_KAFKA_CONNECT_LABELS
               value: |
                 com.company=Red_Hat
-                rht.prod_name=Red_Hat_Integration
-                rht.prod_ver=2022.Q3
+                rht.prod_name=Red_Hat_Application_Foundations
+                rht.prod_ver=2023.Q1
                 rht.comp=AMQ_Streams
-                rht.comp_ver=2.2
+                rht.comp_ver=2.3
                 rht.subcomp=kafka-connect
                 rht.subcomp_t=application
             - name: STRIMZI_CUSTOM_KAFKA_CONNECT_BUILD_LABELS
               value: |
                 com.company=Red_Hat
-                rht.prod_name=Red_Hat_Integration
-                rht.prod_ver=2022.Q3
+                rht.prod_name=Red_Hat_Application_Foundations
+                rht.prod_ver=2023.Q1
                 rht.comp=AMQ_Streams
-                rht.comp_ver=2.2
+                rht.comp_ver=2.3
                 rht.subcomp=kafka-connect-build
                 rht.subcomp_t=application
             - name: STRIMZI_CUSTOM_ZOOKEEPER_LABELS
               value: |
                 com.company=Red_Hat
-                rht.prod_name=Red_Hat_Integration
-                rht.prod_ver=2022.Q3
+                rht.prod_name=Red_Hat_Application_Foundations
+                rht.prod_ver=2023.Q1
                 rht.comp=AMQ_Streams
-                rht.comp_ver=2.2
+                rht.comp_ver=2.3
                 rht.subcomp=zookeeper
                 rht.subcomp_t=infrastructure
             - name: STRIMZI_CUSTOM_ENTITY_OPERATOR_LABELS
               value: |
                 com.company=Red_Hat
-                rht.prod_name=Red_Hat_Integration
-                rht.prod_ver=2022.Q3
+                rht.prod_name=Red_Hat_Application_Foundations
+                rht.prod_ver=2023.Q1
                 rht.comp=AMQ_Streams
-                rht.comp_ver=2.2
+                rht.comp_ver=2.3
                 rht.subcomp=entity-operator
                 rht.subcomp_t=infrastructure
             - name: STRIMZI_CUSTOM_KAFKA_MIRROR_MAKER2_LABELS
               value: |
                 com.company=Red_Hat
-                rht.prod_name=Red_Hat_Integration
-                rht.prod_ver=2022.Q3
+                rht.prod_name=Red_Hat_Application_Foundations
+                rht.prod_ver=2023.Q1
                 rht.comp=AMQ_Streams
-                rht.comp_ver=2.2
+                rht.comp_ver=2.3
                 rht.subcomp=kafka-mirror-maker2
                 rht.subcomp_t=application
             - name: STRIMZI_CUSTOM_KAFKA_MIRROR_MAKER_LABELS
               value: |
                 com.company=Red_Hat
-                rht.prod_name=Red_Hat_Integration
-                rht.prod_ver=2022.Q3
+                rht.prod_name=Red_Hat_Application_Foundations
+                rht.prod_ver=2023.Q1
                 rht.comp=AMQ_Streams
-                rht.comp_ver=2.2
+                rht.comp_ver=2.3
                 rht.subcomp=kafka-mirror-maker
                 rht.subcomp_t=application
             - name: STRIMZI_CUSTOM_CRUISE_CONTROL_LABELS
               value: |
                 com.company=Red_Hat
-                rht.prod_name=Red_Hat_Integration
-                rht.prod_ver=2022.Q3
+                rht.prod_name=Red_Hat_Application_Foundations
+                rht.prod_ver=2023.Q1
                 rht.comp=AMQ_Streams
-                rht.comp_ver=2.2
+                rht.comp_ver=2.3
                 rht.subcomp=cruise-control
                 rht.subcomp_t=application
             - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_LABELS
               value: |
                 com.company=Red_Hat
-                rht.prod_name=Red_Hat_Integration
-                rht.prod_ver=2022.Q3
+                rht.prod_name=Red_Hat_Application_Foundations
+                rht.prod_ver=2023.Q1
                 rht.comp=AMQ_Streams
-                rht.comp_ver=2.2
+                rht.comp_ver=2.3
                 rht.subcomp=kafka-bridge
                 rht.subcomp_t=application
             - name: STRIMZI_CUSTOM_KAFKA_EXPORTER_LABELS
               value: |
                 com.company=Red_Hat
-                rht.prod_name=Red_Hat_Integration
-                rht.prod_ver=2022.Q3
+                rht.prod_name=Red_Hat_Application_Foundations
+                rht.prod_ver=2023.Q1
                 rht.comp=AMQ_Streams
-                rht.comp_ver=2.2
+                rht.comp_ver=2.3
                 rht.subcomp=kafka-exporter
                 rht.subcomp_t=application
           livenessProbe:

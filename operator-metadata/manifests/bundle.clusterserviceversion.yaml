@@ -779,7 +779,7 @@ spec:
     **Red Hat AMQ Streams** is a massively scalable, distributed, and high performance data streaming platform based on the Apache Kafka® project.
     AMQ Streams provides an event streaming backbone that allows microservices and other application components to exchange data with extremely high throughput and low latency.
 
-    **From the 2.3.0 release, AMQ Streams supports only OCP 4.9 and newer! OCP 4.8, 4.7, and 4.6 are not supported anymore.**
+    **From the 2.3.0 release, AMQ Streams supports only OCP 4.8 to 4.12!
 
     **The core capabilities include:**
     * A pub/sub messaging model, similar to a traditional enterprise messaging system, in which application components publish and consume events to/from an ordered stream

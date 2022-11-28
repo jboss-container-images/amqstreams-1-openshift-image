@@ -29,7 +29,7 @@ labels:
   - name: "com.redhat.delivery.operator.bundle"
     value: "true"
   - name: "com.redhat.openshift.versions"
-    value: "v4.9"
+    value: "v4.8"
   - name: "maintainer"
     value: "AMQ Streams Engineering <amq-streams-dev@redhat.com>"
 

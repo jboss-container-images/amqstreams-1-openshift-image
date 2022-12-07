@@ -55,6 +55,8 @@ packages:
     - tini
     - net-tools
     - lsof
+    # Temporary hack to force correct nss package to be installed
+    - crypto-policies-scripts
 
 run:
   user: 1001

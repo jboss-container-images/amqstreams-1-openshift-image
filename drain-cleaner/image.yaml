@@ -43,8 +43,6 @@ packages:
       - rhel-8-for-s390x-appstream-rpms  
   install:
     - java-11-openjdk-devel
-    # Temporary hack to force correct nss package to be installed
-    - crypto-policies-scripts
 
 ports:
     - value: 8080

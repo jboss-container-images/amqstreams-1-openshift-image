@@ -25,7 +25,7 @@ labels:
   - name: "operators.operatorframework.io.bundle.channels.v1"
     value: "amq-streams-2.2.x"
   - name: "operators.operatorframework.io.bundle.channel.default.v1"
-    value: "stable"
+    value: "amq-streams-2.2.x"
   - name: "com.redhat.delivery.operator.bundle"
     value: "true"
   - name: "com.redhat.openshift.versions"

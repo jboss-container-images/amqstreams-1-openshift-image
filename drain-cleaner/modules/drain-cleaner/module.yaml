@@ -1,16 +1,16 @@
 schema_version: 1
 
 name: drain-cleaner
-version: 2.2.0
+version: 2.2.1
 
 envs:
   - name: "STRIMZI_HOME"
     value: "/opt/strimzi"
 
 artifacts:
-  - md5: ce74621ab4e0905c3f7295b0f3e624c3
+  - md5: d24596f1add555d1b2117713b51fc803 
     name: drain-cleaner.jar
-  - md5: beab9938056747e10965df20bbf0d2ed
+  - md5: 91707a655bd3f11a05c5a877a16fce6c
     name: drain-cleaner-licenses.tar.gz
 
 packages:

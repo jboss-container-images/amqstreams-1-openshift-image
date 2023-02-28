@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: kafka.base
-version: 2.2.0
+version: 2.2.1
 
 envs:
   - name: "KAFKA_HOME"
@@ -16,9 +16,9 @@ envs:
     value: "/opt/cruise-control"
 
 artifacts:
-  - md5: 4433b4a2892dffa79b8873e68645464a
+  - md5: e04461a61b815236c3cfae6aa685f598
     name: strimzi-kafka-scripts.zip
-  - md5: 135bbf81a0ec90705b5f46e03a30e107
+  - md5: f45355843ed245d6af4a2f4a3deaecf1
     name: cruise-control-ocp.zip
 
 packages:

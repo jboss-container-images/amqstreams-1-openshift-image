@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: kafka
-version: 3.2.3
+version: 3.4.0
 
 envs:
   - name: "COM_REDHAT_COMPONENT"
@@ -9,12 +9,12 @@ envs:
 
 artifacts:
   - md5: 4de703c8b15fe872ce3390fc67a4034c
-    name: streams-ocp-32.zip
+    name: streams-ocp-34.zip
 
 modules:
   install:
   - name: kafka.base
-    version: 2.3.0
+    version: 2.4.0
 
 execute:
   - script: install.sh

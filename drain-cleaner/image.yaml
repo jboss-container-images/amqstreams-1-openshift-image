@@ -42,7 +42,7 @@ packages:
       - rhel-8-for-s390x-baseos-rpms
       - rhel-8-for-s390x-appstream-rpms  
   install:
-    - java-11-openjdk-devel
+    - java-17-openjdk-devel
 
 ports:
     - value: 8080

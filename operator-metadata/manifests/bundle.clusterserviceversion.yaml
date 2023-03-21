@@ -1028,6 +1028,13 @@ spec:
             - patch
             - update
         - apiGroups:
+            - image.openshift.io
+          resources:
+            # The cluster operator needs to verify the image stream when used for Kafka Connect image build
+            - imagestreams
+          verbs:
+            - get
+        - apiGroups:
             - policy
           resources:
             # The cluster operator needs to access and manage pod disruption budgets this limits the number of concurrent disruptions
@@ -1120,7 +1127,7 @@ spec:
                 rht.prod_name: Red_Hat_Application_Foundations
                 rht.prod_ver: 2023.Q2
                 rht.comp: AMQ_Streams
-                rht.comp_ver: "2.3"
+                rht.comp_ver: "2.4"
                 rht.subcomp: cluster-operator
                 rht.subcomp_t: infrastructure
             spec:

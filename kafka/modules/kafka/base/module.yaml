@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: kafka.base
-version: 2.3.0
+version: 2.4.0
 
 envs:
   - name: "KAFKA_HOME"

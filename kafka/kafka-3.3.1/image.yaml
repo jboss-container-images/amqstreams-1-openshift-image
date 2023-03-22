@@ -78,4 +78,4 @@ osbs:
         - s390x
   repository:
     name: containers/amqstreams-kafka-33
-    branch: amqstreams-2.3-rhel-8
+    branch: amqstreams-2.4-rhel-8

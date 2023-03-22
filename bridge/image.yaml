@@ -1,6 +1,6 @@
 schema_version: 1
 
-name: amq7/amq-streams-bridge-rhel8
+name: amq-streams/bridge-rhel8
 description: "AMQ Streams image for running the Apache Kafka bridge"
 version: "2.4.0"
 from: registry.redhat.io/ubi8/ubi-minimal

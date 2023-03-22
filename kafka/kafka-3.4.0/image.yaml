@@ -7,7 +7,7 @@ from: registry.redhat.io/ubi8/ubi-minimal
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams-kafka-32-container"
+    value: "amqstreams-kafka-34-container"
   - name: "io.k8s.description"
     value: "A reliable and fault tolerant stream processing platform"
   - name: "io.k8s.display-name"

@@ -16,9 +16,9 @@ spec:
         app: strimzi-drain-cleaner
         com.company: Red_Hat
         rht.prod_name: Red_Hat_Application_Foundations
-        rht.prod_ver: "2023.Q1"
+        rht.prod_ver: "2023.Q2"
         rht.comp: AMQ_Streams
-        rht.comp_ver: "2.3"
+        rht.comp_ver: "2.4"
         rht.subcomp: drain-cleaner
         rht.subcomp_t: application
     spec:

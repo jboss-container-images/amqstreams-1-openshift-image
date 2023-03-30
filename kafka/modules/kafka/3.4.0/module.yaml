@@ -5,7 +5,7 @@ version: 3.4.0
 
 envs:
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams-kafka-32-container"
+    value: "amqstreams-kafka-34-container"
 
 artifacts:
   - md5: 21abe284810700e09aa4a2c18fb217f3

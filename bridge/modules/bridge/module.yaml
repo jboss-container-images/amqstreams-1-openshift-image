@@ -10,9 +10,9 @@ envs:
     value: "amqstreams-bridge-container"
 
 artifacts:
-  - md5: 7660aa47284475fceaffd16d391db010
+  - md5: b557c112a04c2da168408b3882d2ff0b
     name: kafka-bridge.zip
-  - md5: ff2066de8b8efea864493336bf4b8633
+  - md5: 2ea9c1d1c70c0cfeb31236d6cd93e896
     name: kafka-bridge-licenses.tar.gz
 
 packages:

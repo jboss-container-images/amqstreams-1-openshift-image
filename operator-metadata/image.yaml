@@ -23,7 +23,7 @@ labels:
   - name: "operators.operatorframework.io.bundle.package.v1"
     value: "amq-streams"
   - name: "operators.operatorframework.io.bundle.channels.v1"
-    value: "stable,amq-streams-2.x,amq-streams-2.3.x"
+    value: "amq-streams-2.3.x"
   - name: "operators.operatorframework.io.bundle.channel.default.v1"
     value: "stable"
   - name: "com.redhat.delivery.operator.bundle"

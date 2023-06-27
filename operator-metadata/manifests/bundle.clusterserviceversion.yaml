@@ -796,7 +796,7 @@ spec:
     **Direct upgrade from AMQ Stream 1.7 or earlier is not supported!**
     You have to upgrade first to one of the previous versions of AMQ Streams.
     You will also need to convert the CRD resources.
-    For more details, see the [documentation](https://access.redhat.com/documentation/en-us/red_hat_amq_streams/2.4/html/deploying_and_upgrading_amq_streams_on_openshift/assembly-upgrade-str#assembly-upgrade-resources-str
+    For more details, see the [documentation](https://access.redhat.com/documentation/en-us/red_hat_amq_streams/2.4/html/deploying_and_managing_amq_streams_on_openshift/assembly-upgrade-str)
     
 
     ### Supported Features

@@ -4,8 +4,6 @@ metadata:
   name: strimzi-drain-cleaner
   labels:
     app: strimzi-drain-cleaner
-  annotations:
-    service.beta.openshift.io/inject-cabundle: "true"
 webhooks:
   - name: strimzi-drain-cleaner.strimzi.io
     rules:
@@ -20,7 +18,7 @@ webhooks:
         name: "strimzi-drain-cleaner"
         path: /drainer
         port: 443
-      caBundle: Cg==
+      caBundle: Cg== # Add the generated certificate here
     admissionReviewVersions: ["v1"]
     sideEffects: None
     failurePolicy: Ignore

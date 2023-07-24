@@ -5,7 +5,7 @@ metadata:
   labels:
     app: strimzi-drain-cleaner
   annotations:
-    service.beta.openshift.io/inject-cabundle: "true"
+    cert-manager.io/inject-ca-from: strimzi-drain-cleaner/strimzi-drain-cleaner
 webhooks:
   - name: strimzi-drain-cleaner.strimzi.io
     rules:

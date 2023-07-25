@@ -85,11 +85,22 @@ spec:
             - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
               value: registry.redhat.io/amq-streams/bridge-rhel8:2.5.0
             - name: STRIMZI_DEFAULT_MAVEN_BUILDER
-              value: registry.access.redhat.com/ubi8/openjdk-11:1.10
+              value: registry.redhat.io/ubi8/openjdk-11:1.10
             - name: STRIMZI_OPERATOR_NAMESPACE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+            - name: STRIMZI_FEATURE_GATES
+              value: ""
+            - name: STRIMZI_LEADER_ELECTION_ENABLED
+              value: "true"
+            - name: STRIMZI_LEADER_ELECTION_LEASE_NAME
+              value: "strimzi-cluster-operator"
+            - name: STRIMZI_LEADER_ELECTION_LEASE_NAMESPACE
+              valueFrom:
+                fieldRef:
+                   fieldPath: metadata.namespace
+           - name: STRIMZI_LEADER_ELECTION_IDENTITY
               spec:
                valueFrom:
                  fieldRef:
@@ -193,17 +204,6 @@ spec:
                 rht.comp_ver=2.5
                 rht.subcomp=kafka-exporter
                 rht.subcomp_t=application
-            - name: STRIMZI_FEATURE_GATES
-              value: ""
-            - name: STRIMZI_LEADER_ELECTION_ENABLED
-              value: "true"
-            - name: STRIMZI_LEADER_ELECTION_LEASE_NAME
-              value: "strimzi-cluster-operator"
-            - name: STRIMZI_LEADER_ELECTION_LEASE_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: STRIMZI_LEADER_ELECTION_IDENTITY
           livenessProbe:
             httpGet:
               path: /healthy

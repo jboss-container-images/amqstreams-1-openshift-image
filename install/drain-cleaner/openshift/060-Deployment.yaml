@@ -15,12 +15,12 @@ spec:
       labels:
         app: strimzi-drain-cleaner
         com.company: Red_Hat
-          rht.prod_name: Red_Hat_Application_Foundations
-          rht.prod_ver: "2023.Q3"
-          rht.comp: AMQ_Streams
-          rht.comp_ver: "2.5"
-          rht.subcomp: drain-cleaner
-          rht.subcomp_t: application
+        rht.prod_name: Red_Hat_Application_Foundations
+        rht.prod_ver: "2023.Q3"
+        rht.comp: AMQ_Streams
+        rht.comp_ver: "2.5"
+        rht.subcomp: drain-cleaner
+        rht.subcomp_t: application
     spec:
       serviceAccountName: strimzi-drain-cleaner
       containers:

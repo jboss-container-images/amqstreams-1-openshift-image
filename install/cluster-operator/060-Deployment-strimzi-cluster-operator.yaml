@@ -100,11 +100,10 @@ spec:
               valueFrom:
                 fieldRef:
                    fieldPath: metadata.namespace
-           - name: STRIMZI_LEADER_ELECTION_IDENTITY
-              spec:
-               valueFrom:
-                 fieldRef:
-                   fieldPath: metadata.name
+            - name: STRIMZI_LEADER_ELECTION_IDENTITY
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_LABELS
               value: |
                 discovery.3scale.net=true

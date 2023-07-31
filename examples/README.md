@@ -16,5 +16,6 @@ This folder contains different examples of AMQ Streams custom resources and demo
     * Prometheus Alert
     * Sample Prometheus installation files
     * Sample Grafana installation files
+    * JMX Trans deployment
 * [Security](./security)
     * Deployments of Kafka, Kafka Connect and HTTP Bridge using TLS encryption, authentication and authorization

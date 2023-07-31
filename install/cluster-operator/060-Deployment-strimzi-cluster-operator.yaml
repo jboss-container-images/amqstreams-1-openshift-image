@@ -99,7 +99,7 @@ spec:
             - name: STRIMZI_LEADER_ELECTION_LEASE_NAMESPACE
               valueFrom:
                 fieldRef:
-                   fieldPath: metadata.namespace
+                  fieldPath: metadata.namespace
             - name: STRIMZI_LEADER_ELECTION_IDENTITY
               valueFrom:
                 fieldRef:

@@ -29,7 +29,7 @@ spec:
             sizeLimit: 5Mi
       containers:
         - name: strimzi-topic-operator
-          image: registry.redhat.io/amq-streams/strimzi-rhel8-operator:2.4.0
+          image: registry.redhat.io/amq-streams/strimzi-rhel8-operator:2.5.0
           args:
             - /opt/strimzi/bin/topic_operator_run.sh
           volumeMounts:

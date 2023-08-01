@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq-streams/kafka-34-rhel8
 description: "AMQ Streams image for running Apache Kafka, Zookeeper, Kafka Connect, Mirror Maker and Cruise Control"
-version: "2.4.0"
+version: "2.5.0"
 from: registry.redhat.io/ubi8/ubi-minimal
 
 labels:
@@ -78,4 +78,4 @@ osbs:
         - s390x
   repository:
     name: containers/amqstreams-kafka-34
-    branch: amqstreams-2.4-rhel-8
+    branch: amqstreams-2.5-rhel-8

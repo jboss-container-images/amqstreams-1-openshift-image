@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq-streams/drain-cleaner-rhel8
 description: "AMQ Streams image for running the AMQ Streams Drain Cleaner"
-version: "2.4.0"
+version: "2.5.0"
 from: registry.redhat.io/ubi8/ubi-minimal
 
 labels:
@@ -71,4 +71,4 @@ osbs:
         - s390x
   repository:
     name: containers/amqstreams-drain-cleaner
-    branch: amqstreams-2.4-rhel-8
+    branch: amqstreams-2.5-rhel-8

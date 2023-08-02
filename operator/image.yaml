@@ -46,7 +46,13 @@ packages:
       - amq-streams-2-for-rhel-8-s390x-rpms
       # Required for base image
       - rhel-8-for-s390x-baseos-rpms
-      - rhel-8-for-s390x-appstream-rpms  
+      - rhel-8-for-s390x-appstream-rpms 
+    aarch64:
+      # Required for tini
+      - amq-streams-2-for-rhel-8-aarch64-rpms
+      # Required for base image
+      - rhel-8-for-aarch64-baseos-rpms
+      - rhel-8-for-aarch64-appstream-rpms
   install:
     - java-17-openjdk-devel
     - openssl
@@ -75,6 +81,7 @@ osbs:
         - x86_64
         - ppc64le
         - s390x
+        - aarch64
   repository:
     name: containers/amqstreams-operator
     branch: amqstreams-2.5-rhel-8

@@ -4,6 +4,7 @@ platforms:
   - x86_64
   - ppc64le
   - s390x
+  - aarch64
 operator_manifests:
   enable_digest_pinning: false
   enable_repo_replacements: false

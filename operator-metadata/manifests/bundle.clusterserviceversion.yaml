@@ -874,8 +874,7 @@ spec:
     
     The AMQ Streams Operator understands how to run and upgrade between a set of Kafka versions.
     When specifying a new version in your config, check to make sure you aren't using any features that may have been removed.
-    See [the upgrade guide](https://access.redhat.com/documentation/en-us/red_hat_amq_streams/2.5/html/deploying_and
-    upgrading_amq_streams_on_openshift/assembly-upgrade-str) for more information.
+    For more information on upgrading, see the [documentation for AMQ Streams on OpenShift](https://access.redhat.com/documentation/en-us/red_hat_amq_streams/).
 
     ### Storage
 
@@ -1192,7 +1191,7 @@ spec:
                     medium: Memory
                 - name: co-config-volume
                   configMap:
-                    name: amq-streams-cluster-operator
+                    name: strimzi-cluster-operator
               containers:
                 - name: strimzi-cluster-operator
                   image: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:73e01f383759f47d8c93f6b89b2ba8a8c229c4cc56972e7ce7d06f5caa3b6225

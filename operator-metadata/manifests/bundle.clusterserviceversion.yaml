@@ -30,6 +30,9 @@ metadata:
         },
         "my-rebalance": {
           "description": "Example Cruise Control rebalance request"
+        },
+        "my-pool": {
+          "description": "Example KafkaNodePool custom resource"
         }
       }
     alm-examples: |-
@@ -42,7 +45,7 @@ metadata:
           },
           "spec":{
             "kafka":{
-                "version":"3.4.0",
+                "version":"3.5.0",
                 "replicas":3,
                 "listeners": [
                   {
@@ -64,7 +67,7 @@ metadata:
                   "transaction.state.log.min.isr":2,
                   "default.replication.factor":3,
                   "min.insync.replicas":2,
-                  "inter.broker.protocol.version":"3.3"
+                  "inter.broker.protocol.version":"3.5"
                 },
                 "storage":{
                   "type":"ephemeral"
@@ -91,7 +94,7 @@ metadata:
             "name":"my-connect-cluster"
           },
           "spec":{
-            "version":"3.4.0",
+            "version":"3.5.0",
             "replicas":1,
             "bootstrapServers":"my-cluster-kafka-bootstrap:9093",
             "tls":{
@@ -120,7 +123,7 @@ metadata:
             "name":"my-mirror-maker"
           },
           "spec":{
-            "version":"3.4.0",
+            "version":"3.5.0",
             "replicas":1,
             "consumer":{
                 "bootstrapServers":"my-source-cluster-kafka-bootstrap:9092",
@@ -186,16 +189,7 @@ metadata:
                         "name":"my-topic",
                         "patternType":"literal"
                       },
-                      "operation":"Read",
-                      "host":"*"
-                  },
-                  {
-                      "resource":{
-                        "type":"topic",
-                        "name":"my-topic",
-                        "patternType":"literal"
-                      },
-                      "operation":"Describe",
+                      "operations":["Read", "Describe", "Write", "Create"],
                       "host":"*"
                   },
                   {
@@ -204,34 +198,7 @@ metadata:
                         "name":"my-group",
                         "patternType":"literal"
                       },
-                      "operation":"Read",
-                      "host":"*"
-                  },
-                  {
-                      "resource":{
-                        "type":"topic",
-                        "name":"my-topic",
-                        "patternType":"literal"
-                      },
-                      "operation":"Write",
-                      "host":"*"
-                  },
-                  {
-                      "resource":{
-                        "type":"topic",
-                        "name":"my-topic",
-                        "patternType":"literal"
-                      },
-                      "operation":"Create",
-                      "host":"*"
-                  },
-                  {
-                      "resource":{
-                        "type":"topic",
-                        "name":"my-topic",
-                        "patternType":"literal"
-                      },
-                      "operation":"Describe",
+                      "operations":["Read"],
                       "host":"*"
                   }
                 ]
@@ -265,15 +232,15 @@ metadata:
           "spec": {
             "version":"3.4.0",
             "replicas": 1,
-            "connectCluster": "my-cluster-target",
+            "connectCluster": "cluster-b",
             "clusters": [
               {
-                "alias": "my-cluster-source",
-                "bootstrapServers": "my-cluster-source-kafka-bootstrap:9092"
+                "alias": "cluster-a",
+                "bootstrapServers": "cluster-a-kafka-bootstrap:9092"
               },
               {
-                "alias": "my-cluster-target",
-                "bootstrapServers": "my-cluster-target-kafka-bootstrap:9092",
+                "alias": "cluster-b",
+                "bootstrapServers": "cluster-b-kafka-bootstrap:9092",
                 "config": {
                   "config.storage.replication.factor": -1,
                   "offset.storage.replication.factor": -1,
@@ -283,23 +250,18 @@ metadata:
             ],
             "mirrors": [
               {
-                "sourceCluster": "my-cluster-source",
-                "targetCluster": "my-cluster-target",
+                "sourceCluster": "cluster-a",
+                "targetCluster": "cluster-b",
                 "sourceConnector": {
                   "config": {
-                    "replication.factor": 1,
-                    "offset-syncs.topic.replication.factor": 1,
+                    "replication.factor": -1,
+                    "offset-syncs.topic.replication.factor": -1,
                     "sync.topic.acls.enabled": "false"
-                  }
-                },
-                "heartbeatConnector": {
-                  "config": {
-                    "heartbeats.topic.replication.factor": 1
                   }
                 },
                 "checkpointConnector": {
                   "config": {
-                    "checkpoints.topic.replication.factor": 1
+                    "checkpoints.topic.replication.factor": -1
                   }
                 },
                 "topicsPattern": ".*",
@@ -367,13 +329,40 @@ metadata:
               }
             }
           }
+        },
+        {
+          "apiVersion": "kafka.strimzi.io/v1beta2",
+          "kind": "KafkaNodePool",
+          "metadata": {
+            "name": "my-pool",
+            "labels": {
+              "strimzi.io/cluster": "my-cluster"
+            }
+          },
+          "spec": {
+            "replicas": 3,
+            "roles": [
+              "broker"
+            ],
+            "storage": {
+              "type": "jbod",
+              "volumes": [
+                {
+                  "id": 0,
+                  "type": "persistent-claim",
+                  "size": "100Gi",
+                  "deleteClaim": false
+                }
+              ]
+            }
+          }
         }
       ]
     capabilities: Deep Insights
     categories: Streaming & Messaging
     certified: 'false'
     containerImage: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:73e01f383759f47d8c93f6b89b2ba8a8c229c4cc56972e7ce7d06f5caa3b6225
-    createdAt: 2022-10-31 17:05:00
+    createdAt: 2023-07-10 21:47:00
     description: Red Hat AMQ Streams is a massively scalable, distributed, and high performance data streaming platform based on Apache Kafka®.
     repository: https://github.com/strimzi/strimzi-kafka-operator
     support: Red Hat
@@ -383,16 +372,17 @@ metadata:
       ["Red Hat AMQ", "Red Hat Application Foundations"]
     operators.operatorframework.io/internal-objects: |-
       ["strimzipodsets.core.strimzi.io"]
-    olm.skipRange: '>=2.3.0-0 <2.4.0-0'
+    olm.skipRange: '>=2.4.0-0 <2.5.0-0'
   labels:
     operatorframework.io/arch.amd64: supported
+    operatorframework.io/arch.arm64: supported
     operatorframework.io/arch.ppc64le: supported
     operatorframework.io/arch.s390x: supported
     operatorframework.io/os.linux: supported
-  name: amqstreams.v2.4.0-0
+  name: amqstreams.v2.5.0-0
   namespace: placeholder
 spec:
-  MinKubeVersion: 1.19.0
+  MinKubeVersion: 1.21.0
   customresourcedefinitions:
     owned:
     - description: Represents a Kafka cluster
@@ -406,9 +396,6 @@ spec:
       - kind: Service
         name: ''
         version: v1
-      - kind: StatefulSet
-        name: ''
-        version: v1
       - kind: Deployment
         name: ''
         version: v1
@@ -416,6 +403,9 @@ spec:
         name: ''
         version: v1
       - kind: Pod
+        name: ''
+        version: v1
+      - kind: ConfigMap
         name: ''
         version: v1
       - kind: Secret
@@ -464,6 +454,67 @@ spec:
         x-descriptors:
         - urn:alm:descriptor:com.tectonic.ui:resourceRequirements
       statusDescriptors:
+      - description: Kafka Cluster ID
+        displayName: Cluster ID
+        path: clusterId
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:text
+      - description: Kafka cluster conditions
+        displayName: Conditions
+        path: conditions
+        x-descriptors:
+        - urn:alm:descriptor:io.kubernetes.conditions
+      version: v1beta2
+    - description: Represents a pool of Kafka brokers
+      displayName: Kafka Node Pool
+      kind: KafkaNodePool
+      name: kafkanodepools.kafka.strimzi.io
+      resources:
+      - kind: Route
+        name: ''
+        version: route.openshift.io/v1
+      - kind: Service
+        name: ''
+        version: v1
+      - kind: Pod
+        name: ''
+        version: v1
+      - kind: ConfigMap
+        name: ''
+        version: v1
+      - kind: Secret
+        name: ''
+        version: v1
+      specDescriptors:
+      - description: The desired number of Kafka brokers in this pool.
+        displayName: Kafka Brokers
+        path: replicas
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:podCount
+      - description: The type of storage used by this pool of Kafka nodes
+        displayName: Kafka storage
+        path: storage.type
+        x-descriptors:
+          - urn:alm:descriptor:com.tectonic.ui:select:ephemeral
+          - urn:alm:descriptor:com.tectonic.ui:select:persistent-claim
+          - urn:alm:descriptor:com.tectonic.ui:select:jbod
+      - description: Limits describes the minimum/maximum amount of compute resources
+          required/allowed
+        displayName: Kafka Resource Requirements
+        path: resources
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:resourceRequirements
+      statusDescriptors:
+      - description: Kafka Cluster ID
+        displayName: Cluster ID
+        path: clusterId
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:text
+      - description: List of node IDs in this Node Pool
+        displayName: Node IDs
+        path: nodeIds
+        x-descriptors:
+        - urn:alm:descriptor:com.tectonic.ui:text
       - description: Kafka cluster conditions
         displayName: Conditions
         path: conditions
@@ -779,7 +830,7 @@ spec:
     **Red Hat AMQ Streams** is a massively scalable, distributed, and high performance data streaming platform based on the Apache Kafka® project.
     AMQ Streams provides an event streaming backbone that allows microservices and other application components to exchange data with extremely high throughput and low latency.
 
-    **From the 2.4.0 release, AMQ Streams supports only OCP 4.8 to 4.12!
+    **From the 2.5.0 release, AMQ Streams supports only OCP 4.10 to 4.13!
 
     **The core capabilities include:**
     * A pub/sub messaging model, similar to a traditional enterprise messaging system, in which application components publish and consume events to/from an ordered stream
@@ -823,8 +874,7 @@ spec:
     
     The AMQ Streams Operator understands how to run and upgrade between a set of Kafka versions.
     When specifying a new version in your config, check to make sure you aren't using any features that may have been removed.
-    See [the upgrade guide](https://access.redhat.com/documentation/en-us/red_hat_amq_streams/2.4/html/deploying_and
-    upgrading_amq_streams_on_openshift/assembly-upgrade-str) for more information.
+    For more information on upgrading, see the [documentation for AMQ Streams on OpenShift](https://access.redhat.com/documentation/en-us/red_hat_amq_streams/).
 
     ### Storage
 
@@ -911,6 +961,9 @@ spec:
             # The cluster operator runs the KafkaAssemblyOperator, which needs to access and manage Kafka resources
             - kafkas
             - kafkas/status
+            # The cluster operator runs the KafkaAssemblyOperator, which needs to access and manage KafkaNodePool resources
+            - kafkanodepools
+            - kafkanodepools/status
             # The cluster operator runs the KafkaConnectAssemblyOperator, which needs to access and manage KafkaConnect resources
             - kafkaconnects
             - kafkaconnects/status
@@ -1111,7 +1164,7 @@ spec:
           - list
         serviceAccountName: strimzi-cluster-operator
       deployments:
-      - name: amq-streams-cluster-operator-v2.4.0-0
+      - name: amq-streams-cluster-operator-v2.5.0-0
         spec:
           replicas: 1
           selector:
@@ -1125,9 +1178,9 @@ spec:
                 strimzi.io/kind: cluster-operator
                 com.company: Red_Hat
                 rht.prod_name: Red_Hat_Application_Foundations
-                rht.prod_ver: 2023.Q2
+                rht.prod_ver: 2023.Q3
                 rht.comp: AMQ_Streams
-                rht.comp_ver: "2.4"
+                rht.comp_ver: "2.5"
                 rht.subcomp: cluster-operator
                 rht.subcomp_t: infrastructure
             spec:
@@ -1138,7 +1191,7 @@ spec:
                     medium: Memory
                 - name: co-config-volume
                   configMap:
-                    name: amq-streams-cluster-operator
+                    name: strimzi-cluster-operator
               containers:
                 - name: strimzi-cluster-operator
                   image: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:73e01f383759f47d8c93f6b89b2ba8a8c229c4cc56972e7ce7d06f5caa3b6225
@@ -1162,27 +1215,27 @@ spec:
                     - name: STRIMZI_OPERATION_TIMEOUT_MS
                       value: "300000"
                     - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-                      value: registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
+                      value: registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
                     - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
-                      value: registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
+                      value: registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
                     - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
-                      value: registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
+                      value: registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
                     - name: STRIMZI_KAFKA_IMAGES
                       value: |
-                        3.3.1=registry.redhat.io/amq-streams/kafka-33-rhel8@sha256:45acd3b83817cee0a35e03f65304b375bbd3ac25265d84f690904ef4d7b94361
-                        3.4.0=registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
+                        3.4.0=registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:45acd3b83817cee0a35e03f65304b375bbd3ac25265d84f690904ef4d7b94361
+                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
                     - name: STRIMZI_KAFKA_CONNECT_IMAGES
                       value: |
-                        3.3.1=registry.redhat.io/amq-streams/kafka-33-rhel8@sha256:45acd3b83817cee0a35e03f65304b375bbd3ac25265d84f690904ef4d7b94361
-                        3.4.0=registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
+                        3.4.0=registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:45acd3b83817cee0a35e03f65304b375bbd3ac25265d84f690904ef4d7b94361
+                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
                     - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
                       value: |
-                        3.3.1=registry.redhat.io/amq-streams/kafka-33-rhel8@sha256:45acd3b83817cee0a35e03f65304b375bbd3ac25265d84f690904ef4d7b94361
-                        3.4.0=registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
+                        3.4.0=registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:45acd3b83817cee0a35e03f65304b375bbd3ac25265d84f690904ef4d7b94361
+                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
                     - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
                       value: |
-                        3.3.1=registry.redhat.io/amq-streams/kafka-33-rhel8@sha256:45acd3b83817cee0a35e03f65304b375bbd3ac25265d84f690904ef4d7b94361
-                        3.4.0=registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
+                        3.4.0=registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:45acd3b83817cee0a35e03f65304b375bbd3ac25265d84f690904ef4d7b94361
+                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
                     - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
                       value: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:73e01f383759f47d8c93f6b89b2ba8a8c229c4cc56972e7ce7d06f5caa3b6225
                     - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
@@ -1224,90 +1277,90 @@ spec:
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2023.Q2
+                        rht.prod_ver=2023.Q3
                         rht.comp=AMQ_Streams
-                        rht.comp_ver=2.4
+                        rht.comp_ver=2.5
                         rht.subcomp=kafka-broker
                         rht.subcomp_t=application
                     - name: STRIMZI_CUSTOM_KAFKA_CONNECT_LABELS
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2023.Q2
+                        rht.prod_ver=2023.Q3
                         rht.comp=AMQ_Streams
-                        rht.comp_ver=2.4
+                        rht.comp_ver=2.5
                         rht.subcomp=kafka-connect
                         rht.subcomp_t=application
                     - name: STRIMZI_CUSTOM_KAFKA_CONNECT_BUILD_LABELS
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2023.Q2
+                        rht.prod_ver=2023.Q3
                         rht.comp=AMQ_Streams
-                        rht.comp_ver=2.4
+                        rht.comp_ver=2.5
                         rht.subcomp=kafka-connect-build
                         rht.subcomp_t=application
                     - name: STRIMZI_CUSTOM_ZOOKEEPER_LABELS
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2023.Q2
+                        rht.prod_ver=2023.Q3
                         rht.comp=AMQ_Streams
-                        rht.comp_ver=2.4
+                        rht.comp_ver=2.5
                         rht.subcomp=zookeeper
                         rht.subcomp_t=infrastructure
                     - name: STRIMZI_CUSTOM_ENTITY_OPERATOR_LABELS
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2023.Q2
+                        rht.prod_ver=2023.Q3
                         rht.comp=AMQ_Streams
-                        rht.comp_ver=2.4
+                        rht.comp_ver=2.5
                         rht.subcomp=entity-operator
                         rht.subcomp_t=infrastructure
                     - name: STRIMZI_CUSTOM_KAFKA_MIRROR_MAKER2_LABELS
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2023.Q2
+                        rht.prod_ver=2023.Q3
                         rht.comp=AMQ_Streams
-                        rht.comp_ver=2.4
+                        rht.comp_ver=2.5
                         rht.subcomp=kafka-mirror-maker2
                         rht.subcomp_t=application
                     - name: STRIMZI_CUSTOM_KAFKA_MIRROR_MAKER_LABELS
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2023.Q2
+                        rht.prod_ver=2023.Q3
                         rht.comp=AMQ_Streams
-                        rht.comp_ver=2.4
+                        rht.comp_ver=2.5
                         rht.subcomp=kafka-mirror-maker
                         rht.subcomp_t=application
                     - name: STRIMZI_CUSTOM_CRUISE_CONTROL_LABELS
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2023.Q2
+                        rht.prod_ver=2023.Q3
                         rht.comp=AMQ_Streams
-                        rht.comp_ver=2.4
+                        rht.comp_ver=2.5
                         rht.subcomp=cruise-control
                         rht.subcomp_t=application
                     - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_LABELS
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2023.Q2
+                        rht.prod_ver=2023.Q3
                         rht.comp=AMQ_Streams
-                        rht.comp_ver=2.4
+                        rht.comp_ver=2.5
                         rht.subcomp=kafka-bridge
                         rht.subcomp_t=application
                     - name: STRIMZI_CUSTOM_KAFKA_EXPORTER_LABELS
                       value: |
                         com.company=Red_Hat
                         rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2023.Q2
+                        rht.prod_ver=2023.Q3
                         rht.comp=AMQ_Streams
-                        rht.comp_ver=2.4
+                        rht.comp_ver=2.5
                         rht.subcomp=kafka-exporter
                         rht.subcomp_t=application
                   livenessProbe:
@@ -1344,10 +1397,10 @@ spec:
   relatedImages:
     - name: strimzi-cluster-operator
       image: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:73e01f383759f47d8c93f6b89b2ba8a8c229c4cc56972e7ce7d06f5caa3b6225
-    - name: strimzi-kafka-331
-      image: registry.redhat.io/amq-streams/kafka-33-rhel8@sha256:45acd3b83817cee0a35e03f65304b375bbd3ac25265d84f690904ef4d7b94361
     - name: strimzi-kafka-340
-      image: registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
+      image: registry.redhat.io/amq-streams/kafka-34-rhel8@sha256:45acd3b83817cee0a35e03f65304b375bbd3ac25265d84f690904ef4d7b94361
+    - name: strimzi-kafka-350
+      image: registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:f968bd366a08f937a2c1bd9315e58ff860374c16fecd2231821cffc9ab0ae231
     - name: strimzi-bridge
       image: registry.redhat.io/amq-streams/bridge-rhel8@sha256:6bce9c35eb5f2a77af4c95e040b995f0076fe41b2c48d446513e1dda2a271141
     - name: strimzi-maven-builder
@@ -1375,8 +1428,8 @@ spec:
   maturity: stable
   provider:
     name: Red Hat
-  replaces: amqstreams.v2.3.0-3
+  replaces: amqstreams.v2.4.0-0
   selector:
     matchLabels:
       name: amq-streams-cluster-operator
-  version: 2.4.0-0
+  version: 2.5.0-0

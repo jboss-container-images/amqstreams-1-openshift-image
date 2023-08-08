@@ -85,7 +85,7 @@ spec:
             - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
               value: registry.redhat.io/amq-streams/bridge-rhel8:2.5.0
             - name: STRIMZI_DEFAULT_MAVEN_BUILDER
-              value: registry.redhat.io/ubi8/openjdk-11:1.10
+              value: registry.redhat.io/ubi8/openjdk-17:1.16
             - name: STRIMZI_OPERATOR_NAMESPACE
               valueFrom:
                 fieldRef:

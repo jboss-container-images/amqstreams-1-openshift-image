@@ -1404,7 +1404,7 @@ spec:
     - name: strimzi-bridge
       image: registry.redhat.io/amq-streams/bridge-rhel8@sha256:e534a7105a2eeb7c11f4d604987a70459f84561dfa9bcb59173630fc21b5c58c
     - name: strimzi-maven-builder
-      image: registry.access.redhat.com/ubi8/openjdk-11@sha256:d9739b266415be7c915daf3c61f8f1cc4e14d0b237a0ab664693bc2e0d3577e4
+      image: registry.redhat.io/ubi8/openjdk-17@sha256:8796da64c626c5f63f31a4e3ac0ac3b179333a7c6d5472a195b9b3f61ccd1099
   keywords:
     - kafka
     - messaging

@@ -10,17 +10,17 @@ envs:
     value: "amqstreams-operator-container"
 
 artifacts:
-  - md5: 2cee4977ba16eb31217af773baa9f910
+  - md5: dd5caa1e58b3072e826042553cb0bb5c
     name: cluster-operator-dist.zip
-  - md5: 3b9a2c62054179a0c6da0a76d7bad0dc
+  - md5: 2c205ba591c91f285f104fde613cbec8
     name: topic-operator-dist.zip
-  - md5: c883a2201afe53ddbecede29ac03e6bd
+  - md5: ecd24320b6d41ac6e9b896bfba6a1693
     name: user-operator-dist.zip
-  - md5: 2a51d419dee6f1c7b8467adae2d75745
+  - md5: 9e2fb53c0b818afc85a503be285b6748
     name: kafka-init-dist.zip
-  - md5: 472a71abc369ee0bf867ff7ad185d966
+  - md5: 4442711ff185fbb55548d4a6df913eda
     name: strimzi-licenses.tar.gz
-  - md5: 0bd156cdb7e2b3237f05fd64c43a23ec
+  - md5: f44eb1c70493e6a55bcf6a4cb2453c01
     name: strimzi-operator-scripts.zip
 
 packages:

@@ -49,4 +49,4 @@ osbs:
   extra_dir: dist-git-files
   repository:
     name: containers/amqstreams-operator-prod-operator-metadata
-    branch: amqstreams-2.5-rhel-8
+    branch: master

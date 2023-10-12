@@ -1,0 +1,142 @@
+{
+    "creation_time": "2023-09-21 16:50:05.889805",
+    "start_ts": 1.69531494E9,
+    "completion_time": "2023-09-21 16:58:11.444666",
+    "volume_id": 0,
+    "owner_id": 6716,
+    "release": "5",
+    "volume_name": "DEFAULT",
+    "epoch": null,
+    "task_id": 55684538,
+    "package_id": 84345,
+    "source": "https://<PLACEHOLDER>/git/containers/amqstreams-kafka-34#0b205c5e26275e34bcfd0e8bca94fea364ea7963",
+    "extra":     {
+        "image":         {
+            "help": "help.md",
+            "parent_images": ["registry.redhat.io/ubi8/ubi-minimal"],
+            "parent_build_id": 2674212,
+            "odcs":             {
+                "compose_ids":                 [
+                    2379152,
+                    2379154,
+                    2379156,
+                    2379158
+                ],
+                "signing_intent": "release",
+                "signing_intent_overridden": false
+            },
+            "isolated": false,
+            "parent_image_builds": {"registry.redhat.io/ubi8/ubi-minimal:latest":             {
+                "id": 2674212,
+                "nvr": "ubi8-minimal-container-8.8-1072"
+            }},
+            "index":             {
+                "floating_tags":                 [
+                    "latest",
+                    "2.5.0"
+                ],
+                "pull":                 [
+                    "<PLACEHOLDER>/rh-osbs/amq-streams-kafka-34-rhel8@sha256:cc8932404394383a5db36478a3b898ee6d81de00febd46050ccfb6efa6d177c0",
+                    "<PLACEHOLDER>/rh-osbs/amq-streams-kafka-34-rhel8:2.5.0-5"
+                ],
+                "digests": {"application/vnd.docker.distribution.manifest.list.v2+json": "sha256:cc8932404394383a5db36478a3b898ee6d81de00febd46050ccfb6efa6d177c0"},
+                "unique_tags": ["amqstreams-2.5-rhel-8-containers-candidate-35497-20230921164906"],
+                "tags": ["2.5.0-5"]
+            },
+            "media_types":             [
+                "application/vnd.docker.distribution.manifest.list.v2+json",
+                "application/vnd.docker.distribution.manifest.v1+json",
+                "application/vnd.docker.distribution.manifest.v2+json"
+            ]
+        },
+        "submitter": "osbs",
+        "typeinfo":         {
+            "image":             {
+                "help": "help.md",
+                "parent_images": ["registry.redhat.io/ubi8/ubi-minimal"],
+                "parent_build_id": 2674212,
+                "odcs":                 {
+                    "compose_ids":                     [
+                        2379152,
+                        2379154,
+                        2379156,
+                        2379158
+                    ],
+                    "signing_intent": "release",
+                    "signing_intent_overridden": false
+                },
+                "isolated": false,
+                "parent_image_builds": {"registry.redhat.io/ubi8/ubi-minimal:latest":                 {
+                    "id": 2674212,
+                    "nvr": "ubi8-minimal-container-8.8-1072"
+                }},
+                "index":                 {
+                    "floating_tags":                     [
+                        "latest",
+                        "2.5.0"
+                    ],
+                    "pull":                     [
+                        "<PLACEHOLDER>/rh-osbs/amq-streams-kafka-34-rhel8@sha256:cc8932404394383a5db36478a3b898ee6d81de00febd46050ccfb6efa6d177c0",
+                        "<PLACEHOLDER>/rh-osbs/amq-streams-kafka-34-rhel8:2.5.0-5"
+                    ],
+                    "digests": {"application/vnd.docker.distribution.manifest.list.v2+json": "sha256:cc8932404394383a5db36478a3b898ee6d81de00febd46050ccfb6efa6d177c0"},
+                    "unique_tags": ["amqstreams-2.5-rhel-8-containers-candidate-35497-20230921164906"],
+                    "tags": ["2.5.0-5"]
+                },
+                "media_types":                 [
+                    "application/vnd.docker.distribution.manifest.list.v2+json",
+                    "application/vnd.docker.distribution.manifest.v1+json",
+                    "application/vnd.docker.distribution.manifest.v2+json"
+                ]
+            },
+            "icm":             {
+                "archives":                 [
+                    "icm-x86_64.json",
+                    "icm-ppc64le.json",
+                    "icm-s390x.json",
+                    "icm-aarch64.json"
+                ],
+                "name": "icm"
+            },
+            "remote-source-file": {"no_source":             [
+                                {
+                    "checksums": {"md5": "bb8c40391c032a5a830c1eca82f77150"},
+                    "filename": "streams-ocp-34-2.5.0.redhat-00004.zip",
+                    "url": "http://<PLACEHOLDER>/brewroot/packages/com.redhat.amq-amq-streams-dist/2.5.0.redhat_00004/1/maven/com/redhat/amq/streams-ocp-34/2.5.0.redhat-00004/streams-ocp-34-2.5.0.redhat-00004.zip"
+                },
+                                {
+                    "checksums": {"md5": "0db7599c34c5241f305da3adc6a79460"},
+                    "filename": "strimzi-kafka-scripts-0.36.0.redhat-00004.zip",
+                    "url": "http://<PLACEHOLDER>/brewroot/packages/io.strimzi-strimzi/0.36.0.redhat_00004/1/maven/io/strimzi/strimzi-kafka-scripts/0.36.0.redhat-00004/strimzi-kafka-scripts-0.36.0.redhat-00004.zip"
+                },
+                                {
+                    "checksums": {"md5": "39e2322892f4003772c2f07daa366b6c"},
+                    "filename": "cruise-control-ocp-2.5.0.redhat-00004-ocp.zip",
+                    "url": "http://<PLACEHOLDER>/brewroot/packages/com.redhat.amq-amq-streams-dist/2.5.0.redhat_00004/1/maven/com/redhat/amq/cruise-control-ocp/2.5.0.redhat-00004/cruise-control-ocp-2.5.0.redhat-00004-ocp.zip"
+                }
+            ]}
+        },
+        "container_koji_task_id": 55684538,
+        "osbs_build":         {
+            "engine": "podman",
+            "kind": "container_build",
+            "subtypes": []
+        },
+        "custom_user_metadata": {"cpaas_pipeline_id": "b0763a81-ae3a-44b2-9d3d-40ff4268e97e"}
+    },
+    "creation_ts": 1.69531494E9,
+    "id": 2688315,
+    "state": 1,
+    "cpaas_skip_build": true,
+    "owner_name": "exd-cpaas-bot-prod",
+    "nvr": "amqstreams-kafka-34-container-2.5.0-5",
+    "creation_event_id": 53779912,
+    "version": "2.5.0",
+    "start_time": "2023-09-21 16:50:05.885390",
+    "build_id": 2688315,
+    "cg_id": 1,
+    "name": "amqstreams-kafka-34-container",
+    "package_name": "amqstreams-kafka-34-container",
+    "completion_ts": 1.69531546E9,
+    "cg_name": "atomic-reactor"
+}

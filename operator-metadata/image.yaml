@@ -49,4 +49,4 @@ osbs:
   extra_dir: automation
   repository:
     name: containers/amqstreams-operator-prod-operator-metadata
-    branch: master
+    branch: amqstreams-2.6-rhel-8

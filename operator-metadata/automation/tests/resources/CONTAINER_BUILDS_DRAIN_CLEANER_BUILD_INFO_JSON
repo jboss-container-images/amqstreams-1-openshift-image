@@ -1,0 +1,137 @@
+{
+    "creation_time": "2023-09-21 16:49:52.879927",
+    "start_ts": 1.69531494E9,
+    "completion_time": "2023-09-21 16:55:58.877380",
+    "volume_id": 0,
+    "owner_id": 6716,
+    "release": "3",
+    "volume_name": "DEFAULT",
+    "epoch": null,
+    "task_id": 55684536,
+    "package_id": 81109,
+    "source": "https://<PLACEHOLDER>/git/containers/amqstreams-drain-cleaner#5a36164fde8374b24765657f155f4cb3c65ff12d",
+    "extra":     {
+        "image":         {
+            "help": "help.md",
+            "parent_images": ["registry.redhat.io/ubi8/ubi-minimal"],
+            "parent_build_id": 2674212,
+            "odcs":             {
+                "compose_ids":                 [
+                    2379143,
+                    2379144,
+                    2379145,
+                    2379146
+                ],
+                "signing_intent": "release",
+                "signing_intent_overridden": false
+            },
+            "isolated": false,
+            "parent_image_builds": {"registry.redhat.io/ubi8/ubi-minimal:latest":             {
+                "id": 2674212,
+                "nvr": "ubi8-minimal-container-8.8-1072"
+            }},
+            "index":             {
+                "floating_tags":                 [
+                    "latest",
+                    "2.5.0"
+                ],
+                "pull":                 [
+                    "<PLACEHOLDER>/rh-osbs/amq-streams-drain-cleaner-rhel8@sha256:14135caf67b4f88cabf113634ccec4e8c695c79c0ba05a6b3fa41758d7347415",
+                    "<PLACEHOLDER>/rh-osbs/amq-streams-drain-cleaner-rhel8:2.5.0-3"
+                ],
+                "digests": {"application/vnd.docker.distribution.manifest.list.v2+json": "sha256:14135caf67b4f88cabf113634ccec4e8c695c79c0ba05a6b3fa41758d7347415"},
+                "unique_tags": ["amqstreams-2.5-rhel-8-containers-candidate-41573-20230921164905"],
+                "tags": ["2.5.0-3"]
+            },
+            "media_types":             [
+                "application/vnd.docker.distribution.manifest.list.v2+json",
+                "application/vnd.docker.distribution.manifest.v1+json",
+                "application/vnd.docker.distribution.manifest.v2+json"
+            ]
+        },
+        "submitter": "osbs",
+        "typeinfo":         {
+            "image":             {
+                "help": "help.md",
+                "parent_images": ["registry.redhat.io/ubi8/ubi-minimal"],
+                "parent_build_id": 2674212,
+                "odcs":                 {
+                    "compose_ids":                     [
+                        2379143,
+                        2379144,
+                        2379145,
+                        2379146
+                    ],
+                    "signing_intent": "release",
+                    "signing_intent_overridden": false
+                },
+                "isolated": false,
+                "parent_image_builds": {"registry.redhat.io/ubi8/ubi-minimal:latest":                 {
+                    "id": 2674212,
+                    "nvr": "ubi8-minimal-container-8.8-1072"
+                }},
+                "index":                 {
+                    "floating_tags":                     [
+                        "latest",
+                        "2.5.0"
+                    ],
+                    "pull":                     [
+                        "<PLACEHOLDER>/rh-osbs/amq-streams-drain-cleaner-rhel8@sha256:14135caf67b4f88cabf113634ccec4e8c695c79c0ba05a6b3fa41758d7347415",
+                        "<PLACEHOLDER>/rh-osbs/amq-streams-drain-cleaner-rhel8:2.5.0-3"
+                    ],
+                    "digests": {"application/vnd.docker.distribution.manifest.list.v2+json": "sha256:14135caf67b4f88cabf113634ccec4e8c695c79c0ba05a6b3fa41758d7347415"},
+                    "unique_tags": ["amqstreams-2.5-rhel-8-containers-candidate-41573-20230921164905"],
+                    "tags": ["2.5.0-3"]
+                },
+                "media_types":                 [
+                    "application/vnd.docker.distribution.manifest.list.v2+json",
+                    "application/vnd.docker.distribution.manifest.v1+json",
+                    "application/vnd.docker.distribution.manifest.v2+json"
+                ]
+            },
+            "icm":             {
+                "archives":                 [
+                    "icm-s390x.json",
+                    "icm-ppc64le.json",
+                    "icm-aarch64.json",
+                    "icm-x86_64.json"
+                ],
+                "name": "icm"
+            },
+            "remote-source-file": {"no_source":             [
+                                {
+                    "checksums": {"md5": "3cad76275a27274d8c90d92e4dfa65f3"},
+                    "filename": "strimzi-drain-cleaner-0.3.1.redhat-00005-runner.jar",
+                    "url": "http://<PLACEHOLDER>/brewroot/packages/io.strimzi-strimzi-drain-cleaner/0.3.1.redhat_00005/1/maven/io/strimzi/strimzi-drain-cleaner/0.3.1.redhat-00005/strimzi-drain-cleaner-0.3.1.redhat-00005-runner.jar"
+                },
+                                {
+                    "checksums": {"md5": "b0fbe258112388c295d7ffea480dd1ca"},
+                    "filename": "strimzi-drain-cleaner-licenses-0.3.1.redhat-00005.tar.gz",
+                    "url": "http://<PLACEHOLDER>/brewroot/packages/io.strimzi-strimzi-drain-cleaner/0.3.1.redhat_00005/1/maven/io/strimzi/strimzi-drain-cleaner-licenses/0.3.1.redhat-00005/strimzi-drain-cleaner-licenses-0.3.1.redhat-00005.tar.gz"
+                }
+            ]}
+        },
+        "container_koji_task_id": 55684536,
+        "osbs_build":         {
+            "engine": "podman",
+            "kind": "container_build",
+            "subtypes": []
+        },
+        "custom_user_metadata": {"cpaas_pipeline_id": "b0763a81-ae3a-44b2-9d3d-40ff4268e97e"}
+    },
+    "creation_ts": 1.69531494E9,
+    "id": 2688313,
+    "state": 1,
+    "cpaas_skip_build": true,
+    "owner_name": "exd-cpaas-bot-prod",
+    "nvr": "amqstreams-drain-cleaner-container-2.5.0-3",
+    "creation_event_id": 53779910,
+    "version": "2.5.0",
+    "start_time": "2023-09-21 16:49:52.876597",
+    "build_id": 2688313,
+    "cg_id": 1,
+    "name": "amqstreams-drain-cleaner-container",
+    "package_name": "amqstreams-drain-cleaner-container",
+    "completion_ts": 1.69531533E9,
+    "cg_name": "atomic-reactor"
+}

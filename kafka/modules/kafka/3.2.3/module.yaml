@@ -14,7 +14,7 @@ artifacts:
 modules:
   install:
   - name: kafka.base
-    version: 2.2.1
+    version: 2.2.2
 
 execute:
   - script: install.sh

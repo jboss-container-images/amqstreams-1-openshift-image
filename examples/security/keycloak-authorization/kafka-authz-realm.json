@@ -55,7 +55,7 @@
       "credentials" : [ {
         "type" : "password",
         "secretData" : "{\"value\":\"KqABIiReBuRWbP4pBct3W067pNvYzeN7ILBV+8vT8nuF5cgYs2fdl2QikJT/7bGTW/PBXg6CYLwJQFYrBK9MWg==\",\"salt\":\"EPgscX9CQz7UnuZDNZxtMw==\"}",
-        "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
+        "credentialData" : "{\"hashIterations\":2.5.1,\"algorithm\":\"pbkdf2-sha256\"}"
       } ],
       "disableableCredentialTypes" : [ ],
       "requiredActions" : [ ],
@@ -74,7 +74,7 @@
       "credentials" : [ {
         "type" : "password",
         "secretData" : "{\"value\":\"QhK0uLsKuBDrMm9Z9XHvq4EungecFRnktPgutfjKtgVv2OTPd8D390RXFvJ8KGvqIF8pdoNxHYQyvDNNwMORpg==\",\"salt\":\"yxkgwEyTnCGLn42Yr9GxBQ==\"}",
-        "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\"}"
+        "credentialData" : "{\"hashIterations\":2.5.1,\"algorithm\":\"pbkdf2-sha256\"}"
       } ],
       "disableableCredentialTypes" : [ ],
       "requiredActions" : [ ],

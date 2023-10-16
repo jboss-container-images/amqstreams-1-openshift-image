@@ -25,7 +25,7 @@ spec:
       serviceAccountName: strimzi-drain-cleaner
       containers:
         - name: strimzi-drain-cleaner
-          image: registry.redhat.io/amq-streams/drain-cleaner-rhel8:2.5.0
+          image: registry.redhat.io/amq-streams/drain-cleaner-rhel8:2.5.1
           ports:
             - containerPort: 8080
               name: http

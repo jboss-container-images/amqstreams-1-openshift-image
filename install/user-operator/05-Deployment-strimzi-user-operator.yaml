@@ -15,9 +15,9 @@ spec:
         name: strimzi-user-operator
         com.company: Red_Hat
         rht.prod_name: Red_Hat_Application_Foundations
-        rht.prod_ver: 2023.Q3
+        rht.prod_ver: 2023.Q4
         rht.comp: AMQ_Streams
-        rht.comp_ver: 2.5
+        rht.comp_ver: 2.6
         rht.subcomp: user-operator
         rht.subcomp_t: infrastructure
     spec:
@@ -29,7 +29,7 @@ spec:
             sizeLimit: 5Mi
       containers:
         - name: strimzi-user-operator
-          image: registry.redhat.io/amq-streams/strimzi-rhel8-operator:2.5.0
+          image: registry.redhat.io/amq-streams/strimzi-rhel8-operator:2.6.0
           args:
             - /opt/strimzi/bin/user_operator_run.sh
           volumeMounts:

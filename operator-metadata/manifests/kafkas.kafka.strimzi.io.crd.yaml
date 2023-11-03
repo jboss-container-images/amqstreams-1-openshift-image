@@ -168,6 +168,9 @@ spec:
                             httpRetryPauseMs:
                               type: integer
                               description: "The pause to take before retrying a failed HTTP request. If not set, the default is to not pause at all but to immediately repeat a request."
+                            includeAcceptHeader:
+                              type: boolean
+                              description: Whether the Accept header should be set in requests to the authorization servers. The default value is `true`.
                             introspectionEndpointUri:
                               type: string
                               description: URI of the token introspection endpoint which can be used to validate opaque non-JWT tokens.
@@ -465,7 +468,7 @@ spec:
                   config:
                     x-kubernetes-preserve-unknown-fields: true
                     type: object
-                    description: "Kafka broker config properties with the following prefixes cannot be set: listeners, advertised., broker., listener., host.name, port, inter.broker.listener.name, sasl., ssl., security., password., log.dir, zookeeper.connect, zookeeper.set.acl, zookeeper.ssl, zookeeper.clientCnxnSocket, authorizer., super.user, cruise.control.metrics.topic, cruise.control.metrics.reporter.bootstrap.servers,node.id, process.roles, controller. (with the exception of: zookeeper.connection.timeout.ms, sasl.server.max.receive.size,ssl.cipher.suites, ssl.protocol, ssl.enabled.protocols, ssl.secure.random.implementation,cruise.control.metrics.topic.num.partitions, cruise.control.metrics.topic.replication.factor, cruise.control.metrics.topic.retention.ms,cruise.control.metrics.topic.auto.create.retries, cruise.control.metrics.topic.auto.create.timeout.ms,cruise.control.metrics.topic.min.insync.replicas,controller.quorum.election.backoff.max.ms, controller.quorum.election.timeout.ms, controller.quorum.fetch.timeout.ms)."
+                    description: "Kafka broker config properties with the following prefixes cannot be set: listeners, advertised., broker., listener., host.name, port, inter.broker.listener.name, sasl., ssl., security., password., log.dir, zookeeper.connect, zookeeper.set.acl, zookeeper.ssl, zookeeper.clientCnxnSocket, authorizer., super.user, cruise.control.metrics.topic, cruise.control.metrics.reporter.bootstrap.servers,node.id, process.roles, controller., metadata.log.dir (with the exception of: zookeeper.connection.timeout.ms, sasl.server.max.receive.size,ssl.cipher.suites, ssl.protocol, ssl.enabled.protocols, ssl.secure.random.implementation,cruise.control.metrics.topic.num.partitions, cruise.control.metrics.topic.replication.factor, cruise.control.metrics.topic.retention.ms,cruise.control.metrics.topic.auto.create.retries, cruise.control.metrics.topic.auto.create.timeout.ms,cruise.control.metrics.topic.min.insync.replicas,controller.quorum.election.backoff.max.ms, controller.quorum.election.timeout.ms, controller.quorum.fetch.timeout.ms)."
                   storage:
                     type: object
                     properties:
@@ -610,6 +613,9 @@ spec:
                         type: integer
                         minimum: 0
                         description: "The maximum number of retries to attempt if an initial HTTP request fails. If not set, the default is to not attempt any retries."
+                      includeAcceptHeader:
+                        type: boolean
+                        description: Whether the Accept header should be set in requests to the authorization servers. The default value is `true`.
                       initialCacheCapacity:
                         type: integer
                         description: Initial capacity of the local cache used by the authorizer to avoid querying the Open Policy Agent for every request Defaults to `5000`.
@@ -653,7 +659,7 @@ spec:
                         - opa
                         - keycloak
                         - custom
-                        description: "Authorization type. Currently, the supported types are `simple`, `keycloak`, `opa` and `custom`. `simple` authorization type uses Kafka's `kafka.security.authorizer.AclAuthorizer` class for authorization. `keycloak` authorization type uses Keycloak Authorization Services for authorization. `opa` authorization type uses Open Policy Agent based authorization.`custom` authorization type uses user-provided implementation for authorization."
+                        description: "Authorization type. Currently, the supported types are `simple`, `keycloak`, `opa` and `custom`. `simple` authorization type uses Kafka's built-in authorizer for authorization. `keycloak` authorization type uses Keycloak Authorization Services for authorization. `opa` authorization type uses Open Policy Agent based authorization.`custom` authorization type uses user-provided implementation for authorization."
                       url:
                         type: string
                         example: http://opa:8181/v1/data/kafka/authz/allow
@@ -6268,7 +6274,7 @@ spec:
                   properties:
                     type:
                       type: string
-                      description: "*The `type` property has been deprecated, and should now be configured using `name`.* The name of the listener."
+                      description: The name of the listener.
                     name:
                       type: string
                       description: The name of the listener.
@@ -6305,4 +6311,10 @@ spec:
               clusterId:
                 type: string
                 description: Kafka cluster Id.
+              operatorLastSuccessfulVersion:
+                type: string
+                description: The version of the Strimzi Cluster Operator which performed the last successful reconciliation.
+              kafkaVersion:
+                type: string
+                description: The version of Kafka currently deployed in the cluster.
             description: "The status of the Kafka and ZooKeeper clusters, and Topic Operator."

@@ -5,7 +5,7 @@ version: 3.5.0
 
 envs:
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams-kafka-33-container"
+    value: "amqstreams-kafka-35-container"
 
 artifacts:
   - md5: f9c525ba4304b8e6e767cba7085f4ecb
@@ -14,7 +14,7 @@ artifacts:
 modules:
   install:
   - name: kafka.base
-    version: 2.5.0
+    version: 2.6.0
 
 execute:
   - script: install.sh

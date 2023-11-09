@@ -230,7 +230,7 @@ metadata:
             "name": "my-mm2-cluster"
           },
           "spec": {
-            "version":"3.4.0",
+            "version":"3.6.0",
             "replicas": 1,
             "connectCluster": "cluster-b",
             "clusters": [

@@ -16,9 +16,9 @@ envs:
     value: "/opt/cruise-control"
 
 artifacts:
-  - md5: 9415ba66246eec367d381e9197569751
+  - md5: 12df6654186de0157e638f07a68d9e34
     name: strimzi-kafka-scripts.zip
-  - md5: d3851b25320f6f873f983b41f3c9b70e
+  - md5: 826e9ce3be1d24274c2302b3aa808b64
     name: cruise-control-ocp.zip
 
 packages:

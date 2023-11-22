@@ -361,7 +361,7 @@ metadata:
     capabilities: Deep Insights
     categories: Streaming & Messaging
     certified: 'false'
-    containerImage: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:35b1dd34e7f336e6be44e7e73df1d41fbb9963a1cca47c0d59de49b0e063d952
+    containerImage: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:f1be1aa2f18276f9169893eb55e3733cd52fa38f2101a9b3925f79774841689f
     createdAt: 2023-10-14 18:18:00
     description: Red Hat AMQ Streams is a massively scalable, distributed, and high performance data streaming platform based on Apache Kafka®.
     repository: https://github.com/strimzi/strimzi-kafka-operator
@@ -1201,7 +1201,7 @@ spec:
                     name: strimzi-cluster-operator
               containers:
                 - name: strimzi-cluster-operator
-                  image: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:35b1dd34e7f336e6be44e7e73df1d41fbb9963a1cca47c0d59de49b0e063d952
+                  image: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:f1be1aa2f18276f9169893eb55e3733cd52fa38f2101a9b3925f79774841689f
                   ports:
                     - containerPort: 8080
                       name: http
@@ -1222,35 +1222,35 @@ spec:
                     - name: STRIMZI_OPERATION_TIMEOUT_MS
                       value: "300000"
                     - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-                      value: registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:7721eeb816cc3498e20601d09cb335e61a2eaf06dc55b8842940ec887fb8b74d
+                      value: registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:55b18000b2e774adccd0d5393b58fc3b8358ab174eaaa3ada9d520b5cde30669
                     - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
-                      value: registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:7721eeb816cc3498e20601d09cb335e61a2eaf06dc55b8842940ec887fb8b74d
+                      value: registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:55b18000b2e774adccd0d5393b58fc3b8358ab174eaaa3ada9d520b5cde30669
                     - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
-                      value: registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:7721eeb816cc3498e20601d09cb335e61a2eaf06dc55b8842940ec887fb8b74d
+                      value: registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:55b18000b2e774adccd0d5393b58fc3b8358ab174eaaa3ada9d520b5cde30669
                     - name: STRIMZI_KAFKA_IMAGES
                       value: |
-                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:3faa2c5533b2bad9f6117c348fde51e48a28a63d7d19aaaa506cea86ba3c9d2d
-                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:7721eeb816cc3498e20601d09cb335e61a2eaf06dc55b8842940ec887fb8b74d
+                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:8cabc9b8788cf5450a097f18e6de57a7c5e3d5fda874faa60c7e4b32f7213f38
+                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:55b18000b2e774adccd0d5393b58fc3b8358ab174eaaa3ada9d520b5cde30669
                     - name: STRIMZI_KAFKA_CONNECT_IMAGES
                       value: |
-                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:3faa2c5533b2bad9f6117c348fde51e48a28a63d7d19aaaa506cea86ba3c9d2d
-                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:7721eeb816cc3498e20601d09cb335e61a2eaf06dc55b8842940ec887fb8b74d
+                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:8cabc9b8788cf5450a097f18e6de57a7c5e3d5fda874faa60c7e4b32f7213f38
+                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:55b18000b2e774adccd0d5393b58fc3b8358ab174eaaa3ada9d520b5cde30669
                     - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
                       value: |
-                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:3faa2c5533b2bad9f6117c348fde51e48a28a63d7d19aaaa506cea86ba3c9d2d
-                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:7721eeb816cc3498e20601d09cb335e61a2eaf06dc55b8842940ec887fb8b74d
+                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:8cabc9b8788cf5450a097f18e6de57a7c5e3d5fda874faa60c7e4b32f7213f38
+                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:55b18000b2e774adccd0d5393b58fc3b8358ab174eaaa3ada9d520b5cde30669
                     - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
                       value: |
-                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:3faa2c5533b2bad9f6117c348fde51e48a28a63d7d19aaaa506cea86ba3c9d2d
-                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:7721eeb816cc3498e20601d09cb335e61a2eaf06dc55b8842940ec887fb8b74d
+                        3.5.0=registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:8cabc9b8788cf5450a097f18e6de57a7c5e3d5fda874faa60c7e4b32f7213f38
+                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:55b18000b2e774adccd0d5393b58fc3b8358ab174eaaa3ada9d520b5cde30669
                     - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
-                      value: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:35b1dd34e7f336e6be44e7e73df1d41fbb9963a1cca47c0d59de49b0e063d952
+                      value: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:f1be1aa2f18276f9169893eb55e3733cd52fa38f2101a9b3925f79774841689f
                     - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
-                      value: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:35b1dd34e7f336e6be44e7e73df1d41fbb9963a1cca47c0d59de49b0e063d952
+                      value: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:f1be1aa2f18276f9169893eb55e3733cd52fa38f2101a9b3925f79774841689f
                     - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
-                      value: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:35b1dd34e7f336e6be44e7e73df1d41fbb9963a1cca47c0d59de49b0e063d952
+                      value: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:f1be1aa2f18276f9169893eb55e3733cd52fa38f2101a9b3925f79774841689f
                     - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
-                      value: registry.redhat.io/amq-streams/bridge-rhel8@sha256:593539888b022125d865fedd4e15d2fb23a151f37a43742417055ce2d8ca0c85
+                      value: registry.redhat.io/amq-streams/bridge-rhel8@sha256:8e6eb1ecc6ee383bd6e9b6e4562f4fd543f448696db2ccba27103927ba5eeaf7
                     - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_LABELS
                       value: |
                         discovery.3scale.net=true
@@ -1403,13 +1403,13 @@ spec:
       type: AllNamespaces
   relatedImages:
     - name: strimzi-cluster-operator
-      image: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:35b1dd34e7f336e6be44e7e73df1d41fbb9963a1cca47c0d59de49b0e063d952
+      image: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:f1be1aa2f18276f9169893eb55e3733cd52fa38f2101a9b3925f79774841689f
     - name: strimzi-kafka-350
-      image: registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:3faa2c5533b2bad9f6117c348fde51e48a28a63d7d19aaaa506cea86ba3c9d2d
+      image: registry.redhat.io/amq-streams/kafka-35-rhel8@sha256:8cabc9b8788cf5450a097f18e6de57a7c5e3d5fda874faa60c7e4b32f7213f38
     - name: strimzi-kafka-360
-      image: registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:7721eeb816cc3498e20601d09cb335e61a2eaf06dc55b8842940ec887fb8b74d
+      image: registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:55b18000b2e774adccd0d5393b58fc3b8358ab174eaaa3ada9d520b5cde30669
     - name: strimzi-bridge
-      image: registry.redhat.io/amq-streams/bridge-rhel8@sha256:593539888b022125d865fedd4e15d2fb23a151f37a43742417055ce2d8ca0c85
+      image: registry.redhat.io/amq-streams/bridge-rhel8@sha256:8e6eb1ecc6ee383bd6e9b6e4562f4fd543f448696db2ccba27103927ba5eeaf7
     - name: strimzi-maven-builder
       image: registry.redhat.io/ubi8/openjdk-17@sha256:8796da64c626c5f63f31a4e3ac0ac3b179333a7c6d5472a195b9b3f61ccd1099
   keywords:

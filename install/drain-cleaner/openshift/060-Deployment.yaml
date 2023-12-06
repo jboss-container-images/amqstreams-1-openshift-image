@@ -56,7 +56,7 @@ spec:
               mountPath: "/etc/webhook-certificates"
               readOnly: true
             - name: tmp-dir
-              emptyDir: {}
+              mountPath: "/tmp"
           livenessProbe:
             httpGet:
               path: /health
@@ -73,5 +73,7 @@ spec:
         - name: webhook-certificates
           secret:
             secretName: strimzi-drain-cleaner
+        - name: tmp-dir
+          emptyDir: {}
   strategy:
     type: RollingUpdate

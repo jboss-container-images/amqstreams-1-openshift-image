@@ -56,7 +56,7 @@ spec:
                 description: The docker image for the pods.
               connectCluster:
                 type: string
-                description: The cluster alias used for Kafka Connect. The alias must match a cluster in the list at `spec.clusters`.
+                description: The cluster alias used for Kafka Connect. The value must match the alias of the *target* Kafka cluster as specified in the `spec.clusters` configuration. The target Kafka cluster is used by the underlying Kafka Connect framework for its internal topics.
               clusters:
                 type: array
                 items:
@@ -158,6 +158,9 @@ spec:
                         httpRetryPauseMs:
                           type: integer
                           description: "The pause to take before retrying a failed HTTP request. If not set, the default is to not pause at all but to immediately repeat a request."
+                        includeAcceptHeader:
+                          type: boolean
+                          description: Whether the Accept header should be set in requests to the authorization servers. The default value is `true`.
                         maxTokenExpirySeconds:
                           type: integer
                           description: Set or limit time-to-live of the access tokens to the specified number of seconds. This should be set if the authorization server returns opaque tokens.
@@ -262,10 +265,20 @@ spec:
                             enabled:
                               type: boolean
                               description: Whether automatic restart for failed connectors and tasks should be enabled or disabled.
+                            maxRestarts:
+                              type: integer
+                              description: "The maximum number of connector restarts that the operator will try. If the connector remains in a failed state after reaching this limit, it must be restarted manually by the user. Defaults to an unlimited number of restarts."
                           description: Automatic restart of connector and tasks configuration.
                         pause:
                           type: boolean
                           description: Whether the connector should be paused. Defaults to false.
+                        state:
+                          type: string
+                          enum:
+                          - paused
+                          - stopped
+                          - running
+                          description: The state the connector should be in. Defaults to running.
                       description: The specification of the Kafka MirrorMaker 2 source connector.
                     heartbeatConnector:
                       type: object
@@ -284,10 +297,20 @@ spec:
                             enabled:
                               type: boolean
                               description: Whether automatic restart for failed connectors and tasks should be enabled or disabled.
+                            maxRestarts:
+                              type: integer
+                              description: "The maximum number of connector restarts that the operator will try. If the connector remains in a failed state after reaching this limit, it must be restarted manually by the user. Defaults to an unlimited number of restarts."
                           description: Automatic restart of connector and tasks configuration.
                         pause:
                           type: boolean
                           description: Whether the connector should be paused. Defaults to false.
+                        state:
+                          type: string
+                          enum:
+                          - paused
+                          - stopped
+                          - running
+                          description: The state the connector should be in. Defaults to running.
                       description: The specification of the Kafka MirrorMaker 2 heartbeat connector.
                     checkpointConnector:
                       type: object
@@ -306,10 +329,20 @@ spec:
                             enabled:
                               type: boolean
                               description: Whether automatic restart for failed connectors and tasks should be enabled or disabled.
+                            maxRestarts:
+                              type: integer
+                              description: "The maximum number of connector restarts that the operator will try. If the connector remains in a failed state after reaching this limit, it must be restarted manually by the user. Defaults to an unlimited number of restarts."
                           description: Automatic restart of connector and tasks configuration.
                         pause:
                           type: boolean
                           description: Whether the connector should be paused. Defaults to false.
+                        state:
+                          type: string
+                          enum:
+                          - paused
+                          - stopped
+                          - running
+                          description: The state the connector should be in. Defaults to running.
                       description: The specification of the Kafka MirrorMaker 2 checkpoint connector.
                     topicsPattern:
                       type: string
@@ -495,7 +528,7 @@ spec:
                     enum:
                     - jaeger
                     - opentelemetry
-                    description: Type of the tracing used. Currently the only supported types are `jaeger` for OpenTracing (Jaeger) tracing and `opentelemetry` for OpenTelemetry tracing. The OpenTracing (Jaeger) tracing is deprecated.
+                    description: "Type of the tracing used. Currently the only supported type is `opentelemetry` for OpenTelemetry tracing. As of Strimzi 0.37.0, `jaeger` type is not supported anymore and this option is ignored."
                 required:
                 - type
                 description: The configuration of tracing in Kafka Connect.

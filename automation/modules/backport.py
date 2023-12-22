@@ -9,18 +9,15 @@ import zipfile
 
 from . import versions
 
-latest_strimzi_version = versions.get_latest_strimzi_release()
-
 
 # Create a URL for downloading the zip
-def create_release_url_for_zips():
-    release = latest_strimzi_version
+def create_release_url_for_zips(release):
     return "https://github.com/strimzi/strimzi-kafka-operator/releases/download/" + release + "/strimzi-" + release + ".zip"
 
 
 # Unpack the zip locally, into our local example - elsewhere
-def unpack_zips():
-    url = create_release_url_for_zips()
+def unpack_zips(release):
+    url = create_release_url_for_zips(release)
     contents = urllib.request.urlopen(url).read()
     with open("../strimzi.zip", 'wb') as file:
         file.write(contents)
@@ -43,10 +40,6 @@ def compare_directory_files(dir_path1, dir_path2):
             print("The number of files in the directories is different.")
     except FileNotFoundError as e:
         print(f"Error: {e}")
-
-
-directory_path1 = ("strimzi-" + latest_strimzi_version + "/examples")
-directory_path2 = "../examples"
 
 
 # String replacement in files for Kafka versions
@@ -81,8 +74,7 @@ def string_replacement(examples_dir, file_name):
 
 
 # delete directory that should not be copied
-def delete_excluded_directory(folder_name, module_name):
-    strimzi_dir = "strimzi-" + latest_strimzi_version
+def delete_excluded_directory(folder_name, module_name, strimzi_dir):
     target_dir = os.path.join(strimzi_dir, module_name)
     delete_folder = os.path.join(target_dir, folder_name)
     try:
@@ -104,16 +96,8 @@ def delete_file(*file_paths):
             print(f'Error deleting file {file_path}: {e}')
 
 
-file_path1 = os.path.join("strimzi-" + latest_strimzi_version,
-                          "examples/security/keycloak-authorization/README.md")
-
-file_path2 = os.path.join("strimzi-" + latest_strimzi_version,
-                          "examples/connect/kafka-connect-build.yaml")
-
-
 # copy upstream directory to downstream directory
-def copy_directory(source_name, dest_name):
-    strimzi_dir = "strimzi-" + latest_strimzi_version
+def copy_directory(source_name, dest_name, strimzi_dir):
     source_dir = os.path.join(strimzi_dir, source_name)
     dest_dir = f'../{dest_name}'
     try:
@@ -125,8 +109,7 @@ def copy_directory(source_name, dest_name):
 
 
 # delete imported upstream resources
-def delete_created_upstream_resources():
-    strimzi_dir = "strimzi-" + latest_strimzi_version
+def delete_created_upstream_resources(strimzi_dir):
     strimzi_zip = "../strimzi.zip"
     try:
         shutil.rmtree(strimzi_dir)

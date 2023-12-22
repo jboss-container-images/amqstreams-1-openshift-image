@@ -4,19 +4,16 @@
 ########################################################"""
 import unittest
 from unittest.mock import patch
-from backport_automation.modules import backport
+from my_automation.modules import backport
 
 
 class TestBackportExampleAutomation(unittest.TestCase):
 
     def test_create_release_url_for_zips(self):
-        release_url = backport.create_release_url_for_zips()
+        target_strimzi_version = "0.38.0"
+        release_url = backport.create_release_url_for_zips(target_strimzi_version)
         expected_url = "https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.38.0/strimzi-0.38.0.zip"
         self.assertEqual(release_url, expected_url)
-
-    def test_get_latest_strimzi_release(self):
-        result = backport.get_latest_strimzi_release()
-        self.assertEqual(result, "0.38.0")  # Adjust this based on the expected latest release
 
     @patch("os.listdir")
     def test_compare_directory_files_equal(self, mock_listdir):

@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
+"""########################################################
+ FILE: test_versions.py
+########################################################"""
 import unittest
-
-from my_automation.modules import versions
+from automation.modules import versions
 
 
 class TestVersions(unittest.TestCase):

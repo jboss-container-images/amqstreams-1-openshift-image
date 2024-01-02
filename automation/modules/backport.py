@@ -7,8 +7,6 @@ import shutil
 import urllib.request
 import zipfile
 
-from . import versions
-
 
 # Create a URL for downloading the zip
 def create_release_url_for_zips(release):

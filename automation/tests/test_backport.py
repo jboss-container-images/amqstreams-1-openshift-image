@@ -4,7 +4,7 @@
 ########################################################"""
 import unittest
 from unittest.mock import patch
-from my_automation.modules import backport
+from automation.modules import backport
 
 
 class TestBackportExampleAutomation(unittest.TestCase):

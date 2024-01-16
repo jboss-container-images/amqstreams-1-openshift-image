@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """########################################################
- FILE: backport.py
+ FILE: backport_examples.py
 ########################################################"""
 import os
 import shutil
@@ -69,19 +69,6 @@ def string_replacement(examples_dir, file_name):
         print(f'Replacement and removal in {readme_file_path} completed successfully.')
     except Exception as e:
         print(f'Error modifying text in {readme_file_path}: {e}')
-
-
-# delete directory that should not be copied
-def delete_excluded_directory(folder_name, module_name, strimzi_dir):
-    target_dir = os.path.join(strimzi_dir, module_name)
-    delete_folder = os.path.join(target_dir, folder_name)
-    try:
-        shutil.rmtree(delete_folder)
-        print(delete_folder + ' folder deleted successfully.')
-    except FileNotFoundError:
-        print('Target folder not found.')
-    except Exception as e:
-        print('Error deleting folder:', e)
 
 
 # delete file(s) before copying upstream directory to downstream directory

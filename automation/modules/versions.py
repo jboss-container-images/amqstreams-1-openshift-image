@@ -5,7 +5,6 @@
 import re
 import subprocess
 
-
 def get_branch_name():
     return subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], capture_output=True,
                           text=True).stdout.strip()
@@ -33,6 +32,12 @@ def get_latest_kafka_version(product_version):
 
 # Determine target Kafka Version
 def get_target_kafka_version(product_version):
-    result = float(get_latest_kafka_version(product_version)) + 0.1
+    result = round(float(get_latest_kafka_version(product_version)) + 0.1, 1)
     print("target Kafka version:" + str(result))
     return result
+
+
+# Determine target Kafka Version
+def get_target_release_version(kafka_version):
+    print("target release version:" + kafka_version)
+    return kafka_version

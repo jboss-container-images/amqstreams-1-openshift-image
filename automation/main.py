@@ -22,11 +22,8 @@ def main():
     backport_examples.create_release_url_for_zips(target_strimzi_version)
     backport_examples.unpack_zips(target_strimzi_version)
     backport_examples.compare_directory_files(target_example_dir_path, target_example_dir_path2)
-    version_replacements = [
-        (kafka_version_to_replace, kafka_version_replacement, "kafka"),
-        (kafka_version_to_replace, kafka_version_replacement, "inter_broker_protocol")
-    ]
-    backport_examples.update_yaml_files("strimzi-" + target_strimzi_version + "/examples", version_replacements)
+    backport_examples.update_yaml_files("strimzi-" + target_strimzi_version + "/examples", kafka_version_to_replace,
+                                        kafka_version_replacement)
     backport_examples.delete_file(*example_files_to_delete)
     backport_examples.update_example_dir_readme('strimzi-' + target_strimzi_version + '/examples', 'README.md')
     backport_examples.copy_directory("examples", "examples", strimzi_dir)

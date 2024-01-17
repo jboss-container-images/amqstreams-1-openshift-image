@@ -3,13 +3,15 @@
  FILE: versions.py
 ########################################################"""
 import re
-import subprocess
+import git
 
+# Determine current branch name from active repo
 def get_branch_name():
-    return subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], capture_output=True,
-                          text=True).stdout.strip()
+    repo = git.Repo(search_parent_directories=True)
+    return repo.active_branch.name
 
 
+# Determine product version based on branch name
 def get_product_version(branch_name):
     number_pattern = r'\d+'
     numbers_in_branch = [int(match) for match in re.findall(number_pattern, branch_name)]
@@ -24,15 +26,15 @@ def get_target_strimzi_version(product_version):
 
 
 # Determine latest Kafka release number based on product version (which we extract from branch name)
-def get_latest_kafka_version(product_version):
+def get_kafka_version_to_replace(product_version):
     strimzi_minor_version = (product_version + 10)
     strimzi_version = f"{strimzi_minor_version / 10}"
     return strimzi_version
 
 
 # Determine target Kafka Version
-def get_target_kafka_version(product_version):
-    result = round(float(get_latest_kafka_version(product_version)) + 0.1, 1)
+def get_kafka_version_replacement(product_version):
+    result = round(float(get_kafka_version_to_replace(product_version)) + 0.1, 1)
     print("target Kafka version:" + str(result))
     return result
 

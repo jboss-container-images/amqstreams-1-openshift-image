@@ -33,23 +33,23 @@ class TestVersions(unittest.TestCase):
     def test_get_latest_kafka_release(self):
         product_version = 26
         expected_kafka_version = "3.6"
-        actual_kafka_version = versions.get_latest_kafka_version(product_version)
+        actual_kafka_version = versions.get_kafka_version_to_replace(product_version)
         self.assertEqual(actual_kafka_version, expected_kafka_version)
 
         product_version = 27
         expected_kafka_version = "3.7"
-        actual_kafka_version = versions.get_latest_kafka_version(product_version)
+        actual_kafka_version = versions.get_kafka_version_to_replace(product_version)
         self.assertEqual(actual_kafka_version, expected_kafka_version)
 
     def test_get_target_kafka_version(self):
         product_version = 26
         expected_kafka_version = 3.7
-        actual_kafka_version = versions.get_target_kafka_version(product_version)
+        actual_kafka_version = versions.get_kafka_version_replacement(product_version)
         self.assertEqual(actual_kafka_version, expected_kafka_version)
 
         product_version = 27
         expected_kafka_version = 3.8
-        actual_kafka_version = versions.get_target_kafka_version(product_version)
+        actual_kafka_version = versions.get_kafka_version_replacement(product_version)
         self.assertEqual(actual_kafka_version, expected_kafka_version)
 
 

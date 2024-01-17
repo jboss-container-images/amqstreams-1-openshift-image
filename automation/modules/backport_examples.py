@@ -40,24 +40,23 @@ def compare_directory_files(dir_path1, dir_path2):
         print(f"Error: {e}")
 
 
-# String replacement in files for Kafka versions
-def replace_version_in_files(directory, file_extensions, version_to_replace, replacement, version_type):
+# String replacement in files for Streams
+def update_yaml_files(directory, replacements):
     for root, dirs, files in os.walk(directory):
         for file in files:
-            if file.endswith(file_extensions):
+            if file.endswith(".yaml"):
                 file_path = os.path.join(root, file)
                 with open(file_path, 'r') as f:
                     content = f.read()
-                if version_type == "kafka":
-                    content = content.replace(version_to_replace, str(replacement))
-                elif version_type == "inter_broker_protocol":
-                    content = content.replace(version_to_replace, str(replacement))
+                for version_to_replace, replacement, version_type in replacements:
+                    if version_type == "kafka" or version_type == "inter_broker_protocol":
+                        content = content.replace(version_to_replace, str(replacement))
                 with open(file_path, 'w') as f:
                     f.write(content)
 
 
 # String replacement in files for Streams
-def string_replacement(examples_dir, file_name):
+def update_example_dir_readme(examples_dir, file_name):
     readme_file_path = os.path.join(examples_dir, file_name)
     try:
         with open(readme_file_path, 'r') as f:

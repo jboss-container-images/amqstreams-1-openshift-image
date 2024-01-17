@@ -32,7 +32,7 @@ class TestBackportExampleAutomation(unittest.TestCase):
     def test_string_replacement(self):
         examples_dir = "examples"
         file_name = "README.md"
-        backport_examples.string_replacement(examples_dir, file_name)
+        backport_examples.update_example_dir_readme(examples_dir, file_name)
         with open("../../examples/README.md", 'r') as f:
             content = f.read()
         self.assertIn("AMQ Streams", content)

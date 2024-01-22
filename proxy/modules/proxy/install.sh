@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -eo pipefail
 
 SOURCES_DIR=/tmp/artifacts
 LICENSE_DIR=/root/licenses
@@ -18,7 +18,7 @@ useradd -r -m -u 1001 -g 0 strimzi
 mkdir -p ${STRIMZI_HOME}
 
 # unzip archive/artifact with bridge scripts and jars
-TMP=$(zipinfo -1  ${SOURCES_DIR}/kafka-bridge*.zip | grep -oE '^[^/]+' | uniq)
+TMP=$(zipinfo -1  ${SOURCES_DIR}/kroxylicious-app.zip | grep -oE '^[^/]+' | uniq)
 unzip ${SOURCES_DIR}/kroxylicious-app.zip
 mv ${TMP}/* ${STRIMZI_HOME}/
 

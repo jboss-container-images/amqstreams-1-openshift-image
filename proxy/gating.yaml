@@ -1,0 +1,15 @@
+# https://gating-greenwave.readthedocs.io/en/latest/policies.html
+--- !Policy
+id: amq-streams-release
+product_versions:
+  - amqstreams*
+  - cvp
+decision_contexts:
+  - cvp_default
+rules:
+  # Rules are in format <namespace>.<type>.<category>
+  # TODO - need proxy test suite
+  #- !PassingTestCaseRule {test_case_name: amq-streams.systemtest.x86_64}
+  #- !PassingTestCaseRule {test_case_name: amq-streams.systemtest.ppc64le}
+  #- !PassingTestCaseRule {test_case_name: amq-streams.systemtest.s390x}
+  #- !PassingTestCaseRule {test_case_name: amq-streams.systemtest.aarch64}

@@ -10,7 +10,7 @@ envs:
     value: "amqstreams-proxy-container"
 
 artifacts:
-  - md5: 00c39ee27832e639ebb7df9219384b76
+  - md5: d8c09916c390483fb784913dbd459f68
     name: kroxylicious-app.zip
 #  - md5: 599d39bb14781bed4bd66eff00e131d1
 #    name: kafka-bridge-licenses.tar.gz

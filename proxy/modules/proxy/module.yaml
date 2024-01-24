@@ -4,8 +4,8 @@ name: proxy
 version: 2.7.0
 
 envs:
-  - name: "STRIMZI_HOME"
-    value: "/opt/strimzi"
+  - name: "KROXYLICIOUS_HOME"
+    value: "/opt/kroxylicious"
   - name: "COM_REDHAT_COMPONENT"
     value: "amqstreams-proxy-container"
 

@@ -45,6 +45,10 @@ packages:
 run:
   user: 1001
   workdir: $KROXYLICIOUS_HOME
+  entrypoint:
+    - /usr/bin/tini
+    - "--"
+    - /opt/kroxylicious/bin/kroxylicious-start.sh
 
 help:
   add: true

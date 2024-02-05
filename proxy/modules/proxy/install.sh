@@ -10,9 +10,9 @@ PRODUCT_LICENSE_DIR=${LICENSE_DIR}/${COM_REDHAT_COMPONENT}
 useradd -r -m -u 1001 -g 0 kroxylicious
 
 # untar the artifact containing license information
-#mkdir -p ${PRODUCT_LICENSE_DIR}
-#mv ${SOURCES_DIR}/kafka-bridge-licenses.tar.gz ${LICENSE_DIR}
-#tar -xvzf ${LICENSE_DIR}/kafka-bridge-licenses.tar.gz -C ${PRODUCT_LICENSE_DIR} --no-same-owner
+mkdir -p ${PRODUCT_LICENSE_DIR}
+mv ${SOURCES_DIR}/kroxylicious-app-licenses.tar.gz ${LICENSE_DIR}
+tar -xvzf ${LICENSE_DIR}/kroxylicious-app-licenses.tar.gz -C ${PRODUCT_LICENSE_DIR} --no-same-owner
 
 # create destination folder of scripts, jars and config
 mkdir -p ${KROXYLICIOUS_HOME}

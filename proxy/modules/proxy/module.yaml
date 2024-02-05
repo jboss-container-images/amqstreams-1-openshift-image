@@ -12,8 +12,8 @@ envs:
 artifacts:
   - md5: 7dbd6531b76a6b97778a198adfd2dcd1
     name: kroxylicious-app.zip
-#  - md5: 599d39bb14781bed4bd66eff00e131d1
-#    name: kafka-bridge-licenses.tar.gz
+  - md5: 63a122e3fbd3c5e5ee34de6841a18331
+    name: kroxylicious-app-licenses.tar.gz
 
 packages:
   manager: microdnf

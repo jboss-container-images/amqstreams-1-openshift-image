@@ -9,7 +9,7 @@ labels:
   - name: "com.redhat.component"
     value: "amqstreams-proxy-container"
   - name: "io.k8s.description"
-    value: "An open source pluggable framework for writing network proxies that understand the Apache Kafka protocol"
+    value: "An open source pluggable network proxy that natively understands the Apache Kafka protocol"
   - name: "io.k8s.display-name"
     value: "AMQ Streams Proxy"
   - name: "io.openshift.tags"

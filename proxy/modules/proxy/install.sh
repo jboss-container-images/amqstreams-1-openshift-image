@@ -17,7 +17,7 @@ tar -xvzf ${LICENSE_DIR}/kroxylicious-app-licenses.tar.gz -C ${PRODUCT_LICENSE_D
 # create destination folder of scripts, jars and config
 mkdir -p ${KROXYLICIOUS_HOME}
 
-# unzip archive/artifact with bridge scripts and jars
+# unzip archive/artifact with proxy scripts and jars
 TMP=$(zipinfo -1  ${SOURCES_DIR}/kroxylicious-app.zip | grep -oE '^[^/]+' | uniq)
 unzip ${SOURCES_DIR}/kroxylicious-app.zip
 mv ${TMP}/* ${KROXYLICIOUS_HOME}/

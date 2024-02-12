@@ -1,0 +1,67 @@
+schema_version: 1
+
+name: amq-streams/proxy-rhel8
+description: "AMQ Streams image for running the AMQ Streams Proxy"
+version: "2.7.0"
+from: registry.redhat.io/ubi8/ubi-minimal
+
+labels:
+  - name: "com.redhat.component"
+    value: "amqstreams-proxy-container"
+  - name: "io.k8s.description"
+    value: "An open source pluggable network proxy that natively understands the Apache Kafka protocol"
+  - name: "io.k8s.display-name"
+    value: "AMQ Streams Proxy"
+  - name: "io.openshift.tags"
+    value: "messaging,amq,jboss"
+  - name: "licenses"
+    value: "/root/licenses"
+  - name: "maintainer"
+    value: "AMQ Streams Engineering <amq-streams-dev@redhat.com>"
+
+modules:
+  repositories:
+    - name: modules
+      path: modules
+  install:
+    - name: proxy
+
+packages:
+  manager: microdnf
+  content_sets:
+    x86_64:
+      # Required for tini
+      - amq-streams-2-for-rhel-8-rpms
+      # Required for base image
+      - rhel-8-for-x86_64-baseos-rpms
+      - rhel-8-for-x86_64-appstream-rpms
+  install:
+    - java-17-openjdk-devel
+    - hostname
+    - tini
+    - net-tools
+    - lsof
+
+run:
+  user: 1001
+  workdir: $KROXYLICIOUS_HOME
+  entrypoint:
+    - /usr/bin/tini
+    - "--"
+    - /opt/kroxylicious/bin/kroxylicious-start.sh
+
+help:
+  add: true
+
+osbs:
+  configuration:
+    gating_file: gating.yaml
+    container:
+      compose:
+        pulp_repos: true
+      platforms:
+        only:
+        - x86_64
+  repository:
+    name: containers/amqstreams-proxy
+    branch: amqstreams-2.7-rhel-8

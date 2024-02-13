@@ -1,0 +1,22 @@
+global:
+  openshift: true
+server:
+  dev:
+    enabled: true
+    devRootToken: myroottoken # needs to match that provided in proxy-config.yaml
+  ha:
+    enabled: false
+  updateStrategyType: RollingUpdate
+  route:
+    enabled: true
+    host: ""
+    tls:
+      termination: edge
+#  postStart:
+#  - vault
+#  - secrets
+#  - enable
+#  - transit
+
+injector:
+  enabled: false

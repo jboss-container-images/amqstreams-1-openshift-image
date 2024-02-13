@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy
+  labels:
+    app: proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy
+  template:
+    metadata:
+      labels:
+        app: proxy
+    spec:
+      containers:
+      - name: proxy
+        image: quay.io/kroxylicious/kroxylicious-developer:0.5.0-SNAPSHOT
+        imagePullPolicy: Always
+        args: ["--config", "/opt/proxy/config/config.yaml"]
+        ports:
+        - containerPort: 9092
+        - containerPort: 19092
+        - containerPort: 19093
+        - containerPort: 19094
+        volumeMounts:
+        - name: config-volume
+          mountPath: /opt/proxy/config/config.yaml
+          subPath: config.yaml
+        - name: token-volume
+          readOnly: true
+          subPath: envelope-encryption-vault-token.txt
+          mountPath: /opt/proxy/envelope-encryption/token.txt
+      volumes:
+      - name: config-volume
+        configMap:
+          name: proxy-config
+      - name: token-volume
+        secret:
+          secretName: proxy-envelope-encryption-vault-token

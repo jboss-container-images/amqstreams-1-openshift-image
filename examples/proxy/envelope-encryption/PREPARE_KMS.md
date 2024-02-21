@@ -74,7 +74,7 @@ It is assumed that you'll be deploying the HashiCorp Vault feature to the same O
 3. Install Vault using Helm
    ```sh
    helm repo add hashicorp https://helm.releases.hashicorp.com
-   helm install vault hashicorp/vault --create-namespace --namespace=vault --version 0.27.0 --values vault/helm-dev-values.yaml --set server.dev.devRootToken=${VAULT_TOKEN} --wait
+   helm install vault hashicorp/vault --create-namespace --namespace=vault --version 0.27 --values vault/helm-dev-values.yaml --set server.dev.devRootToken=${VAULT_TOKEN} --wait
    ```
 4. Assign the `VAULT_ADDR` environment variable to point at the new instance.
    ```

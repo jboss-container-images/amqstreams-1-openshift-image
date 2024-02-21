@@ -49,7 +49,7 @@ Service.
    ```
    echo 'IBM:100\nAPPLE:99' | kafka-console-producer --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic trades
    ```
-5. Consume messages direct from the Kafka Cluster, showing that they are encrypted.
+5. Consume messages direct from the Kafka Cluster, showing that they are encrypted:
    ```
     oc run -n kafka cluster-consumer -qi --image=registry.redhat.io/amq-streams/kafka-36-rhel8:2.6.0-4 --rm=true --restart=Never -- ./bin/kafka-console-consumer.sh  --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic trades --from-beginning --timeout-ms 10000
    ```

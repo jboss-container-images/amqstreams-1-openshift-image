@@ -5,7 +5,7 @@ For Tech Preview, only HashiCorp Vault is supported.
 
 ## Preparing HashiCorp Vault
 
-You may either use an existing instance of HashiCorp Vault you have available in your organisation, or deploy a development instance
+You may either use an existing instance of HashiCorp Vault you have available in your organisation, or deploy a development instance.
 HashoCorp Vault to your OpenShift Cluster which is good enough to try out the Filter.
 
 ## Using an Existing Vault Instance

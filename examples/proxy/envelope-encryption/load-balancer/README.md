@@ -45,7 +45,7 @@ Service.
    ```
    Note it may take a minute or two for `${LOAD_BALANCER_ADDRESS}` to resolve in your environment and for the load balancer to begin routing
    network traffic.
-4. Produce some messages to the topic
+4. Produce some messages to the topic:
    ```
    echo 'IBM:100\nAPPLE:99' | kafka-console-producer --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic trades
    ```

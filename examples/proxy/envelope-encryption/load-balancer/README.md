@@ -53,7 +53,7 @@ Service.
    ```
     oc run -n kafka cluster-consumer -qi --image=registry.redhat.io/amq-streams/kafka-36-rhel8:2.6.0-4 --rm=true --restart=Never -- ./bin/kafka-console-consumer.sh  --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic trades --from-beginning --timeout-ms 10000
    ```
-6. Consume messages from the proxy showing they are decrypted.   
+6. Consume messages from the proxy showing they are decrypted:
    ```
     kafka-console-consumer --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic trades --from-beginning --timeout-ms 10000
    ```   

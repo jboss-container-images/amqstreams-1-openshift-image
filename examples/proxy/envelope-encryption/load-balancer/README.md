@@ -24,7 +24,7 @@ Service.
    ```sh
    LOAD_BALANCER_ADDRESS=$(oc get service -n proxy proxy-service --template='{{(index .status.loadBalancer.ingress 0).hostname}}')
    ```
-3. Now update the `brokerAddressPattern:` to match the `LOAD_BALANCER_ADDRESS`.
+3. Now update the `brokerAddressPattern:` to match the `LOAD_BALANCER_ADDRESS`:
    ```sh
      sed -i  "s/\(brokerAddressPattern:\).*$/\1 ${LOAD_BALANCER_ADDRESS}/" load-balancer/proxy/proxy-config.yaml
    ```

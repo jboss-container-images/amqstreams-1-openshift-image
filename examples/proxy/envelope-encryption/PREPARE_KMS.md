@@ -1,6 +1,6 @@
 # Preparing a Key Management Service (KMS)
 
-As discussed [here](./README.md) you must provide a KMS solution in order to use the Envelope Encryption Filter.
+In order to use the Envelope Encryption Filter, you must provide a [KMS solution](./README.md).
 For Tech Preview, only HashiCorp Vault is supported.
 
 ## Preparing HashiCorp Vault

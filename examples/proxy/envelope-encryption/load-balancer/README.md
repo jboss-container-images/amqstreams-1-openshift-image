@@ -28,7 +28,7 @@ Service.
    ```sh
      sed -i  "s/\(brokerAddressPattern:\).*$/\1 ${LOAD_BALANCER_ADDRESS}/" load-balancer/proxy/proxy-config.yaml
    ```
-4. Reapply and bounce
+4. Reapply and bounce:
    ```sh
       oc apply -k load-balancer && oc delete pod -n proxy --all
    ```

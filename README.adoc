@@ -19,7 +19,7 @@ oc apply -f install/cluster-operator -n _my-namespace_
 oc apply -f examples/kafka/kafka-ephermeral.yaml
 ----
 
-For more details refer to https://access.redhat.com/documentation/en-us/red_hat_amq_streams/1.0/[documentation]
+For more details refer to https://access.redhat.com/documentation/en-us/red_hat_amq_streams/[documentation]
 
 ## Container Images
 

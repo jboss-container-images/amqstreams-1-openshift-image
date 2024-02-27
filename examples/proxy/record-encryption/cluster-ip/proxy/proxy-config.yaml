@@ -29,7 +29,7 @@ data:
         kmsConfig:
           vaultTransitEngineUrl: http://vault.vault.svc.cluster.local:8200/v1/transit
           vaultToken:
-            passwordFile: /opt/proxy/envelope-encryption/token.txt
+            passwordFile: /opt/proxy/encryption/token.txt
         selector: TemplateKekSelector
         selectorConfig:
           template: "KEK_${topicName}"

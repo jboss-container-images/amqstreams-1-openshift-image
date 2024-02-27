@@ -7,5 +7,5 @@ namespace: proxy
 resources:
 - proxy-namespace.yaml
 - proxy-deployment.yaml
-- proxy-envelope-encryption-vault-token-secret.yaml  # Note: This file is created during the PREPARE_KMS.md step
+- proxy-encryption-vault-token-secret.yaml  # Note: This file is created during the PREPARE_KMS.md step
 

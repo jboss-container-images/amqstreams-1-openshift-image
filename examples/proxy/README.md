@@ -1,7 +1,7 @@
 # AMQ Streams Proxy Examples
 
 In this directory you'll find examples that let you try out AMQ Streams Proxy.
-At present, one use-case is ready, which is Envelope Encryption.  Additional use-cases will be introduced later.
+At present, one use-case is ready, which is Record Encryption.  Additional use-cases will be introduced later.
 
-* [Envelope Encryption](./envelope-encryption)
+* [Record Encryption](./record-encryption)
 

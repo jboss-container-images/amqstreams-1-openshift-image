@@ -1,7 +1,7 @@
-# AMQ Streams Proxy Envelope Encryption, exposed using Cluster-IP
+# AMQ Streams Proxy Record Encryption, exposed using Cluster-IP
 
 In this example, an instance of Apache Kafka is deployed using AMQ Stream.  The instance is proxied using
-AMQ Streams Proxy configured with Envelope Encyption.  The proxy is exposed within the cluster using a
+AMQ Streams Proxy configured with Record Encyption.  The proxy is exposed within the cluster using a
 Cluster-IP.
 
 # Prerequsistes

@@ -1,6 +1,6 @@
 # Preparing a Key Management Service (KMS)
 
-In order to use the Envelope Encryption Filter, you must provide a [KMS solution](./README.md).
+In order to use the Record Encryption Filter, you must provide a [KMS solution](./README.md).
 For Tech Preview, only HashiCorp Vault is supported.
 
 ## Preparing HashiCorp Vault
@@ -92,18 +92,18 @@ It is assumed that you'll be deploying the HashiCorp Vault feature to the same O
 
 ## Create the Vault Policy and Filter Vault Token
 
-1. Create a Vault Policy for the Envelope Encryption Filter:
+1. Create a Vault Policy for the Encryption Filter:
    ```sh
    vault policy write amqstreams_proxy_encryption_filter_policy vault/amqstreams_proxy_encryption_filter_policy.hcl
-2. Create a Vault Token which will be used by the Envelope Encryption Filter:
+2. Create a Vault Token which will be used by the Encryption Filter:
    ```bash
-   vault token create -display-name "amqstreams-proxy encryption filter" -policy=amqstreams_proxy_encryption_filter_policy -no-default-policy -orphan -field=token > vault.envelope-encryption.token
+   vault token create -display-name "amqstreams-proxy encryption filter" -policy=amqstreams_proxy_encryption_filter_policy -no-default-policy -orphan -field=token > vault.encryption.token
    ```
-3. Prepare a secret containing the Envelope Encryption Vault Token.
+3. Prepare a secret containing the Encryption Vault Token.
    ```bash
-   oc create secret generic proxy-envelope-encryption-vault-token -n proxy --from-literal=envelope-encryption-vault-token.txt=vault.envelope-encryption.token --dry-run=client -o yaml > base/proxy/proxy-envelope-encryption-vault-token-secret.yaml
+   oc create secret generic proxy-encryption-vault-token -n proxy --from-literal=encryption-vault-token.txt=vault.encryption.token --dry-run=client -o yaml > base/proxy/proxy-encryption-vault-token-secret.yaml
    ```
-   The secret file `envelope-encryption-vault-token-secret.yaml` will be applied to the OpenShift Cluster later.
+   The secret file `encryption-vault-token-secret.yaml` will be applied to the OpenShift Cluster later.
 
 ## Cleaning up
 

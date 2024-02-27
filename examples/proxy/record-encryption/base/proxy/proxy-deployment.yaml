@@ -31,12 +31,12 @@ spec:
           subPath: config.yaml
         - name: token-volume
           readOnly: true
-          subPath: envelope-encryption-vault-token.txt
-          mountPath: /opt/proxy/envelope-encryption/token.txt
+          subPath: encryption-vault-token.txt
+          mountPath: /opt/proxy/encryption/token.txt
       volumes:
       - name: config-volume
         configMap:
           name: proxy-config
       - name: token-volume
         secret:
-          secretName: proxy-envelope-encryption-vault-token
+          secretName: proxy-encryption-vault-token

@@ -100,8 +100,8 @@ It is assumed that you'll be deploying the HashiCorp Vault feature to the same O
    vault token create -display-name "amqstreams-proxy encryption filter" -policy=amqstreams_proxy_encryption_filter_policy -no-default-policy -orphan -field=token > vault.encryption.token
    ```
 3. Prepare a secret containing the Encryption Vault Token.
-   ```bash
-   oc create secret generic proxy-encryption-vault-token -n proxy --from-literal=encryption-vault-token.txt=vault.encryption.token --dry-run=client -o yaml > base/proxy/proxy-encryption-vault-token-secret.yaml
+   ```sh
+   oc create secret generic proxy-encryption-vault-token -n proxy --from-file=encryption-vault-token.txt=vault.encryption.token --dry-run=client -o yaml > base/proxy/proxy-encryption-vault-token-secret.yaml
    ```
    The secret file `encryption-vault-token-secret.yaml` will be applied to the OpenShift Cluster later.
 

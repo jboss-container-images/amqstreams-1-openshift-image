@@ -21,6 +21,8 @@ spec:
         imagePullPolicy: Always
         args: ["--config", "/opt/proxy/config/config.yaml"]
         ports:
+        - name: metrics
+          containerPort: 9190
         - containerPort: 9092
         - containerPort: 19092
         - containerPort: 19093

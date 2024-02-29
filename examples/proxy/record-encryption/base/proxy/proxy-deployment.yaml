@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: proxy
-        image: quay.io/kroxylicious/kroxylicious-developer:0.5.0-SNAPSHOT
+        image: quay.io/kroxylicious/kroxylicious:0.5.0-SNAPSHOT
         imagePullPolicy: Always
         args: ["--config", "/opt/proxy/config/config.yaml"]
         ports:

@@ -49,6 +49,19 @@ def update_yaml_files(directory, version_to_replace, replacement):
                     content = f.read()
                 content = content.replace(version_to_replace, str(replacement))
                 print(version_to_replace, str(replacement))
+
+# String replacement in files for Kafka versions
+def replace_version_in_files(directory, version_to_replace, replacement, version_type):
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith(".yaml"):
+                file_path = os.path.join(root, file)
+                with open(file_path, 'r') as f:
+                    content = f.read()
+                if version_type == "kafka":
+                    content = content.replace(version_to_replace, str(replacement))
+                elif version_type == "inter_broker_protocol":
+                    content = content.replace(version_to_replace, str(replacement))
                 with open(file_path, 'w') as f:
                     f.write(content)
 

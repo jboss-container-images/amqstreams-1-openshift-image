@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strimzi-user-operator
+  labels:
+    app: strimzi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: strimzi-user-operator
+  template:
+    metadata:
+      labels:
+        name: strimzi-user-operator
+        com.company: Red_Hat
+        rht.prod_name: Red_Hat_Application_Foundations
+        rht.prod_ver: 2024.Q1
+        rht.comp: AMQ_Streams
+        rht.comp_ver: "2.7"
+        rht.subcomp: user-operator
+        rht.subcomp_t: infrastructure
+    spec:
+      serviceAccountName: strimzi-user-operator
+      volumes:
+        - name: strimzi-tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: 5Mi
+      containers:
+        - name: strimzi-user-operator
+          image: registry.redhat.io/amq-streams/strimzi-rhel8-operator:2.7.0
+          args:
+            - /opt/strimzi/bin/user_operator_run.sh
+          volumeMounts:
+            - name: strimzi-tmp
+              mountPath: /tmp
+          env:
+            - name: STRIMZI_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: STRIMZI_KAFKA_BOOTSTRAP_SERVERS
+              value: my-cluster-kafka-bootstrap:9092
+            - name: STRIMZI_LABELS
+              value: "strimzi.io/cluster=my-cluster"
+            - name: STRIMZI_CA_CERT_NAME
+              value: my-cluster-clients-ca-cert
+            - name: STRIMZI_CA_KEY_NAME
+              value: my-cluster-clients-ca
+            - name: STRIMZI_ACLS_ADMIN_API_SUPPORTED
+              value: "true"
+            - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
+              value: "120000"
+            - name: STRIMZI_LOG_LEVEL
+              value: INFO
+            - name: STRIMZI_GC_LOG_ENABLED
+              value: "true"
+            - name: STRIMZI_CA_VALIDITY
+              value: "365"
+            - name: STRIMZI_CA_RENEWAL
+              value: "30"
+          livenessProbe:
+            httpGet:
+              path: /healthy
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8081
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 500m
+            requests:
+              memory: 256Mi
+              cpu: 100m
+  strategy:
+    type: Recreate

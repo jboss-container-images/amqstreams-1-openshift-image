@@ -5,6 +5,7 @@
 import re
 import git
 
+
 # Determine current branch name from active repo
 def get_branch_name():
     repo = git.Repo(search_parent_directories=True)
@@ -39,7 +40,9 @@ def get_kafka_version_replacement(product_version):
     return result
 
 
-# Determine target Kafka Version
+# Determine target Streams Version
 def get_target_release_version(kafka_version):
     print("target release version:" + kafka_version)
     return kafka_version
+
+

@@ -2,11 +2,19 @@
 """########################################################
  FILE: test_versions.py
 ########################################################"""
-import unittest
 from automation.modules import versions
+import unittest
 
 
 class TestVersions(unittest.TestCase):
+    #     def setUp(self):
+    #         with open(TestBackportExampleAutomation.DEPLOYMENT_FILE, 'r') as file:
+    #             reg_data = file.read().rstrip()
+    #             self.yaml_data = yaml.safe_load(reg_data)
+    #
+    #     def test_parse(self):
+    #         expected_metadata = {'app': 'strimzi'}
+    #         self.assertEqual(self.yaml_data["metadata"]["labels"], expected_metadata)
 
     def test_get_product_version(self):
         branch_name = "amqstreams26-dev"

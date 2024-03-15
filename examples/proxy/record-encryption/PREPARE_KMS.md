@@ -13,11 +13,13 @@ Deploying HashiCorp Vault to your OpenShift cluster provides an adequate environ
 ### Prerequistes
 
 You must have an HashCorp Vault instance running on-premise, or access to HashiCorp HCP Vault or Enterprise.  
-The free tier of HCP Vault Secrets is *not*  sufficient.
+The free tier of HCP Vault Secrets is *not* sufficient.
 
-* You must have adminstrative access to the Vault instance or Vault Namespace.
 * You must know the Address of the Vault Server, and if Vault Enterprise, the name of the Vault Namespace(s).
-* Vault CLI installed.
+* You must have sufficient priviledge to enable the Transit Secrets Engine (unless enabled already).
+* You must have sufficient access to create encryption keys.
+
+* Vault CLI [installed](https://developer.hashicorp.com/vault/tutorials/getting-started/getting-started-install).
 * GNU sed
 
 Note: these examples are prepared against HashiCorp Vault 1.15.

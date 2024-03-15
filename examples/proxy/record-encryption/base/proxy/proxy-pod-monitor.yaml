@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: proxy
+  labels:
+    app: proxy
+spec:
+  selector:
+    matchLabels:
+      app: proxy
+  namespaceSelector:
+    matchNames:
+      - proxy
+  podMetricsEndpoints:
+  - path: /metrics
+    port: metrics

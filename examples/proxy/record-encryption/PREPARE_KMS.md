@@ -1,7 +1,7 @@
 # Preparing a Key Management Service (KMS)
 
 In order to use the Record Encryption Filter, you must provide a [KMS solution](./README.md).
-For Tech Preview, only HashiCorp Vault is supported.
+For Tech Preview, only HashiCorp Vault&#8482; is supported.
 
 ## Preparing HashiCorp Vault
 

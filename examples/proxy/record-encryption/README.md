@@ -1,6 +1,6 @@
 # AMQ Streams Proxy Record Encryption Filter Examples
 
-The Encryption filter which provides an Encryption-at-Rest solution for Apache Kafka(tm) which is transparent to both clients and brokers. The filter takes
+The Record Encryption filter provides an Encryption-at-Rest solution for Apache Kafka(tm) which is transparent to both clients and brokers. The filter takes
 responsibilty to encrypt messages that are sent by producing applications so the Kafka Broker never sees the plain text content of the messages.  The filter also takes responsibilty
 to decrypt the message before they are returned to consuming applications.
 

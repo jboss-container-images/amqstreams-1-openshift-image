@@ -11,7 +11,7 @@ The filter relies on a Key Management System (KMS). The role of the KMS is to pr
 
 You need to prepare a HashiCorp Vault instance now:
 
-* If you have an instance of HashiCorp Vault already in your organisation, you may use it after applying some [configuration](./PREPARE_KMS.md#using-an-existing-vault-instance).
+* If you have an instance of HashiCorp Vault already in your organisation, you may use it after ensuring it enables the required [configuration](./PREPARE_KMS.md#using-an-existing-vault-instance).
 * Otherwise, there are [deployment instructions](./PREPARE_KMS.md#deploying-hashicorp-for-development) to install an *ephemeral development* instance on your OpenShift Cluster.
 
 Once you have a Vault instance prepare, you can proceed to deploy one of the examples.  

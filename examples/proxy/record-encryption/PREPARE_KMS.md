@@ -34,7 +34,7 @@ Note: these examples are prepared against HashiCorp Vault 1.15.
    ```sh
    vault login
    ```
-3. Enable the Transit Secrets Engine.
+3. Ensure the Transit Secrets Engine is enabled.
    ```sh
    vault secrets enable transit
    ```

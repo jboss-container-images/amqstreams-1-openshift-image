@@ -7,8 +7,7 @@ to decrypt the message before they are returned to consuming applications.
 In this directory, you'll find examples that help you deploy AMQ Stream Proxy with the Record Encryption Filter to your OpenShift Cluster so that you my try out the feature together
 with you own application.
 
-The filter relies on a Key Management System (KMS). The role of the KMS is to provide cryptographic functions and act as a repository of key-material. The KMS is *not* part of AMQ Streams
-Proxy.  It is external must be provided by the deployer of the system.  For this Tech Preview release, only HashiCorp Vault is supported.
+The filter relies on a Key Management System (KMS). The role of the KMS is to provide cryptographic functions and act as a repository of key-material. The KMS is *not* part of AMQ Streams.  It is external must be provided by the deployer of the system.  For this Tech Preview release, only HashiCorp Vault is supported.
 
 You need to prepare a HashiCorp Vault instance now:
 

@@ -12,7 +12,7 @@ Service.
 * Administrative access to the OpenShift Cluster being used to evaluate AMQ Stream Proxy
 * OpenShift CLI (oc)
 * AMQ Streams Operator is installed namespace wide
-* Apache Kafka CLI
+* Apache Kafka CLI tools (kafka-topics.sh, kafka-console-producer.sh and kafka-console-consumer.sh) found in the bin directory of the AMQ Streams distribution.
 
 # Deploying the Example
 
@@ -47,7 +47,7 @@ Service.
    network traffic.
 4. Produce some messages to the topic:
    ```
-   echo 'IBM:100\nAPPLE:99' | kafka-console-producer --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic trades
+   echo 'IBM:100\nAPPLE:99' | kafka-console-producer.sh --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic trades
    ```
 5. Consume messages direct from the Kafka Cluster, showing that they are encrypted:
    ```
@@ -55,7 +55,7 @@ Service.
    ```
 6. Consume messages from the proxy showing they are decrypted:
    ```
-    kafka-console-consumer --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic trades --from-beginning --timeout-ms 10000
+    kafka-console-consumer.sh --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic trades --from-beginning --timeout-ms 10000
    ```   
 
 # Cleaning up

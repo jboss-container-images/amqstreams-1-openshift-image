@@ -11,7 +11,7 @@ Service.
 
 * Administrative access to the OpenShift Cluster being used to evaluate AMQ Stream Proxy
 * OpenShift CLI (oc)
-* AMQ Stream Operator is installed namespace wide
+* AMQ Streams Operator is installed namespace wide
 * Apache Kafka CLI
 
 # Deploying the Example

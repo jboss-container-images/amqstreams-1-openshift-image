@@ -12,7 +12,7 @@ Service.
 * Administrative access to the OpenShift Cluster being used to evaluate AMQ Stream Proxy
 * OpenShift CLI (oc)
 * AMQ Streams Operator is installed namespace wide
-* Apache Kafka CLI tools (kafka-topics.sh, kafka-console-producer.sh and kafka-console-consumer.sh) found in the bin directory of the AMQ Streams distribution.
+* Apache Kafka CLI tools (`kafka-topics.sh`, `kafka-console-producer.sh`, and `kafka-console-consumer.sh`) found in the `bin` directory of the AMQ Streams on RHEL distribution.
 
 # Deploying the Example
 

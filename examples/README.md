@@ -19,3 +19,4 @@ This folder contains different examples of AMQ Streams custom resources and demo
     * Sample Grafana installation files
 * [Security](./security)
     * Deployments of Kafka, Kafka Connect and HTTP Bridge using TLS encryption, authentication and authorization
+* [Console/User Interface](./console)

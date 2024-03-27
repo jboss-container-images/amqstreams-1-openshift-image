@@ -3,7 +3,7 @@ schema_version: 1
 name: amq-streams/proxy-rhel8
 description: "AMQ Streams image for running the AMQ Streams Proxy"
 version: "2.7.0"
-from: registry.redhat.io/ubi8/ubi-minimal
+from: registry.redhat.io/rhel8-6-els/rhel
 
 labels:
   - name: "com.redhat.component"

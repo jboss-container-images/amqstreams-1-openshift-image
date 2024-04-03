@@ -2,8 +2,8 @@ schema_version: 1
 
 name: amq-streams/drain-cleaner-rhel8
 description: "AMQ Streams image for running the AMQ Streams Drain Cleaner"
-version: "2.6.0"
-from: registry.redhat.io/ubi8/ubi-minimal
+version: "2.7.0"
+from: registry.redhat.io/rhel8-6-els/rhel
 
 labels:
   - name: "com.redhat.component"
@@ -27,7 +27,7 @@ modules:
     - name: drain-cleaner
 
 packages:
-  manager: microdnf
+  manager: dnf
   content_sets:
     x86_64:
       # Required for base image
@@ -76,4 +76,4 @@ osbs:
         - aarch64
   repository:
     name: containers/amqstreams-drain-cleaner
-    branch: amqstreams-2.6-rhel-8
+    branch: amqstreams-2.7-rhel-8

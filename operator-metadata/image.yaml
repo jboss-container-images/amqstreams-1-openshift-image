@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq-streams/strimzi-operator-bundle
 description: "AMQ Streams image containing the operator metadata"
-version: "2.6.0"
+version: "2.7.0"
 from: scratch
 
 labels:
@@ -49,4 +49,4 @@ osbs:
   extra_dir: automation
   repository:
     name: containers/amqstreams-operator-prod-operator-metadata
-    branch: amqstreams-2.6-rhel-8
+    branch: amqstreams-2.7-rhel-8

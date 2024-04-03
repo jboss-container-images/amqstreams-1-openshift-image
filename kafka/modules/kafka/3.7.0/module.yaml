@@ -1,20 +1,20 @@
 schema_version: 1
 
 name: kafka
-version: 3.5.0
+version: 3.7.0
 
 envs:
   - name: "COM_REDHAT_COMPONENT"
-    value: "amqstreams-kafka-35-container"
+    value: "amqstreams-kafka-37-container"
 
 artifacts:
-  - md5: 3b1cd3f59b6531dfd29a3e57f8588401
-    name: streams-ocp-35.zip
+  - md5: aac1eaa82cc02023b90c195b97879572
+    name: streams-ocp-37.zip
 
 modules:
   install:
   - name: kafka.base
-    version: 2.6.0
+    version: 2.7.0
 
 execute:
   - script: install.sh

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: proxy
-        image: quay.io/kroxylicious/kroxylicious:0.5.0-SNAPSHOT
+        image: registry.redhat.io/amq-streams/proxy-rhel8:2.7
         imagePullPolicy: Always
         args: ["--config", "/opt/proxy/config/config.yaml"]
         ports:

@@ -12,7 +12,7 @@ spec:
     config:
       allow.everyone.if.no.acl.found: 'true'
       default.replication.factor: 3
-      inter.broker.protocol.version: '3.6'
+      inter.broker.protocol.version: '3.7'
       min.insync.replicas: 2
       offsets.topic.replication.factor: 3
       transaction.state.log.min.isr: 2
@@ -50,7 +50,7 @@ spec:
         configMapKeyRef:
           name: console-kafka-metrics
           key: kafka-metrics-config.yml
-    version: 3.6.0
+    version: 3.7.0
   zookeeper:
     replicas: 3
     storage:

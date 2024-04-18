@@ -10,6 +10,7 @@ This folder contains different examples of AMQ Streams custom resources and demo
 * [Cruise Control and Kafka Rebalance](./cruise-control)
 * [Kafka users](./user)
 * [Kafka topics](./topic)
+* [Proxy](./proxy)
 * [Prometheus metric](./metrics)
     * Examples of Kafka components with enabled Prometheus metrics
     * Grafana dashboards
@@ -19,3 +20,4 @@ This folder contains different examples of AMQ Streams custom resources and demo
     
 * [Security](./security)
     * Deployments of Kafka, Kafka Connect and HTTP Bridge using TLS encryption, authentication and authorization
+* [Console/User Interface](./console)

@@ -22,7 +22,7 @@ artifacts:
     name: cruise-control-ocp.zip
 
 packages:
-  manager: microdnf
+  manager: dnf
   install:
     - unzip
     - tar

@@ -27,7 +27,7 @@ modules:
     - name: bridge
 
 packages:
-  manager: microdnf
+  manager: dnf
   content_sets:
     x86_64:
       # Required for tini

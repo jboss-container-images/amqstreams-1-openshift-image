@@ -44,4 +44,4 @@ chmod -R 755 ${CRUISE_CONTROL_HOME}
 # The ubi8-minimal image intentionally removes /usr/share/zoneinfo when installing the `tzdata` RPM package to save space.
 # However, since /usr/share/zoneinfo is needed by the kafka_exporter and cekit doesn't support RPM reinstall at this time,
 # we must reinstall the `tzdata` RPM package manually.
-microdnf reinstall -y tzdata
+dnf reinstall -y tzdata

@@ -24,7 +24,7 @@ artifacts:
     name: strimzi-operator-scripts.zip
 
 packages:
-  manager: microdnf
+  manager: dnf
   install:
     - unzip
     - tar

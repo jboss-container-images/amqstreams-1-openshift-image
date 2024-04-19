@@ -14,7 +14,7 @@ artifacts:
     name: drain-cleaner-licenses.tar.gz
 
 packages:
-  manager: microdnf
+  manager: dnf
   install:
     - unzip
     - tar

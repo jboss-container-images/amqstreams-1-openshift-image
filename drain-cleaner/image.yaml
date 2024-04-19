@@ -27,7 +27,7 @@ modules:
     - name: drain-cleaner
 
 packages:
-  manager: microdnf
+  manager: dnf
   content_sets:
     x86_64:
       # Required for base image

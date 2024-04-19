@@ -26,7 +26,7 @@ modules:
       version: 3.7.0
 
 packages:
-  manager: microdnf
+  manager: dnf
   content_sets:
     x86_64:
       # Required for tini and kafka exporter
@@ -63,6 +63,7 @@ packages:
     - bind-utils
     - tini
     - lsof
+    - tzdata
 
 run:
   user: 1001

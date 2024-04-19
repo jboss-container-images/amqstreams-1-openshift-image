@@ -16,7 +16,7 @@ artifacts:
     name: kroxylicious-app-licenses.tar.gz
 
 packages:
-  manager: microdnf
+  manager: dnf
   install:
     - unzip
     - tar

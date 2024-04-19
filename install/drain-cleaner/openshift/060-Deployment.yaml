@@ -16,16 +16,16 @@ spec:
         app: strimzi-drain-cleaner
         com.company: Red_Hat
         rht.prod_name: Red_Hat_Application_Foundations
-        rht.prod_ver: "2023.Q4"
+        rht.prod_ver: "2024.Q2"
         rht.comp: AMQ_Streams
-        rht.comp_ver: "2.6"
+        rht.comp_ver: "2.7"
         rht.subcomp: drain-cleaner
         rht.subcomp_t: application
     spec:
       serviceAccountName: strimzi-drain-cleaner
       containers:
         - name: strimzi-drain-cleaner
-          image: registry.redhat.io/amq-streams/drain-cleaner-rhel8:2.6.0
+          image: registry.redhat.io/amq-streams/drain-cleaner-rhel8:2.7.0
           ports:
             - containerPort: 8080
               name: http
@@ -40,6 +40,8 @@ spec:
             - name: STRIMZI_DRAIN_KAFKA
               value: "true"
             - name: STRIMZI_DRAIN_ZOOKEEPER
+              value: "true"
+            - name: STRIMZI_DENY_EVICTION
               value: "true"
             - name: STRIMZI_CERTIFICATE_WATCH_ENABLED
               value: "true"

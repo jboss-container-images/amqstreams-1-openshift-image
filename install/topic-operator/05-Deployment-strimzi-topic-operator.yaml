@@ -15,9 +15,9 @@ spec:
         name: strimzi-topic-operator
         com.company: Red_Hat
         rht.prod_name: Red_Hat_Application_Foundations
-        rht.prod_ver: 2023.Q4
+        rht.prod_ver: 2024.Q2
         rht.comp: AMQ_Streams
-        rht.comp_ver: 2.6
+        rht.comp_ver: 2.7
         rht.subcomp: topic-operator
         rht.subcomp_t: infrastructure
     spec:
@@ -29,7 +29,7 @@ spec:
             sizeLimit: 5Mi
       containers:
         - name: strimzi-topic-operator
-          image: registry.redhat.io/amq-streams/strimzi-rhel8-operator:2.6.0
+          image: registry.redhat.io/amq-streams/strimzi-rhel8-operator:2.7.0
           args:
             - /opt/strimzi/bin/topic_operator_run.sh
           volumeMounts:
@@ -40,14 +40,8 @@ spec:
               value: "strimzi.io/cluster=my-cluster"
             - name: STRIMZI_KAFKA_BOOTSTRAP_SERVERS
               value: my-cluster-kafka-bootstrap:9092
-            - name: STRIMZI_ZOOKEEPER_CONNECT
-              value: my-cluster-zookeeper-client:2181
-            - name: STRIMZI_ZOOKEEPER_SESSION_TIMEOUT_MS
-              value: "18000"
             - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
               value: "120000"
-            - name: STRIMZI_TOPIC_METADATA_MAX_ATTEMPTS
-              value: "6"
             - name: STRIMZI_LOG_LEVEL
               value: INFO
             - name: STRIMZI_TLS_ENABLED

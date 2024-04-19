@@ -2,8 +2,8 @@ schema_version: 1
 
 name: amq-streams/strimzi-rhel8-operator
 description: "AMQ Streams image for the Cluster, Topic, User Operators, and Kafka init"
-version: "2.6.0"
-from: registry.redhat.io/ubi8/ubi-minimal
+version: "2.7.0"
+from: registry.redhat.io/rhel8-6-els/rhel
 
 labels:
   - name: "com.redhat.component"
@@ -84,4 +84,4 @@ osbs:
         - aarch64
   repository:
     name: containers/amqstreams-operator
-    branch: amqstreams-2.6-rhel-8
+    branch: amqstreams-2.7-rhel-8

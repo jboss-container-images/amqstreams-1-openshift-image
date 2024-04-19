@@ -53,8 +53,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-          args:
-            - /opt/strimzi/bin/drain_cleaner_run.sh
           volumeMounts:
             - name: webhook-certificates
               mountPath: "/etc/webhook-certificates"

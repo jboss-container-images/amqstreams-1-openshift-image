@@ -838,7 +838,7 @@ spec:
     **Red Hat Streams for Apache Kafka** is a massively scalable, distributed, and high performance data streaming platform based on the Apache Kafka® project.
     Red Hat Streams provides an event streaming backbone that allows microservices and other application components to exchange data with extremely high throughput and low latency.
 
-    **From the 2.6.0 release, AMQ Streams supports only OCP 4.12 to 4.14!
+    **From the 2.6.0 release, Red Hat Streams supports only OCP 4.12 to 4.14!
 
     **The core capabilities include:**
     * A pub/sub messaging model, similar to a traditional enterprise messaging system, in which application components publish and consume events to/from an ordered stream
@@ -850,8 +850,8 @@ spec:
 
     **!!! IMPORTANT !!!**
 
-    **Direct upgrade from AMQ Stream 1.7 or earlier is not supported!**
-    You have to upgrade first to one of the previous versions of AMQ Streams.
+    **Direct upgrade from Red Hat Streams 1.7 or earlier is not supported!**
+    You have to upgrade first to one of the previous versions of Red Hat Streams.
     You will also need to convert the CRD resources.
     For more information, see the [documentation for Red Hat Streams for Apache Kafka on OpenShift](https://access.redhat.com/documentation/en-us/red_hat_amq_streams/).
 

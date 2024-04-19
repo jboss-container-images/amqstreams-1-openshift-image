@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: amq-streams/strimzi-operator-bundle
-description: "AMQ Streams image containing the operator metadata"
+description: "Red Hat Streams Operator bundle"
 version: "2.7.0"
 from: scratch
 
@@ -9,9 +9,9 @@ labels:
   - name: "com.redhat.component"
     value: "amqstreams-bundle-container"
   - name: "io.k8s.description"
-    value: "Operator metadata"
+    value: "Operator bundle"
   - name: "io.k8s.display-name"
-    value: "AMQ Streams Operator metadata"
+    value: "Red Hat Streams Operator bundle"
   - name: "io.openshift.tags"
     value: "messaging,amq,jboss"
   - name: "operators.operatorframework.io.bundle.mediatype.v1"
@@ -23,15 +23,15 @@ labels:
   - name: "operators.operatorframework.io.bundle.package.v1"
     value: "amq-streams"
   - name: "operators.operatorframework.io.bundle.channels.v1"
-    value: "stable,amq-streams-2.x,amq-streams-2.7.x,amq-streams-lts"
+    value: "stable,amq-streams-2.x,amq-streams-2.7.x"
   - name: "operators.operatorframework.io.bundle.channel.default.v1"
     value: "stable"
   - name: "com.redhat.delivery.operator.bundle"
     value: "true"
   - name: "com.redhat.openshift.versions"
-    value: "v4.11"
+    value: "v4.12"
   - name: "maintainer"
-    value: "AMQ Streams Engineering <amq-streams-dev@redhat.com>"
+    value: "Red Hat Streams Engineering <amq-streams-dev@redhat.com>"
 
 artifacts:
     - path: manifests

@@ -7,7 +7,7 @@ from: registry.redhat.io/rhel8-6-els/rhel
 
 labels:
   - name: "com.redhat.component"
-    value: "amqstreams-kafka-35-container"
+    value: "amqstreams-kafka-36-container"
   - name: "io.k8s.description"
     value: "A reliable and fault tolerant stream processing platform"
   - name: "io.k8s.display-name"

@@ -1452,4 +1452,4 @@ spec:
   selector:
     matchLabels:
       name: amq-streams-cluster-operator
-  version: 2.7.0
+  version: 2.7.0-0

@@ -63,6 +63,7 @@ packages:
     - bind-utils
     - tini
     - lsof
+    - tzdata
 
 run:
   user: 1001

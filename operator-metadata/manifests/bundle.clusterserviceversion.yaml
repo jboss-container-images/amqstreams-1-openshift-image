@@ -1417,13 +1417,13 @@ spec:
       type: AllNamespaces
   relatedImages:
     - name: strimzi-cluster-operator
-      image: registry.redhat.io/streams/strimzi-rhel8-operator@sha256:5059b9ac793f91de2606ef724a2bb7d6518e75a053cc662665459eafa5f4d074
+      image: registry.redhat.io/amq-streams/strimzi-rhel8-operator@sha256:5059b9ac793f91de2606ef724a2bb7d6518e75a053cc662665459eafa5f4d074
     - name: strimzi-kafka-360
-      image: registry.redhat.io/streams/kafka-36-rhel8@sha256:1c3e4596e3134fd173d4f9d7f2460a5faf92287b0171110a6a7fd69f1fd7df1f
+      image: registry.redhat.io/amq-streams/kafka-36-rhel8@sha256:1c3e4596e3134fd173d4f9d7f2460a5faf92287b0171110a6a7fd69f1fd7df1f
     - name: strimzi-kafka-370
-      image: registry.redhat.io/streams/kafka-37-rhel8@sha256:99d804bbfd32d006c58dec2e4b78b501834d62f5958c68774b233dd412163456
+      image: registry.redhat.io/amq-streams/kafka-37-rhel8@sha256:99d804bbfd32d006c58dec2e4b78b501834d62f5958c68774b233dd412163456
     - name: strimzi-bridge
-      image: registry.redhat.io/streams/bridge-rhel8@sha256:297394056547efd07ccecaa5a4056accf9f9e9613811154a49fdeaefa147aa9a
+      image: registry.redhat.io/amq-streams/bridge-rhel8@sha256:297394056547efd07ccecaa5a4056accf9f9e9613811154a49fdeaefa147aa9a
     - name: strimzi-maven-builder
       image: registry.redhat.io/ubi8/openjdk-17@sha256:8796da64c626c5f63f31a4e3ac0ac3b179333a7c6d5472a195b9b3f61ccd1099
   keywords:

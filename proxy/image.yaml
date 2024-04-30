@@ -41,7 +41,46 @@ packages:
     - tini
     - net-tools
     - lsof
-
+  remove:
+    - vim-minimal
+    - subscription-manager
+    - shadow-utils
+    - tar
+    - libuser
+    - findutils
+    - python3-libxml2
+    - python3-gobject-base
+    - libnl3
+    - python3-chardet
+    - usermode
+    - python3-dnf-plugins-core
+    - gdb-gdbserver
+    - python3-urllib3
+    - python3-dateutil
+    - python3-dbus
+    - python3-idna
+    - passwd
+    - python3-subscription-manager-rhsm
+    - python3-requests
+    - dbus-glib
+    - libsemanage
+    - python3-dmidecode
+    - dmidecode
+    - acl
+    - crypto-policies-scripts
+    - python3-librepo
+    - python3-syspurpose
+    - python3-iniparse
+    - python3-six
+    - dnf-plugin-subscription-manager
+    - python3-ethtool
+    - which
+    - python3-pysocks
+    - python3-cloud-what
+    - python3-decorator
+    - virt-what
+    - subscription-manager-rhsm-certificates
+    -
 run:
   user: 1001
   workdir: $KROXYLICIOUS_HOME

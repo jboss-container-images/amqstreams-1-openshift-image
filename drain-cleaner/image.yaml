@@ -28,6 +28,7 @@ modules:
 
 packages:
   manager: dnf
+  manager_flags: --setopt=tsflags=nodocs --setopt=install_weak_deps=0
   content_sets:
     x86_64:
       # Required for base image

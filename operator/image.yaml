@@ -28,31 +28,32 @@ modules:
 
 packages:
   manager: dnf
+  manager_flags: --setopt=tsflags=nodocs --setopt=install_weak_deps=0
   content_sets:
     x86_64:
       # Required for tini
       - amq-streams-2-for-rhel-8-rpms
       # Required for base image
-      - rhel-8-for-x86_64-baseos-rpms
-      - rhel-8-for-x86_64-appstream-rpms
+      - rhel-8-for-x86_64-baseos-eus-rpms__8_DOT_6
+      - rhel-8-for-x86_64-appstream-eus-rpms__8_DOT_6
     ppc64le:
       # Required for tini
       - amq-streams-2-for-rhel-8-ppc64le-rpms
       # Required for base image
-      - rhel-8-for-ppc64le-baseos-rpms
-      - rhel-8-for-ppc64le-appstream-rpms
+      - rhel-8-for-ppc64le-baseos-eus-rpms__8_DOT_6
+      - rhel-8-for-ppc64le-appstream-eus-rpms__8_DOT_6
     s390x:
       # Required for tini
       - amq-streams-2-for-rhel-8-s390x-rpms
       # Required for base image
-      - rhel-8-for-s390x-baseos-rpms
-      - rhel-8-for-s390x-appstream-rpms 
+      - rhel-8-for-s390x-baseos-eus-rpms__8_DOT_6
+      - rhel-8-for-s390x-appstream-eus-rpms__8_DOT_6
     aarch64:
       # Required for tini
       - amq-streams-2-for-rhel-8-aarch64-rpms
       # Required for base image
-      - rhel-8-for-aarch64-baseos-rpms
-      - rhel-8-for-aarch64-appstream-rpms
+      - rhel-8-for-aarch64-baseos-eus-rpms__8_DOT_6
+      - rhel-8-for-aarch64-appstream-eus-rpms__8_DOT_6
   install:
     - java-17-openjdk-devel
     - openssl

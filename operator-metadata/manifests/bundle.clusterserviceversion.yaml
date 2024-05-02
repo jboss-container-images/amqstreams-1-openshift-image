@@ -853,7 +853,7 @@ spec:
     **Direct upgrade from Red Hat Streams 1.7 or earlier is not supported!**
     You have to upgrade first to one of the previous versions of Red Hat Streams.
     You will also need to convert the CRD resources.
-    For more information, see the [documentation for Red Hat Streams for Apache Kafka on OpenShift](https://docs.redhat.com/documentation/en-us/red_hat_streams_for_apache_kafka/).
+    For more information, see the [documentation for Red Hat Streams for Apache Kafka on OpenShift](https://docs.redhat.com/en/documentation/red_hat_streams_for_apache_kafka/).
 
     ### Supported Features
 
@@ -881,7 +881,7 @@ spec:
     
     The Red Hat Streams Operator understands how to run and upgrade between a set of Kafka versions.
     When specifying a new version in your config, check to make sure you aren't using any features that may have been removed.
-    For more information on upgrading, see the [documentation for Red Hat Streams for Apache Kafka on OpenShift](https://docs.redhat.com/documentation/en-us/red_hat_streams_for_apache_kafka/).
+    For more information on upgrading, see the [documentation for Red Hat Streams for Apache Kafka on OpenShift](https://docs.redhat.com/en/documentation/red_hat_streams_for_apache_kafka/).
 
     ### Storage
 
@@ -901,7 +901,7 @@ spec:
 
     ### Documentation
 
-    Documentation for the current release can be found on the Red Hat [Customer Portal](https://docs.redhat.com/documentation/en-us/red_hat_streams_for_apache_kafka).
+    Documentation for the current release can be found on the Red Hat [Customer Portal](https://docs.redhat.com/en/documentation/red_hat_streams_for_apache_kafka).
 
   displayName: Red Hat Streams for Apache Kafka
   icon:
@@ -1441,7 +1441,7 @@ spec:
     - name: Product Page
       url: https://access.redhat.com/products/red-hat-amq
     - name: Documentation
-      url: https://docs.redhat.com/documentation/en-us/red_hat_streams_for_apache_kafka
+      url: https://docs.redhat.com/en/documentation/red_hat_streams_for_apache_kafka
   maintainers:
     - email: customerservice@redhat.com
       name: Red Hat

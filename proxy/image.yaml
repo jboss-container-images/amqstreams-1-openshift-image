@@ -42,6 +42,7 @@ packages:
     - tini
     - net-tools
     - lsof
+    - nss-3.67.0-7.el8_5 # experiment - try pinning to the FIPS validated nss.
   remove:
     - vim-minimal
     - subscription-manager

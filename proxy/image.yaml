@@ -82,7 +82,7 @@ packages:
     - python3-decorator
     - virt-what
     - subscription-manager-rhsm-certificates
-    -
+
 run:
   user: 1001
   workdir: $KROXYLICIOUS_HOME

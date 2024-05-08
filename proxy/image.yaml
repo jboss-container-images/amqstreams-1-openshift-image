@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: amq-streams/proxy-rhel8
+name: amq-streams/proxy-rhel9
 description: "AMQ Streams image for running the AMQ Streams Proxy"
 version: "2.7.0"
-from: registry.redhat.io/rhel8-6-els/rhel
+from: registry.redhat.io/rhel9-2-els/rhel
 
 labels:
   - name: "com.redhat.component"
@@ -32,10 +32,10 @@ packages:
   content_sets:
     x86_64:
       # Required for tini
-      - amq-streams-2-for-rhel-8-rpms
+      - amq-streams-2-for-rhel-9-rpms
       # Required for base image
-      - rhel-8-for-x86_64-baseos-eus-rpms__8_DOT_6
-      - rhel-8-for-x86_64-appstream-eus-rpms__8_DOT_6
+      - rhel-9-for-x86_64-baseos-eus-rpms__9_DOT_2
+      - rhel-9-for-x86_64-appstream-eus-rpms__9_DOT_2
   install:
     - java-17-openjdk-devel
     - hostname
@@ -105,4 +105,4 @@ osbs:
         - x86_64
   repository:
     name: containers/amqstreams-proxy
-    branch: amqstreams-2.7-rhel-8
+    branch: amqstreams-2.7-rhel-9

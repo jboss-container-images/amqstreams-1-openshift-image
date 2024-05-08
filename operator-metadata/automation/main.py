@@ -17,8 +17,8 @@ def main():
   sha_dict = BundleAutomation.create_sha_dict(brew_client, csv_file.data, component_data)
   bundle_versions = BundleAutomation.generate_bundle_version_strings(
           brew_client, 
-          csv_file.data, 
-          BundleAutomation.new_pull_specs_exist(sha_dict)
+          csv_file.data,
+          product_version
   )
 
   # Update CSV with new shas + bump bundle version

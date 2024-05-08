@@ -243,14 +243,24 @@ class BundleAutomation:
     e.g. [2.5.0-0, 2.5.0-1]
     '''
     @staticmethod
-    def generate_bundle_version_strings(brew_client, csv_data, new_pull_specs_exist):
-        old_bundle_version = BundleAutomation.get_replace_version(csv_data)
-        new_bundle_version = BundleAutomation.get_bundle_version(csv_data)
+    def generate_bundle_version_strings(brew_client, csv_data, product_version):
+        # Sort to get latest build for version
+        builds = brew_client.listBuilds(prefix=constants.METADATA_PACKAGE_NAME, queryOpts={'order': 'creation_ts'})
+        # Reverse so latest build appear first
+        builds.reverse()
 
-        released = BundleAutomation.is_bundle_released(brew_client, new_bundle_version.split("-")[0])
-        if released and new_pull_specs_exist:
-            old_bundle_version = new_bundle_version
-            new_bundle_version = BundleAutomation.increment_build_version(new_bundle_version)
+        respin_number = 0;
+        for build in builds:
+        # Since the builds are in order take the latest build which matches the major and minor version
+            if build['version'] == product_version:
+                if BundleAutomation.is_build_released(brew_client, build):
+                    respin_number+=1;
+
+        old_bundle_version = BundleAutomation.get_replace_version(csv_data)
+        new_bundle_version = product_version + "-" + str(respin_number)
+
+        if(respin_number > 0):
+            old_bundle_version = product_version + "-" + str(respin_number-1)
 
         print("Updating " + old_bundle_version + " -> " + new_bundle_version)
 

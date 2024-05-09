@@ -42,7 +42,7 @@ packages:
     - tini
     - net-tools
     - lsof
-    - nss-3.67.0-7.el8_5 # experiment - try pinning to the FIPS validated nss.
+    - nss-3.67.0-7.el8_5
   remove:
     - vim-minimal
     - subscription-manager
@@ -50,7 +50,6 @@ packages:
     - tar
     - libuser
     - findutils
-    - python3-libxml2
     - python3-gobject-base
     - libnl3
     - python3-chardet
@@ -64,17 +63,13 @@ packages:
     - passwd
     - python3-subscription-manager-rhsm
     - python3-requests
-    - dbus-glib
     - libsemanage
-    - python3-dmidecode
     - dmidecode
     - acl
     - crypto-policies-scripts
     - python3-librepo
-    - python3-syspurpose
     - python3-iniparse
     - python3-six
-    - dnf-plugin-subscription-manager
     - python3-ethtool
     - which
     - python3-pysocks

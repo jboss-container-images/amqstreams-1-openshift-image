@@ -20,7 +20,7 @@ spec:
       containers:
       ### API
       - name: console-api
-        image: registry.redhat.io/amq-streams/console-api-rhel8:2.7
+        image: registry.redhat.io/amq-streams/console-api-rhel9:2.7
         ports:
         - containerPort: 8080
         # Adjust KAFKA and CONSOLE_KAFKA variables to match your Kafka cluster
@@ -41,7 +41,7 @@ spec:
               key: sasl.jaas.config
       ### User Interface
       - name: console-ui
-        image: registry.redhat.io/amq-streams/console-ui-rhel8:2.7
+        image: registry.redhat.io/amq-streams/console-ui-rhel9:2.7
         volumeMounts:
         - mountPath: /app/.next/cache
           name: cache

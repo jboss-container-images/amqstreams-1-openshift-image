@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: amq-streams/proxy-rhel8
+name: amq-streams/proxy-rhel9
 description: "AMQ Streams image for running the AMQ Streams Proxy"
 version: "2.7.0"
-from: registry.redhat.io/rhel8-6-els/rhel
+from: registry.redhat.io/rhel9-2-els/rhel
 
 labels:
   - name: "com.redhat.component"
@@ -32,17 +32,17 @@ packages:
   content_sets:
     x86_64:
       # Required for tini
-      - amq-streams-2-for-rhel-8-rpms
+      - amq-streams-2-for-rhel-9-rpms
       # Required for base image
-      - rhel-8-for-x86_64-baseos-eus-rpms__8_DOT_6
-      - rhel-8-for-x86_64-appstream-eus-rpms__8_DOT_6
+      - rhel-9-for-x86_64-baseos-eus-rpms__9_DOT_2
+      - rhel-9-for-x86_64-appstream-eus-rpms__9_DOT_2
   install:
     - java-17-openjdk-devel
     - hostname
     - tini
     - net-tools
     - lsof
-    - nss-3.67.0-7.el8_5 # experiment - try pinning to the FIPS validated nss.
+    - nss-3.67.0-7.el8_5
   remove:
     - vim-minimal
     - subscription-manager
@@ -50,7 +50,6 @@ packages:
     - tar
     - libuser
     - findutils
-    - python3-libxml2
     - python3-gobject-base
     - libnl3
     - python3-chardet
@@ -64,17 +63,13 @@ packages:
     - passwd
     - python3-subscription-manager-rhsm
     - python3-requests
-    - dbus-glib
     - libsemanage
-    - python3-dmidecode
     - dmidecode
     - acl
     - crypto-policies-scripts
     - python3-librepo
-    - python3-syspurpose
     - python3-iniparse
     - python3-six
-    - dnf-plugin-subscription-manager
     - python3-ethtool
     - which
     - python3-pysocks
@@ -105,4 +100,4 @@ osbs:
         - x86_64
   repository:
     name: containers/amqstreams-proxy
-    branch: amqstreams-2.7-rhel-8
+    branch: amqstreams-2.7-rhel-9

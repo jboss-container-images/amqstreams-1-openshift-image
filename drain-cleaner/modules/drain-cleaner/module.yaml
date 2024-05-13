@@ -10,7 +10,7 @@ envs:
 artifacts:
   - md5: f2f168c2dba708c1f29164284d6f3f4b
     name: drain-cleaner.jar
-  - md5: 7cf4782ea089494a27473bed13351212
+  - md5: b3a1250d4fad8bd1819806451505aec4
     name: drain-cleaner-licenses.tar.gz
 
 packages:

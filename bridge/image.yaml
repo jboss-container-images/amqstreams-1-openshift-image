@@ -1,9 +1,9 @@
 schema_version: 1
 
-name: amq-streams/bridge-rhel8
+name: amq-streams/bridge-rhel9
 description: "AMQ Streams image for running the Apache Kafka bridge"
 version: "2.7.0"
-from: registry.redhat.io/rhel8-6-els/rhel
+from: registry.redhat.io/rhel9-2-els/rhel
 
 labels:
   - name: "com.redhat.component"
@@ -32,28 +32,28 @@ packages:
   content_sets:
     x86_64:
       # Required for tini
-      - amq-streams-2-for-rhel-8-rpms
+      - amq-streams-2-for-rhel-9-rpms
       # Required for base image
-      - rhel-8-for-x86_64-baseos-eus-rpms__8_DOT_6
-      - rhel-8-for-x86_64-appstream-eus-rpms__8_DOT_6
+      - rhel-9-for-x86_64-baseos-eus-rpms__9_DOT_2
+      - rhel-9-for-x86_64-appstream-eus-rpms__9_DOT_2
     ppc64le:
       # Required for tini
-      - amq-streams-2-for-rhel-8-ppc64le-rpms
+      - amq-streams-2-for-rhel-9-ppc64le-rpms
       # Required for base image
-      - rhel-8-for-ppc64le-baseos-eus-rpms__8_DOT_6
-      - rhel-8-for-ppc64le-appstream-eus-rpms__8_DOT_6
+      - rhel-9-for-ppc64le-baseos-eus-rpms__9_DOT_2
+      - rhel-9-for-ppc64le-appstream-eus-rpms__9_DOT_2
     s390x:
       # Required for tini
-      - amq-streams-2-for-rhel-8-s390x-rpms
+      - amq-streams-2-for-rhel-9-s390x-rpms
       # Required for base image
-      - rhel-8-for-s390x-baseos-eus-rpms__8_DOT_6
-      - rhel-8-for-s390x-appstream-eus-rpms__8_DOT_6
+      - rhel-9-for-s390x-baseos-eus-rpms__9_DOT_2
+      - rhel-9-for-s390x-appstream-eus-rpms__9_DOT_2
     aarch64:
       # Required for tini
-      - amq-streams-2-for-rhel-8-aarch64-rpms
+      - amq-streams-2-for-rhel-9-aarch64-rpms
       # Required for base image
-      - rhel-8-for-aarch64-baseos-eus-rpms__8_DOT_6
-      - rhel-8-for-aarch64-appstream-eus-rpms__8_DOT_6
+      - rhel-9-for-aarch64-baseos-eus-rpms__9_DOT_2
+      - rhel-9-for-aarch64-appstream-eus-rpms__9_DOT_2
   install:
     - java-17-openjdk-devel
     - openssl
@@ -69,7 +69,6 @@ packages:
     - tar
     - libuser
     - findutils
-    - python3-libxml2
     - python3-gobject-base
     - libnl3
     - python3-chardet
@@ -83,17 +82,13 @@ packages:
     - passwd
     - python3-subscription-manager-rhsm
     - python3-requests
-    - dbus-glib
     - libsemanage
-    - python3-dmidecode
     - dmidecode
     - acl
     - crypto-policies-scripts
     - python3-librepo
-    - python3-syspurpose
     - python3-iniparse
     - python3-six
-    - dnf-plugin-subscription-manager
     - python3-ethtool
     - which
     - python3-pysocks
@@ -123,4 +118,4 @@ osbs:
         - aarch64
   repository:
     name: containers/amqstreams-bridge
-    branch: amqstreams-2.7-rhel-8
+    branch: amqstreams-2.7-rhel-9

@@ -42,7 +42,6 @@ packages:
     - tini
     - net-tools
     - lsof
-    - nss-3.67.0-7.el8_5
   remove:
     - vim-minimal
     - subscription-manager

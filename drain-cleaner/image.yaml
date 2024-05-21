@@ -52,9 +52,7 @@ packages:
     - vim-minimal
     - subscription-manager
     - shadow-utils
-    - tar
     - libuser
-    - findutils
     - python3-gobject-base
     - libnl3
     - python3-chardet

@@ -51,6 +51,7 @@ packages:
   remove:
     - vim-minimal
     - subscription-manager
+    - shadow-utils
     - libuser
     - python3-gobject-base
     - libnl3

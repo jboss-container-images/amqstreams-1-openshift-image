@@ -96,12 +96,7 @@ class BundleAutomation:
 
         for build in builds:
             if build['version'] == version and build['state'] == constants.COMPLETED and "source" not in build['nvr']:
-                if "openjdk-" in prefix:
-                    if BundleAutomation.is_build_released(brew_client, build):
-                        return build['nvr']
-                else:
-                    print(build['nvr'])
-                    return build['nvr']
+                return build['nvr']
 
         raise ValueError('No NVR found in brew with prefix %s and version %s' % (prefix, version))
 
@@ -172,31 +167,11 @@ class BundleAutomation:
         return components
 
     @staticmethod
-    def get_maven_builder_pull_spec(brew_client, csv_data):
-        product_version = BundleAutomation.get_bundle_version(csv_data).split("-")[0]
-
-        if int(product_version.split(".")[0]) <= 2 and int(product_version.split(".")[1]) < 2:
-            package_name = "openjdk-11-ubi8"
-            version = "1.10"
-        elif int(product_version.split(".")[0]) <= 2 and int(product_version.split(".")[1]) < 5:
-            package_name = "openjdk-11-ubi8"
-            version = "1.13"
-        else:
-            package_name = "openjdk-17-ubi8"
-            version = "1.16"
-
-        pull_spec = BundleAutomation.get_pull_spec_from_brew(
-            brew_client,
-            BundleAutomation.get_nvr(brew_client, package_name, version)
-        )
-        return pull_spec
-
-    @staticmethod
     def generate_package_name(related_images_name):
         if related_images_name == "strimzi-cluster-operator":
             return constants.OPERATOR_PACKAGE_NAME
         elif related_images_name == "strimzi-maven-builder":
-            return constants.STRIMZI_MAVEN_BUILDER + constants.PACKAGE_NAME_SUFFIX
+            return constants.MAVEN_BUILDER_PACKAGE_NAME
         else:
             package_name = related_images_name.replace("strimzi", "amqstreams")
             # If Kafka image name e.g. strimzi-kafka-340
@@ -221,10 +196,7 @@ class BundleAutomation:
             image = entry['image']
 
             package_name = BundleAutomation.generate_package_name(name)
-            if name == constants.STRIMZI_MAVEN_BUILDER:
-                pull_spec = BundleAutomation.get_maven_builder_pull_spec(brew_client, csv_data)
-            else:
-                pull_spec = BundleAutomation.get_pull_spec_from_info(components.get(package_name))
+            pull_spec = BundleAutomation.get_pull_spec_from_info(components.get(package_name))
 
             old_sha = BundleAutomation.format_sha(image)
             new_sha = BundleAutomation.format_sha(pull_spec)

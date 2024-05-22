@@ -1,6 +1,6 @@
 RELEASE_TAG = "rhaos-middleware-rhel-9-container-released"
 OPERATOR_PACKAGE_NAME = "amqstreams-operator-container"
-MAVEN_BUILDER_PACKAGE_NAME = "amqstreams-maven-builder"
+MAVEN_BUILDER_PACKAGE_NAME = "amqstreams-maven-builder-container"
 METADATA_PACKAGE_NAME = "amqstreams-bundle-container"
 PACKAGE_NAME_SUFFIX = "-container"
 RELEASED = False

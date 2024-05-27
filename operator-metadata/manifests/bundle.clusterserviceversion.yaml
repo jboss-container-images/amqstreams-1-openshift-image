@@ -1275,7 +1275,7 @@ spec:
                         discovery.3scale.net/path=/
                         discovery.3scale.net/description-path=/openapi
                     - name: STRIMZI_DEFAULT_MAVEN_BUILDER
-                      value: registry.redhat.io/amq-streams/maven-builder@sha256:7f2141752368d445f7589e7f2c078214f54493359afb894121548681b348341b
+                      value: registry.redhat.io/amq-streams/maven-builder-rhel9@sha256:7f2141752368d445f7589e7f2c078214f54493359afb894121548681b348341b
                     - name: STRIMZI_OPERATOR_NAMESPACE
                       valueFrom:
                         fieldRef:
@@ -1425,7 +1425,7 @@ spec:
     - name: strimzi-bridge
       image: registry.redhat.io/amq-streams/bridge-rhel9@sha256:bd3ddbdc254e20c064860944b625f81fbb3636ce576092dcf972463eaab02b73
     - name: strimzi-maven-builder
-      image: registry.redhat.io/amq-streams/maven-builder@sha256:7f2141752368d445f7589e7f2c078214f54493359afb894121548681b348341b
+      image: registry.redhat.io/amq-streams/maven-builder-rhel9@sha256:7f2141752368d445f7589e7f2c078214f54493359afb894121548681b348341b
   keywords:
     - kafka
     - messaging

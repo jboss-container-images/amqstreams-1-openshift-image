@@ -2,9 +2,8 @@ import os
 import unittest
 
 from automation.modules import constants
-from automation.modules.bundle_automation import BundleAutomation
 from automation.modules.file import File
-
+from automation.modules.bundle_automation import BundleAutomation
 
 class TestBundleAutomation(unittest.TestCase):
     RESOURCES_PATH = "resources/"

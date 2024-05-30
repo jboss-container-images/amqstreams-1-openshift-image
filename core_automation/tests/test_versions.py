@@ -3,7 +3,7 @@
  FILE: test_versions.py
 ########################################################"""
 import unittest
-from automation.modules import versions
+from core_automation.modules import versions
 
 
 class TestVersions(unittest.TestCase):

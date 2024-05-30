@@ -5,7 +5,7 @@
 import os
 import unittest
 from unittest.mock import patch
-from automation.modules import backport_examples
+from core_automation.modules import backport_examples
 
 
 class TestBackportExampleAutomation(unittest.TestCase):

@@ -380,14 +380,14 @@ metadata:
       ["Red Hat AMQ", "Red Hat Application Foundations"]
     operators.operatorframework.io/internal-objects: |-
       ["strimzipodsets.core.strimzi.io"]
-    olm.skipRange: '>=2.6.0-0 <2.7.0-0'
+    olm.skipRange: '>=2.6.0-0 <2.7.0-1'
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/arch.s390x: supported
     operatorframework.io/arch.ppc64le: supported
     operatorframework.io/os.linux: supported
-  name: amqstreams.v2.7.0-0
+  name: amqstreams.v2.7.0-1
   namespace: placeholder
 spec:
   MinKubeVersion: 1.23.0
@@ -1185,7 +1185,7 @@ spec:
           - list
         serviceAccountName: strimzi-cluster-operator
       deployments:
-      - name: amq-streams-cluster-operator-v2.7.0-0
+      - name: amq-streams-cluster-operator-v2.7.0-1
         spec:
           replicas: 1
           selector:
@@ -1448,8 +1448,8 @@ spec:
   maturity: stable
   provider:
     name: Red Hat
-  replaces: amqstreams.v2.6.0-2
+  replaces: amqstreams.v2.7.0-0
   selector:
     matchLabels:
       name: amq-streams-cluster-operator
-  version: 2.7.0-0
+  version: 2.7.0-1

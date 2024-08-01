@@ -17,7 +17,7 @@ spec:
         strimzi.io/kind: cluster-operator
         com.company: Red_Hat
         rht.prod_name: Red_Hat_Application_Foundations
-        rht.prod_ver: "2023.Q3"
+        rht.prod_ver: "2024.Q3"
         rht.comp: AMQ_Streams
         rht.comp_ver: "2.5"
         rht.subcomp: cluster-operator

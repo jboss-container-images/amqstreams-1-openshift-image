@@ -15,9 +15,9 @@ spec:
         name: strimzi-topic-operator
         com.company: Red_Hat
         rht.prod_name: Red_Hat_Application_Foundations
-        rht.prod_ver: 2023.Q2
+        rht.prod_ver: 2024.Q2
         rht.comp: AMQ_Streams
-        rht.comp_ver: 2.4
+        rht.comp_ver: 2.5
         rht.subcomp: topic-operator
         rht.subcomp_t: infrastructure
     spec:
@@ -29,7 +29,7 @@ spec:
             sizeLimit: 5Mi
       containers:
         - name: strimzi-topic-operator
-          image: registry.redhat.io/amq-streams/strimzi-rhel8-operator:2.5.1
+          image: registry.redhat.io/amq-streams/strimzi-rhel8-operator:2.5.2
           args:
             - /opt/strimzi/bin/topic_operator_run.sh
           volumeMounts:

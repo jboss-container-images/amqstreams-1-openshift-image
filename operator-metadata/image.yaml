@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq-streams/strimzi-operator-bundle
 description: "AMQ Streams image containing the operator metadata"
-version: "2.5.1"
+version: "2.5.2"
 from: scratch
 
 labels:

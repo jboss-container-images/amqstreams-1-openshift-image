@@ -56,7 +56,7 @@ packages:
       - rhel-9-for-aarch64-appstream-eus-rpms__9_DOT_2
   install:
     - java-17-openjdk-devel
-    - maven
+    - maven-openjdk17
     - openssl
     - nmap-ncat
     - hostname

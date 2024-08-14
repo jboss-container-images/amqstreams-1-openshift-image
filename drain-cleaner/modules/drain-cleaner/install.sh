@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-SCRIPT_DIR=$(dirname $0)
 SOURCES_DIR=/tmp/artifacts
 LICENSE_DIR=/root/licenses
 PRODUCT_LICENSE_DIR=${LICENSE_DIR}/${COM_REDHAT_COMPONENT}
@@ -17,8 +16,8 @@ tar -xvzf ${LICENSE_DIR}/drain-cleaner-licenses.tar.gz -C ${PRODUCT_LICENSE_DIR}
 mkdir -p ${STRIMZI_HOME}
 
 # copy jar and execution script
-cp ${SOURCES_DIR}/drain-cleaner.jar /
-cp ${SCRIPT_DIR}/application /
+cp ${SOURCES_DIR}/drain-cleaner.jar ${STRIMZI_HOME}
+cp ${SCRIPT_DIR}/drain_cleaner_run.sh ${STRIMZI_HOME}/bin
 
 chmod -R 0755 ${STRIMZI_HOME}/
-chmod 0755 /application
+chmod -R 0755 ${STRIMZI_HOME}/bin

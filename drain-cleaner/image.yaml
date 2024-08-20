@@ -97,7 +97,8 @@ ports:
 run:
   user: 1001
   workdir: $STRIMZI_HOME
-  cmd: "/opt/strimzi/bin/drain_cleaner_run.sh"
+  cmd:
+  - /opt/strimzi/bin/drain_cleaner_run.sh
 
 help:
   add: true

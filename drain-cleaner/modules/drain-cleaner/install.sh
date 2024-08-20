@@ -15,6 +15,7 @@ mv ${SOURCES_DIR}/drain-cleaner-licenses.tar.gz ${LICENSE_DIR}
 tar -xvzf ${LICENSE_DIR}/drain-cleaner-licenses.tar.gz -C ${PRODUCT_LICENSE_DIR} --no-same-owner
 
 mkdir -p ${STRIMZI_HOME}
+mkdir -p ${STRIMZI_HOME}/bin
 
 # copy jar and execution script
 cp ${SOURCES_DIR}/quarkus-run.jar ${STRIMZI_HOME}

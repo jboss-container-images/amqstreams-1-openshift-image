@@ -31,23 +31,32 @@ packages:
   manager_flags: --setopt=tsflags=nodocs --setopt=install_weak_deps=0
   content_sets:
     x86_64:
+      # Required for tini
+      - amq-streams-2-for-rhel-9-rpms
       # Required for base image
       - rhel-9-for-x86_64-baseos-eus-rpms__9_DOT_2
       - rhel-9-for-x86_64-appstream-eus-rpms__9_DOT_2
     ppc64le:
+      # Required for tini
+      - amq-streams-2-for-rhel-9-ppc64le-rpms
       # Required for base image
       - rhel-9-for-ppc64le-baseos-eus-rpms__9_DOT_2
       - rhel-9-for-ppc64le-appstream-eus-rpms__9_DOT_2
     s390x:
+      # Required for tini
+      - amq-streams-2-for-rhel-9-s390x-rpms
       # Required for base image
       - rhel-9-for-s390x-baseos-eus-rpms__9_DOT_2
       - rhel-9-for-s390x-appstream-eus-rpms__9_DOT_2
     aarch64:
+      # Required for tini
+      - amq-streams-2-for-rhel-9-aarch64-rpms
       # Required for base image
       - rhel-9-for-aarch64-baseos-eus-rpms__9_DOT_2
       - rhel-9-for-aarch64-appstream-eus-rpms__9_DOT_2
   install:
     - java-17-openjdk-devel
+    - tini
   remove:
     - vim-minimal
     - subscription-manager
@@ -89,8 +98,7 @@ run:
   user: 1001
   workdir: $STRIMZI_HOME
   cmd:
-    - "/application"
-    - "-Dquarkus.http.host=0.0.0.0"
+  - /opt/strimzi/bin/drain_cleaner_run.sh
 
 help:
   add: true

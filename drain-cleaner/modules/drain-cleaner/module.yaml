@@ -9,7 +9,7 @@ envs:
 
 artifacts:
   - md5: f2f168c2dba708c1f29164284d6f3f4b
-    name: drain-cleaner.jar
+    name: quarkus-run.jar
   - md5: b3a1250d4fad8bd1819806451505aec4
     name: drain-cleaner-licenses.tar.gz
 

@@ -8,5 +8,11 @@ resources:
 - proxy-namespace.yaml
 - proxy-deployment.yaml
 - proxy-pod-monitor.yaml
-- proxy-encryption-vault-token-secret.yaml  # Note: This file is created during the PREPARE_KMS.md step
+- proxy-encryption-kms-secret.yaml  # Note: This file is created during the PREPARE_KMS.md step
 
+
+components:
+# User: uncomment this line if you are using AWS.
+- ../../kms/aws
+# User: uncomment this line if you are using Vault.
+#- ../../kms/vault

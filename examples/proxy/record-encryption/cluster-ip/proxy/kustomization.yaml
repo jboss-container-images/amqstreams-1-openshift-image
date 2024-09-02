@@ -7,3 +7,8 @@ resources:
 - proxy-service.yaml
 - proxy-config.yaml
 
+components:
+- ../../kms/vault
+#- ../../kms/aws
+
+

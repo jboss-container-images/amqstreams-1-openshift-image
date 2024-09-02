@@ -1,4 +1,4 @@
-# Red Hat AMQ Streams 2.x OpenShift Container Images
+# Red Hat Streams for Apache Kafka 2.x OpenShift Container Images
 
 ++++
 <p align="center">

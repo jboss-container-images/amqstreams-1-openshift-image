@@ -1,6 +1,6 @@
 # Examples
 
-This folder contains different examples of AMQ Streams custom resources and demonstrates how they can be used.
+This folder contains different examples of Red Hat Streams for Apache Kafka custom resources and demonstrates how they can be used.
 
 * [Kafka cluster](./kafka)
     * Kafka deployments with different types of storage

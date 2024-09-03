@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-service
+spec:
+  type: ClusterIP
+  selector:
+    app: proxy
+  ports:
+  - name: port-9092
+    protocol: TCP
+    port: 9092
+    targetPort: 19092
+  - name: port-19092
+    protocol: TCP
+    port: 19092
+    targetPort: 19092
+  - name: port-19093
+    protocol: TCP
+    port: 19093
+    targetPort: 19093
+  - name: port-19094
+    protocol: TCP
+    port: 19094
+    targetPort: 19094
+

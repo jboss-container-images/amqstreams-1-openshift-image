@@ -40,11 +40,13 @@ Service.
 # Try out the example
 
 1. Create a key for topic `trades` using the instruction applicable to your KMS provider.
+   
    Vault:
    ```sh
    vault write -f transit/keys/KEK_trades
    ```
-   # For AWS
+   AWS:
+   ```sh
    aws kms create-alias --alias-name alias/KEK_trades --target-key-id $(aws kms create-key | jq -r '.KeyMetadata.KeyId')
    ```
 2. Create a topic `trades` on the cluster, via the proxy:

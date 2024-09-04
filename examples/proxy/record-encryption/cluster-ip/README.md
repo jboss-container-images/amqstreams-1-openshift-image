@@ -11,7 +11,7 @@ Cluster-IP.
 
 * Administrative access to the OpenShift Cluster being used to evaluate AMQ Stream Proxy
 * OpenShift CLI (oc)
-* AMQ Streams Operator installed namespace wide
+* Streams for Apache Kafka Operator (installed namespace wide)
 
 # Deploying the Example
 

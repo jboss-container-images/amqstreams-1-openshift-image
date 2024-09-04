@@ -1,7 +1,7 @@
 # Streams for Apache Kafka Proxy Record Encryption, exposed by External Load Balancer
 
 In this example, an instance of Apache Kafka is deployed using AMQ Stream.  The instance is proxied using
-Streams for Apache Kafka Proxy configured with Record Encyption.  The proxy is exposed off cluster using a Kubernetes
+Streams for Apache Kafka Proxy configured with Record Encryption.  The proxy is exposed off cluster using a Kubernetes
 Service.
 
 # Prerequisites
@@ -11,8 +11,8 @@ Service.
 * GNU sed
 
 * Administrative access to the OpenShift Cluster being used to evaluate AMQ Stream Proxy
+* Streams for Apache Kafka Operator (installed namespace wide)
 * OpenShift CLI (oc)
-* Streams for Apache Kafka Operator is installed namespace wide
 * Apache Kafka CLI tools (`kafka-topics.sh`, `kafka-console-producer.sh`, and `kafka-console-consumer.sh`) found in the `bin` directory of the Streams for Apache Kafka on RHEL distribution.
 
 # Deploying the Example

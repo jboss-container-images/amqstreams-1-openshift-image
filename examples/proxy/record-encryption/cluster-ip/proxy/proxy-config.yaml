@@ -30,14 +30,15 @@ data:
     - type: RecordEncryption
       config:
         # User: uncomment this section if you are using AWS.
-        kms: AwsKmsService
-        kmsConfig:
-          endpointUrl: https://kms.us-east-1.amazonaws.com
-          region: us-east-1
-          accessKey:
-            passwordFile: /opt/proxy/encryption/kms-secrets/accessKeyId.txt
-          secretKey:
-            passwordFile: /opt/proxy/encryption/kms-secrets/secretAccessKey.txt
+        # Change region identifier in the region and endpointUrl if you are using a region other than us-east-1.
+        #kms: AwsKmsService
+        #kmsConfig:
+        #  endpointUrl: https://kms.us-east-1.amazonaws.com
+        #  region: us-east-1
+        #  accessKey:
+        #    passwordFile: /opt/proxy/encryption/kms-secrets/accessKeyId.txt
+        #  secretKey:
+        #    passwordFile: /opt/proxy/encryption/kms-secrets/secretAccessKey.txt
         # User: uncomment this section if you are using Vault.
         #kms: VaultKmsService
         #kmsConfig:

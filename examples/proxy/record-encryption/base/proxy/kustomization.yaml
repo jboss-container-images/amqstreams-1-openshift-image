@@ -13,6 +13,6 @@ resources:
 
 components:
 # User: uncomment this line if you are using AWS.
-- ../../kms/aws
+#- ../../kms/aws
 # User: uncomment this line if you are using Vault.
 #- ../../kms/vault

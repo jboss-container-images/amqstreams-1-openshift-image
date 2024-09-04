@@ -19,7 +19,7 @@ data:
           config:
             # this is the address the clients will refer to in their bootstrap.servers configuration.
             bootstrapAddress: localhost:9092
-            brokerAddressPattern: proxy-service.proxy.svc.cluster.local
+            brokerAddressPattern: proxy-service.kafka-proxy.svc.cluster.local
             brokerStartPort: 19092
             numberOfBrokerPorts: 3
         targetCluster:

@@ -105,7 +105,7 @@ It is assumed that you'll be deploying the HashiCorp Vault feature to the same O
    ```
 3. Prepare a secret containing the Encryption Vault Token.
    ```sh
-   oc create secret generic proxy-encryption-kms-secret -n proxy --from-file=encryption-vault-token.txt=vault.encryption.token --dry-run=client -o yaml > base/proxy/proxy-encryption-kms-secret.yaml
+   oc create secret generic proxy-encryption-kms-secret -n kafka-proxy --from-file=encryption-vault-token.txt=vault.encryption.token --dry-run=client -o yaml > base/proxy/proxy-encryption-kms-secret.yaml
    ```
    The secret file `encryption-vault-token-secret.yaml` will be applied to the OpenShift Cluster later.
 
@@ -158,10 +158,9 @@ AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 You need to create an AWS IAM for use by Record Encryption:
 
 ```sh
-AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 aws iam create-user --user-name kroxylicious
 aws iam create-access-key --user-name kroxylicious > access_key.json
-oc create secret generic proxy-encryption-kms-secret -n proxy --from-file=accessKeyId.txt=<(jq -r .AccessKey.AccessKeyId access_key.json) --from-file=secretAccessKey.txt=<(jq -r .AccessKey.SecretAccessKey access_key.json) --dry-run=client -o yaml > base/proxy/proxy-encryption-kms-secret.yaml
+oc create secret generic proxy-encryption-kms-secret -n kafka-proxy --from-file=accessKeyId.txt=<(jq -r .AccessKey.AccessKeyId access_key.json) --from-file=secretAccessKey.txt=<(jq -r .AccessKey.SecretAccessKey access_key.json) --dry-run=client -o yaml > base/proxy/proxy-encryption-kms-secret.yaml
 ```
 
 Create an `AliasBasedIAMPolicy` granting permissions to use keys aliased `alias/KEK_*`.

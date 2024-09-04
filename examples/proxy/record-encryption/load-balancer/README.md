@@ -26,7 +26,7 @@ Service.
    ```
 3. Get the external address of the proxy service
    ```sh
-   LOAD_BALANCER_ADDRESS=$(oc get service -n proxy proxy-service --template='{{(index .status.loadBalancer.ingress 0).hostname}}')
+   LOAD_BALANCER_ADDRESS=$(oc get service -n kafka-proxy proxy-service --template='{{(index .status.loadBalancer.ingress 0).hostname}}')
    ```
 4. Now update the `brokerAddressPattern:` to match the `LOAD_BALANCER_ADDRESS`:
    ```sh
@@ -34,15 +34,16 @@ Service.
    ```
 5. Reapply and restart:
    ```sh
-      oc apply -k load-balancer && oc delete pod -n proxy --all
+      oc apply -k load-balancer && oc delete pod -n kafka-proxy --all
    ```
 
 # Try out the example
 
-1. Create a key for topic `trades` in the KMS:
+1. Create a key for topic `trades` using the instruction applicable to your KMS provider.
+   Vault:
    ```sh
-   # For Vault
    vault write -f transit/keys/KEK_trades
+   ```
    # For AWS
    aws kms create-alias --alias-name alias/KEK_trades --target-key-id $(aws kms create-key | jq -r '.KeyMetadata.KeyId')
    ```
@@ -52,15 +53,15 @@ Service.
    ```
    Note it may take a minute or two for `${LOAD_BALANCER_ADDRESS}` to resolve in your environment and for the load balancer to begin routing
    network traffic.
-4. Produce some messages to the topic:
+3. Produce some messages to the topic:
    ```sh
    echo 'IBM:100\nAPPLE:99' | kafka-console-producer.sh --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic trades
    ```
-5. Consume messages direct from the Kafka Cluster, showing that they are encrypted:
+4. Consume messages direct from the Kafka Cluster, showing that they are encrypted:
    ```sh
     oc run -n kafka cluster-consumer -qi --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- ./bin/kafka-console-consumer.sh  --bootstrap-server my-cluster-kafka-bootstrap:9092 --topic trades --from-beginning --timeout-ms 10000
    ```
-6. Consume messages from the proxy showing they are decrypted:
+5. Consume messages from the proxy showing they are decrypted:
    ```sh
     kafka-console-consumer.sh --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic trades --from-beginning --timeout-ms 10000
    ```   

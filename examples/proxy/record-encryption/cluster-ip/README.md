@@ -34,11 +34,11 @@ Cluster-IP.
    ```
 2. Create a topic `trades` on the cluster, via the proxy:
    ```sh
-   oc run -n proxy -qi create-topic --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- bin/kafka-topics.sh --bootstrap-server proxy-service:9092 --create -topic trades
+   oc run -n kafka-proxy -qi create-topic --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- bin/kafka-topics.sh --bootstrap-server proxy-service:9092 --create -topic trades
    ```
 3. Produce some messages to the topic:
    ```sh
-   echo 'IBM:100\nAPPLE:99' | oc run -n proxy -qi proxy-producer --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --bootstrap-server proxy-service:9092 --topic trades
+   echo 'IBM:100\nAPPLE:99' | oc run -n kafka-proxy -qi proxy-producer --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --bootstrap-server proxy-service:9092 --topic trades
    ```
 4. Consume messages *direct* from the Kafka Cluster, showing that they are encrypted.
    ```sh
@@ -46,7 +46,7 @@ Cluster-IP.
    ```
 5. Consume messages from the *proxy* showing they get decrypted automatically.   
    ```sh
-    oc run -n proxy proxy-consumer -qi --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- ./bin/kafka-console-consumer.sh  --bootstrap-server proxy-service:9092 --topic trades --from-beginning --timeout-ms 10000
+    oc run -n kafka-proxy proxy-consumer -qi --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- ./bin/kafka-console-consumer.sh  --bootstrap-server proxy-service:9092 --topic trades --from-beginning --timeout-ms 10000
    ```   
 
 # Cleaning up

@@ -19,7 +19,7 @@ data:
           config:
             # this is the address the clients will refer to in their bootstrap.servers configuration.
             bootstrapAddress: localhost:9092
-            brokerAddressPattern: af0898e4283d84513ae3fbb14bd642c8-9707b526d142d05b.elb.us-east-1.amazonaws.com
+            brokerAddressPattern: aad5a82ca85ec48419a72d2a6d1b3d12-9280ad3d8feae0f1.elb.us-east-1.amazonaws.com
             brokerStartPort: 19092
             numberOfBrokerPorts: 3
         targetCluster:
@@ -30,6 +30,7 @@ data:
     - type: RecordEncryption
       config:
         # User: uncomment this section if you are using AWS.
+        # Change region identifier in the region and endpointUrl if you are using a region other than us-east-1.
         kms: AwsKmsService
         kmsConfig:
           endpointUrl: https://kms.us-east-1.amazonaws.com

@@ -31,7 +31,7 @@ so that the effects of the validation can be observed.
    ```sh
      sed -i  "s/\(brokerAddressPattern:\).*$/\1 ${LOAD_BALANCER_ADDRESS}/" load-balancer/proxy/proxy-config.yaml
    ```
-4. Reapply and bounce:
+4. Update the load balancer and restart the pods:
    ```sh
       oc apply -k load-balancer && oc delete pod -n proxy --all
    ```

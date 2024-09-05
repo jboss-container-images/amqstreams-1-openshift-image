@@ -61,7 +61,7 @@ so that the effects of the validation can be observed.
 
 # Cleaning up
 
-When you have finished with this example, you can remove it from the OpenShift Cluster like this:
+When you have finished with this example, you can remove it from the OpenShift Cluster:
 
 ```sh
 oc delete -k cluster-ip

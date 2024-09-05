@@ -19,7 +19,7 @@ so that the effects of the validation can be observed.
 
 # Deploying the Example
 
-1. Deploy the Example
+1. Deploy the Example:
    ```sh
    oc apply -k load-balancer
    ```

@@ -6,7 +6,6 @@ metadata:
   namespace: kafka
 spec:
   kafka:
-    version: 3.7.0
     replicas: 1
     listeners:
       - name: plain
@@ -19,7 +18,6 @@ spec:
       transaction.state.log.min.isr: 1
       default.replication.factor: 1
       min.insync.replicas: 1
-      inter.broker.protocol.version: "3.6"
     storage:
       type: jbod
       volumes:

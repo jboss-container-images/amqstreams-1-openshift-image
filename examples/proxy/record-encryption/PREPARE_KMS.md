@@ -60,7 +60,7 @@ It is assumed that you'll be deploying the HashiCorp Vault feature to the same O
 
 ### Prerequisites
 
-* Administrative access to the OpenShift Cluster being used to evaluate AMQ Stream Proxy
+* Administrative access to the OpenShift Cluster being used to evaluate Streams for Apache Kafka Proxy
 * Helm CLI
 * OpenShift CLI (oc)
 

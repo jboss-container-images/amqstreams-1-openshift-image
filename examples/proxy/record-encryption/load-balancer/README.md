@@ -8,23 +8,23 @@ Service.
 
 * [KMS is prepared](../PREPARE_KMS.md).
 * Vault CLI or AWS CLI
-* GNU sed
+* GNU `sed`
 
 * Administrative access to the OpenShift Cluster being used to evaluate Streams for Apache Kafka Proxy
 * Streams for Apache Kafka Operator (installed namespace wide)
-* OpenShift CLI (oc)
+* OpenShift CLI (`oc`)
 * Apache Kafka CLI tools (`kafka-topics.sh`, `kafka-console-producer.sh`, and `kafka-console-consumer.sh`) found in the `bin` directory of the Streams for Apache Kafka on RHEL distribution.
 
 # Deploying the Example
 
 1. Edit `load-balancer/proxy/proxy-config.yaml` and `base/proxy/kustomization.yaml`. Uncomment either the
-   configuration for Vault or AWS, depending on your KMS provider.
+   configuration for Vault or AWS, depending on your KMS provider:
 
-2. Deploy the Example
+2. Deploy the Example:
    ```sh
    oc apply -k load-balancer
    ```
-3. Get the external address of the proxy service
+3. Get the external address of the proxy service:
    ```sh
    LOAD_BALANCER_ADDRESS=$(oc get service -n kafka-proxy proxy-service --template='{{(index .status.loadBalancer.ingress 0).hostname}}')
    ```
@@ -39,7 +39,7 @@ Service.
 
 # Try out the example
 
-1. Create a key for topic `trades` using the instructions applicable to your KMS provider.
+1. Create a key for topic `trades` using the instructions applicable to your KMS provider:
    
    Vault:
    ```sh

@@ -13,7 +13,7 @@ so that the effects of the validation can be observed.
 * Administrative access to the OpenShift Cluster being used to evaluate Streams for Apache Kafka Proxy
 * Streams for Apache Kafka Operator (installed cluster wide)
 * Red Hat build of Apicurio Registry Operator (installed cluster wide)
-* OpenShift CLI (oc)
+* OpenShift CLI (`oc`)
 * cURL
 
 # Deploying the Example

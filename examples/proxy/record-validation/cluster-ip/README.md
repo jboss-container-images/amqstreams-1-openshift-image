@@ -14,7 +14,8 @@ so that the effects of the validation can be observed.
 * Streams for Apache Kafka Operator (installed cluster wide)
 * Red Hat build of Apicurio Registry Operator (installed cluster wide)
 * OpenShift CLI (`oc`)
-* cURL
+* `cURL`
+* Apache Kafka CLI tools (`kafka-topics.sh`, `kafka-console-producer.sh`, and `kafka-console-consumer.sh`) found in the `bin` directory of the Streams for Apache Kafka on RHEL distribution
 
 # Deploying the Example
 

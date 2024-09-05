@@ -23,7 +23,7 @@ so that the effects of the validation can be observed.
    ```sh
    oc apply -k load-balancer
    ```
-2. Get the external address of the proxy service
+2. Get the external address of the proxy service:
    ```sh
    LOAD_BALANCER_ADDRESS=$(oc get service -n kafka-proxy proxy-service --template='{{(index .status.loadBalancer.ingress 0).hostname}}')
    ```

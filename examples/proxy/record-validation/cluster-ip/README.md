@@ -2,7 +2,7 @@
 
 In this example, an instance of Apache Kafka is deployed to an OpenShift cluster using Streams for Apache Kafka, alongside Apicurio Registry, which is also deployed to the cluster.
 
-The Streams Proxy is deployed with configuration to perform record validation.  The configuration ensures that 
+The Streams for Apache Kafka Proxy is deployed with configuration to perform record validation.  The configuration ensures that 
 any records sent to a topic called `people` adhere to a `person` schema.
 
 Finally, kafka command line (run on cluster) tools are used to send valid and invalid record to the `people` topic

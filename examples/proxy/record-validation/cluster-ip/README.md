@@ -46,7 +46,7 @@ so that the effects of the validation can be observed.
    ```sh
     oc run -n kafka-proxy proxy-consumer -qi --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- ./bin/kafka-console-consumer.sh  --bootstrap-server proxy-service:9092 --topic people --from-beginning --timeout-ms 10000
    ```   
-4. Produce invalid records to the topic.  You will see the producer reject the invalid records with an exception.
+4. Produce invalid records to the topic to be rejected by the filter.  The producer will report an exception.
    ```sh
    cat record-examples/invalid-person-invalid-age.json | oc run -n kafka-proxy -qi proxy-producer --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- bin/kafka-console-producer.sh --bootstrap-server proxy-service:9092 --topic people --sync
    ```

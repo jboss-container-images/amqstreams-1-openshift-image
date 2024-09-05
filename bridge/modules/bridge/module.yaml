@@ -16,7 +16,7 @@ artifacts:
     name: kafka-bridge-licenses.tar.gz
 
 packages:
-  manager: dnf
+  manager: microdnf
   install:
     - unzip
     - tar

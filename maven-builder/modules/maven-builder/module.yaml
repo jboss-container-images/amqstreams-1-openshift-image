@@ -10,7 +10,7 @@ envs:
     value: "amqstreams-maven-builder-container"
 
 packages:
-  manager: dnf
+  manager: microdnf
   install:
     - unzip
     - tar

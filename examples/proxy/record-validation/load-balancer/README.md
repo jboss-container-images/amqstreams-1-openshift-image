@@ -3,7 +3,7 @@
 In this example, an instance of Apache Kafka is deployed using Streams for Apache Kafka.  Apicurio
 Registry is deployed to the cluster too.
 
-The Streams Proxy is deployed with configuration to perform record validation.  The configuration ensures that
+The Streams for Apache Kafka Proxy is deployed with configuration to perform record validation.  The configuration ensures that
 any records sent to a topic called `people` adhere to a `person` schema.
 
 Finally, kafka command line tools (run off cluster) are used to send valid and invalid record to the `people` topic

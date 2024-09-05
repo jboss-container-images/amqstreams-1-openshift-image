@@ -2,7 +2,7 @@
 
 The Record Validation filter ensures that all records produced to a kafka topic conform to an expected schema.
 Records that don't conform to the expected schema will not be sent to the broker. Instead, the producer will
-receive an error response.  Record Validation filter currently support JSON format records.  It enforces JSON
+receive an error response. Record Validation filter currently support JSON format records.  It enforces JSON
 schemas.
 
 To use the Record Validation filter, you must have a JSON schema defined for records published to the topic.

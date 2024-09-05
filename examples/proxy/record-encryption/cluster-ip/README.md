@@ -9,7 +9,7 @@ Cluster-IP.
 * [KMS is prepared](../PREPARE_KMS.md).
 * Vault CLI or AWS CLI 
 
-* Administrative access to the OpenShift Cluster being used to evaluate AMQ Stream Proxy
+* Administrative access to the OpenShift Cluster being used to evaluate Streams for Apache Kafka Proxy
 * OpenShift CLI (oc)
 * Streams for Apache Kafka Operator (installed namespace wide)
 

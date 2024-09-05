@@ -1,6 +1,6 @@
 # Streams for Apache Kafka Proxy Record Encryption, exposed by External Load Balancer
 
-In this example, an instance of Apache Kafka is deployed using AMQ Stream.  The instance is proxied using
+In this example, an instance of Apache Kafka is deployed using Streams for Apache Kafka.  The instance is proxied using
 Streams for Apache Kafka Proxy configured with Record Encryption.  The proxy is exposed off cluster using a Kubernetes
 Service.
 

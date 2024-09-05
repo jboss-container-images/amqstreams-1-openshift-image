@@ -6,7 +6,7 @@ receive an error response. Record Validation filter currently support JSON forma
 schemas.
 
 To use the Record Validation filter, you must have a JSON schema defined for records published to the topic.
-The JSON schema need to be stored in an [Apicurio Registry](https://docs.redhat.com/en/documentation/red_hat_build_of_apicurio_registry/).
+The JSON schema must be stored in [Apicurio Registry](https://docs.redhat.com/en/documentation/red_hat_build_of_apicurio_registry/).
 
 In this directory, you'll find examples that help you deploy Streams for Apache Kafka with the Record Validation Filter
 to your OpenShift Cluster so that you may try out the feature together with you own application.

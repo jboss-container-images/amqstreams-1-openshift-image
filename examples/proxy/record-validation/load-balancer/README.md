@@ -61,7 +61,7 @@ so that the effects of the validation can be observed.
    ```sh
     kafka-console-consumer.sh  --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic people --from-beginning --timeout-ms 10000
    ```   
-4. Produce invalid records to the topic.  You will see the producer reject the invalid records with an exception.
+4. Produce invalid records to the topic to be rejected by the filter.  The producer will report an exception.
    ```sh
    cat record-examples/invalid-person-invalid-age.json | kafka-console-producer.sh --bootstrap-server ${LOAD_BALANCER_ADDRESS}:9092 --topic people --sync
    ```

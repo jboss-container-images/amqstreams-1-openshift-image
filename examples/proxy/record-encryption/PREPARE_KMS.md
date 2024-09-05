@@ -130,7 +130,7 @@ Finally, delete the .token files:
 rm *.token
 ```
 
-# AWS
+# Preparing AWS KMS
 
 You can use an [AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html) as the KMS for Record Encryption.
 

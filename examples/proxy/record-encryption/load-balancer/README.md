@@ -10,7 +10,7 @@ Service.
 * Vault CLI or AWS CLI
 * GNU sed
 
-* Administrative access to the OpenShift Cluster being used to evaluate AMQ Stream Proxy
+* Administrative access to the OpenShift Cluster being used to evaluate Streams for Apache Kafka Proxy
 * Streams for Apache Kafka Operator (installed namespace wide)
 * OpenShift CLI (oc)
 * Apache Kafka CLI tools (`kafka-topics.sh`, `kafka-console-producer.sh`, and `kafka-console-consumer.sh`) found in the `bin` directory of the Streams for Apache Kafka on RHEL distribution.

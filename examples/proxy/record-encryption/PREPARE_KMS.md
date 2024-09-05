@@ -132,7 +132,7 @@ rm *.token
 
 # Preparing AWS KMS
 
-You can use an [AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html) as the KMS for Record Encryption.
+To use [AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html) for record encryption, follow these steps. 
 
 ### Prerequisites
 

@@ -10,13 +10,12 @@ so that the effects of the validation can be observed.
 
 # Prerequisites
 
-* [KMS is prepared](../PREPARE_KMS.md).
-* Vault CLI
-
-* Administrative access to the OpenShift Cluster being used to evaluate AMQ Stream Proxy
-* OpenShift CLI (oc)
-* Streams for Apache Kafka Operator is installed namespace wide
-* Apache Kafka CLI tools (`kafka-topics.sh`, `kafka-console-producer.sh`, and `kafka-console-consumer.sh`) found in the `bin` directory of the Streams for Apache Kafka on RHEL distribution.
+* Administrative access to the OpenShift Cluster being used to evaluate Streams for Apache Kafka Proxy
+* Streams for Apache Kafka Operator (installed cluster wide)
+* Red Hat build of Apicurio Registry Operator (installed cluster wide)
+* OpenShift CLI (`oc`)
+* `cURL`
+* Apache Kafka CLI tools (`kafka-topics.sh`, `kafka-console-producer.sh`, and `kafka-console-consumer.sh`) found in the `bin` directory of the Streams for Apache Kafka on RHEL distribution
 
 # Deploying the Example
 

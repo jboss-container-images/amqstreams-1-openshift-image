@@ -39,7 +39,7 @@ Service.
 
 # Try out the example
 
-1. Create a key for topic `trades` using the instruction applicable to your KMS provider.
+1. Create a key for topic `trades` using the instructions applicable to your KMS provider.
    
    Vault:
    ```sh

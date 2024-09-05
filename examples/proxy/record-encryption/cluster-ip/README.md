@@ -1,6 +1,6 @@
 # Streams for Apache Kafka Proxy Record Encryption, exposed using Cluster-IP
 
-In this example, an instance of Apache Kafka is deployed using AMQ Stream.  The instance is proxied using
+In this example, an instance of Apache Kafka is deployed using Streams for Apache Kafka.  The instance is proxied using
 Streams for Apache Kafka Proxy is configured with Record Encryption.  The proxy is exposed within the cluster using a
 Cluster-IP.
 

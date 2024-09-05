@@ -56,7 +56,7 @@ Note: these examples are prepared against HashiCorp Vault 1.15.
 This option will give you an development instance of HashiCorp Vault with ephemeral storage.  This is sufficient to help you evaluate the
 Filter, but is *not* suitable for production or controlled test environments.
 
-It is assumed that you'll be deploying the HashiCorp Vault feature to the same OpenShift Cluster where you'll be evaluating AMQ Stream Proxy.
+It is assumed that you'll be deploying the HashiCorp Vault feature to the same OpenShift Cluster where you'll be evaluating Streams for Apache Kafka Proxy.
 
 ### Prerequisites
 

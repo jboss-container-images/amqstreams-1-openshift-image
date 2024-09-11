@@ -37,7 +37,7 @@ Cluster-IP.
    ```
 2. Create a topic `trades` on the cluster, via the proxy:
    ```sh
-   oc run -n kafka-proxy -qi create-topic --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- bin/kafka-topics.sh --bootstrap-server proxy-service:9092 --create -topic trades
+   oc run -n kafka-proxy -qi create-topic --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- bin/kafka-topics.sh --bootstrap-server proxy-service:9092 --create --topic trades
    ```
 3. Produce some messages to the topic:
    ```sh

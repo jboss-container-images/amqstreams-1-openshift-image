@@ -39,6 +39,7 @@ data:
         #    passwordFile: /opt/proxy/encryption/kms-secrets/accessKeyId.txt
         #  secretKey:
         #    passwordFile: /opt/proxy/encryption/kms-secrets/secretAccessKey.txt
+        ########################################
         # User: uncomment this section if you are using Vault.
         #kms: VaultKmsService
         #kmsConfig:

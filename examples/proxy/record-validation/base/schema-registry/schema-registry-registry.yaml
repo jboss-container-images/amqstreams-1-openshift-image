@@ -7,4 +7,4 @@ spec:
     kafkasql:
       bootstrapServers: 'my-cluster-kafka-bootstrap.kafka.svc:9092'
     persistence: kafkasql
-    registryLogLevel: DEBUG
+    # registryLogLevel: DEBUG

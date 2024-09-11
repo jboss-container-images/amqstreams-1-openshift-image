@@ -140,7 +140,7 @@ To use [AWS KMS](https://docs.aws.amazon.com/kms/latest/developerguide/overview.
   * The ability to create keys in AWS KMS.
   * The ability to create an application identity for use by the filter. This includes creating an IAM user with an access key, and creating and attaching policies.
 * The following tools are installed:
-  * [AWS CLI ](https://aws.amazon.com/cli/).
+  * [AWS CLI](https://aws.amazon.com/cli/).
   * GNU `sed`
   * `jq`
 

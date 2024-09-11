@@ -11,7 +11,7 @@ Service.
 * GNU `sed`
 
 * Administrative access to the OpenShift Cluster being used to evaluate Streams for Apache Kafka Proxy
-* Streams for Apache Kafka Operator (installed namespace wide)
+* Streams for Apache Kafka Operator (installed cluster wide)
 * OpenShift CLI (`oc`)
 * Apache Kafka CLI tools (`kafka-topics.sh`, `kafka-console-producer.sh`, and `kafka-console-consumer.sh`) found in the `bin` directory of the Streams for Apache Kafka on RHEL distribution.
 

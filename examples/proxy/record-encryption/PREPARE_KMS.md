@@ -153,13 +153,14 @@ Define a variable containing your AWS account id.
 
 ```sh
 AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+APPLICATION_USER_NAME=kafkaProxyUser
 ```
 
 You need to create an AWS IAM for use by Record Encryption:
 
 ```sh
-aws iam create-user --user-name kroxylicious
-aws iam create-access-key --user-name kroxylicious > access_key.json
+aws iam create-user --user-name ${APPLICATION_USER_NAME}
+aws iam create-access-key --user-name ${APPLICATION_USER_NAME} > access_key.json
 oc create secret generic proxy-encryption-kms-secret -n kafka-proxy --from-file=accessKeyId.txt=<(jq -r .AccessKey.AccessKeyId access_key.json) --from-file=secretAccessKey.txt=<(jq -r .AccessKey.SecretAccessKey access_key.json) --dry-run=client -o yaml > base/proxy/proxy-encryption-kms-secret.yaml
 ```
 
@@ -172,7 +173,7 @@ aws iam create-policy --policy-name KroxyliciousRecordEncryption --policy-docume
 Finally, attach the policy to the application identity.
 
 ```sh
-aws iam attach-user-policy --user-name kroxylicious --policy-arn "arn:aws:iam::${AWS_ACCOUNT_ID}:policy/KroxyliciousRecordEncryption"
+aws iam attach-user-policy --user-name ${APPLICATION_USER_NAME} --policy-arn "arn:aws:iam::${AWS_ACCOUNT_ID}:policy/KroxyliciousRecordEncryption"
 ```
 
 ## Cleaning up
@@ -187,9 +188,9 @@ aws kms delete-alias  --alias-name alias/KEK_trades
 Clean up the application identity.
 
 ```sh
-aws iam detach-user-policy  --user-name kroxylicious --policy-arn "arn:aws:iam::${AWS_ACCOUNT_ID}:policy/KroxyliciousRecordEncryption"
+aws iam detach-user-policy  --user-name ${APPLICATION_USER_NAME} --policy-arn "arn:aws:iam::${AWS_ACCOUNT_ID}:policy/KroxyliciousRecordEncryption"
 aws iam delete-policy --policy-arn "arn:aws:iam::${AWS_ACCOUNT_ID}:policy/KroxyliciousRecordEncryption"
-aws iam delete-access-key --user-name kroxylicious  --access-key-id $(jq -r .AccessKey.AccessKeyId access_key.json)
-aws iam delete-user --user-name kroxylicious
+aws iam delete-access-key --user-name ${APPLICATION_USER_NAME}  --access-key-id $(jq -r .AccessKey.AccessKeyId access_key.json)
+aws iam delete-user --user-name ${APPLICATION_USER_NAME}
 rm access_key.json
 ```

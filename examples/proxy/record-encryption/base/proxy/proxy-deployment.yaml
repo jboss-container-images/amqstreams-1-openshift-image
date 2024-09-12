@@ -31,14 +31,7 @@ spec:
         - name: config-volume
           mountPath: /opt/proxy/config/config.yaml
           subPath: config.yaml
-        - name: token-volume
-          readOnly: true
-          subPath: encryption-vault-token.txt
-          mountPath: /opt/proxy/encryption/token.txt
       volumes:
       - name: config-volume
         configMap:
           name: proxy-config
-      - name: token-volume
-        secret:
-          secretName: proxy-encryption-vault-token

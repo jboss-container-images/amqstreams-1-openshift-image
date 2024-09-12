@@ -19,7 +19,7 @@ data:
           config:
             # this is the address the clients will refer to in their bootstrap.servers configuration.
             bootstrapAddress: localhost:9092
-            brokerAddressPattern: proxy-service.proxy.svc.cluster.local
+            brokerAddressPattern: proxy-service.kafka-proxy.svc.cluster.local
             brokerStartPort: 19092
             numberOfBrokerPorts: 3
         targetCluster:
@@ -29,11 +29,23 @@ data:
     filters:
     - type: RecordEncryption
       config:
-        kms: VaultKmsService
-        kmsConfig:
-          vaultTransitEngineUrl: http://vault.vault.svc.cluster.local:8200/v1/transit
-          vaultToken:
-            passwordFile: /opt/proxy/encryption/token.txt
+        # User: uncomment this section if you are using AWS.
+        # Change region identifier in the region and endpointUrl if you are using a region other than us-east-1.
+        #kms: AwsKmsService
+        #kmsConfig:
+        #  endpointUrl: https://kms.us-east-1.amazonaws.com
+        #  region: us-east-1
+        #  accessKey:
+        #    passwordFile: /opt/proxy/encryption/kms-secrets/accessKeyId.txt
+        #  secretKey:
+        #    passwordFile: /opt/proxy/encryption/kms-secrets/secretAccessKey.txt
+         #######################################
+        # User: uncomment this section if you are using Vault.
+        #kms: VaultKmsService
+        #kmsConfig:
+        #  vaultTransitEngineUrl: http://vault.vault.svc.cluster.local:8200/v1/transit
+        #  vaultToken:
+        #    passwordFile: /opt/proxy/encryption/kms-secrets/token.txt
         selector: TemplateKekSelector
         selectorConfig:
           template: "KEK_${topicName}"

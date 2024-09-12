@@ -1,0 +1,23 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "AliasBasedIAMPolicy",
+			"Effect": "Allow",
+			"Action": [
+				"kms:Encrypt",
+				"kms:Decrypt",
+				"kms:GenerateDataKey*",
+				"kms:DescribeKey"
+			],
+			"Resource": [
+                "arn:aws:kms:*:${AWS_ACCOUNT_ID}:key/*"
+			],
+			"Condition": {
+				"ForAnyValue:StringLike": {
+					"kms:ResourceAliases": "alias/KEK_*"
+				}
+			}
+		}
+	]
+}

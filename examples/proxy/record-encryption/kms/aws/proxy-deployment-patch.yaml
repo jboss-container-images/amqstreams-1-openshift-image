@@ -1,0 +1,20 @@
+- op: add
+  path: /spec/template/spec/volumes/1
+  value:
+    name: aws-volume
+    secret:
+      secretName: proxy-encryption-kms-secret
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/1
+  value:
+    name: aws-volume
+    readOnly: true
+    subPath: accessKeyId.txt
+    mountPath: /opt/proxy/encryption/kms-secrets/accessKeyId.txt
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/2
+  value:
+    name: aws-volume
+    readOnly: true
+    subPath: secretAccessKey.txt
+    mountPath: /opt/proxy/encryption/kms-secrets/secretAccessKey.txt

@@ -36,7 +36,7 @@ so that the effects of the validation can be observed.
 
 1. Create a topic `people` on the cluster, via the proxy:
    ```sh
-   oc run -n kafka-proxy -qi create-topic --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- bin/kafka-topics.sh --bootstrap-server proxy-service:9092 --create -topic people
+   oc run -n kafka-proxy -qi create-topic --image=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0 --rm=true --restart=Never -- bin/kafka-topics.sh --bootstrap-server proxy-service:9092 --create --topic people
    ```
 2. Produce a record to the topic with a record value that matches the schema:
    ```sh

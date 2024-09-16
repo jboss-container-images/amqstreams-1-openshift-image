@@ -1,0 +1,10 @@
+kind: ApicurioRegistry
+apiVersion: registry.apicur.io/v1
+metadata:
+  name: registry
+spec:
+  configuration:
+    kafkasql:
+      bootstrapServers: 'my-cluster-kafka-bootstrap.kafka.svc:9092'
+    persistence: kafkasql
+    # registryLogLevel: DEBUG

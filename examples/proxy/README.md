@@ -1,7 +1,7 @@
 # Streams for Apache Kafka Proxy Examples
 
 In this directory you'll find examples that let you try out Streams for Apache Kafka Proxy.
-At present, one use-case is ready, which is Record Encryption.  Additional use-cases will be introduced later.
 
-* [Record Encryption](./record-encryption)
+* [Record Encryption](./record-encryption) - Encryption-at-Rest solution for Apache Kafka(tm) which is transparent to both clients and brokers.
+* [Record Validation](./record-validation) - Ensures records produced to a kafka topic conform to an expected schema.
 

@@ -2,6 +2,5 @@
 
 This folder contains example resources that may be used to deploy the Streams for Apache Kafka Console
 
-* [Prometheus](./resources/prometheus): OpenShift resources that may be used to deploy a Prometheus operator along with a Prometheus instance and associated configuration. These resources are configured to scrape the metrics from OpenShift and Kafka instances.
 * [Kafka](./resources/kafka): Deploys an example Kafka cluster, metrics export configuration, and a KafkaUser used by the Streams for Apache Kafka Console to connect to the cluster.
-* [Console](./resources/console): Resources to deploy the Streams for Apache Kafka Console, its required service account and security bindings, and networking configuration to access the user interface.
+* [Console](./resources/console): Streams for Apache Kafka Console custom resource for use with the example Kafka custom resource.

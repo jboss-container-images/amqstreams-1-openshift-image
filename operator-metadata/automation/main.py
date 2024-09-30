@@ -13,16 +13,16 @@ def main():
   component_data = BundleAutomation.collect_component_build_info()
   product_version = BundleAutomation.get_product_version(csv_file.data)
 
-  # Get old to new sha mappings
-  sha_dict = BundleAutomation.create_sha_dict(brew_client, csv_file.data, component_data)
+  # Get old to new tag mappings
+  tag_dict = BundleAutomation.create_tag_dict_from_freshmaker_enabled_csv(brew_client, csv_file.data, component_data)
   bundle_versions = BundleAutomation.generate_bundle_version_strings(
           brew_client, 
           csv_file.data,
           product_version
   )
 
-  # Update CSV with new shas + bump bundle version
-  csv_file.data = BundleAutomation.update_csv_data(csv_file.data, bundle_versions, sha_dict)
+  # Update CSV with new pull_specs + bump bundle version
+  csv_file.data = BundleAutomation.update_csv_data(csv_file.data, bundle_versions, tag_dict)
   csv_file.write(os.environ['DIST_GIT_CSV_FILE_PATH'])
   csv_file.write(os.environ['GIT_HUB_CSV_FILE_PATH'])
 

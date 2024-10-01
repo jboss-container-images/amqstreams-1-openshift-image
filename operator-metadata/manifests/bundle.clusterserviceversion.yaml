@@ -1199,8 +1199,8 @@ spec:
                 kafka-images: |
                   3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9:2.8.0-0
                   3.8.0=registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0-0
-                kafka-previous-image: registry.redhat.io/amq-streams/kafka-36-rhel9:2.8.0-0
-                kafka-current-image: registry.redhat.io/amq-streams/kafka-37-rhel9:2.8.0-0
+                kafka-previous-image: registry.redhat.io/amq-streams/kafka-37-rhel9:2.8.0-0
+                kafka-current-image: registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0-0
                 bridge-image: registry.redhat.io/amq-streams/bridge-rhel9:2.8.0-0
                 maven-image: registry.redhat.io/amq-streams/maven-builder-rhel9:2.8.0-0
               labels:

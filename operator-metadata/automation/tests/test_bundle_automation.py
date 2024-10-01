@@ -9,8 +9,8 @@ from automation.modules.bundle_automation import BundleAutomation
 class TestBundleAutomation(unittest.TestCase):
     RESOURCES_PATH = "resources/"
     DESCRIPTOR_FILE_PATH = RESOURCES_PATH + "test.image.yaml"
-    FRESHMAKER_ENABLED_CSV_FILE_PATH = RESOURCES_PATH + "freshmaker.enabled.test.bundle.clusterserviceversion.yaml"
-    FRESHMAKER_DISABLED_CSV_FILE_PATH = RESOURCES_PATH + "freshmaker.disabled.test.bundle.clusterserviceversion.yaml"
+    OLD_CSV_FILE_PATH = RESOURCES_PATH + "old.format.test.bundle.clusterserviceversion.yaml"
+    NEW_CSV_FILE_PATH = RESOURCES_PATH + "new.format.test.bundle.clusterserviceversion.yaml"
 
     OPERATOR_PULL_SPEC_REPLACEMENT = "test0"
     KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT = "test1"
@@ -33,7 +33,7 @@ class TestBundleAutomation(unittest.TestCase):
                 os.environ[component] = data
 
         self.descriptor = File(TestBundleAutomation.DESCRIPTOR_FILE_PATH)
-        self.csv = File(TestBundleAutomation.FRESHMAKER_ENABLED_CSV_FILE_PATH)
+        self.csv = File(TestBundleAutomation.OLD_CSV_FILE_PATH)
 
     def test_collect_component_build_info(self):
         build_info = BundleAutomation.collect_component_build_info()
@@ -54,9 +54,9 @@ class TestBundleAutomation(unittest.TestCase):
         self.assertEqual(BundleAutomation.generate_package_name_from_annotation(maven_annotation), "amqstreams-maven-builder-container")
         self.assertEqual(BundleAutomation.generate_package_name_from_annotation(non_image_annotation), None)
 
-    def test_update_freshmaker_disabled_csv_file(self):
+    def test_update_old_csv_format(self):
         self._test_update_csv_file(
-            csv_file_path=self.FRESHMAKER_DISABLED_CSV_FILE_PATH,
+            csv_file_path=self.OLD_CSV_FILE_PATH,
             bundle_versions=["2.5.0-0", "2.5.0-1"],
             pull_spec_map={
                 "3eec64199147feed58986202781dec4bf3efa43e7585aa37012c265af16a95c4": self.OPERATOR_PULL_SPEC_REPLACEMENT,
@@ -75,9 +75,9 @@ class TestBundleAutomation(unittest.TestCase):
             expected_related_images=True
         )
 
-    def test_update_freshmaker_enabled_csv_file(self):
+    def test_update_new_csv_format(self):
         self._test_update_csv_file(
-            csv_file_path=self.FRESHMAKER_ENABLED_CSV_FILE_PATH,
+            csv_file_path=self.NEW_CSV_FILE_PATH,
             bundle_versions=["2.7.0-0", "2.7.0-1"],
             pull_spec_map={
                 "strimzi-rhel9-operator:2.7.0-14": self.OPERATOR_PULL_SPEC_REPLACEMENT,
@@ -98,10 +98,10 @@ class TestBundleAutomation(unittest.TestCase):
 
     def _test_update_csv_file(self, csv_file_path, bundle_versions, pull_spec_map, sha_count, expected_related_images):
         automation = BundleAutomation()
-        csv_file = File(csv_file_path)
+        cluster_service_version_file = File(csv_file_path)
 
         # Update CSV with new version numbers and SHA hashes
-        data = automation.update_csv_data(csv_file.data, bundle_versions, pull_spec_map)
+        data = automation.update_cluster_service_version_data(cluster_service_version_file.data, bundle_versions, pull_spec_map)
 
         # Check replaces field
         self.assertEqual(bundle_versions[constants.OLD_BUNDLE_VERSION_INDEX], automation.get_replace_version(data))
@@ -122,7 +122,7 @@ class TestBundleAutomation(unittest.TestCase):
             self.assertEqual(data.count(new_pull_spec), sha_count[new_pull_spec])
 
         # Check relatedImages field
-        self.assertEqual("relatedImages" in csv_file.data, expected_related_images)
+        self.assertEqual("relatedImages" in cluster_service_version_file.data, expected_related_images)
 
 if __name__ == "__main__":
     unittest.main()

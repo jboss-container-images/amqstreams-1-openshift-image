@@ -1319,96 +1319,63 @@ spec:
                       valueFrom:
                         fieldRef:
                           fieldPath: metadata.name
+                    - name: STRIMZI_COMMON_LABELS
+                      value: |
+                        com.company=Red_Hat
+                        rht.prod_name=Red_Hat_Application_Foundations
+                        rht.prod_ver=2024.Q4
+                        rht.comp=AMQ_Streams
+                        rht.comp_ver=2.8
                     - name: STRIMZI_CUSTOM_KAFKA_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q4
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.8
                         rht.subcomp=kafka-broker
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_CONNECT_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q4
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.8
                         rht.subcomp=kafka-connect
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_CONNECT_BUILD_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q4
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.8
                         rht.subcomp=kafka-connect-build
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_ZOOKEEPER_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q4
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.8
                         rht.subcomp=zookeeper
                         rht.subcomp_t=infrastructure
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_ENTITY_OPERATOR_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q4
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.8
                         rht.subcomp=entity-operator
                         rht.subcomp_t=infrastructure
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_MIRROR_MAKER2_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q4
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.8
                         rht.subcomp=kafka-mirror-maker2
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_MIRROR_MAKER_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q4
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.8
                         rht.subcomp=kafka-mirror-maker
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_CRUISE_CONTROL_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q4
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.8
                         rht.subcomp=cruise-control
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q4
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.8
                         rht.subcomp=kafka-bridge
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_EXPORTER_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q4
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.8
                         rht.subcomp=kafka-exporter
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                   livenessProbe:
                     httpGet:
                       path: /healthy

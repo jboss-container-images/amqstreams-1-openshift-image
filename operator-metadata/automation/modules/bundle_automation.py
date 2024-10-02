@@ -11,34 +11,36 @@ from . import constants
 
 class BundleAutomation:
 
+    STRIMZI_DEPLOYMENT=0
+
     @staticmethod
-    def get_product_version(csv_data):
-        data = yaml.safe_load(csv_data)
+    def get_product_version(data):
+        data = yaml.safe_load(data)
         return data['spec']['version'].split("-")[0]
 
     @staticmethod
-    def get_replace_version(csv_data):
-        data = yaml.safe_load(csv_data)
+    def get_replace_version(data):
+        data = yaml.safe_load(data)
         return data['spec']['replaces'].split(".v")[-1]
 
     @staticmethod
-    def get_bundle_version(csv_data):
-        data = yaml.safe_load(csv_data)
+    def get_bundle_version(data):
+        data = yaml.safe_load(data)
         return data['spec']['version']
 
     @staticmethod
-    def get_bundle_name(csv_data):
-        data = yaml.safe_load(csv_data)
+    def get_bundle_name(data):
+        data = yaml.safe_load(data)
         return data['metadata']['name']
 
     @staticmethod
-    def get_bundle_deployment_name(csv_data):
-        data = yaml.safe_load(csv_data)
-        return data['spec']['install']['spec']['deployments'][0]['name']
+    def get_bundle_deployment_name(data):
+        data = yaml.safe_load(data)
+        return data['spec']['install']['spec']['deployments'][BundleAutomation.STRIMZI_DEPLOYMENT]['name']
 
     @staticmethod
-    def get_skip_range(csv_data):
-        data = yaml.safe_load(csv_data)
+    def get_skip_range(data):
+        data = yaml.safe_load(data)
         return data['metadata']['annotations']['olm.skipRange']
 
     @staticmethod
@@ -101,9 +103,15 @@ class BundleAutomation:
         raise ValueError('No NVR found in brew with prefix %s and version %s' % (prefix, version))
 
     @staticmethod
-    def get_pull_spec_from_info(info):
+    def get_digest_from_info(info):
         data = yaml.safe_load(info)
         return data["extra"]["image"]["index"]["digests"]["application/vnd.docker.distribution.manifest.list.v2+json"]
+
+    def get_pull_spec_from_info(info):
+        data = yaml.safe_load(info)
+        pull_spec_with_tag=1
+        pull_spec = data["extra"]["image"]["index"]["pull"][pull_spec_with_tag]
+        return pull_spec
 
     @staticmethod
     def get_pull_spec_from_brew(brew_client, nvr):
@@ -186,17 +194,71 @@ class BundleAutomation:
             return package_name
 
     @staticmethod
-    def create_sha_dict(brew_client, csv_data, components):
+    def generate_package_name_from_annotation(annotation):
+        package_mapping = {
+          "operator-image" : "amqstreams-operator-container",
+          "bridge-image"   : "amqstreams-bridge-container",
+          "maven-image" : "amqstreams-maven-builder-container"
+        }
+        key = next(iter(annotation))
+        val = annotation.get(key)
+        if key in package_mapping:
+            return package_mapping.get(key)
+        if "previous" or "current" in key:
+            match = re.search(r'kafka-(\d+)', val)
+            if match:
+              kafka_version = match.group(1)
+              return "amqstreams-kafka-" + kafka_version + "-container"
+            else:
+              print("ERROR: Cannot extract Kafka version number from Kafka pull spec: " + val)
+              return None
+        else:
+            return None
+
+    @staticmethod
+    def create_tag_dict_from_new_csv_format(brew_client, data, components):
+        tag_dict = {}
+
+        print("--- Replacing pull specs with latest NVRs ---")
+        yaml_data = yaml.safe_load(data)
+        try:
+          annotations = yaml_data["spec"]["install"]["spec"]["deployments"][BundleAutomation.STRIMZI_DEPLOYMENT]["spec"]["template"]["metadata"]["annotations"]
+        except KeyError as e:
+          print(f"ERROR: pull spec replacement failed due to missing key {e} in Cluster Service Version file")
+          annotations = {}
+
+        for annotation in annotations:
+            key = next(iter(annotation))
+            pull_spec_from_annotations = annotation.get(key)
+            package_name =  BundleAutomation.generate_package_name_from_annotation(annotation)
+            if package_name:
+              # CPaaS provides pull_specs in format: "<PLACEHOLDER>/rh-osbs/amq-streams-bridge-rhel8:2.5.0-5"
+              pull_spec_from_build_info = BundleAutomation.get_pull_spec_from_info(components.get(package_name))
+
+              # Because tags are not unique we use image name + tag
+              # to know which pull specs to update in the cluster service version file
+              old_image_name_and_tag = pull_spec_from_annotations.split("/")[-1]
+              new_image_name_and_tag = pull_spec_from_build_info.split("amq-streams-")[1]
+
+              print("OLD:", old_image_name_and_tag)
+              print("NEW:", new_image_name_and_tag)
+              print("")
+              tag_dict[old_image_name_and_tag] = new_image_name_and_tag
+
+        return tag_dict
+
+    @staticmethod
+    def create_sha_dict_from_old_csv_format(brew_client, data, components):
         sha_dict = {}
         print("--- Replacing SHAs with latest NVRs ---")
 
-        csv_data_yaml = yaml.safe_load(csv_data)
-        for entry in csv_data_yaml["spec"]["relatedImages"]:
+        data_yaml = yaml.safe_load(data)
+        for entry in data_yaml["spec"]["relatedImages"]:
             name = entry['name']
             image = entry['image']
 
             package_name = BundleAutomation.generate_package_name(name)
-            pull_spec = BundleAutomation.get_pull_spec_from_info(components.get(package_name))
+            pull_spec = BundleAutomation.get_digest_from_info(components.get(package_name))
 
             old_sha = BundleAutomation.format_sha(image)
             new_sha = BundleAutomation.format_sha(pull_spec)
@@ -215,7 +277,7 @@ class BundleAutomation:
     e.g. [2.5.0-0, 2.5.0-1]
     '''
     @staticmethod
-    def generate_bundle_version_strings(brew_client, csv_data, product_version):
+    def generate_bundle_version_strings(brew_client, data, product_version):
         # Sort to get latest build for version
         builds = brew_client.listBuilds(prefix=constants.METADATA_PACKAGE_NAME, queryOpts={'order': 'creation_ts'})
         # Reverse so latest build appear first
@@ -228,7 +290,7 @@ class BundleAutomation:
                 if BundleAutomation.is_build_released(brew_client, build):
                     respin_number+=1;
 
-        old_bundle_version = BundleAutomation.get_replace_version(csv_data)
+        old_bundle_version = BundleAutomation.get_replace_version(data)
         new_bundle_version = product_version + "-" + str(respin_number)
 
         if(respin_number > 0):
@@ -246,18 +308,18 @@ class BundleAutomation:
         return False
 
     @staticmethod
-    def update_csv_data(csv_data, bundle_versions, sha_dict):
+    def update_cluster_service_version_data(data, bundle_versions, tag_dict):
         old_bundle_version = bundle_versions[0]
         new_bundle_version = bundle_versions[1]
 
-        for old_sha, new_sha in sha_dict.items():
-            csv_data = csv_data.replace(old_sha, new_sha)
+        for old, new in tag_dict.items():
+            data = data.replace(old, new)
 
-        csv_data = csv_data.replace(old_bundle_version, new_bundle_version)
+        data = data.replace(old_bundle_version, new_bundle_version)
 
         start_interval = BundleAutomation.get_start_interval(new_bundle_version)
-        csv_data = re.sub(r"olm.skipRange: '>=\d.\d.\d-\d <\d.\d.\d-\d'",
-                          "olm.skipRange: '>=" + start_interval + " <" + new_bundle_version + "'", csv_data)
-        csv_data = re.sub(r'replaces: amqstreams.v.*..*..*', 'replaces: amqstreams.v' + old_bundle_version, csv_data)
+        data = re.sub(r"olm.skipRange: '>=\d.\d.\d-\d <\d.\d.\d-\d'",
+                          "olm.skipRange: '>=" + start_interval + " <" + new_bundle_version + "'", data)
+        data = re.sub(r'replaces: amqstreams.v.*..*..*', 'replaces: amqstreams.v' + old_bundle_version, data)
 
-        return csv_data
+        return data

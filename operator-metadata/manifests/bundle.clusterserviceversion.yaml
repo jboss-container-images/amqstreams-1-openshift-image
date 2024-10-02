@@ -361,7 +361,7 @@ metadata:
     capabilities: Deep Insights
     categories: Streaming & Messaging
     certified: 'false'
-    containerImage: registry.redhat.io/amq-streams/strimzi-rhel9-operator@sha256:46a753d5849ded5b8b8244f6f42e896f0a115aae077870c3f53c6802718701fc
+    containerImage: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.8.0-0
     createdAt: 2024-03-09 21:27:00
     description: Streams for Apache Kafka is a massively scalable, distributed, and high performance data streaming platform based on Apache Kafka®.
     repository: https://github.com/strimzi/strimzi-kafka-operator
@@ -380,14 +380,14 @@ metadata:
       ["Red Hat AMQ", "Red Hat Application Foundations"]
     operators.operatorframework.io/internal-objects: |-
       ["strimzipodsets.core.strimzi.io"]
-    olm.skipRange: '>=2.6.0-0 <2.7.0-2'
+    olm.skipRange: '>=2.7.0-0 <2.8.0-0'
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/arch.s390x: supported
     operatorframework.io/arch.ppc64le: supported
     operatorframework.io/os.linux: supported
-  name: amqstreams.v2.7.0-2
+  name: amqstreams.v2.8.0-0
   namespace: placeholder
 spec:
   MinKubeVersion: 1.23.0
@@ -1185,7 +1185,7 @@ spec:
           - list
         serviceAccountName: strimzi-cluster-operator
       deployments:
-      - name: amq-streams-cluster-operator-v2.7.0-2
+      - name: amq-streams-cluster-operator-v2.8.0-0
         spec:
           replicas: 1
           selector:
@@ -1194,14 +1194,23 @@ spec:
               strimzi.io/kind: cluster-operator
           template:
             metadata:
+              annotations:
+                operator-image: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.8.0-0
+                kafka-images: |
+                  3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9:2.8.0-0
+                  3.8.0=registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0-0
+                kafka-previous-image: registry.redhat.io/amq-streams/kafka-37-rhel9:2.8.0-0
+                kafka-current-image: registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0-0
+                bridge-image: registry.redhat.io/amq-streams/bridge-rhel9:2.8.0-0
+                maven-image: registry.redhat.io/amq-streams/maven-builder-rhel9:2.8.0-0
               labels:
                 name: amq-streams-cluster-operator
                 strimzi.io/kind: cluster-operator
                 com.company: Red_Hat
                 rht.prod_name: Red_Hat_Application_Foundations
-                rht.prod_ver: 2024.Q2
+                rht.prod_ver: 2024.Q4
                 rht.comp: AMQ_Streams
-                rht.comp_ver: "2.7"
+                rht.comp_ver: "2.8"
                 rht.subcomp: cluster-operator
                 rht.subcomp_t: infrastructure
             spec:
@@ -1215,7 +1224,7 @@ spec:
                     name: strimzi-cluster-operator
               containers:
                 - name: strimzi-cluster-operator
-                  image: registry.redhat.io/amq-streams/strimzi-rhel9-operator@sha256:46a753d5849ded5b8b8244f6f42e896f0a115aae077870c3f53c6802718701fc
+                  image: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.8.0-0
                   ports:
                     - containerPort: 8080
                       name: http
@@ -1236,35 +1245,49 @@ spec:
                     - name: STRIMZI_OPERATION_TIMEOUT_MS
                       value: "300000"
                     - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-                      value: registry.redhat.io/amq-streams/kafka-37-rhel9@sha256:3e41f47d21c030b4f0f29b96a71e9952166c5abbf0539e9ae0247f28b56bb735
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['kafka-current-image']
                     - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
-                      value: registry.redhat.io/amq-streams/kafka-37-rhel9@sha256:3e41f47d21c030b4f0f29b96a71e9952166c5abbf0539e9ae0247f28b56bb735
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['kafka-current-image']
                     - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
-                      value: registry.redhat.io/amq-streams/kafka-37-rhel9@sha256:3e41f47d21c030b4f0f29b96a71e9952166c5abbf0539e9ae0247f28b56bb735
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['kafka-current-image']
                     - name: STRIMZI_KAFKA_IMAGES
-                      value: |
-                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel9@sha256:71eed700bf0a400cf2da3b70d4243320b2c595a73a06472551406fb2c3958442
-                        3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9@sha256:3e41f47d21c030b4f0f29b96a71e9952166c5abbf0539e9ae0247f28b56bb735
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['kafka-images']
                     - name: STRIMZI_KAFKA_CONNECT_IMAGES
-                      value: |
-                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel9@sha256:71eed700bf0a400cf2da3b70d4243320b2c595a73a06472551406fb2c3958442
-                        3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9@sha256:3e41f47d21c030b4f0f29b96a71e9952166c5abbf0539e9ae0247f28b56bb735
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['kafka-images']
                     - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
-                      value: |
-                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel9@sha256:71eed700bf0a400cf2da3b70d4243320b2c595a73a06472551406fb2c3958442
-                        3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9@sha256:3e41f47d21c030b4f0f29b96a71e9952166c5abbf0539e9ae0247f28b56bb735
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['kafka-images']
                     - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
-                      value: |
-                        3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel9@sha256:71eed700bf0a400cf2da3b70d4243320b2c595a73a06472551406fb2c3958442
-                        3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9@sha256:3e41f47d21c030b4f0f29b96a71e9952166c5abbf0539e9ae0247f28b56bb735
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['kafka-images']
                     - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
-                      value: registry.redhat.io/amq-streams/strimzi-rhel9-operator@sha256:46a753d5849ded5b8b8244f6f42e896f0a115aae077870c3f53c6802718701fc
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['operator-image']
                     - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
-                      value: registry.redhat.io/amq-streams/strimzi-rhel9-operator@sha256:46a753d5849ded5b8b8244f6f42e896f0a115aae077870c3f53c6802718701fc
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['operator-image']
                     - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
-                      value: registry.redhat.io/amq-streams/strimzi-rhel9-operator@sha256:46a753d5849ded5b8b8244f6f42e896f0a115aae077870c3f53c6802718701fc
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['operator-image']
                     - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
-                      value: registry.redhat.io/amq-streams/bridge-rhel9@sha256:19015a27ae27521a4874c7173fe09d6564d7b1df5ba773d3973b42db76660f86
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['bridge-image']
                     - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_LABELS
                       value: |
                         discovery.3scale.net=true
@@ -1275,7 +1298,9 @@ spec:
                         discovery.3scale.net/path=/
                         discovery.3scale.net/description-path=/openapi
                     - name: STRIMZI_DEFAULT_MAVEN_BUILDER
-                      value: registry.redhat.io/amq-streams/maven-builder-rhel9@sha256:69465c88d5a8f28c5cd02e16cb15a09fef2253cf154a6183f1cab130123c7bc9
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.annotations['maven-image']
                     - name: STRIMZI_OPERATOR_NAMESPACE
                       valueFrom:
                         fieldRef:
@@ -1294,96 +1319,63 @@ spec:
                       valueFrom:
                         fieldRef:
                           fieldPath: metadata.name
+                    - name: STRIMZI_COMMON_LABELS
+                      value: |
+                        com.company=Red_Hat
+                        rht.prod_name=Red_Hat_Application_Foundations
+                        rht.prod_ver=2024.Q4
+                        rht.comp=AMQ_Streams
+                        rht.comp_ver=2.8
                     - name: STRIMZI_CUSTOM_KAFKA_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q2
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.7
                         rht.subcomp=kafka-broker
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_CONNECT_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q2
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.7
                         rht.subcomp=kafka-connect
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_CONNECT_BUILD_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q2
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.7
                         rht.subcomp=kafka-connect-build
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_ZOOKEEPER_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q2
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.7
                         rht.subcomp=zookeeper
                         rht.subcomp_t=infrastructure
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_ENTITY_OPERATOR_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q2
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.7
                         rht.subcomp=entity-operator
                         rht.subcomp_t=infrastructure
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_MIRROR_MAKER2_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q2
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.7
                         rht.subcomp=kafka-mirror-maker2
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_MIRROR_MAKER_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q2
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.7
                         rht.subcomp=kafka-mirror-maker
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_CRUISE_CONTROL_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q2
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.7
                         rht.subcomp=cruise-control
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q2
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.7
                         rht.subcomp=kafka-bridge
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                     - name: STRIMZI_CUSTOM_KAFKA_EXPORTER_LABELS
                       value: |
-                        com.company=Red_Hat
-                        rht.prod_name=Red_Hat_Application_Foundations
-                        rht.prod_ver=2024.Q2
-                        rht.comp=AMQ_Streams
-                        rht.comp_ver=2.7
                         rht.subcomp=kafka-exporter
                         rht.subcomp_t=application
+                        $(STRIMZI_COMMON_LABELS)
                   livenessProbe:
                     httpGet:
                       path: /healthy
@@ -1415,17 +1407,6 @@ spec:
       type: MultiNamespace
     - supported: true
       type: AllNamespaces
-  relatedImages:
-    - name: strimzi-cluster-operator
-      image: registry.redhat.io/amq-streams/strimzi-rhel9-operator@sha256:46a753d5849ded5b8b8244f6f42e896f0a115aae077870c3f53c6802718701fc
-    - name: strimzi-kafka-360
-      image: registry.redhat.io/amq-streams/kafka-36-rhel9@sha256:71eed700bf0a400cf2da3b70d4243320b2c595a73a06472551406fb2c3958442
-    - name: strimzi-kafka-370
-      image: registry.redhat.io/amq-streams/kafka-37-rhel9@sha256:3e41f47d21c030b4f0f29b96a71e9952166c5abbf0539e9ae0247f28b56bb735
-    - name: strimzi-bridge
-      image: registry.redhat.io/amq-streams/bridge-rhel9@sha256:19015a27ae27521a4874c7173fe09d6564d7b1df5ba773d3973b42db76660f86
-    - name: strimzi-maven-builder
-      image: registry.redhat.io/amq-streams/maven-builder-rhel9@sha256:69465c88d5a8f28c5cd02e16cb15a09fef2253cf154a6183f1cab130123c7bc9
   keywords:
     - kafka
     - messaging
@@ -1448,7 +1429,7 @@ spec:
   maturity: stable
   provider:
     name: Red Hat
-  replaces: amqstreams.v2.7.0-4
+  replaces: amqstreams.v2.7.0-6
   selector:
     matchLabels:
       name: amq-streams-cluster-operator

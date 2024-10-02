@@ -6,7 +6,17 @@ platforms:
   - s390x
   - aarch64
 operator_manifests:
-  enable_digest_pinning: false
-  enable_repo_replacements: false
-  enable_registry_replacements: false
+  enable_digest_pinning: true
+  enable_repo_replacements: true
+  enable_registry_replacements: true
+  repo_replacements:
+    - registry: registry-proxy.engineering.redhat.com
+      package_mappings:
+        amqstreams-operator-container: amq-streams/strimzi-rhel9-operator
+        amqstreams-kafka-37-container: amq-streams/kafka-37-rhel9
+        amqstreams-kafka-38-container: amq-streams/kafka-38-rhel9
+        amqstreams-bridge-container: amq-streams/bridge-rhel9
+        amqstreams-maven-builder-container: amq-streams/maven-builder-rhel9
+        amqstreams-drain-cleaner-container: amq-streams/drain-cleaner-rhel9
+        amqstreams-operator-bundle-container: amq-streams/strimzi-operator-bundle
   manifests_dir: manifests

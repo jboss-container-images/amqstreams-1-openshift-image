@@ -58,7 +58,7 @@ class TestBundleAutomation(unittest.TestCase):
         self._test_update_csv_file(
             csv_file_path=self.OLD_CSV_FILE_PATH,
             bundle_versions=["2.5.0-0", "2.5.0-1"],
-            pull_spec_map={
+            replacement_map={
                 "3eec64199147feed58986202781dec4bf3efa43e7585aa37012c265af16a95c4": self.OPERATOR_PULL_SPEC_REPLACEMENT,
                 "385d66c176995111ae06a875e6849dcb3c70db68a305bcb029759208d0c7c9ef": self.KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT,
                 "9f43707f3b6b893177cb50fe77b92a742c90b48f39c77d4a8f4ebe340634a46b": self.KAFKA_CURRENT_PULL_SPEC_REPLACEMENT,
@@ -79,7 +79,7 @@ class TestBundleAutomation(unittest.TestCase):
         self._test_update_csv_file(
             csv_file_path=self.NEW_CSV_FILE_PATH,
             bundle_versions=["2.7.0-0", "2.7.0-1"],
-            pull_spec_map={
+            replacement_map={
                 "strimzi-rhel9-operator:2.7.0-14": self.OPERATOR_PULL_SPEC_REPLACEMENT,
                 "kafka-36-rhel9:2.7.0-18": self.KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT,
                 "kafka-37-rhel9:2.7.0-13": self.KAFKA_CURRENT_PULL_SPEC_REPLACEMENT,
@@ -96,12 +96,12 @@ class TestBundleAutomation(unittest.TestCase):
             expected_related_images=False
         )
 
-    def _test_update_csv_file(self, csv_file_path, bundle_versions, pull_spec_map, sha_count, expected_related_images):
+    def _test_update_csv_file(self, csv_file_path, bundle_versions, replacement_map, sha_count, expected_related_images):
         automation = BundleAutomation()
         cluster_service_version_file = File(csv_file_path)
 
-        # Update CSV with new version numbers and SHA hashes
-        data = automation.update_cluster_service_version_data(cluster_service_version_file.data, bundle_versions, pull_spec_map)
+        # Update CSV with new version numbers and SHA hashes or tags
+        data = automation.update_cluster_service_version_data(cluster_service_version_file.data, bundle_versions, replacement_map)
 
         # Check replaces field
         self.assertEqual(bundle_versions[constants.OLD_BUNDLE_VERSION_INDEX], automation.get_replace_version(data))
@@ -118,7 +118,7 @@ class TestBundleAutomation(unittest.TestCase):
         self.assertEqual(bundle_version, automation.get_skip_range(data).split("<")[-1])
 
         # Check pull_spec replacement counts
-        for old_pull_spec, new_pull_spec in pull_spec_map.items():
+        for old_pull_spec, new_pull_spec in replacement_map.items():
             self.assertEqual(data.count(new_pull_spec), sha_count[new_pull_spec])
 
         # Check relatedImages field

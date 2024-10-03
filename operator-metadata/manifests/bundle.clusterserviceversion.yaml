@@ -376,8 +376,6 @@ metadata:
     features.operators.openshift.io/token-auth-aws: "false"
     features.operators.openshift.io/token-auth-azure: "false"
     features.operators.openshift.io/token-auth-gcp: "false"
-    operators.openshift.io/infrastructure-features: |-
-      ["disconnected", "proxy", "proxy-aware", "fips"]
     operators.openshift.io/valid-subscription: |-
       ["Red Hat AMQ", "Red Hat Application Foundations"]
     operators.operatorframework.io/internal-objects: |-

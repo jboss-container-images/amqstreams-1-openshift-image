@@ -9,7 +9,7 @@ envs:
 
 artifacts:
   - md5: 38e81cb44d309caaf726c0ff283733c8
-    name: streams-ocp-previous.zip
+    name: kafka-ocp-previous.zip
 
 modules:
   install:

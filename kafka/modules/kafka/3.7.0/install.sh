@@ -7,8 +7,8 @@ LICENSE_DIR=/root/licenses
 PRODUCT_LICENSE_DIR=${LICENSE_DIR}/${COM_REDHAT_COMPONENT}
 
 # Copy contents of zip without the root dir
-TMP=$(zipinfo -1  ${SOURCES_DIR}/streams-ocp-*.zip | grep -oE '^[^/]+' | uniq)
-unzip ${SOURCES_DIR}/streams-ocp-*.zip
+TMP=$(zipinfo -1  ${SOURCES_DIR}/kafka-ocp-*.zip | grep -oE '^[^/]+' | uniq)
+unzip ${SOURCES_DIR}/kafka-ocp-*.zip
 mv ${TMP}/* ${KAFKA_HOME}/
 
 mkdir -p ${PRODUCT_LICENSE_DIR}/kafka

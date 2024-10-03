@@ -1,16 +1,16 @@
 schema_version: 1
 
 name: drain-cleaner
-version: 2.7.0
+version: 2.8.0
 
 envs:
   - name: "STRIMZI_HOME"
     value: "/opt/strimzi"
 
 artifacts:
-  - md5: f2f168c2dba708c1f29164284d6f3f4b
+  - md5: f2c902cd05cd95953f78bcce7bdbc968
     name: quarkus-run.jar
-  - md5: b3a1250d4fad8bd1819806451505aec4
+  - md5: d88ddbca0867131844cca6ac808ae4ef
     name: drain-cleaner-licenses.tar.gz
 
 packages:

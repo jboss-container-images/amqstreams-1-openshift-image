@@ -17,9 +17,9 @@ spec:
         strimzi.io/kind: cluster-operator
         com.company: Red_Hat
         rht.prod_name: Red_Hat_Application_Foundations
-        rht.prod_ver: "2024.Q2"
+        rht.prod_ver: 2024.Q4
         rht.comp: AMQ_Streams
-        rht.comp_ver: "2.7"
+        rht.comp_ver: '2.8'
         rht.subcomp: cluster-operator
         rht.subcomp_t: infrastructure
     spec:
@@ -34,7 +34,9 @@ spec:
             name: strimzi-cluster-operator
       containers:
         - name: strimzi-cluster-operator
-          image: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.7.0
+          image: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.8.0
+          securityContext:
+            - readOnlyRootFilesystem: true
           ports:
             - containerPort: 8080
               name: http
@@ -55,37 +57,37 @@ spec:
             - name: STRIMZI_OPERATION_TIMEOUT_MS
               value: "300000"
             - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-              value: registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0
+              value: registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0
             - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
-              value: registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0
+              value: registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0
             - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
-              value: registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0
+              value: registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0
             - name: STRIMZI_KAFKA_IMAGES
               value: |
-                3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel9:2.7.0
-                3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0
+                3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9:2.8.0
+                3.8.0=registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0
             - name: STRIMZI_KAFKA_CONNECT_IMAGES
               value: |
-                3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel9:2.7.0
-                3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0
+                3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9:2.8.0
+                3.8.0=registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0
             - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
               value: |
-                3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel9:2.7.0
-                3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0
+                3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9:2.8.0
+                3.8.0=registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0
             - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
               value: |
-                3.6.0=registry.redhat.io/amq-streams/kafka-36-rhel9:2.7.0
-                3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0
+                3.7.0=registry.redhat.io/amq-streams/kafka-37-rhel9:2.8.0
+                3.8.0=registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0
             - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
-              value: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.7.0
+              value: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.8.0
             - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
-              value: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.7.0
+              value: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.8.0
             - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
-              value: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.7.0
+              value: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.8.0
             - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
-              value: registry.redhat.io/amq-streams/bridge-rhel9:2.7.0
+              value: registry.redhat.io/amq-streams/bridge-rhel9:2.8.0
             - name: STRIMZI_DEFAULT_MAVEN_BUILDER
-              value: registry.redhat.io/amq-streams/maven-builder-rhel9:2.7.0
+              value: registry.redhat.io/amq-streams/maven-builder-rhel9:2.8.0
             - name: STRIMZI_OPERATOR_NAMESPACE
               valueFrom:
                 fieldRef:
@@ -109,9 +111,9 @@ spec:
                 discovery.3scale.net=true
             - name: STRIMZI_CUSTOM_KAFKA_BRIDGE_SERVICE_ANNOTATIONS
               value: |
-                discovery.3scale.net/scheme=http
                 discovery.3scale.net/port=8080
                 discovery.3scale.net/path=/
+                discovery.3scale.net/scheme=http
                 discovery.3scale.net/description-path=/openapi
             - name: STRIMZI_COMMON_LABELS
               value: |

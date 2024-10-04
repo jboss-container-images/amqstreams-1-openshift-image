@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: proxy
-        image: registry.redhat.io/amq-streams/proxy-rhel9:2.7
+        image: registry.redhat.io/amq-streams/proxy-rhel9:2.8
         imagePullPolicy: Always
         args: ["--config", "/opt/proxy/config/config.yaml"]
         ports:

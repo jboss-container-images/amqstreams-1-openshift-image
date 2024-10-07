@@ -6,8 +6,6 @@ version: 2.8.0
 envs:
   - name: "KAFKA_HOME"
     value: "/opt/kafka"
-  - name: "STUNNEL_HOME"
-    value: "/opt/stunnel"
   - name: "S2I_HOME"
     value: "/opt/kafka/s2i"
   - name: "KAFKA_EXPORTER_HOME"

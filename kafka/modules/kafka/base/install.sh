@@ -11,7 +11,6 @@ SCRIPTS_DIR=${SCRIPT_DIR}/scripts
 useradd -r -m -u 1001 -g 0 strimzi
 
 mkdir $KAFKA_HOME
-mkdir $STUNNEL_HOME
 mkdir $S2I_HOME
 mkdir $KAFKA_EXPORTER_HOME
 mkdir $CRUISE_CONTROL_HOME
@@ -30,9 +29,6 @@ unzip ${SOURCES_DIR}/strimzi-kafka-scripts.zip -d ${SCRIPTS_DIR}
 # NOTE: kafka folder alredy contains the s2i (so no need for a specific cp command)
 cp -r ${SCRIPTS_DIR}/kafka/* ${KAFKA_HOME}/
 chmod -R 755 ${KAFKA_HOME}
-
-cp -r ${SCRIPTS_DIR}/stunnel/* ${STUNNEL_HOME}/
-chmod -R 755 ${STUNNEL_HOME}
 
 mv /usr/bin/kafka_exporter ${KAFKA_EXPORTER_HOME}/
 cp -r ${SCRIPTS_DIR}/kafka-exporter/* ${KAFKA_EXPORTER_HOME}/

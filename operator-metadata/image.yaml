@@ -2,7 +2,7 @@ schema_version: 1
 
 name: amq-streams/strimzi-operator-bundle
 description: "Red Hat Streams Operator bundle"
-version: "2.7.0"
+version: "2.8.0"
 from: scratch
 
 labels:
@@ -23,7 +23,7 @@ labels:
   - name: "operators.operatorframework.io.bundle.package.v1"
     value: "amq-streams"
   - name: "operators.operatorframework.io.bundle.channels.v1"
-    value: "stable,amq-streams-2.x,amq-streams-2.7.x"
+    value: "stable,amq-streams-2.x,amq-streams-2.8.x"
   - name: "operators.operatorframework.io.bundle.channel.default.v1"
     value: "stable"
   - name: "com.redhat.delivery.operator.bundle"
@@ -49,4 +49,4 @@ osbs:
   extra_dir: automation
   repository:
     name: containers/amqstreams-operator-prod-operator-metadata
-    branch: amqstreams-2.7-rhel-9
+    branch: amqstreams-2.8-rhel-9

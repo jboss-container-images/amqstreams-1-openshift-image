@@ -7,8 +7,8 @@ platforms:
   - aarch64
 operator_manifests:
   enable_digest_pinning: true
-  enable_repo_replacements: true
-  enable_registry_replacements: true
+  enable_repo_replacements: false
+  enable_registry_replacements: false
   repo_replacements:
     - registry: registry-proxy.engineering.redhat.com
       package_mappings:

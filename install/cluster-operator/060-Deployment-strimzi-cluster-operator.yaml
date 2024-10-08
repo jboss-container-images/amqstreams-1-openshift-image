@@ -35,8 +35,6 @@ spec:
       containers:
         - name: strimzi-cluster-operator
           image: registry.redhat.io/amq-streams/strimzi-rhel9-operator:2.8.0
-          securityContext:
-            readOnlyRootFilesystem: true
           ports:
             - containerPort: 8080
               name: http

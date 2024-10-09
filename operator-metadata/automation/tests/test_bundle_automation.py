@@ -10,7 +10,8 @@ class TestBundleAutomation(unittest.TestCase):
     RESOURCES_PATH = "resources/"
     DESCRIPTOR_FILE_PATH = RESOURCES_PATH + "test.image.yaml"
     OLD_CSV_FILE_PATH = RESOURCES_PATH + "old.format.test.bundle.clusterserviceversion.yaml"
-    NEW_CSV_FILE_PATH = RESOURCES_PATH + "new.format.test.bundle.clusterserviceversion.yaml"
+    NEW_CSV_EXTERNAL_PULL_SPECS_FILE_PATH = RESOURCES_PATH + "new.format.external.pull.specs.test.bundle.clusterserviceversion.yaml"
+    NEW_CSV_INTERNAL_PULL_SPECS_FILE_PATH = RESOURCES_PATH + "new.format.internal.pull.specs.test.bundle.clusterserviceversion.yaml"
 
     OPERATOR_PULL_SPEC_REPLACEMENT = "test0"
     KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT = "test1"
@@ -77,7 +78,27 @@ class TestBundleAutomation(unittest.TestCase):
 
     def test_update_new_csv_format(self):
         self._test_update_csv_file(
-            csv_file_path=self.NEW_CSV_FILE_PATH,
+            csv_file_path=self.NEW_CSV_INTERNAL_PULL_SPECS_FILE_PATH,
+            bundle_versions=["2.7.0-0", "2.7.0-1"],
+            replacement_map={
+                "amq-streams-strimzi-rhel9-operator:2.7.0-14": self.OPERATOR_PULL_SPEC_REPLACEMENT,
+                "amq-streams-kafka-36-rhel9:2.7.0-18": self.KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT,
+                "amq-streams-kafka-37-rhel9:2.7.0-13": self.KAFKA_CURRENT_PULL_SPEC_REPLACEMENT,
+                "amq-streams-bridge-rhel9:2.7.0-14": self.BRIDGE_PULL_SPEC_REPLACEMENT,
+                "amq-streams-maven-builder-rhel9:2.7.0-11": self.MAVEN_PULL_SPEC_REPLACEMENT
+            },
+            sha_count={
+                self.OPERATOR_PULL_SPEC_REPLACEMENT: 3,
+                self.KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT: 2,
+                self.KAFKA_CURRENT_PULL_SPEC_REPLACEMENT: 2,
+                self.BRIDGE_PULL_SPEC_REPLACEMENT: 1,
+                self.MAVEN_PULL_SPEC_REPLACEMENT: 1
+            },
+            expected_related_images=False
+        )
+
+        self._test_update_csv_file(
+            csv_file_path=self.NEW_CSV_EXTERNAL_PULL_SPECS_FILE_PATH,
             bundle_versions=["2.7.0-0", "2.7.0-1"],
             replacement_map={
                 "strimzi-rhel9-operator:2.7.0-14": self.OPERATOR_PULL_SPEC_REPLACEMENT,

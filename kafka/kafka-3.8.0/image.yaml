@@ -76,10 +76,7 @@ osbs:
     gating_file: gating.yaml
     container:
       compose:
-        packages:
-          - kafka_exporter
         pulp_repos: true
-        include_unpublished_pulp_repos: true
       platforms:
         only:
         - x86_64

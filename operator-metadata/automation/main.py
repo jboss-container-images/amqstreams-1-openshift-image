@@ -22,7 +22,7 @@ def main():
   )
 
   # Update CSV with new pull_specs + bump bundle version
-  cluster_service_version_file.data = BundleAutomation.update_csv_data(cluster_service_version_file.data, bundle_versions, tag_dict)
+  cluster_service_version_file.data = BundleAutomation.update_cluster_service_version_data(cluster_service_version_file.data, bundle_versions, tag_dict)
   cluster_service_version_file.write(os.environ['DIST_GIT_CSV_FILE_PATH'])
   cluster_service_version_file.write(os.environ['GIT_HUB_CSV_FILE_PATH'])
 

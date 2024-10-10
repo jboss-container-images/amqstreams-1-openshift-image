@@ -216,7 +216,7 @@ class BundleAutomation:
             return None
 
     @staticmethod
-    def create_tag_dict_from_new_csv_format(brew_client, data, components):
+    def create_tag_dict_from_new_csv_format(data, components):
         tag_dict = {}
 
         print("--- Replacing pull specs with latest NVRs ---")
@@ -227,17 +227,15 @@ class BundleAutomation:
           print(f"ERROR: pull spec replacement failed due to missing key {e} in Cluster Service Version file")
           annotations = {}
 
-        for annotation in annotations:
-            key = next(iter(annotation))
-            pull_spec_from_annotations = annotation.get(key)
-            package_name =  BundleAutomation.generate_package_name_from_annotation(annotation)
+        for key, pull_spec_from_annotation in annotations.items():
+            package_name =  BundleAutomation.generate_package_name_from_annotation({key : pull_spec_from_annotation})
             if package_name:
               # CPaaS provides pull_specs in format: "<PLACEHOLDER>/rh-osbs/amq-streams-bridge-rhel8:2.5.0-5"
               pull_spec_from_build_info = BundleAutomation.get_pull_spec_from_info(components.get(package_name))
 
               # Because tags are not unique we use image name + tag
               # to know which pull specs to update in the cluster service version file
-              old_image_name_and_tag = pull_spec_from_annotations.split("/")[-1]
+              old_image_name_and_tag = pull_spec_from_annotation.split("/")[-1].removeprefix("amq-streams-")
               new_image_name_and_tag = pull_spec_from_build_info.split("amq-streams-")[1]
 
               print("OLD:", old_image_name_and_tag)
@@ -248,7 +246,7 @@ class BundleAutomation:
         return tag_dict
 
     @staticmethod
-    def create_sha_dict_from_old_csv_format(brew_client, data, components):
+    def create_sha_dict_from_old_csv_format(data, components):
         sha_dict = {}
         print("--- Replacing SHAs with latest NVRs ---")
 

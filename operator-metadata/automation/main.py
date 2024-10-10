@@ -14,7 +14,7 @@ def main():
   product_version = BundleAutomation.get_product_version(cluster_service_version_file.data)
 
   # Get old to new tag mappings
-  tag_dict = BundleAutomation.create_tag_dict_from_new_csv_format(brew_client, cluster_service_version_file.data, component_data)
+  tag_dict = BundleAutomation.create_tag_dict_from_new_csv_format(cluster_service_version_file.data, component_data)
   bundle_versions = BundleAutomation.generate_bundle_version_strings(
           brew_client, 
           cluster_service_version_file.data,
@@ -22,7 +22,7 @@ def main():
   )
 
   # Update CSV with new pull_specs + bump bundle version
-  cluster_service_version_file.data = BundleAutomation.update_csv_data(cluster_service_version_file.data, bundle_versions, tag_dict)
+  cluster_service_version_file.data = BundleAutomation.update_cluster_service_version_data(cluster_service_version_file.data, bundle_versions, tag_dict)
   cluster_service_version_file.write(os.environ['DIST_GIT_CSV_FILE_PATH'])
   cluster_service_version_file.write(os.environ['GIT_HUB_CSV_FILE_PATH'])
 

@@ -10,7 +10,8 @@ class TestBundleAutomation(unittest.TestCase):
     RESOURCES_PATH = "resources/"
     DESCRIPTOR_FILE_PATH = RESOURCES_PATH + "test.image.yaml"
     OLD_CSV_FILE_PATH = RESOURCES_PATH + "old.format.test.bundle.clusterserviceversion.yaml"
-    NEW_CSV_FILE_PATH = RESOURCES_PATH + "new.format.test.bundle.clusterserviceversion.yaml"
+    NEW_CSV_EXTERNAL_PULL_SPECS_FILE_PATH = RESOURCES_PATH + "new.format.external.pull.specs.test.bundle.clusterserviceversion.yaml"
+    NEW_CSV_INTERNAL_PULL_SPECS_FILE_PATH = RESOURCES_PATH + "new.format.internal.pull.specs.test.bundle.clusterserviceversion.yaml"
 
     OPERATOR_PULL_SPEC_REPLACEMENT = "test0"
     KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT = "test1"
@@ -24,6 +25,7 @@ class TestBundleAutomation(unittest.TestCase):
             "CONTAINER_BUILDS_DRAIN_CLEANER_BUILD_INFO_JSON",
             "CONTAINER_BUILDS_KAFKA_34_BUILD_INFO_JSON",
             "CONTAINER_BUILDS_KAFKA_35_BUILD_INFO_JSON",
+            "CONTAINER_BUILDS_MAVEN_BUILDER_BUILD_INFO_JSON",
             "CONTAINER_BUILDS_OPERATOR_BUILD_INFO_JSON"
         ]
 
@@ -37,7 +39,7 @@ class TestBundleAutomation(unittest.TestCase):
 
     def test_collect_component_build_info(self):
         build_info = BundleAutomation.collect_component_build_info()
-        self.assertEqual(len(build_info), 5)
+        self.assertEqual(len(build_info), 6)
 
     def test_generate_package_name_from_annotation(self):
         operator_annotation = {"operator-image": "registry.redhat.io/amq-streams/strimzi-rhel9-operator@sha256:95f5aa75cd1f7228e78fd4d88d786713fba4cf828dc22bc2dd1d0380909c1aef"}
@@ -77,7 +79,27 @@ class TestBundleAutomation(unittest.TestCase):
 
     def test_update_new_csv_format(self):
         self._test_update_csv_file(
-            csv_file_path=self.NEW_CSV_FILE_PATH,
+            csv_file_path=self.NEW_CSV_INTERNAL_PULL_SPECS_FILE_PATH,
+            bundle_versions=["2.4.0-0", "2.5.0-0"],
+            replacement_map={
+                "strimzi-rhel9-operator:2.5.0-1": self.OPERATOR_PULL_SPEC_REPLACEMENT,
+                "kafka-34-rhel9:2.5.0-1": self.KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT,
+                "kafka-35-rhel9:2.5.0-1": self.KAFKA_CURRENT_PULL_SPEC_REPLACEMENT,
+                "bridge-rhel9:2.5.0-1": self.BRIDGE_PULL_SPEC_REPLACEMENT,
+                "maven-builder-rhel9:2.5.0-1": self.MAVEN_PULL_SPEC_REPLACEMENT
+            },
+            sha_count={
+                self.OPERATOR_PULL_SPEC_REPLACEMENT: 3,
+                self.KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT: 2,
+                self.KAFKA_CURRENT_PULL_SPEC_REPLACEMENT: 2,
+                self.BRIDGE_PULL_SPEC_REPLACEMENT: 1,
+                self.MAVEN_PULL_SPEC_REPLACEMENT: 1
+            },
+            expected_related_images=False
+        )
+
+        self._test_update_csv_file(
+            csv_file_path=self.NEW_CSV_EXTERNAL_PULL_SPECS_FILE_PATH,
             bundle_versions=["2.7.0-0", "2.7.0-1"],
             replacement_map={
                 "strimzi-rhel9-operator:2.7.0-14": self.OPERATOR_PULL_SPEC_REPLACEMENT,
@@ -123,6 +145,18 @@ class TestBundleAutomation(unittest.TestCase):
 
         # Check relatedImages field
         self.assertEqual("relatedImages" in cluster_service_version_file.data, expected_related_images)
+
+    def test_create_tag_dict_from_new_csv_format(self):
+        data = File(self.NEW_CSV_INTERNAL_PULL_SPECS_FILE_PATH).data
+        component_data = BundleAutomation.collect_component_build_info()
+        tag_dict = BundleAutomation.create_tag_dict_from_new_csv_format(data, component_data)
+
+        self.assertEqual(tag_dict['strimzi-rhel9-operator:2.5.0-1'], "strimzi-rhel8-operator:2.5.0-5")
+        self.assertEqual(tag_dict['kafka-35-rhel9:2.5.0-1'], "kafka-35-rhel8:2.5.0-5")
+        self.assertEqual(tag_dict['kafka-34-rhel9:2.5.0-1'], "kafka-34-rhel8:2.5.0-5")
+        self.assertEqual(tag_dict['bridge-rhel9:2.5.0-1'], "bridge-rhel8:2.5.0-5")
+        self.assertEqual(tag_dict['maven-builder-rhel9:2.5.0-1'], "maven-builder-rhel8:2.5.0-5")
+
 
 if __name__ == "__main__":
     unittest.main()

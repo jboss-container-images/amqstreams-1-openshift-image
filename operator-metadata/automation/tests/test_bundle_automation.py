@@ -157,6 +157,14 @@ class TestBundleAutomation(unittest.TestCase):
         self.assertEqual(tag_dict['bridge-rhel9:2.5.0-1'], "bridge-rhel8:2.5.0-5")
         self.assertEqual(tag_dict['maven-builder-rhel9:2.5.0-1'], "maven-builder-rhel8:2.5.0-5")
 
+    def test_update_cluster_service_version_data(self):
+        data = File(self.NEW_CSV_INTERNAL_PULL_SPECS_FILE_PATH).data
+        bundle_versions=["2.4.0-0", "2.5.0-0"]
+        component_data = BundleAutomation.collect_component_build_info()
+        tag_dict = BundleAutomation.create_tag_dict_from_new_csv_format(data, component_data)
+
+        output = BundleAutomation.update_cluster_service_version_data(data, bundle_versions, tag_dict)
+        print(output)
 
 if __name__ == "__main__":
     unittest.main()

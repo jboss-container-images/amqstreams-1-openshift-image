@@ -235,7 +235,7 @@ class BundleAutomation:
 
               # Because tags are not unique we use image name + tag
               # to know which pull specs to update in the cluster service version file
-              old_image_name_and_tag = pull_spec_from_annotation.split("/")[-1].removeprefix("amq-streams-")
+              old_image_name_and_tag = pull_spec_from_annotation.split("/")[-1].removeprefix("amq-streams-").strip()
               new_image_name_and_tag = pull_spec_from_build_info.split("amq-streams-")[1]
 
               print("OLD:", old_image_name_and_tag)

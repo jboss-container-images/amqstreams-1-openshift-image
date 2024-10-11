@@ -39,7 +39,15 @@ def get_kafka_version_replacement(product_version):
     return result
 
 
-# Determine target Kafka Version
-def get_target_release_version(kafka_version):
-    print("target release version:" + kafka_version)
+# Determine target Streams Version
+def get_target_streams_minor_version():
+    kafka_version = str(get_kafka_version_replacement(get_product_version(get_branch_name())))
+    kafka_version = "2" + kafka_version[1:]  # Replace the first digit with 2
     return kafka_version
+
+
+def get_target_micro_release_version():
+    release_version = get_target_streams_minor_version()
+    if not release_version.endswith(".0"):
+        release_version += ".0"  # Add .0 if it's not already there
+    return release_version

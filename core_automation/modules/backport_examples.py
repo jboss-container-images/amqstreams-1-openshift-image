@@ -59,7 +59,8 @@ def update_example_dir_readme(examples_dir, file_name):
     try:
         with open(readme_file_path, 'r') as f:
             content = f.read()
-        content = content.replace('Strimzi', 'AMQ Streams').replace('strimzi', 'AMQ Streams')
+        content = content.replace('Strimzi', 'Red Hat Streams for Apache Kafka').replace('strimzi',
+                                                                                         'Red Hat Streams for Apache Kafka ')
         content = content.replace('* JMX Trans deployment', '')
         with open(readme_file_path, 'w') as f:
             f.write(content)
@@ -78,14 +79,44 @@ def delete_file(*file_paths):
             print(f'Error deleting file {file_path}: {e}')
 
 
-# copy upstream directory to downstream directory
-def copy_directory(source_name, dest_name, strimzi_dir):
+def delete_directory(*file_paths):
+    for file_path in file_paths:
+        try:
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+                print(f'Successfully deleted file: {file_path}')
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
+                print(f'Successfully deleted directory and its contents: {file_path}')
+            else:
+                print(f'File or directory not found: {file_path}')
+        except OSError as e:
+            print(f'Error deleting file or directory {file_path}: {e}')
+
+
+def copy_directory_excluding_readme(source_name, dest_name, strimzi_dir):
     source_dir = os.path.join(strimzi_dir, source_name)
     dest_dir = f'../{dest_name}'
     try:
-        shutil.copytree(source_dir, dest_dir,
-                        dirs_exist_ok=True)  # Copy the contents of the source directory to the destination
-        print(f'{source_name} directory copied to {dest_name} successfully.')
+        # Create the destination directory if it doesn't exist
+        os.makedirs(dest_dir, exist_ok=True)
+
+        # Iterate over the items in the source directory
+        for item in os.listdir(source_dir):
+            source_item = os.path.join(source_dir, item)
+            dest_item = os.path.join(dest_dir, item)
+
+            # Skip README.md
+            if item == 'README.md':
+                continue
+
+            # Copy files or directories
+            if os.path.isdir(source_item):
+                shutil.copytree(source_item, dest_item, dirs_exist_ok=True)
+            else:
+                shutil.copy2(source_item, dest_item)
+
+        print(f'{source_name} directory copied to {dest_name} successfully, excluding README.md.')
     except Exception as e:
         print(f'Error copying {source_name} directory to {dest_name}:', e)
 

@@ -8,7 +8,7 @@ from automation.modules.bundle_automation import BundleAutomation
 
 
 class TestBundleAutomation(unittest.TestCase):
-    RESOURCES_PATH = "resources/"
+    RESOURCES_PATH = os.path.join(os.path.dirname(__file__), 'resources/')
     DESCRIPTOR_FILE_PATH = RESOURCES_PATH + "test.image.yaml"
     OLD_CSV_FILE_PATH = RESOURCES_PATH + "old.format.test.bundle.clusterserviceversion.yaml"
     NEW_CSV_EXTERNAL_PULL_SPECS_FILE_PATH = RESOURCES_PATH + "new.format.external.pull.specs.test.bundle.clusterserviceversion.yaml"
@@ -21,6 +21,8 @@ class TestBundleAutomation(unittest.TestCase):
     MAVEN_PULL_SPEC_REPLACEMENT = "test4"
 
     def setUp(self):
+        # Add new line inbetween stdout of unit tests
+        print("")
         build_info = [
             "CONTAINER_BUILDS_BRIDGE_BUILD_INFO_JSON",
             "CONTAINER_BUILDS_DRAIN_CLEANER_BUILD_INFO_JSON",

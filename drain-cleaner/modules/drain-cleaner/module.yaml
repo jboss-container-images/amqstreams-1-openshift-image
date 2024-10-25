@@ -8,9 +8,9 @@ envs:
     value: "/opt/strimzi"
 
 artifacts:
-  - md5: 8023b7353c09e142e29b3dea17e0f144
+  - md5: fbd769e1875ed9b8c9491b4e13fd4fc7
     name: quarkus-run.jar
-  - md5: 8f8310468c7b0fd9b042a78f014826f6
+  - md5: 1f012614f95948b0e9b672a46a49c408
     name: drain-cleaner-licenses.tar.gz
 
 packages:

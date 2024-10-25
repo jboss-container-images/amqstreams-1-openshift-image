@@ -361,7 +361,7 @@ metadata:
     capabilities: Deep Insights
     categories: Streaming & Messaging
     certified: 'false'
-    containerImage: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-strimzi-rhel9-operator:2.8.0-4
+    containerImage: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-strimzi-rhel9-operator:2.8.0-5
     createdAt: 2024-08-22 15:19:00
     description: Streams for Apache Kafka is a massively scalable, distributed, and high performance data streaming platform based on Apache Kafka®.
     repository: https://github.com/strimzi/strimzi-kafka-operator
@@ -1195,14 +1195,14 @@ spec:
           template:
             metadata:
               annotations:
-                operator-image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-strimzi-rhel9-operator:2.8.0-4
+                operator-image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-strimzi-rhel9-operator:2.8.0-5
                 kafka-images: |
-                  3.7.0=registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-kafka-37-rhel9:2.8.0-2
-                  3.8.0=registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-kafka-38-rhel9:2.8.0-2
-                kafka-previous-image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-kafka-37-rhel9:2.8.0-2
-                kafka-current-image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-kafka-38-rhel9:2.8.0-2
-                bridge-image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-bridge-rhel9:2.8.0-4
-                maven-image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-maven-builder-rhel9:2.8.0-1
+                  3.7.0=registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-kafka-37-rhel9:2.8.0-3
+                  3.8.0=registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-kafka-38-rhel9:2.8.0-3
+                kafka-previous-image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-kafka-37-rhel9:2.8.0-3
+                kafka-current-image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-kafka-38-rhel9:2.8.0-3
+                bridge-image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-bridge-rhel9:2.8.0-5
+                maven-image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-maven-builder-rhel9:2.8.0-2
               labels:
                 name: amq-streams-cluster-operator
                 strimzi.io/kind: cluster-operator
@@ -1224,7 +1224,7 @@ spec:
                     name: strimzi-cluster-operator
               containers:
                 - name: strimzi-cluster-operator
-                  image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-strimzi-rhel9-operator:2.8.0-4
+                  image: registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-strimzi-rhel9-operator:2.8.0-5
                   ports:
                     - containerPort: 8080
                       name: http

@@ -16,8 +16,11 @@ These automation scripts are executed as part of the CPaaS container build pipel
 
 ## Tests
 
-To run unit tests, run:
+To run unit tests from `operator-metadata/automation/` directory run:
 
 ```
+python3 -m venv venv
+source venv/bin/activate
+pip3 install pyaml
 python -m unittest discover -t .. -v
 ```

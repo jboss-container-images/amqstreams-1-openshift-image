@@ -81,6 +81,7 @@ class TestBundleAutomation(unittest.TestCase):
         )
 
     def test_update_new_csv_format(self):
+        # Test automation using ClusterServiceVerison file that references internal pull specs
         self._test_update_csv_file(
             csv_file_path=self.NEW_CSV_INTERNAL_PULL_SPECS_FILE_PATH,
             bundle_versions=["2.4.0-0", "2.5.0-0"],
@@ -101,6 +102,7 @@ class TestBundleAutomation(unittest.TestCase):
             expected_related_images=False
         )
 
+        # Test automation using ClusterServiceVerison file that references external pull specs
         self._test_update_csv_file(
             csv_file_path=self.NEW_CSV_EXTERNAL_PULL_SPECS_FILE_PATH,
             bundle_versions=["2.7.0-0", "2.7.0-1"],

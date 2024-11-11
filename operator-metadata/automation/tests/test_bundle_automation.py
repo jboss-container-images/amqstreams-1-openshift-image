@@ -1,5 +1,6 @@
 import os
 import unittest
+import yaml
 
 from automation.modules import constants
 from automation.modules.file import File
@@ -7,7 +8,7 @@ from automation.modules.bundle_automation import BundleAutomation
 
 
 class TestBundleAutomation(unittest.TestCase):
-    RESOURCES_PATH = "resources/"
+    RESOURCES_PATH = os.path.join(os.path.dirname(__file__), 'resources/')
     DESCRIPTOR_FILE_PATH = RESOURCES_PATH + "test.image.yaml"
     OLD_CSV_FILE_PATH = RESOURCES_PATH + "old.format.test.bundle.clusterserviceversion.yaml"
     NEW_CSV_EXTERNAL_PULL_SPECS_FILE_PATH = RESOURCES_PATH + "new.format.external.pull.specs.test.bundle.clusterserviceversion.yaml"
@@ -20,6 +21,8 @@ class TestBundleAutomation(unittest.TestCase):
     MAVEN_PULL_SPEC_REPLACEMENT = "test4"
 
     def setUp(self):
+        # Add new line inbetween stdout of unit tests
+        print("")
         build_info = [
             "CONTAINER_BUILDS_BRIDGE_BUILD_INFO_JSON",
             "CONTAINER_BUILDS_DRAIN_CLEANER_BUILD_INFO_JSON",
@@ -78,15 +81,16 @@ class TestBundleAutomation(unittest.TestCase):
         )
 
     def test_update_new_csv_format(self):
+        # Test automation using ClusterServiceVerison file that references internal pull specs
         self._test_update_csv_file(
             csv_file_path=self.NEW_CSV_INTERNAL_PULL_SPECS_FILE_PATH,
             bundle_versions=["2.4.0-0", "2.5.0-0"],
             replacement_map={
-                "strimzi-rhel9-operator:2.5.0-1": self.OPERATOR_PULL_SPEC_REPLACEMENT,
-                "kafka-34-rhel9:2.5.0-1": self.KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT,
-                "kafka-35-rhel9:2.5.0-1": self.KAFKA_CURRENT_PULL_SPEC_REPLACEMENT,
-                "bridge-rhel9:2.5.0-1": self.BRIDGE_PULL_SPEC_REPLACEMENT,
-                "maven-builder-rhel9:2.5.0-1": self.MAVEN_PULL_SPEC_REPLACEMENT
+                "strimzi-rhel8-operator:2.5.0-1": self.OPERATOR_PULL_SPEC_REPLACEMENT,
+                "kafka-34-rhel8:2.5.0-1": self.KAFKA_PREVIOUS_PULL_SPEC_REPLACEMENT,
+                "kafka-35-rhel8:2.5.0-1": self.KAFKA_CURRENT_PULL_SPEC_REPLACEMENT,
+                "bridge-rhel8:2.5.0-1": self.BRIDGE_PULL_SPEC_REPLACEMENT,
+                "maven-builder-rhel8:2.5.0-1": self.MAVEN_PULL_SPEC_REPLACEMENT
             },
             sha_count={
                 self.OPERATOR_PULL_SPEC_REPLACEMENT: 3,
@@ -98,6 +102,7 @@ class TestBundleAutomation(unittest.TestCase):
             expected_related_images=False
         )
 
+        # Test automation using ClusterServiceVerison file that references external pull specs
         self._test_update_csv_file(
             csv_file_path=self.NEW_CSV_EXTERNAL_PULL_SPECS_FILE_PATH,
             bundle_versions=["2.7.0-0", "2.7.0-1"],
@@ -151,20 +156,51 @@ class TestBundleAutomation(unittest.TestCase):
         component_data = BundleAutomation.collect_component_build_info()
         tag_dict = BundleAutomation.create_tag_dict_from_new_csv_format(data, component_data)
 
-        self.assertEqual(tag_dict['strimzi-rhel9-operator:2.5.0-1'], "strimzi-rhel8-operator:2.5.0-5")
-        self.assertEqual(tag_dict['kafka-35-rhel9:2.5.0-1'], "kafka-35-rhel8:2.5.0-5")
-        self.assertEqual(tag_dict['kafka-34-rhel9:2.5.0-1'], "kafka-34-rhel8:2.5.0-5")
-        self.assertEqual(tag_dict['bridge-rhel9:2.5.0-1'], "bridge-rhel8:2.5.0-5")
-        self.assertEqual(tag_dict['maven-builder-rhel9:2.5.0-1'], "maven-builder-rhel8:2.5.0-5")
+        self.assertEqual(tag_dict['strimzi-rhel8-operator:2.5.0-1'], "strimzi-rhel8-operator:2.5.0-5")
+        self.assertEqual(tag_dict['kafka-35-rhel8:2.5.0-1'], "kafka-35-rhel8:2.5.0-5")
+        self.assertEqual(tag_dict['kafka-34-rhel8:2.5.0-1'], "kafka-34-rhel8:2.5.0-5")
+        self.assertEqual(tag_dict['bridge-rhel8:2.5.0-1'], "bridge-rhel8:2.5.0-5")
+        self.assertEqual(tag_dict['maven-builder-rhel8:2.5.0-1'], "maven-builder-rhel8:2.5.0-5")
 
     def test_update_cluster_service_version_data(self):
+        pull_spec_prefix = "registry-proxy.engineering.redhat.com/rh-osbs/amq-streams-"
+
         data = File(self.NEW_CSV_INTERNAL_PULL_SPECS_FILE_PATH).data
         bundle_versions=["2.4.0-0", "2.5.0-0"]
         component_data = BundleAutomation.collect_component_build_info()
         tag_dict = BundleAutomation.create_tag_dict_from_new_csv_format(data, component_data)
 
-        output = BundleAutomation.update_cluster_service_version_data(data, bundle_versions, tag_dict)
-        print(output)
+        updated_csv = BundleAutomation.update_cluster_service_version_data(data, bundle_versions, tag_dict)
+        data = yaml.safe_load(updated_csv)
+
+        self.assertEqual(data["metadata"]["name"], "amqstreams.v2.5.0-0")
+
+        # Check annotations have been updated
+        self.assertEqual(data["metadata"]["annotations"]["containerImage"], pull_spec_prefix + "strimzi-rhel8-operator:2.5.0-5")
+        self.assertEqual(data["metadata"]["annotations"]["olm.skipRange"], ">=2.4.0-0 <2.5.0-0")
+
+        deployment = data["spec"]["install"]["spec"]["deployments"][BundleAutomation.STRIMZI_DEPLOYMENT]
+        self.assertEqual(deployment["name"], "amq-streams-cluster-operator-v2.5.0-0")
+
+        template = deployment["spec"]["template"]
+        template_spec = template["spec"]
+        self.assertEqual(template_spec["containers"][0]["image"], pull_spec_prefix + "strimzi-rhel8-operator:2.5.0-5")
+
+        # Check template annotations have been updated
+        template_annotations = template["metadata"]["annotations"]
+        self.assertEqual(template_annotations['operator-image'], pull_spec_prefix + "strimzi-rhel8-operator:2.5.0-5")
+        self.assertEqual(template_annotations['kafka-images'], "3.4.0=" + pull_spec_prefix + "kafka-34-rhel8:2.5.0-5"
+                                                      "\n3.5.0=" + pull_spec_prefix + "kafka-35-rhel8:2.5.0-5\n")
+        self.assertEqual(template_annotations['kafka-current-image'], pull_spec_prefix + "kafka-35-rhel8:2.5.0-5")
+        self.assertEqual(template_annotations['kafka-previous-image'], pull_spec_prefix + "kafka-34-rhel8:2.5.0-5")
+        self.assertEqual(template_annotations['bridge-image'], pull_spec_prefix + "bridge-rhel8:2.5.0-5")
+        self.assertEqual(template_annotations['maven-image'], pull_spec_prefix + "maven-builder-rhel8:2.5.0-5")
+
+        # Check replaces has been updated
+        self.assertEqual(data["spec"]["replaces"], "amqstreams.v2.4.0-0")
+
+        # Check version has been updated
+        self.assertEqual(data["spec"]["version"], "2.5.0-0")
 
 if __name__ == "__main__":
     unittest.main()

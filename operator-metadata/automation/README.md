@@ -13,3 +13,14 @@ These automation scripts are executed as part of the CPaaS container build pipel
 (2) CPaaS executes these automation scripts, updating bundle metadata 
 (3) CPaaS builds bundle image using updated bundle metadata 
 ```
+
+## Tests
+
+To run unit tests from `operator-metadata/automation/` directory run:
+
+```
+python3 -m venv venv
+source venv/bin/activate
+pip3 install pyaml
+python -m unittest discover -t .. -v
+```

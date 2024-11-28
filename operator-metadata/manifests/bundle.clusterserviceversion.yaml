@@ -1244,10 +1244,6 @@ spec:
                       value: "120000"
                     - name: STRIMZI_OPERATION_TIMEOUT_MS
                       value: "300000"
-                    - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-                      valueFrom:
-                        fieldRef:
-                          fieldPath: metadata.annotations['kafka-current-image']
                     - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
                       valueFrom:
                         fieldRef:

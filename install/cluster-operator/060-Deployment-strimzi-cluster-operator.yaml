@@ -54,8 +54,6 @@ spec:
               value: "120000"
             - name: STRIMZI_OPERATION_TIMEOUT_MS
               value: "300000"
-            - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-              value: registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0
             - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
               value: registry.redhat.io/amq-streams/kafka-38-rhel9:2.8.0
             - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE

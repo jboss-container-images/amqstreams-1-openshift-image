@@ -1,0 +1,9 @@
+⚠️ Decommissioned as of 2.9 ⚠️
+
+# Red Hat Streams for Apache Kafka 2.x Resources
+
+This repository is the former home of the Streams for Apache Kafka container build configurations, installation resources, and examples. As of release 2.9 of Streams, these resources have been migrated to Red Hat GitLab. At the point in time when no releases remain that are supported by this repository, it will be archived.
+
+## License
+
+See link:LICENSE[LICENSE] file.

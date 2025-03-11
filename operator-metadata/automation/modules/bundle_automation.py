@@ -283,7 +283,7 @@ class BundleAutomation:
 
         csv_data = csv_data.replace(old_bundle_version, new_bundle_version)
 
-        start_interval = BundleAutomation.get_start_interval(new_bundle_version)
+        start_interval = "2.2.0-0"
         csv_data = re.sub(r"olm.skipRange: '>=\d.\d.\d-\d <\d.\d.\d-\d'",
                           "olm.skipRange: '>=" + start_interval + " <" + new_bundle_version + "'", csv_data)
         csv_data = re.sub(r'replaces: amqstreams.v.*..*..*', 'replaces: amqstreams.v' + old_bundle_version, csv_data)
